@@ -11,6 +11,10 @@
               icons to the user interface.</action>
             <action dev="notizklotz" type="add">Application can now be 
                 installed with an installer.</action>
+            <action dev="notizklotz" type="fix" issue="1110337">
+                Tables are resized if the window gets resized.</action>
+            <action dev="notizklotz" type="fix" issue="1110336">The default 
+              window size has been changed to be more ergonomical.</action>
         </release>
         <release version="0.2.1" date="2005-01-02">
             <action dev="notizklotz" type="add">German translations.</action>

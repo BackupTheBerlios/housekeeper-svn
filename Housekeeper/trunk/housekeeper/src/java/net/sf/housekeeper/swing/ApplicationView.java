@@ -83,8 +83,14 @@ final class ApplicationView extends JFrame
         getContentPane().add(supplyView);
 
         pack();
+        
+        //Set the width to the minimum with of the supply panel.
+        final int width = (int)supplyView.getMinimumSize().getWidth() + 10;
+        final int height = width * 2 / 3;
+        setSize(width, height);
+        
         setLocationRelativeTo(null);
-
+        
         //Use the controller for exiting the application
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }

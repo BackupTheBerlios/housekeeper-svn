@@ -21,6 +21,7 @@
 
 package net.sf.housekeeper.swing;
 
+import java.awt.GridLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -78,6 +79,9 @@ final class FoodListView extends JPanel
         final TableCellRenderer dateRenderer = new DateCellRenderer(dateFormat);
         supplyTable.getColumn(expiryHeaderName).setCellRenderer(dateRenderer);
 
+        //Without that, the tables won't grow and shrink with the window's size.
+        setLayout(new GridLayout());
+        
         add(new JScrollPane(supplyTable));
     }
 
