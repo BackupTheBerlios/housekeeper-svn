@@ -180,8 +180,16 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
                         setCategory(cat);
                     }
                 });
-                
-            } 
+            }  else if (le.getEventType() == HousekeeperEvent.DATA_CHANGED)
+            {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run()
+                    {
+                        refresh();
+                    }
+                });
+            }
         }
     }
     
