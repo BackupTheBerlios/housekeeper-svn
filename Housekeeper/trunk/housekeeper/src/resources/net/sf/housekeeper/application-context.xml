@@ -22,7 +22,7 @@
 	</bean>
   
   <bean id="lifecycleAdvisor" 
-    class="org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor">
+    class="net.sf.housekeeper.HousekeeperLifecycleAdvisor">
     <property name="startingPageId">
       <value>mainView</value>
     </property>
