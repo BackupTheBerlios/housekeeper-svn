@@ -1,40 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <classpath>
-  <classpathentry excluding="" kind="src" path="src/java">
-  </classpathentry>
-  <classpathentry excluding="" including="**/*|" kind="src" path="src/resources">
-  </classpathentry>
-  <classpathentry output="bin" kind="src" path="src/test">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar">
-  </classpathentry>
-  <classpathentry output="bin" excluding="" including="**/*|" kind="src" path="src/testresources">
-  </classpathentry>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/forms-1.0.5.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/looks-1.2.2.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/jdom/jars/jdom-1.0.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-0.9.4.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-20050131.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-resources-20050131.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-core-1.1.4.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.1.4.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-sandbox-20050131.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/xmlunit/jars/xmlunit-1.0.jar">
-  </classpathentry>
-  <classpathentry kind="output" path="bin">
-  </classpathentry>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry including="**/*|" kind="src" path="src/resources"/>
+	<classpathentry output="bin" kind="src" path="src/test"/>
+	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
+	<classpathentry including="**/*|" output="bin" kind="src" path="src/testresources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/forms-1.0.5.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/looks-1.2.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jdom/jars/jdom-1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-0.9.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-resources-20050131.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-core-1.1.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.1.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-sandbox-20050131.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/xmlunit/jars/xmlunit-1.0.jar"/>
+	<classpathentry kind="src" path="/spring-richclient"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
