@@ -34,7 +34,7 @@ public final class StockPanel extends JPanel
         table2 = new ListTable(items, new StockTableCell());
         final JPanel buttonPanel = new JPanel();
 
-        buttonPanel.add(new JButton(NewStockItemAction.INSTANCE));
+        buttonPanel.add(new JButton(new NewStockItemAction()));
         buttonPanel.add(new JButton(new DeleteStockItemAction()));
 
         setLayout(new BorderLayout());
@@ -73,11 +73,6 @@ public final class StockPanel extends JPanel
             super("Delete Item");
         }
         
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-         */
         public void actionPerformed(ActionEvent arg0)
         {
             final StockItem item = getSelectedItem();
@@ -85,6 +80,26 @@ public final class StockPanel extends JPanel
             if (item != null)
             {
                 StorageFactory.getCurrentStorage().remove(item);
+            }
+        }
+    }
+    
+    private class NewStockItemAction extends AbstractAction
+    {
+
+        private NewStockItemAction()
+        {
+            super("Add item to stock");
+        }
+
+        public void actionPerformed(ActionEvent arg0)
+        {
+            StockItemDialog d = new StockItemDialog();
+            StockItem item = d.show("Add item to stock");
+
+            if (item != null)
+            {
+                StorageFactory.getCurrentStorage().add(item);
             }
         }
     }

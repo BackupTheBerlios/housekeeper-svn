@@ -28,9 +28,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import net.sf.housekeeper.Housekeeper;
-import net.sf.housekeeper.swing.action.ExitAction;
-import net.sf.housekeeper.swing.action.LoadDataAction;
-import net.sf.housekeeper.swing.action.SaveDataAction;
 import net.sf.housekeeper.swing.stock.StockPanel;
 
 import com.jgoodies.plaf.Options;

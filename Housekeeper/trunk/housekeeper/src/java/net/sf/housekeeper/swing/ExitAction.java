@@ -20,7 +20,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.swing.action;
+package net.sf.housekeeper.swing;
 
 
 import java.awt.event.ActionEvent;

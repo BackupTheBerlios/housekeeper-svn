@@ -20,40 +20,42 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.swing.action;
+package net.sf.housekeeper.swing;
 
 
 import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
 
 import javax.swing.AbstractAction;
-
-import net.sf.housekeeper.storage.StorageFactory;
+import javax.swing.JDialog;
 
 
 /**
- * Action to cause saving of the data to disk.
+ * A default ActionListener for a dialog. It just calls dispose() from the
+ * dialog object.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  *
  * @since 0.1
  */
-public final class SaveDataAction extends AbstractAction
+public final class DefaultCancelButtonActionListener extends AbstractAction
 {
-    //~ Static fields/initializers ---------------------------------------------
+    //~ Instance fields --------------------------------------------------------
 
-    /** Singleton instance of this object. */
-    public static final SaveDataAction INSTANCE = new SaveDataAction();
+    /** The dialog this Listener should act upon. */
+    private final JDialog dialog;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new SaveData object.
+     * Creates a new DefaultCancelButtonActionListener object.
+     *
+     * @param dialog The dialog this Listener should act upon.
      */
-    private SaveDataAction()
+    public DefaultCancelButtonActionListener(JDialog dialog)
     {
-        super("Save Data");
+        super("Cancel");
+        this.dialog = dialog;
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -63,12 +65,6 @@ public final class SaveDataAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        try
-        {
-            StorageFactory.getCurrentStorage().saveData();
-        } catch (FileNotFoundException e1)
-        {
-            e1.printStackTrace();
-        }
+        dialog.dispose();
     }
 }

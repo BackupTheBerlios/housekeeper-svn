@@ -31,9 +31,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
 import net.sf.housekeeper.domain.StockItem;
+import net.sf.housekeeper.swing.DefaultCancelButtonActionListener;
 import net.sf.housekeeper.swing.MainFrame;
 import net.sf.housekeeper.swing.SwingUtils;
-import net.sf.housekeeper.swing.action.DefaultCancelButtonActionListener;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
