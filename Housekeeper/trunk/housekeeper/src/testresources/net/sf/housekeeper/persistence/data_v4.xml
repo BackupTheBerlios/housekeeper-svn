@@ -1,63 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <household version="4">
   <supply>
-    <expiringItem>
-      <item>
-        <name>Rösti</name>
-        <description>250g</description>
-        <category>convenienceFood</category>
-      </item>
-    </expiringItem>
-    <expiringItem>
-      <item>
-        <name>Pizza 4 formaggi</name>
-        <category>convenienceFood</category>
-      </item>
+    <expirableItem>
+      <name>Rösti</name>
+      <description>250g</description>
+      <category>b03be0:10318afdcd6:-7ffc</category>
+    </expirableItem>
+    <expirableItem>
+      <name>Pizza 4 formaggi</name>
+      <category>b03be0:10318afdcd6:-7ffc</category>
       <expiry>2005-01-18T23:00:00</expiry>
-    </expiringItem>
-    <expiringItem>
-      <item>
-        <name>Risotto ai funghi porcini</name>
-        <category>convenienceFood</category>
-      </item>
-    </expiringItem>
-    <expiringItem>
-      <item>
-        <name>Risotto alla Milanese</name>
-        <description>250g</description>
-        <category>convenienceFood</category>
-      </item>
+    </expirableItem>
+    <expirableItem>
+      <name>Risotto ai funghi porcini</name>
+      <category>b03be0:10318afdcd6:-7ffc</category>
+    </expirableItem>
+    <expirableItem>
+      <name>Risotto alla Milanese</name>
+      <description>250g</description>
+      <category>b03be0:10318afdcd6:-7ffc</category>
       <expiry>2005-02-07T23:00:00</expiry>
-    </expiringItem>
-    <expiringItem>
-      <item>
-        <name>Milch</name>
-        <category>misc</category>
-      </item>
+    </expirableItem>
+    <expirableItem>
+      <name>Milch</name>
+      <category>b03be0:10318afdcd6:-7ffb</category>
       <expiry>2005-01-21T23:00:00</expiry>
-    </expiringItem>
-    <expiringItem>
-      <item>
-        <name>Älplermakronen</name>
-        <category>convenienceFood</category>
-      </item>
+    </expirableItem>
+    <expirableItem>
+      <name>Älplermakronen</name>
+      <category>b03be0:10318afdcd6:-7ffc</category>
       <expiry>2005-01-29T23:00:00</expiry>
-    </expiringItem>
-    <expiringItem>
-      <item>
-        <name>Fiori Lorraine</name>
-        <category>convenienceFood</category>
-      </item>
+    </expirableItem>
+    <expirableItem>
+      <name>Fiori Lorraine</name>
+      <category>b03be0:10318afdcd6:-7ffc</category>
       <expiry>2005-01-21T23:00:00</expiry>
-    </expiringItem>
+    </expirableItem>
   </supply>
-  <category id="food">
-    <name>domain.food</name>
-    <category id="convenienceFood">
-      <name>domain.food.convenienceFoods</name>
+  <categories>
+    <category id="b03be0:10318afdcd6:-7ffd">
+      <name>Lebensmittel</name>
+      <category id="b03be0:10318afdcd6:-7ffc">
+        <name>Fertiggerichte</name>
+      </category>
+      <category id="b03be0:10318afdcd6:-7ffb">
+        <name>Sonstige Nahrungsmittel</name>
+      </category>
     </category>
-    <category id="misc">
-      <name>domain.food.misc</name>
-    </category>
-  </category>
+  </categories>
 </household>
