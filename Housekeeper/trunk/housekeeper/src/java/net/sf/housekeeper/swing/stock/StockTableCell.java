@@ -21,7 +21,13 @@
 
 package net.sf.housekeeper.swing.stock;
 
+import java.awt.Component;
+import java.text.DateFormat;
+import java.util.Date;
+
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.domain.StockItem;
 
@@ -81,7 +87,29 @@ final class StockTableCell implements TableFormat
      */
     public void configureTable(JTable arg0)
     {
-        //Nothing to do
+        arg0.getColumnModel().getColumn(1).setCellRenderer(new DateRenderer());
     }
 
+    /**
+     * Renders a {@link Date}object in a localized way.
+     */
+    private class DateRenderer implements TableCellRenderer
+    {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.table.TableCellRenderer#getTableCellRendererComponent(javax.swing.JTable,
+         *      java.lang.Object, boolean, boolean, int, int)
+         */
+        public Component getTableCellRendererComponent(JTable arg0,
+                                                       Object arg1,
+                                                       boolean arg2,
+                                                       boolean arg3, int arg4,
+                                                       int arg5)
+        {
+            String date = DateFormat.getDateInstance().format((Date) arg1);
+            return new JLabel(date);
+        }
+    }
 }

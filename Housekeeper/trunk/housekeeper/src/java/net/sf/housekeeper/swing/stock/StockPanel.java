@@ -137,4 +137,5 @@ public final class StockPanel extends JPanel
             }
         }
     }
+
 }
