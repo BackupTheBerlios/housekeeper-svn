@@ -1,68 +1,102 @@
 /*
- * This file is part of housekeeper.
+ * This file is part of Housekeeper.
  *
- *	housekeeper is free software; you can redistribute it and/or modify
+ * Housekeeper is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation; either version 2 of the License, or
- *	(at your option) any later version.
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *	housekeeper is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
+ * Housekeeper is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *	You should have received a copy of the GNU General Public License
- *	along with housekeeper; if not, write to the Free Software
- *	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * You should have received a copy of the GNU General Public License
+ * along with Housekeeper; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA  02111-1307  USA
+ *
+ * Copyright 2003, Adrian Gygax
+ * http://housekeeper.sourceforge.net
  */
 
 package net.sourceforge.housekeeper.swing;
 
-import java.util.List;
+
+import net.sourceforge.housekeeper.model.ArticleDescription;
+import net.sourceforge.housekeeper.storage.StorageFactory;
+
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import net.sourceforge.housekeeper.model.ArticleDescription;
-import net.sourceforge.housekeeper.storage.StorageFactory;
 
-
-//~ Inner Classes ----------------------------------------------------------
-
-class ArticleDescriptionTableModel extends AbstractTableModel implements Observer
+/**
+ * TODO DOCUMENT ME!
+ *
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since
+ */
+class ArticleDescriptionTableModel extends AbstractTableModel
+    implements Observer
 {
+    //~ Static fields/initializers ---------------------------------------------
+
     private static ArticleDescriptionTableModel instance = new ArticleDescriptionTableModel();
-    
-    private final Class doubleClass = new Double(0).getClass();
-    private final Class integerClass = new Integer(0).getClass();
-    private final Class stringClass = new String().getClass();
-    private final Class[] columnClasses = 
-                                          {
-                                              stringClass,
-                                              stringClass,
-                                              integerClass,
-                                              stringClass,
-                                              doubleClass
-                                          };
-    private final String[] columnHeaders = 
-                                           {
-                                               "Name",
-                                               "Dealer",
-                                               "Quantity",
-                                               "Unit",
-                                               "Price"
-                                           };
+
+    /** TODO DOCUMENT ME! */
+    private static final Class doubleClass = new Double(0).getClass();
+
+    /** TODO DOCUMENT ME! */
+    private static final Class integerClass = new Integer(0).getClass();
+
+    /** TODO DOCUMENT ME! */
+    private static final Class stringClass = new String().getClass();
+
+    /** TODO DOCUMENT ME! */
+    private static final Class[] columnClasses = 
+                                                 {
+                                                     stringClass,
+                                                     stringClass,
+                                                     integerClass,
+                                                     stringClass,
+                                                     doubleClass
+                                                 };
+
+    /** TODO DOCUMENT ME! */
+    private static final String[] columnHeaders = 
+                                                  {
+                                                      "Name",
+                                                      "Dealer",
+                                                      "Quantity",
+                                                      "Unit",
+                                                      "Price"
+                                                  };
+    private static Object[]       tableData;
+
+    //~ Constructors -----------------------------------------------------------
 
     private ArticleDescriptionTableModel()
     {
+        tableData = StorageFactory.getCurrentStorage().getArticles().toArray();
         StorageFactory.getCurrentStorage().addObserver(this);
     }
 
+    //~ Methods ----------------------------------------------------------------
+
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
     public static ArticleDescriptionTableModel getInstance()
     {
         return instance;
     }
+
     /* (non-Javadoc)
      * @see javax.swing.table.TableModel#getColumnClass(int)
      */
@@ -87,9 +121,16 @@ class ArticleDescriptionTableModel extends AbstractTableModel implements Observe
         return columnHeaders[columnIndex];
     }
 
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @param row DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
     public ArticleDescription getObjectAtRow(int row)
     {
-        return StorageFactory.getCurrentStorage().getArticle(row);
+        return (ArticleDescription)tableData[row];
     }
 
     /* (non-Javadoc)
@@ -105,8 +146,7 @@ class ArticleDescriptionTableModel extends AbstractTableModel implements Observe
      */
     public Object getValueAt(int rowIndex, int columnIndex)
     {
-        List articles = StorageFactory.getCurrentStorage().getArticles();
-        ArticleDescription article = (ArticleDescription)articles.get(rowIndex);
+        ArticleDescription article = (ArticleDescription)tableData[rowIndex];
 
         switch (columnIndex)
         {
@@ -135,6 +175,7 @@ class ArticleDescriptionTableModel extends AbstractTableModel implements Observe
      */
     public void update(Observable o, Object arg)
     {
+        tableData = StorageFactory.getCurrentStorage().getArticles().toArray();
         fireTableDataChanged();
     }
 }
