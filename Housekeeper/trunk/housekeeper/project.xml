@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.1</currentVersion>
+  <currentVersion>0.1.1-SNAPSHOT</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -52,7 +52,15 @@
     <developerConnection>scm:cvs:ext:notizklotz@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</developerConnection>
     <url>http://cvs.sourceforge.net/viewcvs.py/housekeeper</url>
   </repository>
-
+  
+  <versions>
+    <version>
+      <id>0.1.0</id>
+      <name>0.1.0</name>
+      <tag>HOUSEKEEPER_0_1_0</tag>
+    </version>
+  </versions>
+    
   <!-- any mailing lists for the project -->
   <mailingLists/>
   
@@ -80,22 +88,17 @@
   <!-- jar files the project is dependent on -->
   <dependencies>
     <dependency>
-    	<groupId>JGoodies</groupId>
+    	<groupId>jgoodies</groupId>
     	<artifactId>forms</artifactId>
-    	<version>1.0.4-snapshot</version>
+    	<version>1.0.4.snapshot</version>
     </dependency>
     
     <dependency>
-    	<groupId>JGoodies</groupId>
+    	<groupId>jgoodies</groupId>
     	<artifactId>looks</artifactId>
     	<version>1.2.1</version>
     </dependency>
     
-    <dependency>
-		<groupId>jdom</groupId>
-		<artifactId>jdom</artifactId>
-		<version>beta10</version>
-	</dependency>
   </dependencies>
   
   <!-- build information for the project -->
