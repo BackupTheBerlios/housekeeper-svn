@@ -4,6 +4,9 @@
     </properties>
     <body>
         <release version="0.2.2" date="not yet">
+            <action dev="notizklotz" type="add" issue="1104462">Food items can 
+              now be added either to a list of convenience foods or 
+              miscellaneous food.</action>
             <action dev="notizklotz" type="add">Application can now be 
                 installed with an installer.</action>
         </release>

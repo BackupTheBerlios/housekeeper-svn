@@ -50,9 +50,11 @@ final class SupplyPresenter
 
     private final Action      editItemAction;
 
-    private final FoodManager itemManager;
+    private final Action      newConvenienceFoodAction;
 
-    private final Action      newItemAction;
+    private final Action      newMiscFoodAction;
+
+    private final FoodManager itemManager;
 
     private final Frame       parent;
 
@@ -64,18 +66,45 @@ final class SupplyPresenter
      * @param parentFrame The parent frame for this panel.
      * @param itemManager The manager which holds the food items.
      */
-    SupplyPresenter(final Frame parentFrame, final FoodManager itemManager)
+    public SupplyPresenter(final Frame parentFrame,
+            final FoodManager itemManager)
     {
         super();
 
         this.parent = parentFrame;
         this.itemManager = itemManager;
 
-        //Field instanciations
-        newItemAction = new NewAction("convenienceFood");
+        //init actions
+        final String newConvName = LocalisationManager.INSTANCE
+                .getText("gui.supply.newConvenienceFood");
+        newConvenienceFoodAction = new NewAction(newConvName, "convenienceFood");
+
+        final String newMiscName = LocalisationManager.INSTANCE
+                .getText("gui.supply.newMiscFood");
+        newMiscFoodAction = new NewAction(newMiscName, "misc");
+
         duplicateItemAction = new DuplicateAction();
         editItemAction = new EditAction();
         deleteItemAction = new DeleteAction();
+
+        //Init button bar
+        view = new SupplyView();
+        view.addButton(newConvenienceFoodAction);
+        view.addButton(newMiscFoodAction);
+        view.addButton(duplicateItemAction);
+        view.addButton(editItemAction);
+        view.addButton(deleteItemAction);
+
+        //Init tables
+        final FoodListPresenter convPresenter = new FoodListPresenter(
+                itemManager.getSupplyList(), "convenienceFood");
+        final FoodListPresenter miscPresenter = new FoodListPresenter(
+                itemManager.getSupplyList(), "misc");
+        
+        view.addPanel(convPresenter.getView());
+        view.addPanel(miscPresenter.getView());
+
+        updateActionEnablement();
 
         final EventObjectListener selectionListener = new EventObjectListener() {
 
@@ -86,43 +115,8 @@ final class SupplyPresenter
 
             }
         };
-
-        final FoodListPresenter convPresenter = new FoodListPresenter(
-                itemManager.getSupplyList(), "convenienceFood");
         convPresenter.addTableSelectionListener(selectionListener);
-
-        final FoodListPresenter miscPresenter = new FoodListPresenter(
-                itemManager.getSupplyList(), "misc");
         miscPresenter.addTableSelectionListener(selectionListener);
-
-        view = new SupplyView();
-        view.addButton(newItemAction);
-        view.addButton(duplicateItemAction);
-        view.addButton(editItemAction);
-        view.addButton(deleteItemAction);
-
-        view.addPanel(convPresenter.getView());
-        view.addPanel(miscPresenter.getView());
-
-        updateActionEnablement();
-    }
-
-    /**
-     * Deletes the item which is selected in the table.
-     */
-    public void deleteSelectedItem()
-    {
-        final Food selectedItem = activePresenter.getSelected();
-        itemManager.remove(selectedItem);
-    }
-
-    /**
-     * Duplicates the selected item.
-     */
-    public void duplicateSelectedItem()
-    {
-        final Food selectedItem = activePresenter.getSelected();
-        itemManager.duplicate(selectedItem);
     }
 
     /**
@@ -149,6 +143,24 @@ final class SupplyPresenter
             item.setCategory(category);
             itemManager.add(item);
         }
+    }
+
+    /**
+     * Deletes the item which is selected in the table.
+     */
+    private void deleteSelectedItem()
+    {
+        final Food selectedItem = activePresenter.getSelected();
+        itemManager.remove(selectedItem);
+    }
+
+    /**
+     * Duplicates the selected item.
+     */
+    private void duplicateSelectedItem()
+    {
+        final Food selectedItem = activePresenter.getSelected();
+        itemManager.duplicate(selectedItem);
     }
 
     /**
@@ -278,13 +290,11 @@ final class SupplyPresenter
 
         private final String category;
 
-        private NewAction(final String category)
+        private NewAction(final String name, final String category)
         {
             super();
             this.category = category;
 
-            final String name = LocalisationManager.INSTANCE
-                    .getText("gui.supply.new");
             putValue(Action.NAME, name);
         }
 
