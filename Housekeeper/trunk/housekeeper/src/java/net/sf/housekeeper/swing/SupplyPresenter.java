@@ -41,30 +41,31 @@ import org.springframework.richclient.command.support.GlobalCommandIds;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class SupplyPresenter extends AbstractView
+public final class SupplyPresenter extends AbstractView
 {
 
-    private FoodListPresenter activePresenter;
+    private FoodListPresenter              activePresenter;
 
-    private final EditCommandExecutor      editExecutor = new EditCommandExecutor();
+    private final EditCommandExecutor      editExecutor               = new EditCommandExecutor();
 
-    private final NewCommandExecutor      newConvenienceFoodExecutor = new NewCommandExecutor(Food.CATEGORY_CONVENIENCE_FOOD);
+    private final NewCommandExecutor       newConvenienceFoodExecutor = new NewCommandExecutor(
+                                                                              Food.CATEGORY_CONVENIENCE_FOOD);
 
-    private final NewCommandExecutor      newMiscFoodExecutor = new NewCommandExecutor(Food.CATEGORY_MISC);
-    
-    private final DuplicateCommandExecutor duplicateExecutor = new DuplicateCommandExecutor();
-    
-    private final DeleteCommandExecutor deleteExecutor = new DeleteCommandExecutor();
-    
-    private FoodManager foodManager;
+    private final NewCommandExecutor       newMiscFoodExecutor        = new NewCommandExecutor(
+                                                                              Food.CATEGORY_MISC);
 
-    private final SupplyView  view;
+    private final DuplicateCommandExecutor duplicateExecutor          = new DuplicateCommandExecutor();
 
-    private FoodListPresenter convPresenter;
+    private final DeleteCommandExecutor    deleteExecutor             = new DeleteCommandExecutor();
 
-    private FoodListPresenter miscPresenter;
-    
-    
+    private FoodManager                    foodManager;
+
+    private SupplyView                     view;
+
+    private FoodListPresenter              convPresenter;
+
+    private FoodListPresenter              miscPresenter;
+
     /**
      * Creates a new SupplyPanel.
      */
@@ -74,41 +75,14 @@ final class SupplyPresenter extends AbstractView
 
         newConvenienceFoodExecutor.setEnabled(true);
         newMiscFoodExecutor.setEnabled(true);
-        
-        view = new SupplyView();
 
         convPresenter = new FoodListPresenter();
         convPresenter.setCategory("convenienceFood");
-        
+
         miscPresenter = new FoodListPresenter();
         miscPresenter.setCategory("misc");
-        
-        convPresenter.getView()
-                .setName(
-                         LocalisationManager.INSTANCE
-                                 .getText("domain.food.convenienceFoods"));
-        view.addPanel(convPresenter.getView());
-
-        miscPresenter.getView().setName(
-                                        LocalisationManager.INSTANCE
-                                                .getText("domain.food.misc"));
-        view.addPanel(miscPresenter.getView());
-
-        updateActionEnablement();
-
-        final EventObjectListener selectionListener = new EventObjectListener() {
-
-            public void handleEvent(EventObject event)
-            {
-                updateActivePresenter((FoodListPresenter) event.getSource());
-                updateActionEnablement();
-
-            }
-        };
-        convPresenter.addTableSelectionListener(selectionListener);
-        miscPresenter.addTableSelectionListener(selectionListener);
     }
-    
+
     /**
      * Sets the manager which holds the data to display.
      * 
@@ -120,28 +94,20 @@ final class SupplyPresenter extends AbstractView
         convPresenter.setFoodList(manager.getSupplyList());
         miscPresenter.setFoodList(manager.getSupplyList());
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.support.AbstractView#registerLocalCommandExecutors(org.springframework.richclient.application.PageComponentContext)
      */
-    protected void registerLocalCommandExecutors(PageComponentContext context) {
+    protected void registerLocalCommandExecutors(PageComponentContext context)
+    {
         context.register(GlobalCommandIds.DELETE, deleteExecutor);
         context.register("editCommand", editExecutor);
         context.register("duplicateCommand", duplicateExecutor);
-        context.register("newConvenienceFoodCommand", newConvenienceFoodExecutor
-                         );
-        context.register("newMiscFoodCommand", newMiscFoodExecutor
-        );
-    }
-    
-    /**
-     * Returns the view of this Presenter.
-     * 
-     * @return The view.
-     */
-    public SupplyView getView()
-    {
-        return view;
+        context.register("newConvenienceFoodCommand",
+                         newConvenienceFoodExecutor);
+        context.register("newMiscFoodCommand", newMiscFoodExecutor);
     }
 
     /**
@@ -235,7 +201,9 @@ final class SupplyPresenter extends AbstractView
 
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor
     {
-        public void execute() {
+
+        public void execute()
+        {
             deleteSelectedItem();
         }
     }
@@ -243,7 +211,8 @@ final class SupplyPresenter extends AbstractView
     /**
      * Duplicates the selected item.
      */
-    private class DuplicateCommandExecutor extends AbstractActionCommandExecutor
+    private class DuplicateCommandExecutor extends
+            AbstractActionCommandExecutor
     {
 
         public void execute()
@@ -257,7 +226,9 @@ final class SupplyPresenter extends AbstractView
      */
     private class EditCommandExecutor extends AbstractActionCommandExecutor
     {
-        public void execute() {
+
+        public void execute()
+        {
             editSelectedItem();
         }
     }
@@ -282,11 +253,40 @@ final class SupplyPresenter extends AbstractView
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.support.AbstractView#createControl()
      */
     protected JComponent createControl()
     {
+        view = new SupplyView();
+
+        convPresenter.getView()
+                .setName(
+                         LocalisationManager.INSTANCE
+                                 .getText("domain.food.convenienceFoods"));
+        view.addPanel(convPresenter.getView());
+
+        miscPresenter.getView().setName(
+                                        LocalisationManager.INSTANCE
+                                                .getText("domain.food.misc"));
+        view.addPanel(miscPresenter.getView());
+
+        final EventObjectListener selectionListener = new EventObjectListener() {
+
+            public void handleEvent(EventObject event)
+            {
+                updateActivePresenter((FoodListPresenter) event.getSource());
+                updateActionEnablement();
+
+            }
+        };
+        convPresenter.addTableSelectionListener(selectionListener);
+        miscPresenter.addTableSelectionListener(selectionListener);
+
+        updateActionEnablement();
+
         return view;
     }
 
