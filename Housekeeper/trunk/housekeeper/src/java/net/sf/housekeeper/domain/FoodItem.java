@@ -244,7 +244,7 @@ public final class FoodItem extends Model
     {
         FoodItem inst = new FoodItem();
         inst.name = this.name == null ? null : new String(this.name);
-        inst.expiry = this.expiry == null ? null : (Date) inst.expiry.clone();
+        inst.expiry = this.expiry == null ? null : (Date) this.expiry.clone();
         inst.quantity = this.quantity == null ? null
                 : new String(this.quantity);
         return inst;
