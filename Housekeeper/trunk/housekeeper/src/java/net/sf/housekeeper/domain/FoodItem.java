@@ -88,7 +88,7 @@ public final class FoodItem extends Model
      */
     public FoodItem()
     {
-        this("", "", null);
+        this("", null, null);
     }
 
     /**
@@ -149,9 +149,10 @@ public final class FoodItem extends Model
     {
         if (name == null)
         {
-            throw new IllegalArgumentException("Parameter 'name' must not be null.");
+            throw new IllegalArgumentException(
+                    "Parameter 'name' must not be null.");
         }
-        
+
         Object oldValue = getExpiry();
         this.name = name;
         firePropertyChange(PROPERTYNAME_NAME, oldValue, name);
@@ -167,21 +168,24 @@ public final class FoodItem extends Model
 
     /**
      * Sets the quantity of one exemplar of this item. For example, a bottle of
-     * milk which contains 1 litre would be one item an its quantity would be 1
+     * milk which contains 1 litre would be one item and its quantity would be 1
      * litre.
      * 
-     * @param quantity The quantity to set.
+     * @param quantity The quantity to set. If this is an empty string the
+     *            quantity becomes unset.
      */
     public void setQuantity(final String quantity)
-    {       
+    {
         Object oldValue = getExpiry();
-        if (quantity == null)
+
+        if (quantity == null || quantity.equals(""))
         {
-            this.quantity = "";
+            this.quantity = null;
         } else
         {
             this.quantity = quantity;
         }
+
         firePropertyChange(PROPERTYNAME_QUANTITY, oldValue, quantity);
     }
 
@@ -241,10 +245,10 @@ public final class FoodItem extends Model
         buffer.append("[FoodItem:");
         buffer.append(" name: ");
         buffer.append(name);
-        buffer.append(" expiry: ");
-        buffer.append(expiry);
         buffer.append(" quantity: ");
         buffer.append(quantity);
+        buffer.append(" expiry: ");
+        buffer.append(expiry);
         buffer.append("]");
         return buffer.toString();
     }

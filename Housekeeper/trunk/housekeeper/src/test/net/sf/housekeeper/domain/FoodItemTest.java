@@ -47,7 +47,7 @@ public class FoodItemTest extends TestCase
      * Tests the setting of a normal expiry date.
      *
      */
-    public final void testSetNormalExpiry()
+    public final void testSetExpiry()
     {
         final FoodItem item = new FoodItem();
         final Calendar nowCal = Calendar.getInstance();
@@ -66,7 +66,7 @@ public class FoodItemTest extends TestCase
     /**
      * Tests the unsetting of an expiry date.
      */
-    public final void testSetNullExpiry()
+    public final void testUnsetExpiry()
     {
         final FoodItem item = new FoodItem();
         item.setExpiry(new Date());
@@ -114,13 +114,13 @@ public class FoodItemTest extends TestCase
     }
     
     /**
-     * Tests setting the quantity to null.
+     * Tests unsetting the quantity.
      */
-    public final void testSetNullQuantity()
+    public final void testUnsetQuantity()
     {
         final FoodItem item = new FoodItem();
-        item.setQuantity(null);
-        assertEquals("", item.getQuantity());
+        item.setQuantity("");
+        assertNull(item.getQuantity());
     }
 
 }

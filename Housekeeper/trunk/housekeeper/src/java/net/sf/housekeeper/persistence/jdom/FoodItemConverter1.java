@@ -55,15 +55,23 @@ final class FoodItemConverter1
      */
     static FoodItem convert(final Element foodItemElement)
     {
+        final FoodItem foodItem = new FoodItem();
+        
         //Name
         final String itemName = foodItemElement.getAttributeValue("name");
+        foodItem.setName(itemName);
 
         //Quantity
-        final String quantity = foodItemElement.getChild("quantity")
-                .getAttributeValue("value");
+        final Element quantityElement = foodItemElement.getChild("quantity");
+        if (quantityElement != null)
+        {
+            String quantity = quantityElement
+            .getAttributeValue("value");
+            foodItem.setQuantity(quantity);
+        }
+
 
         //Expiry
-        Date expiryDate = null;
         final Element expiryElement = foodItemElement.getChild("expiry");
         if (expiryElement != null)
         {
@@ -75,10 +83,10 @@ final class FoodItemConverter1
                     .getAttributeValue("year"));
             final Calendar expiryCalendar = new GregorianCalendar(year,
                     month - 1, day);
-            expiryDate = expiryCalendar.getTime();
+            Date expiryDate = expiryCalendar.getTime();
+            foodItem.setExpiry(expiryDate);
         }
 
-        final FoodItem foodItem = new FoodItem(itemName, quantity, expiryDate);
         return foodItem;
     }
 
@@ -96,9 +104,12 @@ final class FoodItemConverter1
         xmlElement.setAttribute("name", item.getName());
 
         //Quantity
-        final Element quantityElement = new Element("quantity");
-        quantityElement.setAttribute("value", item.getQuantity());
-        xmlElement.addContent(quantityElement);
+        if (item.getQuantity() != null)
+        {
+            final Element quantityElement = new Element("quantity");
+            quantityElement.setAttribute("value", item.getQuantity());
+            xmlElement.addContent(quantityElement);
+        }
 
         //Expiry
         if (item.getExpiry() != null)
