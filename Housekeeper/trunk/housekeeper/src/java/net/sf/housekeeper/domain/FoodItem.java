@@ -26,16 +26,13 @@ import java.util.Date;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import com.jgoodies.binding.beans.Model;
-
 /**
- * A concrete item that has been purchased. Adheres to the JavaBean
- * specifications.
+ * A concrete item that has been purchased.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class FoodItem extends Model
+public final class FoodItem
 {
 
     /**
@@ -100,8 +97,6 @@ public final class FoodItem extends Model
      */
     public void setExpiry(final Date expiry)
     {
-        final Object oldValue = getExpiry();
-
         if (expiry != null)
         {
             final Date truncatedExpiry = DateUtils
@@ -115,8 +110,6 @@ public final class FoodItem extends Model
         {
             this.expiry = null;
         }
-
-        firePropertyChange(PROPERTYNAME_EXPIRY, oldValue, getExpiry());
     }
 
     /**
@@ -153,9 +146,7 @@ public final class FoodItem extends Model
                     "Parameter 'name' must not be null.");
         }
 
-        Object oldValue = getExpiry();
         this.name = name;
-        firePropertyChange(PROPERTYNAME_NAME, oldValue, name);
     }
 
     /**
@@ -176,8 +167,6 @@ public final class FoodItem extends Model
      */
     public void setQuantity(final String quantity)
     {
-        Object oldValue = getExpiry();
-
         if (quantity == null || quantity.equals(""))
         {
             this.quantity = null;
@@ -185,8 +174,6 @@ public final class FoodItem extends Model
         {
             this.quantity = quantity;
         }
-
-        firePropertyChange(PROPERTYNAME_QUANTITY, oldValue, quantity);
     }
 
     /*

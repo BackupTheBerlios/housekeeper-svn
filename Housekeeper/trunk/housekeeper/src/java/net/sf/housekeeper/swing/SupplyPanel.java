@@ -161,10 +161,10 @@ final class SupplyPanel extends JPanel
      */
     private boolean openEditor(FoodItem item)
     {
-        final FoodItemEditorDialog dialog = new FoodItemEditorDialog(
-                MainFrame.INSTANCE, item);
-        dialog.open();
-        return dialog.hasBeenCanceled();
+        final FoodItemEditorView view = new FoodItemEditorView(MainFrame.INSTANCE);
+        final FoodItemEditorPresenter editor = new FoodItemEditorPresenter(view, item);
+        
+        return editor.show();
     }
 
     /**

@@ -128,17 +128,7 @@
             <category>shared</category>
         </properties>
     </dependency>
-    
-    <dependency>
-    	<groupId>jgoodies</groupId>
-    	<artifactId>binding</artifactId>
-    	<version>1.0b6</version>
-    	<url>http://www.jgoodies.com/downloads/libraries.html</url>
-                <properties>
-            <category>shared</category>
-        </properties>
-    </dependency>
-    
+        
     <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
