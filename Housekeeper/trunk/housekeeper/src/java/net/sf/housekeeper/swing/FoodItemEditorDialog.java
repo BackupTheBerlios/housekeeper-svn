@@ -21,7 +21,6 @@
 
 package net.sf.housekeeper.swing;
 
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -68,7 +67,7 @@ public class FoodItemEditorDialog extends JDialog
      */
     public FoodItemEditorDialog(final FoodItem item)
     {
-        super((Frame) null, "Item Editor", true);
+        super(MainFrame.INSTANCE, "Item Editor", true);
         this.presentationModel = new PresentationModel(item);
         canceled = false;
     }
@@ -111,7 +110,7 @@ public class FoodItemEditorDialog extends JDialog
         setContentPane(buildContentPane());
         pack();
         setResizable(false);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(MainFrame.INSTANCE);
     }
 
     /**
