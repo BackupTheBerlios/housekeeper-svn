@@ -53,6 +53,8 @@ import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.table.BeanTableModel;
+import org.springframework.richclient.table.ColumnToSort;
+import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
 import org.springframework.richclient.util.PopupMenuMouseListener;
@@ -80,6 +82,10 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     
     private String category;
         
+    /**
+     * Creates a new view showing a list of items.
+     *
+     */
     public ItemsTableView()
     {
         newItemExecutor.setEnabled(true);
@@ -106,6 +112,11 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     
     private JTable createTable(ItemsTableModel model) {
             final JTable table = TableUtils.createStandardSortableTable(model);
+            
+            //Sort expiry dates by default
+            final SortableTableModel sortableModel = (SortableTableModel)table.getModel();
+            sortableModel.sortByColumn(new ColumnToSort(0, 2));
+            
             table.getSelectionModel().addListSelectionListener(new TableSelectionListener());
             table.addMouseListener(new PopupMenuMouseListener(createContextMenu()));
             table.addMouseListener(new DoubleClickListener());
