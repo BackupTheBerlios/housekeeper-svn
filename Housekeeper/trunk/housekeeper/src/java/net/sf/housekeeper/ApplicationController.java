@@ -21,8 +21,8 @@
 
 package net.sf.housekeeper;
 
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.core.JdkVersion;
 import org.springframework.richclient.application.ApplicationLauncher;
 
 /**
@@ -50,7 +50,9 @@ public final class ApplicationController
      */
     public static void main(final String[] args)
     {
-        if (!SystemUtils.isJavaVersionAtLeast(140))
+        final int jreVersion = JdkVersion.getMajorJavaVersion();
+        final int minVersion = JdkVersion.JAVA_14;
+        if (jreVersion < JdkVersion.JAVA_14)
         {
             LogFactory.getLog(ApplicationController.class)
                     .fatal("You need at least JRE 1.4 to run Housekeeper!");

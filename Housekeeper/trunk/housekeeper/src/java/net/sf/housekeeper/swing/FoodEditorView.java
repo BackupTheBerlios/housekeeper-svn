@@ -37,9 +37,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
+import net.sf.housekeeper.util.DateUtils;
 import net.sf.housekeeper.util.LocalisationManager;
-
-import org.apache.commons.lang.time.DateUtils;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
