@@ -62,4 +62,15 @@ public final class Household
     {
         return foodItems;
     }
+
+    /**
+     * Replaces the domain objects of this Household with the ones of another
+     * Household.
+     * 
+     * @param domain The domain to get the objects from. Must not be null.
+     */
+    public void replaceAll(final Household domain)
+    {
+        foodItems.replaceAll(domain.getFoodItemManager().getSupplyList());
+    }
 }

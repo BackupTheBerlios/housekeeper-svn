@@ -98,9 +98,7 @@ public final class PersistenceController
             throws IOException, UnsupportedFileVersionException
     {
         final Household savedHousehold = jdomPersistence.loadData(dataFile);
-        currentDomain
-                .getFoodItemManager()
-                .replaceAll(savedHousehold.getFoodItemManager().getSupplyList());
+        currentDomain.replaceAll(savedHousehold);
         currentDomain.getFoodItemManager().resetChangedStatus();
     }
 
