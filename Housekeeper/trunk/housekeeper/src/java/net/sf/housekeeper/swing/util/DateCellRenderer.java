@@ -64,6 +64,8 @@ public class DateCellRenderer extends DefaultTableCellRenderer
                                                    boolean hasFocus, int row,
                                                    int column)
     {
+        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        
         if (value != null)
         {
             final Date date = (Date) value;
