@@ -168,7 +168,7 @@ public final class FoodItemManager
         supply.addAll(foodItems);
         hasChanged = true;
 
-        LOG.debug("Replaced all items with: " + supply.toString());
+        LOG.debug("Replaced all items");
     }
 
     /**
