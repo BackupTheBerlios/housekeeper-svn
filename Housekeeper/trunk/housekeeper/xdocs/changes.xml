@@ -4,12 +4,17 @@
     </properties>
     <body>
         <release version="0.3.0" date="not yet">
-            <action dev="notizklotz" type="add">Accelerators and 
-              mnemnonics.</action>
-            <action dev="notizklotz" type="change">Toolbar only shows 
-              icons.</action>
+            <action dev="notizklotz" type="add">Added a menu with the 
+              same actions as the toolbar.</action>
+            <action dev="notizklotz" type="add" issue="1116736">Actions like 
+              deleting a food entry can now be executed by keyboard 
+              shortcuts.</action>
             <action dev="notizklotz" type="add" issue="1116409">
-              Splash-Screen.</action>
+              Show splash screen on startup.</action>
+            <action dev="notizklotz" type="update" issue="1116736">Toolbar only 
+              shows icons.</action>
+            <action dev="notizklotz" type="update">Changed default 
+              Look and Feel.</action>
         </release>
         <release version="0.2.2" date="2005-01-27">
             <action dev="notizklotz" type="add" issue="1104462">Food items can 
