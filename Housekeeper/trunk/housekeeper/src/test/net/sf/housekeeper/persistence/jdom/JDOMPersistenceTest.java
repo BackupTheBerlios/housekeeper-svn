@@ -33,6 +33,7 @@ import java.io.Reader;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
+import net.sf.housekeeper.testutils.DataGenerator;
 
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.jdom.Element;
@@ -45,12 +46,6 @@ import org.jdom.Element;
  */
 public final class JDOMPersistenceTest extends XMLTestCase
 {
-
-    private static final String VERSION1_DATA   = "data_v1.xml";
-
-    private static final String VERSION2_DATA   = "data_v1_to_v2.xml";
-
-    private static final String NOT_AN_XML_FILE = "notAnXmlFile.xml";
 
     private JDOMPersistence     jdomPersistence;
 
@@ -76,7 +71,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
     {
         //Read data from resources and parse it
         final InputStream dataStream = getClass()
-                .getResourceAsStream(VERSION1_DATA);
+                .getResourceAsStream(DataGenerator.VERSION1_DATA);
         final Household household = jdomPersistence.loadData(dataStream);
 
         //Save data to a temporary file
@@ -89,7 +84,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
 
         //Reopen the two XML files and test for equality
         final InputStream originalStream = getClass()
-                .getResourceAsStream(VERSION1_DATA);
+                .getResourceAsStream(DataGenerator.VERSION1_DATA);
         final Reader originalReader = new InputStreamReader(originalStream);
         final Reader savedReader = new FileReader(tempFile);
         assertXMLEqual(originalReader, savedReader);
@@ -110,7 +105,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
     {
         //Read data from resources and parse it
         final InputStream dataStream = getClass()
-                .getResourceAsStream(NOT_AN_XML_FILE);
+                .getResourceAsStream(DataGenerator.NOT_AN_XML_FILE);
 
         try
         {
