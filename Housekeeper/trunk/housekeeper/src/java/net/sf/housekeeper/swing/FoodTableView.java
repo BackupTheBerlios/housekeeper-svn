@@ -40,12 +40,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
-import org.springframework.richclient.application.support.AbstractView;
-
 import net.sf.housekeeper.domain.Food;
-import net.sf.housekeeper.swing.util.DateCellRenderer;
 import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.util.LocalisationManager;
+
+import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
+
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.SortedList;
@@ -203,7 +204,8 @@ public final class FoodTableView extends AbstractView
     {
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
-        final TableCellRenderer dateRenderer = new DateCellRenderer(dateFormat);
+        final TableCellRenderer dateRenderer = new DateTimeTableCellRenderer(
+                dateFormat);
         table.getColumnModel().getColumn(column).setCellRenderer(dateRenderer);
     }
 
