@@ -21,7 +21,10 @@
 
 package net.sf.housekeeper.domain;
 
+import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.commons.lang.time.DateUtils;
 
 import com.jgoodies.binding.beans.Model;
 
@@ -85,7 +88,7 @@ public final class FoodItem extends Model
      */
     public FoodItem()
     {
-        this("", "", new Date());
+        this("","",new Date());
     }
 
     /**
@@ -96,7 +99,7 @@ public final class FoodItem extends Model
     public void setExpiry(final Date expiry)
     {
         Object oldValue = getExpiry();
-        this.expiry = expiry;
+        this.expiry = DateUtils.truncate(expiry, Calendar.DAY_OF_MONTH);;
         firePropertyChange(PROPERTYNAME_EXPIRY, oldValue, expiry);
     }
 
