@@ -23,18 +23,18 @@ package net.sf.housekeeper.swing;
 
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.util.EventObject;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
+import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.util.LocalisationManager;
 
 /**
- * Presenter for an overview of the supply.
+ * Presenter for an overview of a supply.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -42,39 +42,21 @@ import net.sf.housekeeper.util.LocalisationManager;
 final class SupplyPresenter
 {
 
-    /**
-     * Action object for deleting an action.
-     */
-    private final Action            deleteItemAction;
+    private FoodListPresenter activePresenter;
 
-    /**
-     * Action object for duplicating an existing item.
-     */
-    private final Action            duplicateItemAction;
+    private final Action      deleteItemAction;
 
-    /**
-     * Action object for editing an item.
-     */
-    private final Action            editItemAction;
+    private final Action      duplicateItemAction;
 
-    /**
-     * Action object for creating a new item.
-     */
-    private final Action            newItemAction;
+    private final Action      editItemAction;
 
-    /**
-     * The parent Frame of this panel.
-     */
-    private final Frame             parent;
+    private final FoodManager itemManager;
 
-    /**
-     * The manager for food objects.
-     */
-    private final FoodManager       itemManager;
+    private final Action      newItemAction;
 
-    private final FoodListPresenter convPresenter;
+    private final Frame       parent;
 
-    private final SupplyView        view;
+    private final SupplyView  view;
 
     /**
      * Creates a new SupplyPanel.
@@ -90,27 +72,53 @@ final class SupplyPresenter
         this.itemManager = itemManager;
 
         //Field instanciations
-        newItemAction = new NewAction();
+        newItemAction = new NewAction("convenienceFood");
         duplicateItemAction = new DuplicateAction();
         editItemAction = new EditAction();
         deleteItemAction = new DeleteAction();
 
-        final ListSelectionListener selectionListener = new ListSelectionListener() {
+        final EventObjectListener selectionListener = new EventObjectListener() {
 
-            public void valueChanged(ListSelectionEvent e)
+            public void handleEvent(EventObject event)
             {
+                updateActivePresenter((FoodListPresenter) event.getSource());
                 updateActionEnablement();
+
             }
         };
 
-        convPresenter = new FoodListPresenter(itemManager, "convenienceFood");
+        final FoodListPresenter convPresenter = new FoodListPresenter(
+                itemManager.getSupplyList(), "convenienceFood");
         convPresenter.addTableSelectionListener(selectionListener);
+
+        final FoodListPresenter miscPresenter = new FoodListPresenter(
+                itemManager.getSupplyList(), "misc");
+        miscPresenter.addTableSelectionListener(selectionListener);
 
         view = new SupplyView(newItemAction, duplicateItemAction,
                 editItemAction, deleteItemAction);
         view.addPanel(convPresenter.getView());
+        view.addPanel(miscPresenter.getView());
 
         updateActionEnablement();
+    }
+
+    /**
+     * Deletes the item which is selected in the table.
+     */
+    public void deleteSelectedItem()
+    {
+        final Food selectedItem = activePresenter.getSelected();
+        itemManager.remove(selectedItem);
+    }
+
+    /**
+     * Duplicates the selected item.
+     */
+    public void duplicateSelectedItem()
+    {
+        final Food selectedItem = activePresenter.getSelected();
+        itemManager.duplicate(selectedItem);
     }
 
     /**
@@ -122,17 +130,19 @@ final class SupplyPresenter
     {
         return view;
     }
-    
+
     /**
      * Opens a dialog for adding a new item.
-     *  
+     * 
+     * @param category The category to assign to the item.
      */
-    private void addNewItem()
+    private void addNewItem(final String category)
     {
         final Food item = new Food();
         boolean canceled = openEditor(item);
         if (!canceled)
         {
+            item.setCategory(category);
             itemManager.add(item);
         }
     }
@@ -142,7 +152,7 @@ final class SupplyPresenter
      */
     private void editSelectedItem()
     {
-        final Food selected = convPresenter.getSelected();
+        final Food selected = activePresenter.getSelected();
         boolean canceled = openEditor(selected);
         if (!canceled)
         {
@@ -159,8 +169,7 @@ final class SupplyPresenter
     private boolean openEditor(Food item)
     {
         final FoodEditorView view = new FoodEditorView(parent);
-        final FoodEditorPresenter editor = new FoodEditorPresenter(
-                view, item);
+        final FoodEditorPresenter editor = new FoodEditorPresenter(view, item);
 
         return editor.show();
     }
@@ -171,10 +180,24 @@ final class SupplyPresenter
      */
     private void updateActionEnablement()
     {
-        boolean hasSelection = convPresenter.hasSelection();
+        boolean hasSelection = activePresenter != null
+                && activePresenter.hasSelection();
         duplicateItemAction.setEnabled(hasSelection);
         editItemAction.setEnabled(hasSelection);
         deleteItemAction.setEnabled(hasSelection);
+    }
+
+    private void updateActivePresenter(final FoodListPresenter presenter)
+    {
+        if (presenter != activePresenter)
+        {
+            if (activePresenter != null)
+            {
+                activePresenter.clearSelection();
+            }
+
+            activePresenter = presenter;
+        }
     }
 
     /**
@@ -193,7 +216,7 @@ final class SupplyPresenter
 
         public void actionPerformed(ActionEvent arg0)
         {
-            convPresenter.deleteSelected();
+            deleteSelectedItem();
         }
     }
 
@@ -218,7 +241,7 @@ final class SupplyPresenter
          */
         public void actionPerformed(ActionEvent e)
         {
-            convPresenter.duplicateSelected();
+            duplicateSelectedItem();
         }
 
     }
@@ -249,9 +272,13 @@ final class SupplyPresenter
     private class NewAction extends AbstractAction
     {
 
-        private NewAction()
+        private final String category;
+
+        private NewAction(final String category)
         {
             super();
+            this.category = category;
+
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.supply.new");
             putValue(Action.NAME, name);
@@ -259,7 +286,7 @@ final class SupplyPresenter
 
         public void actionPerformed(ActionEvent arg0)
         {
-            addNewItem();
+            addNewItem(category);
         }
     }
 

@@ -40,20 +40,33 @@ import ca.odell.glazedlists.swing.EventTableModel;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 /**
- * @author
+ * A panel with a table for display of {@link Food}objects.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-class FoodListView extends JPanel
+final class FoodListView extends JPanel
 {
 
-    FoodListView(SortedList model, EventTableModel tableModel,
-            EventSelectionModel selectionModel, String expiryHeaderName)
+    /**
+     * Creates a new view. All objects passed as parameters must fit to each
+     * other.
+     * 
+     * @param sortedList A list with {@link Food}objects.
+     * @param tableModel The TableModel for the table.
+     * @param selectionModel The SelectionModel for the table.
+     * @param expiryHeaderName The header name of the expiry column.
+     */
+    public FoodListView(final SortedList sortedList,
+            final EventTableModel tableModel,
+            final EventSelectionModel selectionModel,
+            final String expiryHeaderName)
     {
         //Init table
         final JTable supplyTable = new JTable(tableModel);
 
         //Adds the sorting functionality to the table
-        addSorting(supplyTable, model);
+        addSorting(supplyTable, sortedList);
 
         supplyTable.setSelectionModel(selectionModel);
         supplyTable.getSelectionModel()
