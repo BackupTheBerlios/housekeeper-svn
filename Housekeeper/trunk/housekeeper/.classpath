@@ -10,5 +10,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/forms-1.0.5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/binding-1.0b3.jar"/>
+	<classpathentry kind="lib" path="src/conf"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -70,8 +70,8 @@ public final class MainFrame extends JFrame
     /**
      * Log to be used for this class.
      */
-    private final Log LOG = LogFactory.getLog(MainFrame.class);
-    
+    private final Log             LOG      = LogFactory.getLog(MainFrame.class);
+
     private JTabbedPane           tabbedPane;
 
     /**
@@ -95,7 +95,7 @@ public final class MainFrame extends JFrame
      * Builds the components of the frame and adds them to the content pane.
      */
     private void buildComponents()
-    {        
+    {
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Supply", createSupplyPanel());
         getContentPane().add(tabbedPane);
@@ -105,7 +105,7 @@ public final class MainFrame extends JFrame
      * Builds the menus.
      */
     private JMenuBar buildMenuBar()
-    {       
+    {
         final JMenuBar menuBar = new JMenuBar();
 
         //File Menu
@@ -144,7 +144,8 @@ public final class MainFrame extends JFrame
         buttonPanel.add(new JButton(model.getDeleteAction()));
         supplyPanel.add(buttonPanel, BorderLayout.NORTH);
 
-        final TableSorter sorter = new TableSorter(new FoodItemTableModel(model.getItemSelection()));
+        final TableSorter sorter = new TableSorter(new FoodItemTableModel(model
+                .getItemSelection()));
         final JTable table = new JTable(sorter);
         sorter.setTableHeader(table.getTableHeader());
         //initally sort after expiry dates
@@ -160,7 +161,7 @@ public final class MainFrame extends JFrame
      * Initializes the Look and Feel.
      */
     private void initLookAndFeel()
-    { 
+    {
         if (System.getProperty("os.name").equals("Linux"))
         {
             try
@@ -171,7 +172,8 @@ public final class MainFrame extends JFrame
                 //Do nothing if setting the Look and Feel fails.
             }
         }
-        LOG.debug("Using Look and Feel: " + UIManager.getLookAndFeel().getName());
+        LOG.debug("Using Look and Feel: "
+                + UIManager.getLookAndFeel().getName());
     }
 
     /**
@@ -271,7 +273,8 @@ public final class MainFrame extends JFrame
 
             final JEditorPane editorPane = new JEditorPane();
             editorPane.setEditable(false);
-            final URL helpURL = MainFrame.class.getResource("about.html");
+            final String aboutFile = "/about.html";
+            final URL helpURL = MainFrame.class.getResource(aboutFile);
             if (helpURL != null)
             {
                 try
@@ -279,18 +282,18 @@ public final class MainFrame extends JFrame
                     editorPane.setPage(helpURL);
                 } catch (IOException ex)
                 {
-                    System.err.println("Attempted to read a bad URL: "
-                            + helpURL);
+                    LogFactory.getLog(MainFrame.AboutDialogAction.class)
+                            .error("Attempted to read a bad URL: " + helpURL,
+                                   ex);
                 }
             } else
             {
-                System.err.println("Couldn't find file: about.html");
+                LogFactory.getLog(MainFrame.AboutDialogAction.class)
+                        .error("Could not find file: " + aboutFile);
             }
 
-            editorPane.setPreferredSize(new Dimension(450, 500));
-            final JScrollPane scroll = new JScrollPane(editorPane);
-
-            JOptionPane.showMessageDialog(MainFrame.INSTANCE, scroll);
+            editorPane.setPreferredSize(new Dimension(400, 200));
+            JOptionPane.showMessageDialog(MainFrame.INSTANCE, editorPane);
 
         }
     }
