@@ -19,37 +19,46 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.storage;
+package net.sf.housekeeper.domain;
+
+import java.util.Collection;
+
+import com.odellengineeringltd.glazedlists.BasicEventList;
+
 
 /**
- * A Factory for centralized management of Storage techniques. Objects should
- * call {@link #getCurrentStorage()} to receive a reference to the currently
- * used storage technique.
- *
+ * Represents a household.
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class StorageFactory
+public final class Household
 {
-
-    /** An instance of the currently used storage technique. */
-    private static Storage currentStorage = new CastorStorage();
-
-    /**
-     * Prevents object instanciation.
-     */
-    private StorageFactory()
+    private Collection stockItems;
+    
+    public Household()
     {
-
+        stockItems = new BasicEventList();
+    }
+    
+    public Household(final Collection stockItems)
+    {
+        this.stockItems = stockItems;
     }
 
     /**
-     * Returns a reference to the currently used storage technique.
-     *
-     * @return Currently used storage technique.
+     * @return Returns the stockItems.
      */
-    public static Storage getCurrentStorage()
+    public Collection getStockItems()
     {
-        return currentStorage;
+        return stockItems;
+    }
+    
+    /**
+     * @param stockItems The stockItems to set.
+     */
+    public void setStockItems(Collection stockItems)
+    {
+        this.stockItems = stockItems;
     }
 }

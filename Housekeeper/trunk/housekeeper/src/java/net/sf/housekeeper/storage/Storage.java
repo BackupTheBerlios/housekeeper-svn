@@ -21,7 +21,7 @@
 
 package net.sf.housekeeper.storage;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.odellengineeringltd.glazedlists.EventList;
 
@@ -68,14 +68,14 @@ public interface Storage
     /**
      * Loads data from the default storage place into memory.
      *
-     * @throws FileNotFoundException If the data couldn't be retrieved.
+     * @throws IOException If the data couldn't be retrieved.
      */
-    void loadData() throws FileNotFoundException;
+    void loadData() throws IOException;
     
     /**
      * Saves data to the default storage place.
      *
-     * @throws FileNotFoundException If the data couldn't be stored.
+     * @throws IOException If the data couldn't be stored.
      */
-    void saveData() throws FileNotFoundException;
+    void saveData() throws IOException;
 }

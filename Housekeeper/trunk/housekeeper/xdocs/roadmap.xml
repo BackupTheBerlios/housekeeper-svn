@@ -3,7 +3,7 @@
 <document>
   <properties>
     <title>Roadmap</title>
-    <author email="notizklotz(at)gmx.net">Adrian Gygax</author>
+    <author>Adrian Gygax</author>
   </properties>
   <body>
     <section name="Roadmap">
@@ -18,7 +18,7 @@
             <a href="#0_2">0.2</a>
           </td>
           <td>
-          	2004-07-31
+          	2004-09-04
           </td>
           <td>A simple single-user application to keep track of your current food items you have.</td>
         </tr>

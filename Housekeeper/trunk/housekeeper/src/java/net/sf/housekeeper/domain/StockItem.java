@@ -36,7 +36,7 @@ public final class StockItem
     private String name;
 
     /** The date, before the item should have been consumed entirely. */
-    private Date   bestBefore;
+    private Date   expiry;
 
     /**
      * The quantity of one exemplar of this item. For example, a bottle of milk
@@ -57,7 +57,7 @@ public final class StockItem
             final Date bestBeforeEnd)
     {
         setName(name);
-        setBestBefore(bestBeforeEnd);
+        setExpiry(bestBeforeEnd);
         setQuantity(quantity);
     }
 
@@ -75,11 +75,9 @@ public final class StockItem
      * 
      * @param bestBefore The new value.
      */
-    public void setBestBefore(final Date bestBefore)
+    public void setExpiry(final Date bestBefore)
     {
-        assert bestBefore != null : "Parameter bestBefore must not be null";
-
-        this.bestBefore = bestBefore;
+        this.expiry = bestBefore;
     }
 
     /**
@@ -87,9 +85,9 @@ public final class StockItem
      * 
      * @return The corresponding attribute.
      */
-    public Date getBestBefore()
+    public Date getExpiry()
     {
-        return bestBefore;
+        return expiry;
     }
 
     /**
@@ -145,6 +143,6 @@ public final class StockItem
      */
     public Object clone()
     {
-        return new StockItem(name, quantity, (Date) bestBefore.clone());
+        return new StockItem(name, quantity, (Date) expiry.clone());
     }
 }

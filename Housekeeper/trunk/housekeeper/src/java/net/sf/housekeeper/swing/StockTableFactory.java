@@ -148,7 +148,7 @@ final class StockTableFactory
             final StockItem item = (StockItem) arg0;
 
             if (arg1 == 0) { return item; }
-            return item.getBestBefore();
+            return item.getExpiry();
         }
 
         /*

@@ -209,7 +209,7 @@ final class StockPanel extends JPanel
 
                 final SpinnerDateModel spinnerModel = new SpinnerDateModel();
                 spinnerModel.setStart(today);
-                spinnerModel.setValue(item.getBestBefore());
+                spinnerModel.setValue(item.getExpiry());
                 final JSpinner spinner = new JSpinner(spinnerModel);
                 spinner.setEditor(new DateEditor(spinner));
                 d.addElement("Best Before", spinner, compWidth);
@@ -219,7 +219,7 @@ final class StockPanel extends JPanel
                 {
                     item.setName(nameField.getText());
                     item.setQuantity(quantityField.getText());
-                    item.setBestBefore(spinnerModel.getDate());
+                    item.setExpiry(spinnerModel.getDate());
 
                     StorageFactory.getCurrentStorage().update(item);
                 }

@@ -1,0 +1,12 @@
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN" 
+    "http://castor.exolab.org/mapping.dtd">
+
+<mapping>
+    <description>Mapping for Housekeeper 0.1.2</description>
+    <class name="net.sf.housekeeper.domain.Household" auto-complete="true">
+        <field name="stockItems" collection="collection" 
+            type="net.sf.housekeeper.domain.StockItem">
+            <bind-xml name="stock-item"/>
+        </field>
+    </class>
+</mapping>

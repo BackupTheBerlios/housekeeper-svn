@@ -23,7 +23,6 @@ package net.sf.housekeeper.swing;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
@@ -162,7 +161,7 @@ public final class MainFrame extends JFrame
             try
             {
                 StorageFactory.getCurrentStorage().loadData();
-            } catch (FileNotFoundException e1)
+            } catch (IOException e1)
             {
                 e1.printStackTrace();
             }
@@ -185,7 +184,7 @@ public final class MainFrame extends JFrame
             try
             {
                 StorageFactory.getCurrentStorage().saveData();
-            } catch (FileNotFoundException e1)
+            } catch (IOException e1)
             {
                 e1.printStackTrace();
             }
