@@ -4,6 +4,9 @@
     </properties>
     <body>
         <release version="0.3.0" date="not yet">
+            <action dev="notizklotz" type="add" issue="1071589"> 
+              Double-clicking an entry in a table opens the editor for it.
+              </action>
             <action dev="notizklotz" type="add">Added a menu with the 
               same actions as the toolbar.</action>
             <action dev="notizklotz" type="add" issue="1116736">Actions like 
