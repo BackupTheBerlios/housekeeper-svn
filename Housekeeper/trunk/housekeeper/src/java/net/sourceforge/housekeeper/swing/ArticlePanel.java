@@ -93,6 +93,13 @@ final class ArticlePanel extends JPanel
     {
         return table;
     }
+    
+    Article getSelectedArticle()
+    {
+        int selectedRow = table.getSelectedRow();
+        ArticleModel tableModel = (ArticleModel)table.getModel();
+        return tableModel.getObjectAtRow(selectedRow);
+    }
 
     //~ Inner Classes ----------------------------------------------------------
 
@@ -209,6 +216,11 @@ final class ArticlePanel extends JPanel
                            Object     arg)
         {
             fireTableDataChanged();
+        }
+        
+        public Article getObjectAtRow(int row)
+        {
+            return StorageFactory.getCurrentStorage().getArticle(row);
         }
     }
 }
