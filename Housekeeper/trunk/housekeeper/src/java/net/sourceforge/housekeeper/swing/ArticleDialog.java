@@ -34,6 +34,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 
 
@@ -42,7 +43,7 @@ import javax.swing.JTextField;
  *
  * @author Adrian Gygax
  */
-class ArticleDialog extends ExtendedDialog
+class ArticleDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -163,7 +164,7 @@ class ArticleDialog extends ExtendedDialog
         buttonOK.addActionListener(new OKButtonActionListener());
 
         buttonCancel = new JButton("Cancel");
-        buttonCancel.addActionListener(new DefaultCancelButtonActionListener());
+        buttonCancel.addActionListener(new DefaultCancelButtonActionListener(this));
     }
 
     //~ Inner Classes ----------------------------------------------------------

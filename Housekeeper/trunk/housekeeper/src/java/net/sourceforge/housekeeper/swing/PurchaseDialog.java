@@ -41,6 +41,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -56,7 +57,7 @@ import javax.swing.JTextField;
  * @see
  * @since
  */
-final class PurchaseDialog extends ExtendedDialog
+final class PurchaseDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -182,7 +183,7 @@ final class PurchaseDialog extends ExtendedDialog
         buttonOK.addActionListener(new OKButtonActionListener());
 
         buttonCancel = new JButton("Cancel");
-        buttonCancel.addActionListener(new DefaultCancelButtonActionListener());
+        buttonCancel.addActionListener(new DefaultCancelButtonActionListener(this));
 
         buttonAddArticle = new JButton("Add Article");
         buttonAddArticle.addActionListener(new AddArticleActionListener());
