@@ -24,9 +24,12 @@ package net.sf.housekeeper.swing;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import net.sf.housekeeper.HousekeeperEvent;
 
 import org.springframework.richclient.application.support.AbstractView;
-
 
 /**
  * @author
@@ -36,15 +39,31 @@ public final class CategoriesView extends AbstractView
 {
 
     private JList list;
-        
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.support.AbstractView#createControl()
      */
     protected JComponent createControl()
     {
-        final Object[] listItems = { "convenienceFood", "miscFood" };
+        final Object[] listItems = { "convenienceFood", "misc" };
         list = new JList(listItems);
-        list.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.getSelectionModel()
+                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        list.addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e)
+            {
+                getApplicationContext()
+                        .publishEvent(
+                                      new HousekeeperEvent(
+                                              HousekeeperEvent.SELECTED, list
+                                                      .getSelectedValue()));
+            }
+        });
+
         list.setSelectedIndex(0);
         return list;
     }

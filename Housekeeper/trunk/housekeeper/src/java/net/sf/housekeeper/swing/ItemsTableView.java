@@ -29,7 +29,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.EventObject;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -37,17 +36,19 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
+import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
-import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.util.LocalisationManager;
 
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.application.PageComponentContext;
-import org.springframework.richclient.application.ViewDescriptor;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
@@ -70,7 +71,7 @@ import ca.odell.glazedlists.swing.TextFilterList;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ItemsTableView extends AbstractView
+public final class ItemsTableView extends AbstractView implements ApplicationListener
 {
 
     /**
@@ -438,6 +439,30 @@ public final class ItemsTableView extends AbstractView
                 foodManager.add(item);
             }
         }
+    }
+
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+     */
+    public void onApplicationEvent(ApplicationEvent e)
+    {
+        if (e instanceof HousekeeperEvent) {
+            final HousekeeperEvent le = (HousekeeperEvent)e;
+            if (le.getEventType() == HousekeeperEvent.SELECTED && le.objectIs(String.class))
+            {
+                final String cat = (String)le.getObject();
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run()
+                    {
+                        setCategory(cat);
+                    }
+                });
+                
+            }
+            
+        }
+        
     }
 
 
