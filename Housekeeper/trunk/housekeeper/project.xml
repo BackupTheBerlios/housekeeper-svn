@@ -195,7 +195,7 @@
     <dependency>
         <groupId>glazedlists</groupId>
         <artifactId>glazedlists</artifactId>
-        <version>0.9.3</version>
+        <version>0.9.4</version>
         <url>http://publicobject.com/glazedlists/</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
