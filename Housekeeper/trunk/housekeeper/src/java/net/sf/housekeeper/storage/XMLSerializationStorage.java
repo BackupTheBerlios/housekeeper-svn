@@ -49,17 +49,21 @@ final class XMLSerializationStorage implements Storage
 {
 
     /** The path to the file that is used for data storage. */
-    private static final File FILE = new File(System.getProperty("user.dir"),
-                                           "housekeeper_ser.xml");
+    private File                                file;
 
     /** All items that are on stock. */
-    private EventList         stockItems;
+    private EventList                           stockItems;
+
+    /** singleton instance. */
+    public static final XMLSerializationStorage INSTANCE = new XMLSerializationStorage();
 
     /**
      * Initializes an XMLSerializationStorage.
      */
-    XMLSerializationStorage()
+    private XMLSerializationStorage()
     {
+        String defaultDir = System.getProperty("user.dir");
+        file = new File(defaultDir, "housekeeper_ser.xml");
         stockItems = new BasicEventList();
     }
 
@@ -71,7 +75,7 @@ final class XMLSerializationStorage implements Storage
     public void saveData() throws FileNotFoundException
     {
         XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(
-                new FileOutputStream(FILE)));
+                new FileOutputStream(file)));
         xmlEncoder.writeObject(new ArrayList(stockItems));
         xmlEncoder.close();
     }
@@ -84,7 +88,7 @@ final class XMLSerializationStorage implements Storage
     public void loadData() throws FileNotFoundException
     {
         XMLDecoder xmlDecoder = new XMLDecoder(new BufferedInputStream(
-                new FileInputStream(FILE)));
+                new FileInputStream(file)));
         List stock = (ArrayList) xmlDecoder.readObject();
         xmlDecoder.close();
 
@@ -106,7 +110,7 @@ final class XMLSerializationStorage implements Storage
      * (non-Javadoc)
      * 
      * @see net.sf.housekeeper.storage.DataMapper#
-     * add(net.sf.housekeeper.domain.StockItem)
+     *      add(net.sf.housekeeper.domain.StockItem)
      */
     public void add(final StockItem stockItem)
     {
@@ -117,7 +121,7 @@ final class XMLSerializationStorage implements Storage
      * (non-Javadoc)
      * 
      * @see net.sf.housekeeper.storage.DataMapper#
-     * remove(net.sf.housekeeper.domain.StockItem)
+     *      remove(net.sf.housekeeper.domain.StockItem)
      */
     public void remove(final StockItem item)
     {

@@ -33,7 +33,7 @@ public final class StorageFactory
 {
 
     /** An instance of the currently used storage technique. */
-    private static Storage currentStorage = new XMLSerializationStorage();
+    private static Storage currentStorage = XMLSerializationStorage.INSTANCE;
 
     /**
      * Prevents object instanciation.
