@@ -34,7 +34,9 @@ import org.springframework.richclient.application.config.DefaultApplicationLifec
 import org.springframework.richclient.command.ActionCommand;
 
 /**
- * Executes stuff if the lifecycle state of the application changes.
+ * Executes stuff if the lifecycle state of the application changes. Loads the
+ * data upon startup and opens a dialog asking the user if he wants to save
+ * before exiting.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
