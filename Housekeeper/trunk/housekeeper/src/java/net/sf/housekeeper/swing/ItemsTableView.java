@@ -30,9 +30,6 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.EventObject;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -45,11 +42,16 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.domain.Food;
+import net.sf.housekeeper.domain.FoodManager;
 import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.util.LocalisationManager;
 
+import org.springframework.richclient.application.PageComponentContext;
+import org.springframework.richclient.application.ViewDescriptor;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
+import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
@@ -68,7 +70,7 @@ import ca.odell.glazedlists.swing.TextFilterList;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class FoodTableView extends AbstractView
+public final class ItemsTableView extends AbstractView
 {
 
     /**
@@ -80,21 +82,28 @@ public final class FoodTableView extends AbstractView
 
     private String                category;
 
-    private final List            selectionListeners;
-
     private EventSelectionModel   selectionModel;
 
     private final JTable          table;
 
     private TextFilterList        textFiltered;
 
+    private FoodManager foodManager;
+    
+    private final EditCommandExecutor      editExecutor               = new EditCommandExecutor();
+
+    private final NewCommandExecutor       newItemExecutor = new NewCommandExecutor();
+
+    private final DuplicateCommandExecutor duplicateExecutor          = new DuplicateCommandExecutor();
+
+    private final DeleteCommandExecutor    deleteExecutor             = new DeleteCommandExecutor();
+
     /**
      * Creates a new view showing no items.
      *  
      */
-    public FoodTableView()
+    public ItemsTableView()
     {
-        this.selectionListeners = new LinkedList();
         table = new JTable();
 
         //Change selection to the entry the mouse pointer points at before
@@ -112,53 +121,42 @@ public final class FoodTableView extends AbstractView
         });
 
         setFoodList(new BasicEventList());
+        
+        newItemExecutor.setEnabled(true);
+        updateActionEnablement();
     }
-
-    /**
-     * Add a listener which gets informed if the selection changes.
+    
+    /*
+     * (non-Javadoc)
      * 
-     * @param listener The listener to add.
+     * @see org.springframework.richclient.application.support.AbstractView#registerLocalCommandExecutors(org.springframework.richclient.application.PageComponentContext)
      */
-    public void addTableSelectionListener(final EventObjectListener listener)
+    protected void registerLocalCommandExecutors(PageComponentContext context)
     {
-        selectionListeners.add(listener);
+        context.register(GlobalCommandIds.DELETE, deleteExecutor);
+        context.register("editCommand", editExecutor);
+        context.register("duplicateCommand", duplicateExecutor);
+        context.register("newCommand",
+                         newItemExecutor);
     }
-
+    
     /**
-     * Adds a MouseListener to the table.
+     * Sets the manager which holds the data to display.
      * 
-     * @param listener The listener to add.
+     * @param manager
      */
-    public void addTableMouseListener(final MouseListener listener)
+    public void setFoodManager(final FoodManager manager)
     {
-        table.addMouseListener(listener);
+        this.foodManager = manager;
+        setFoodList(manager.getSupplyList());
     }
-
-    /**
-     * Clears the current selection.
-     *  
-     */
-    public void clearSelection()
-    {
-        selectionModel.clearSelection();
-    }
-
-    /**
-     * Returns the category this table filters after.
-     * 
-     * @return The category. Is not null.
-     */
-    public String getCategory()
-    {
-        return category;
-    }
-
+    
     /**
      * Returns the selected object.
      * 
      * @return The selected object.
      */
-    public Food getSelected()
+    private Food getSelected()
     {
         if (!hasSelection())
         {
@@ -174,7 +172,7 @@ public final class FoodTableView extends AbstractView
      * 
      * @return True if a row has been selected, false otherwise.
      */
-    public boolean hasSelection()
+    private boolean hasSelection()
     {
         return !selectionModel.isSelectionEmpty();
     }
@@ -185,7 +183,7 @@ public final class FoodTableView extends AbstractView
      * 
      * @param commands A group of commands.
      */
-    public void setPopupMenuCommandGroup(CommandGroup commands)
+    private void setPopupMenuCommandGroup(CommandGroup commands)
     {
         final JPopupMenu popupMenu = commands.createPopupMenu();
         table.addMouseListener(new PopupMenuMouseListener(popupMenu));
@@ -196,7 +194,7 @@ public final class FoodTableView extends AbstractView
      * 
      * @param category
      */
-    public void setCategory(final String category)
+    private void setCategory(final String category)
     {
         this.category = category;
         setFilterText(category);
@@ -207,7 +205,7 @@ public final class FoodTableView extends AbstractView
      * 
      * @param list
      */
-    public void setFoodList(final EventList list)
+    private void setFoodList(final EventList list)
     {
         //Initialize sorted and filtered list
         final SortedList sortedList = new SortedList(list, null);
@@ -228,7 +226,31 @@ public final class FoodTableView extends AbstractView
     protected JComponent createControl()
     {
         assignDateColumnRenderer(table, 2);
+        
+        final MouseListener doubleClickListener = new MouseAdapter() {
 
+            public void mouseClicked(MouseEvent e)
+            {
+                if (e.getClickCount() == 2
+                        && e.getButton() == MouseEvent.BUTTON1)
+                {
+                    if (editExecutor.isEnabled())
+                    {
+                        editExecutor.execute();
+                    }
+                }
+            }
+        };
+        table.addMouseListener(doubleClickListener);
+
+        CommandGroup convCommandGroup = getWindowCommandManager()
+                .createCommandGroup(
+                                    "tablePopupCommandGroup",
+                                    new Object[] { "newCommand",
+                                            "duplicateCommand",
+                                            "editCommand", "deleteCommand" });
+        setPopupMenuCommandGroup(convCommandGroup);
+        
         final JPanel panel = new JPanel();
         //Without that, the tables won't grow and shrink with the window's
         // size.
@@ -254,7 +276,7 @@ public final class FoodTableView extends AbstractView
 
             public void valueChanged(ListSelectionEvent e)
             {
-                notifyListeners();
+                updateActionEnablement();
             }
         });
 
@@ -321,23 +343,102 @@ public final class FoodTableView extends AbstractView
         table.setModel(tableModel);
     }
 
-    /**
-     * Notifes the listeners of a selection change.
-     *  
-     */
-    private void notifyListeners()
-    {
-        final Iterator iter = selectionListeners.iterator();
-        while (iter.hasNext())
-        {
-            EventObjectListener l = (EventObjectListener) iter.next();
-            l.handleEvent(new EventObject(this));
-        }
-    }
-
     private void setFilterText(String text)
     {
         textFiltered.getFilterEdit().setText(text);
     }
+    
+    /**
+     * Opens an editor for the specified Item.
+     * 
+     * @param item The item to be edited.
+     * @return True if the dialog has been canceled, false otherwise.
+     */
+    private boolean openEditor(Food item)
+    {
+        final FoodEditorView editorView = new FoodEditorView(getActiveWindow()
+                .getControl());
+        final FoodEditorPresenter editor = new FoodEditorPresenter(editorView,
+                item);
+
+        return editor.show();
+    }
+
+    /**
+     * Enables and disables Actions (and thus the buttons) depending on the
+     * current selection state.
+     */
+    private void updateActionEnablement()
+    {
+        boolean hasSelection = hasSelection();
+        duplicateExecutor.setEnabled(hasSelection);
+        editExecutor.setEnabled(hasSelection);
+        deleteExecutor.setEnabled(hasSelection);
+    }
+    
+    private class DeleteCommandExecutor extends AbstractActionCommandExecutor
+    {
+
+        public void execute()
+        {
+            final Food selectedItem = getSelected();
+            foodManager.remove(selectedItem);
+        }
+    }
+
+    /**
+     * Duplicates the selected item.
+     */
+    private class DuplicateCommandExecutor extends
+            AbstractActionCommandExecutor
+    {
+
+        public void execute()
+        {
+            final Food selectedItem = getSelected();
+            foodManager.duplicate(selectedItem);
+        }
+    }
+
+    /**
+     * Shows a dialog for modifying the currently selected item and updates it.
+     */
+    private class EditCommandExecutor extends AbstractActionCommandExecutor
+    {
+
+        public void execute()
+        {
+            final Food selected = getSelected();
+            boolean canceled = openEditor(selected);
+            if (!canceled)
+            {
+                foodManager.update(selected);
+            }
+        }
+    }
+
+    /**
+     * Shows a dialog for adding a new item.
+     */
+    private class NewCommandExecutor extends AbstractActionCommandExecutor
+    {
+
+        private NewCommandExecutor()
+        {
+            super();
+        }
+
+        public void execute()
+        {
+            final Food item = new Food();
+            boolean canceled = openEditor(item);
+            if (!canceled)
+            {
+                item.setCategory(category);
+                foodManager.add(item);
+            }
+        }
+    }
+
 
 }

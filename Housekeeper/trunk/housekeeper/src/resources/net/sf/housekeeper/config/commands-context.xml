@@ -7,8 +7,7 @@
     class="org.springframework.richclient.application.support.ApplicationWindowCommandManager">
 		<property name="sharedCommandIds">
 			<list>
-        <value>newConvenienceFoodCommand</value>
-        <value>newMiscFoodCommand</value>
+        <value>newCommand</value>
         <value>duplicateCommand</value>
         <value>editCommand</value>
 				<value>deleteCommand</value>
@@ -32,9 +31,7 @@
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
 		<property name="members">
 			<list>
-        <value>newConvenienceFoodCommand</value>
-        <value>newMiscFoodCommand</value>
-        <value>separator</value>
+        <value>newCommand</value>
         <value>duplicateCommand</value>
         <value>editCommand</value>
 				<value>deleteCommand</value>

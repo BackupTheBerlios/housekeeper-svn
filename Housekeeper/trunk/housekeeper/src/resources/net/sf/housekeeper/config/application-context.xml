@@ -112,8 +112,8 @@
     <property name="id"><value>initialPageLayout</value></property> 
     <property name="views"> 
       <list>
+        <ref bean="itemViewLocationDescriptor"/>
         <ref bean="categoryViewLocationDescriptor"/>
- 		    <ref bean="itemViewLocationDescriptor"/>
       </list> 
     </property> 
   </bean> 
@@ -143,7 +143,7 @@
 	<bean id="supplyView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 		<property name="viewClass">
-			<value>net.sf.housekeeper.swing.SupplyView</value>
+			<value>net.sf.housekeeper.swing.ItemsTableView</value>
 		</property>
     <property name="viewProperties">
       <map>

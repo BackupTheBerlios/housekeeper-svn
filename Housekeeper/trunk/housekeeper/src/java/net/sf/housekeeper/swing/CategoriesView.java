@@ -22,8 +22,8 @@
 package net.sf.housekeeper.swing;
 
 import javax.swing.JComponent;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
 
 import org.springframework.richclient.application.support.AbstractView;
 
@@ -32,25 +32,20 @@ import org.springframework.richclient.application.support.AbstractView;
  * @author
  * @version $Revision$, $Date$
  */
-public class CategoriesView extends AbstractView
+public final class CategoriesView extends AbstractView
 {
 
+    private JList list;
+        
     /* (non-Javadoc)
      * @see org.springframework.richclient.application.support.AbstractView#createControl()
      */
     protected JComponent createControl()
     {
-        final DefaultMutableTreeNode root = new DefaultMutableTreeNode("All");
-        final DefaultMutableTreeNode food = new DefaultMutableTreeNode("Food");
-        final DefaultMutableTreeNode conv = new DefaultMutableTreeNode("Convenience Food");
-        final DefaultMutableTreeNode misc = new DefaultMutableTreeNode("Misc");
-        
-        food.add(conv);
-        food.add(misc);
-        root.add(food);
-        
-        final JTree tree = new JTree(root);
-        return tree;
+        final Object[] listItems = { "convenienceFood", "miscFood" };
+        list = new JList(listItems);
+        list.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+        return list;
     }
-
 }
