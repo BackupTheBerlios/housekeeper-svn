@@ -24,13 +24,7 @@ package net.sourceforge.housekeeper.swing.articledescription;
 
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.storage.StorageFactory;
-import net.sourceforge.housekeeper.swing.DataUpdateMediator;
-
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.table.AbstractTableModel;
+import net.sourceforge.housekeeper.swing.TableModelTemplate;
 
 
 /**
@@ -41,32 +35,8 @@ import javax.swing.table.AbstractTableModel;
  *
  * @since 0.1
  */
-public final class ArticleDescriptionTableModel extends AbstractTableModel
-    implements Observer
+public final class ArticleDescriptionTableModel extends TableModelTemplate
 {
-    //~ Static fields/initializers ---------------------------------------------
-
-    /** Singleton instance */
-    private static final ArticleDescriptionTableModel INSTANCE = new ArticleDescriptionTableModel();
-
-    /** Double class */
-    private static final Class DOUBLECLASS = new Double(0).getClass();
-
-    /** Integer class */
-    private static final Class INTEGERCLASS = new Integer(0).getClass();
-
-    /** String class */
-    private static final Class STRINGCLASS = new String().getClass();
-
-    /** The classes of the data of the table's columns */
-    private static final Class[] COLUMNCLASSES = 
-                                                 {
-                                                     STRINGCLASS,
-                                                     STRINGCLASS,
-                                                     INTEGERCLASS,
-                                                     STRINGCLASS,
-                                                     DOUBLECLASS
-                                                 };
 
     /** Header names for the table */
     private static final String[] COLUMNHEADERS = 
@@ -78,84 +48,26 @@ public final class ArticleDescriptionTableModel extends AbstractTableModel
                                                       "Price"
                                                   };
 
-    //~ Instance fields --------------------------------------------------------
-
-    /** Holds the ArticleDescription objects */
-    private Object[] tableData;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
      * Creates a new ArticleDescriptionModel object.
      */
-    private ArticleDescriptionTableModel()
+    public ArticleDescriptionTableModel()
     {
-        updateTableData();
-        DataUpdateMediator.getInstance().addObserver(this);
+        super(COLUMNHEADERS);
     }
 
     //~ Methods ----------------------------------------------------------------
 
-    /**
-     * Returns the Singleton instance of this class.
-     *
-     * @return The Singleton instance
-     */
-    public static ArticleDescriptionTableModel getInstance()
-    {
-        return INSTANCE;
-    }
-
-    /* (non-Javadoc)
-     * @see javax.swing.table.TableModel#getColumnClass(int)
-     */
-    public Class getColumnClass(int columnIndex)
-    {
-        return COLUMNCLASSES[columnIndex];
-    }
-
-    /* (non-Javadoc)
-     * @see javax.swing.table.TableModel#getColumnCount()
-     */
-    public int getColumnCount()
-    {
-        return COLUMNHEADERS.length;
-    }
-
-    /* (non-Javadoc)
-     * @see javax.swing.table.TableModel#getColumnName(int)
-     */
-    public String getColumnName(int columnIndex)
-    {
-        return COLUMNHEADERS[columnIndex];
-    }
-
-    /**
-     * Returns the ArticleDescription object at the given row.
-     *
-     * @param row Row of the object to be returned.
-     *
-     * @return The object at te given row.
-     */
-    public ArticleDescription getObjectAtRow(int row)
-    {
-        return (ArticleDescription)tableData[row];
-    }
-
-    /* (non-Javadoc)
-     * @see javax.swing.table.TableModel#getRowCount()
-     */
-    public int getRowCount()
-    {
-        return tableData.length;
-    }
 
     /* (non-Javadoc)
      * @see javax.swing.table.TableModel#getValueAt(int, int)
      */
     public Object getValueAt(int rowIndex, int columnIndex)
     {
-        ArticleDescription article = (ArticleDescription)tableData[rowIndex];
+        ArticleDescription article = (ArticleDescription)getObjectAtRow(rowIndex);
 
         switch (columnIndex)
         {
@@ -177,23 +89,5 @@ public final class ArticleDescriptionTableModel extends AbstractTableModel
             default:
                 return null;
         }
-    }
-
-    /* (non-Javadoc)
-     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-     */
-    public void update(Observable o, Object arg)
-    {
-        updateTableData();
-        fireTableDataChanged();
-    }
-
-    /**
-     * Fetches the current list of Article Descriptions from the storage.
-     */
-    private void updateTableData()
-    {
-        tableData = StorageFactory.getCurrentStorage()
-                                  .getAllArticleDescriptions().toArray();
     }
 }

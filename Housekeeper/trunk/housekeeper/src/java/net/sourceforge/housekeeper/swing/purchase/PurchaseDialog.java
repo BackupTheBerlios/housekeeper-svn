@@ -23,10 +23,22 @@
 package net.sourceforge.housekeeper.swing.purchase;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.swing.MainFrame;
+import net.sourceforge.housekeeper.swing.SwingUtils;
+import net.sourceforge.housekeeper.swing.articledescription.ArticleDescriptionTableModel;
 
 
 /**
@@ -41,18 +53,60 @@ import net.sourceforge.housekeeper.swing.MainFrame;
 public final class PurchaseDialog extends JDialog
 {
     
-    //~ Constructors -----------------------------------------------------------
+    private TableModel model;
+
+	//~ Constructors -----------------------------------------------------------
     public PurchaseDialog()
     {
         super(MainFrame.INSTANCE, true);
-        getContentPane().add(new ArticleSelection());
+        
+        
+        JTable table = new JTable(new ArticleDescriptionTableModel());
+        
+        final String[] COLUMNHEADERS = 
+                                                      {
+                                                          "Name",
+                                                          "Dealer",
+                                                          "Quantity",
+                                                          "Unit",
+                                                          "Price"
+                                                      };
+        
+		model = new DefaultTableModel(COLUMNHEADERS, 1);
+        JTable selected = new JTable(model);
+        
+        JPanel first = new JPanel();
+        first.setLayout(new BoxLayout(first, BoxLayout.X_AXIS));
+        first.add(new JScrollPane(table));
+        
+        JButton add = new JButton("Add");
+
+        first.add(new JButton("Add"));
+        first.add(new JScrollPane(selected));        
+        
+        getContentPane().add(first);
+        
     }
     
     public Purchase show(String title)
     {
-        
+        setTitle(title);
+        pack();
+        SwingUtils.centerOnComponent(this, getParent());
+        show();
         return null;
     }
     
+    private class AddButtonListener implements ActionListener
+    {
+
+		public void actionPerformed(ActionEvent e)
+		{
+            DefaultTableModel m = (DefaultTableModel)model;
+
+			
+		}
+        
+    }
     
 }

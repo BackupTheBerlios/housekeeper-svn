@@ -24,8 +24,13 @@ package net.sourceforge.housekeeper.swing.articledescription;
 
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.DataUpdateMediator;
+import net.sourceforge.housekeeper.swing.TableModelTemplate;
 
 import java.awt.BorderLayout;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -43,7 +48,7 @@ import javax.swing.ListSelectionModel;
  *
  * @since 0.1
  */
-public final class ArticleDescriptionPanel extends JPanel
+public final class ArticleDescriptionPanel extends JPanel implements Observer
 {
     //~ Static fields/initializers ---------------------------------------------
 
@@ -55,6 +60,7 @@ public final class ArticleDescriptionPanel extends JPanel
     private JPanel      buttonPanel;
     private JScrollPane scrollPane;
     private JTable      table;
+    private TableModelTemplate model;
 
     //~ Constructors -----------------------------------------------------------
 
@@ -63,7 +69,8 @@ public final class ArticleDescriptionPanel extends JPanel
      */
     private ArticleDescriptionPanel()
     {
-        table       = new JTable(ArticleDescriptionTableModel.getInstance());
+        model = new ArticleDescriptionTableModel();
+        table       = new JTable(model);
         scrollPane  = new JScrollPane(table);
         buttonPanel = new JPanel();
 
@@ -75,6 +82,8 @@ public final class ArticleDescriptionPanel extends JPanel
         add(scrollPane, BorderLayout.CENTER);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        DataUpdateMediator.getInstance().addObserver(this);
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -103,11 +112,16 @@ public final class ArticleDescriptionPanel extends JPanel
         {
             ArticleDescriptionTableModel tableModel = (ArticleDescriptionTableModel)table.getModel();
 
-            return tableModel.getObjectAtRow(selectedRow);
+            return (ArticleDescription)tableModel.getObjectAtRow(selectedRow);
         }
         else
         {
             return null;
         }
     }
+
+	public void update(Observable arg0, Object arg1)
+	{
+		model.setTableData(StorageFactory.getCurrentStorage().getAllArticleDescriptions());
+	}
 }
