@@ -156,7 +156,7 @@ final class StockPanel extends JPanel
             spinnerModel.setStart(today);
             final JSpinner spinner = new JSpinner(spinnerModel);
             spinner.setEditor(new DateEditor(spinner));
-            d.addElement("Best Before End", spinner, compWidth);
+            d.addElement("Best Before", spinner, compWidth);
 
             final int dialogState = d.display();
             if (dialogState == StandardDialog.APPROVE)
@@ -209,17 +209,17 @@ final class StockPanel extends JPanel
 
                 final SpinnerDateModel spinnerModel = new SpinnerDateModel();
                 spinnerModel.setStart(today);
-                spinnerModel.setValue(item.getBestBeforeEnd());
+                spinnerModel.setValue(item.getBestBefore());
                 final JSpinner spinner = new JSpinner(spinnerModel);
                 spinner.setEditor(new DateEditor(spinner));
-                d.addElement("Best Before End", spinner, compWidth);
+                d.addElement("Best Before", spinner, compWidth);
 
                 final int dialogState = d.display();
                 if (dialogState == StandardDialog.APPROVE)
                 {
                     item.setName(nameField.getText());
                     item.setQuantity(quantityField.getText());
-                    item.setBestBeforeEnd(spinnerModel.getDate());
+                    item.setBestBefore(spinnerModel.getDate());
 
                     StorageFactory.getCurrentStorage().update(item);
                 }

@@ -134,7 +134,7 @@ final class StockTableFactory
         public String getFieldName(final int arg0)
         {
             if (arg0 == 0) { return "Item"; }
-            return "Best before end";
+            return "Best before";
         }
 
         /*
@@ -148,7 +148,7 @@ final class StockTableFactory
             final StockItem item = (StockItem) arg0;
 
             if (arg1 == 0) { return item; }
-            return item.getBestBeforeEnd();
+            return item.getBestBefore();
         }
 
         /*
