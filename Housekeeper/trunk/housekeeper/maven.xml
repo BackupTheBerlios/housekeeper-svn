@@ -3,18 +3,16 @@
   xmlns:core="jelly:core"
   xmlns:deploy="deploy">
   
-  <goal name="package">
-
-  	<core:set 
-        var="outputPath" 
-        value="${maven.build.dir}/release"/>
-    
+  <goal name="package">    
+	  <attainGoal name="package-create-archives" />
+  </goal>
+  
+  <goal name="package-prepare-release">
+    <core:set var="outputPath" value="${maven.build.dir}/release"/>
     <attainGoal name="clean" />
-	<attainGoal name="package-copy-misc" />
-	<attainGoal name="package-setup-scripts" />
-	<attainGoal name="package-copy-jars" />
-    <attainGoal name="package-create-archives" />
-    <attainGoal name="package-create-installer" />
+    <attainGoal name="package-copy-misc" />
+    <attainGoal name="package-setup-scripts" />
+    <attainGoal name="package-copy-jars" />
   </goal>
   
   <goal name="package-copy-misc">
@@ -24,7 +22,7 @@
       <ant:fileset dir="${basedir}/dist/"/>
     </ant:copy>
   	
-    <ant:chmod file="${outputPath}/housekeeper.sh" perm="+x"/>
+    <ant:chmod file="${outputPath}/housekeeper.sh" perm="a+x"/>
   </goal>
   
   <goal name="package-copy-jars">
@@ -41,6 +39,8 @@
   </goal>
   
   <goal name="package-create-installer">
+    <attainGoal name="package-prepare-release" />
+    
   	<ant:copy file="${basedir}/conf/installer_config.xml" todir="${maven.build.dir}"/>
   	<ant:copy file="${basedir}/conf/packsLang_deu.xml" todir="${outputPath}"/>
   	<ant:copy file="${basedir}/conf/readme.html" todir="${outputPath}"/>
@@ -57,6 +57,8 @@
   </goal>
   
   <goal name="package-create-archives">
+    <attainGoal name="package-prepare-release" />
+    
     <ant:zip zipfile="${maven.build.dir}/${maven.final.name}.zip">
       <ant:zipfileset dir="${outputPath}" prefix="Housekeeper"/>
     </ant:zip>
