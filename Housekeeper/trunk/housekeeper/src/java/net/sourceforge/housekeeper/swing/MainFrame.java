@@ -26,6 +26,7 @@ package net.sourceforge.housekeeper.swing;
 import com.jgoodies.plaf.Options;
 import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -38,7 +39,7 @@ import javax.swing.UIManager;
  *
  * @author Adrian Gygax
  */
-public final class MainFrame extends ExtendedFrame
+public final class MainFrame extends JFrame
 {
     //~ Static fields/initializers ---------------------------------------------
 
@@ -76,7 +77,7 @@ public final class MainFrame extends ExtendedFrame
         //setSize(400, 400);
         setTitle("Housekeeper");
         pack();
-        center();
+        SwingUtils.centerOnScreen(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
