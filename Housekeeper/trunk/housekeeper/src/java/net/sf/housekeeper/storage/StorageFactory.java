@@ -22,7 +22,6 @@
 
 package net.sf.housekeeper.storage;
 
-import net.sf.housekeeper.storage.xmlser.XMLSerializationFactory;
 
 
 /**
@@ -38,7 +37,7 @@ public final class StorageFactory
     //~ Static fields/initializers ---------------------------------------------
 
     /** An instance of the currently used storage technique */
-    private static DataMapperFactory currentStorage = new XMLSerializationFactory();
+    private static Storage currentStorage = new XMLSerializationStorage();
 
     //~ Constructors -----------------------------------------------------------
 
@@ -57,7 +56,7 @@ public final class StorageFactory
      *
      * @return Currently used storage technique.
      */
-    public static DataMapperFactory getCurrentStorage()
+    public static Storage getCurrentStorage()
     {
         return currentStorage;
     }

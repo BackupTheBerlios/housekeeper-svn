@@ -33,12 +33,8 @@ final class DeleteStockItemAction extends AbstractAction
 
         if (item != null)
         {
-            StorageFactory.getCurrentStorage().getStockItemMapper()
-                    .remove(item);
+            StorageFactory.getCurrentStorage().remove(item);
             DataUpdateMediator.getInstance().update();
-
         }
-
     }
-
 }

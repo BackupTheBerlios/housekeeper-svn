@@ -32,10 +32,8 @@ final class NewStockItemAction extends AbstractAction
 
         if (item != null)
         {
-            StorageFactory.getCurrentStorage().getStockItemMapper().add(item);
+            StorageFactory.getCurrentStorage().add(item);
             DataUpdateMediator.getInstance().update();
         }
-
     }
-
 }
