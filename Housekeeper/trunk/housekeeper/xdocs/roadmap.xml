@@ -1,271 +1,275 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-
 <document>
-  <properties>
-    <title>Roadmap</title>
-    <author>Adrian Gygax</author>
-  </properties>
-  <body>
-    <section name="Roadmap">
-      <table>
-        <tr>
-          <th style="width:50px">Version</th>
-          <th>Date</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>
-            <a href="#0_3">0.3</a>
-          </td>
-          <td>
-          </td>
-          <td>A sophisticated single-user application.</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#0_4">0.4</a>
-          </td>
-          <td>
-          </td>
-          <td>Introducing multi-user support.</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#0_5">0.5</a>
-          </td>
-          <td>
-          </td>
-          <td>An application that manages the issues arrising in households with multiple persons. (especially communities)</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#1_0">1.0</a>
-          </td>
-          <td>
-          </td>
-          <td>Improved usability and stability.</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#1_2">1.2</a>
-          </td>
-          <td>
-          </td>
-          <td>Comprehensive household management software.</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#2_0">2.0</a>
-          </td>
-          <td>
-          </td>
-          <td>J2EE application.</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#Special">Special features</a>
-          </td>
-          <td>
-          </td>
-          <td>Special features which are particularly interesting.</td>
-        </tr>
-      </table>
-    </section>
-    <section name="Release 0.3">
-      <a name="0_3">
-      </a>
-      <table>
-        <tr>
-          <th style="width:50px">Type</th>
-          <th>Changes</th>
-        </tr>
-        <tr>
-            <td>
-                <img alt="add" title="add" src="images/add.gif">
-                </img>
-            </td>
-            <td>Shopping list</td>
-        </tr>
-        <tr>
-            <td>
-                <img alt="add" title="add" src="images/add.gif">
-                </img>
-            </td>
-            <td>Multiple language support</td>
-        </tr>
-
-      </table>
-    </section>
-    <section name="Release 0.4">
-      <a name="0_4">
-      </a>
-      <table>
-        <tr>
-          <th style="width:50px">Type</th>
-          <th>Changes</th>
-        </tr>
-        <tr>
-            <td>
-                <img alt="add" title="add" src="images/add.gif">
-                </img>
-            </td>
-            <td>Management of "who has bought what and who has to pay for 
-                what".</td>
-        </tr>
-        <tr>
-            <td>
-                <img alt="add" title="add" src="images/add.gif">
-                </img>
-            </td>
-            <td>Persistent saving to arbitrary FTP server (Multi-computer 
-                support).</td>
-        </tr>
-      </table>
-    </section>
-    <section name="Release 0.5">
-      <a name="0_5">
-      </a>
-      <table>
-        <tr>
-          <th style="width:50px">Type</th>
-          <th>Changes</th>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Management of household jobs (toilet cleaning, shopping).</td>
-        </tr>
-      </table>
-    </section>
-    <section name="Release 1.0">
-      <a name="1_0">
-      </a>
-      <table>
-        <tr>
-          <th style="width:50px">Type</th>
-          <th>Changes</th>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Management of meals (Recurring combined usage of items).</td>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Database support.</td>
-        </tr>
-      </table>
-    </section>
-    <section name="Release 1.2">
-      <a name="1_2">
-      </a>
-      <table>
-        <tr>
-          <th style="width:50px">Type</th>
-          <th>Changes</th>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Management of meals (Recurring combined usage of items).</td>
-        </tr>
-      </table>
-    </section>
-    <section name="Release 2.0">
-      <a name="2_0">
-      </a>
-      <table>
-        <tr>
-          <th style="width:50px">Type</th>
-          <th>Changes</th>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Convert to a J2EE application.</td>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Web user interface.</td>
-        </tr>
-        <tr>
-            <td>
-                <img alt="add" title="add" src="images/add.gif">
-                </img>
-            </td>
-            <td>Provide mulitiple household support (this would enable a 
-                student's portal website to offer housekeeper as a 
-                service).</td>
-        </tr>
-      </table>
-    </section>
-    <section name="Special features">
-      <a name="Future">
-      </a>
-      <table>
-        <tr>
-          <th style="width:50px">Type</th>
-          <th>Changes</th>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Fetch meals from the Internet.</td>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Fetch lists of food items from the stores.</td>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Electronic shopping lists for cell phones.</td>
-        </tr>
-        <tr>
-            <td>
-                <img alt="add" title="add" src="images/add.gif">
-                </img>
-            </td>
-            <td>Use cell phone's camera for capturing barcodes for automatic 
-                item management.</td>
-        </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Cell phone based access application.</td>
-        </tr>
-		<tr>
-        <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-        </td>
-        <td>Propose meals from the user's past consumation 
-            behaviour.</td>
-    	</tr>
-      </table>
-    </section>
-  </body>
+    <properties>
+        <title>Roadmap</title>
+        <author>Adrian Gygax</author>
+    </properties>
+    <body>
+        <section name="Roadmap">
+            <table>
+                <tr>
+                    <th style="width:50px">Version</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#0_3">0.3</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>A sophisticated single-user application.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#0_4">0.4</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>Introducing multi-user support.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#0_5">0.5</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>An application that manages the issues arrising in 
+                        households with multiple persons. (especially 
+                        communities)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#1_0">1.0</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>Improved usability and stability.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#1_2">1.2</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>Comprehensive household management software.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#2_0">2.0</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>J2EE application.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#Special">Special features</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>Special features which are particularly 
+                        interesting.</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Release 0.3">
+            <a name="0_3">
+            </a>
+            <table>
+                <tr>
+                    <th style="width:50px">Type</th>
+                    <th>Changes</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Shopping list</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Multiple language support</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Release 0.4">
+            <a name="0_4">
+            </a>
+            <table>
+                <tr>
+                    <th style="width:50px">Type</th>
+                    <th>Changes</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Management of "who has bought what and who has to pay 
+                        for what".</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Persistent saving to arbitrary FTP server 
+                        (Multi-computer support).</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Release 0.5">
+            <a name="0_5">
+            </a>
+            <table>
+                <tr>
+                    <th style="width:50px">Type</th>
+                    <th>Changes</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Management of household jobs (toilet cleaning, 
+                        shopping).</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Release 1.0">
+            <a name="1_0">
+            </a>
+            <table>
+                <tr>
+                    <th style="width:50px">Type</th>
+                    <th>Changes</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Management of meals (Recurring combined usage of 
+                        items).</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Database support.</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Release 1.2">
+            <a name="1_2">
+            </a>
+            <table>
+                <tr>
+                    <th style="width:50px">Type</th>
+                    <th>Changes</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Management of meals (Recurring combined usage of 
+                        items).</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Release 2.0">
+            <a name="2_0">
+            </a>
+            <table>
+                <tr>
+                    <th style="width:50px">Type</th>
+                    <th>Changes</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Convert to a J2EE application.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Web user interface.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Provide mulitiple household support (this would enable 
+                        a student's portal website to offer housekeeper as a 
+                        service).</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Special features">
+            <a name="Future">
+            </a>
+            <table>
+                <tr>
+                    <th style="width:50px">Type</th>
+                    <th>Changes</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Fetch meals from the Internet.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Fetch lists of food items from the stores.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Electronic shopping lists for cell phones.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Use cell phone's camera for capturing barcodes for 
+                        automatic item management.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Cell phone based access application.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="add" title="add" src="images/add.gif">
+                        </img>
+                    </td>
+                    <td>Propose meals from the user's past consumation 
+                        behaviour.</td>
+                </tr>
+            </table>
+        </section>
+    </body>
 </document>
