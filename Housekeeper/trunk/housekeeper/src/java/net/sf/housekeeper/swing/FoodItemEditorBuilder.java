@@ -21,8 +21,8 @@
 
 package net.sf.housekeeper.swing;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import javax.swing.JComponent;
 import javax.swing.JSpinner;
@@ -30,7 +30,6 @@ import javax.swing.JTextField;
 
 import net.sf.housekeeper.domain.FoodItem;
 import net.sf.housekeeper.swing.util.BoundComponentFactory;
-import net.sf.housekeeper.swing.util.DateEditor;
 import net.sf.housekeeper.swing.util.FormBuilder;
 
 import com.jgoodies.binding.PresentationModel;
@@ -48,7 +47,7 @@ public class FoodItemEditorBuilder
     /**
      * Component for the item's expiry date.
      */
-    private JSpinner     dateSpinner;
+    private JSpinner                dateSpinner;
 
     /**
      * Component for the item's name.
@@ -102,10 +101,13 @@ public class FoodItemEditorBuilder
                 .getBufferedModel(FoodItem.PROPERTYNAME_QUANTITY));
         dateSpinner = BoundComponentFactory.createDateSpinner(presentationModel
                 .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY));
-        //final SimpleDateFormat dateFormat = (SimpleDateFormat)SimpleDateFormat.getDateInstance();
-        //final String formatPattern = dateFormat.toPattern();
-        //dateSpinner.setEditor(new DateEditor(dateSpinner));
-        
-        System.out.println(((JSpinner.DateEditor)dateSpinner.getEditor()).getFormat().toPattern());
+
+        //Set the spinner's editor to use the current locale's short date
+        // format
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
+                .getDateInstance(DateFormat.SHORT);
+        final String formatPattern = dateFormat.toPattern();
+        dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner,
+                formatPattern));
     }
 }

@@ -21,9 +21,13 @@
 
 package net.sf.housekeeper.swing.util;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+
+import org.apache.commons.lang.time.DateUtils;
 
 import com.jgoodies.binding.value.ValueModel;
 
@@ -60,8 +64,12 @@ public final class BoundComponentFactory
         assert valueModel != null : "Parameter valueModel must not be null";
         assert valueModel.getValue().getClass().equals(Date.class) : "valueModel must provide Date objects as values";
 
-        final JSpinner spinner = new JSpinner();
-        spinner.setModel(new SpinnerDateModelAdapter(valueModel));
+        final SpinnerDateModel model = new SpinnerDateModelAdapter(valueModel);
+        //Need to truncate the current date for correct spinner operation
+        model.setStart(DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH));
+        model.setCalendarField(Calendar.DAY_OF_MONTH);
+        
+        final JSpinner spinner = new JSpinner(model);
         return spinner;
     }
 

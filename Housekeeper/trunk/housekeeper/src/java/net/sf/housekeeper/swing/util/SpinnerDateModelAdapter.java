@@ -23,7 +23,6 @@ package net.sf.housekeeper.swing.util;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.SpinnerDateModel;
@@ -48,7 +47,9 @@ public class SpinnerDateModelAdapter extends SpinnerDateModel implements
     private final ValueModel subject;
 
     /**
-     * Creates a new adapter which synchronizes with <code>subject</code>.
+     * Creates a new adapter which synchronizes with <code>subject</code>. The
+     * initial date is set to the subject's value. All other settings use the
+     * defaults from {@link SpinnerDateModel#SpinnerDateModel()}.
      * 
      * @param subject The subject to synchronize the date with. Must not be null
      *            and must provide {@link Date}objects as values.
@@ -61,8 +62,6 @@ public class SpinnerDateModelAdapter extends SpinnerDateModel implements
 
         this.subject = subject;
 
-        setStart(new Date());
-        setCalendarField(Calendar.DAY_OF_MONTH);
         setValue(subject.getValue());
 
         subject.addValueChangeListener(this);
