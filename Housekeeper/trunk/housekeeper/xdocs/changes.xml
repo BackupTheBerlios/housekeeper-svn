@@ -5,9 +5,8 @@
   </properties>
   <body>
     <release version="0.1.2" date="in CVS">
-      <action dev="notizklotz" type="add" issue="960660">
-        Implemented new persistence layer using Castor XML mapping.
-      </action>
+        <action dev="notizklotz" type="add" issue="960660"> Implemented robust 
+            persistence layer using JDOM for reading and writing XML. </action>
     </release>
     <release version="0.1.1" date="2004-07-07">
       <action dev="notizklotz" type="add">

@@ -35,7 +35,7 @@ public final class PersistenceServiceFactory
     /**
      * An instance of the currently used persistence service implementation.
      */
-    private static PersistenceService currentService = new CastorXMLMapping();
+    private static PersistenceService currentService = new JDOMPersistence();
 
     /**
      * Prevents instanciation.

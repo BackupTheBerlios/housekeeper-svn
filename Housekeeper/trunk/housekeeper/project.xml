@@ -95,7 +95,7 @@
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
     </dependency>
     
-        <dependency>
+    <dependency>
     	<groupId>jgoodies</groupId>
     	<artifactId>binding</artifactId>
     	<version>1.0b2</version>
@@ -103,17 +103,10 @@
     </dependency>
     
 	<dependency>
-		<groupId>castor</groupId>
-		<artifactId>castor</artifactId>
-		<version>0.9.5.3-xml</version>
-		<url>http://www.castor.org</url>
-	</dependency>
-    
-    <dependency>
-        <groupId>xerces</groupId>
-        <artifactId>xercesImpl</artifactId>
-        <version>2.6.2</version>
-        <url>http://xml.apache.org/xerces2-j</url>
+        <groupId>jdom</groupId>
+        <artifactId>jdom</artifactId>
+        <version>1.0</version>
+        <url>http://www.jdom.org</url>
     </dependency>
     
     <dependency>

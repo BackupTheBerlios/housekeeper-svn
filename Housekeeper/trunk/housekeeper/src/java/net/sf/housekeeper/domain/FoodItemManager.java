@@ -21,6 +21,9 @@
 
 package net.sf.housekeeper.domain;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javax.swing.ListModel;
 
 import com.jgoodies.binding.list.ArrayListModel;
@@ -72,6 +75,27 @@ public final class FoodItemManager
     public ListModel getSupply()
     {
         return supply;
+    }
+
+    /**
+     * Clears the list of all food items on hand and replaces it with a new one.
+     * 
+     * @param foodItems A collection of food items.
+     */
+    public void replaceAll(final Collection foodItems)
+    {
+        supply.clear();
+        supply.addAll(foodItems);
+    }
+
+    /**
+     * Provides an iterator for the list of items on hand.
+     * 
+     * @return an iterator for the list of items on hand.
+     */
+    public Iterator getSupplyIterator()
+    {
+        return supply.iterator();
     }
 
     /**
