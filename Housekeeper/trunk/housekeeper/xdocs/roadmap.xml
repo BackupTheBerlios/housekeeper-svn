@@ -71,11 +71,11 @@
         </tr>
         <tr>
           <td>
-            <a href="#Future">Future</a>
+            <a href="#Special">Special features</a>
           </td>
           <td>
           </td>
-          <td>Include Webservices support.</td>
+          <td>Special features which are particularly interesting.</td>
         </tr>
       </table>
     </section>
@@ -321,7 +321,7 @@
         </tr>
       </table>
     </section>
-    <section name="Release Future - ">
+    <section name="Special features - ">
       <a name="Future">
       </a>
       <table>
@@ -380,6 +380,28 @@
             </img>
           </td>
           <td>Cell phone based access application.</td>
+          <td>
+            <a href="team-list.html#">
+            </a>
+          </td>
+        </tr>
+	<tr>
+          <td>
+            <img alt="add" title="add" src="images/add.gif">
+            </img>
+          </td>
+          <td>Generate new recipes from available ingredients.</td>
+          <td>
+            <a href="team-list.html#">
+            </a>
+          </td>
+        </tr>
+	<tr>
+          <td>
+            <img alt="add" title="add" src="images/add.gif">
+            </img>
+          </td>
+          <td>Propose meals/recipes/items from the user's past consumation behaviour.</td>
           <td>
             <a href="team-list.html#">
             </a>
