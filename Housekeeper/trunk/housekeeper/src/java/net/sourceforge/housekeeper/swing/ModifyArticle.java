@@ -60,9 +60,7 @@ public class ModifyArticle extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        Article article = (Article)StorageFactory.getCurrentStorage()
-                                   .getArticles().get(ArticlePanel.INSTANCE.getTable()
-                                                      .getSelectedRow());
+        Article article = ArticlePanel.INSTANCE.getSelectedArticle();
 
         ArticleDialog d = new ArticleDialog();
         d.show("Modify Article", article);
