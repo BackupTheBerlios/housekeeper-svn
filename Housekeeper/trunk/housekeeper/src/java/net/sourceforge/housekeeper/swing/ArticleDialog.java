@@ -7,9 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.extras.DefaultFormBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
-import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -59,27 +58,27 @@ public class ArticleDialog extends ExtendedDialog
 	
 	private void buildLayout()
 	{
+
 		FormLayout layout = new FormLayout(
-			"right:pref, 3dlu, 40dlu, 40dlu", // columns
-			"p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p");  //rows
+					"right:pref, 3dlu, 40dlu, 80dlu", // columns
+					"");
+		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 		
-		PanelBuilder builder = new PanelBuilder(layout);
 		builder.setDefaultDialogBorder();
 		
-		CellConstraints cc = new CellConstraints();
-		builder.addLabel("Name",       cc.xy  (1,  1));
-		builder.add(nameField,         cc.xywh(3,  1, 2, 1));
-		builder.addLabel("Store",       cc.xy  (1,  3));
-		builder.add(storeField,         cc.xywh(3,  3, 2, 1));
-		builder.addLabel("Price",       cc.xy  (1,  5));
-		builder.add(priceField,         cc.xywh(3,  5, 1, 1));
-		builder.addLabel("Quantity",       cc.xy  (1,  7));
-		builder.add(quantityField,         cc.xywh(3,  7, 1, 1));
-		builder.addLabel("Unit",       cc.xy  (1,  9));
-		builder.add(unitField,         cc.xywh(3,  9, 1, 1));
-		builder.add(buildButtonBar(), cc.xywh(1, 11, 4, 1));
+		builder.appendTitle("New Article");
+		builder.nextLine();
 		
-	
+		builder.append("Name", nameField, 2);
+		builder.append("Store", storeField, 2);
+		builder.append("Price", priceField);
+		builder.append("Quantity", quantityField);
+		builder.append("Unit", unitField);
+		
+		builder.appendSeparator();
+		
+		builder.append(buildButtonBar(), 4);
+		
 		setContentPane(builder.getPanel());
 	}
 	
