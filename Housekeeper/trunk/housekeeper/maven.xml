@@ -1,7 +1,7 @@
 <project
   xmlns:ant="jelly:ant"
   xmlns:core="jelly:core"
-  xmlns:deploy="deploy">
+  xmlns:archive="release:archive">
   
   <goal name="package">    
 	  <attainGoal name="package-create-archives" />
@@ -32,28 +32,30 @@
     <attainGoal name="jar" />
     <ant:copy file="${maven.build.dir}/${maven.final.name}.jar" 
       todir="${outputPath}"/>
-    <deploy:copy-deps todir="${outputPath}/lib" 
-      excludes="maven-statcvs-plugin,xmlunit"/>
+    <archive:copy-dependencies category="shared" todir="${outputPath}/lib"/>
   </goal>
   
   <goal name="package-setup-scripts">
     <attainGoal name="package-copy-misc" />
-    <ant:replace dir="${outputPath}" includes="housekeeper.bat,housekeeper.sh" token="@@HOUSEKEEPER_JAR@@" value="${maven.final.name}.jar"/>
+    <ant:replace dir="${outputPath}" includes="housekeeper.bat,housekeeper.sh" 
+      token="@@HOUSEKEEPER_JAR@@" value="${maven.final.name}.jar"/>
   </goal>
-  
+
   <goal name="package-create-archives">
     <attainGoal name="package-prepare-release" />
-    
     <ant:zip zipfile="${maven.build.dir}/${maven.final.name}.zip">
       <ant:zipfileset dir="${outputPath}" prefix="Housekeeper"/>
     </ant:zip>
-    
-    <ant:tar longfile="gnu" compression="gzip" tarfile="${maven.build.dir}/${maven.final.name}.tar.gz">
-      <ant:tarfileset dir="${outputPath}" excludes="housekeeper.sh" prefix="housekeeper"/>
-      <ant:tarfileset dir="${outputPath}" includes="housekeeper.sh" prefix="housekeeper" mode="755"/>
+    <ant:tar longfile="gnu" compression="gzip" 
+      tarfile="${maven.build.dir}/${maven.final.name}.tar.gz">
+      <ant:tarfileset dir="${outputPath}" excludes="housekeeper.sh" 
+        prefix="housekeeper"/>
+      <ant:tarfileset dir="${outputPath}" includes="housekeeper.sh" 
+        prefix="housekeeper" mode="755"/>
     </ant:tar>
   </goal>
   
+  <!-- Run the JiBX bytecode decorator after compiling -->
   <postGoal name="java:compile">
     <attainGoal name="jibx:bind"/>
   </postGoal>
