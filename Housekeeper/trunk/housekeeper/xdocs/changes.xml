@@ -1,10 +1,10 @@
 <document>
   <properties>
     <title>Change history</title>
-    <author email="notizklotz(at)gmx.net">Adrian Gygax</author>
+    <author email="adrian.gygax(at)gmx.net">Adrian Gygax</author>
   </properties>
   <body>
-    <release version="0.1.2" date="in CVS">
+    <release version="0.1.2" date="2004-10-26">
         <action dev="notizklotz" type="add" issue="1037939"> Added 
             logging component for display of messages in the console.</action>
         <action dev="notizklotz" type="add" issue="960660"> Implemented robust 

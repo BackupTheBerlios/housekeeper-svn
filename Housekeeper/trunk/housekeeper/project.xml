@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.1.2-SNAPSHOT</currentVersion>
+  <currentVersion>0.1.2</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -26,7 +26,8 @@
   <!-- the year the project started -->
   <inceptionYear>2003</inceptionYear>
   
-  <package>net.sourceforge.housekeeper</package>
+  <package>net.sf.housekeeper</package>
+  
   <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
   <description>
     This project's goal is to provide a platform for managing all your household issues. You will be able to keep overview of how much you paid for food, what you have in stock, store your favourite recipes in a central place and get alarmed about nutritional values you are short of.
@@ -54,6 +55,11 @@
   </repository>
   
   <versions>
+    <version>
+        <id>0.1.2</id>
+        <name>0.1.2</name>
+        <tag>HOUSEKEEPER_0_1_2</tag>
+    </version>
     <version>
         <id>0.1.1</id>
         <name>0.1.1</name>

@@ -17,17 +17,10 @@
   <goal name="package-copy-misc">
   	<ant:copy file="${basedir}/GPL.txt" tofile="${outputPath}/LICENSE.txt"/>
   	
-  	<ant:copy file="${basedir}/dist/README.txt" todir="${outputPath}"/>
-  	
-  	<ant:copy todir="${outputPath}/lib/licenses">
-      <ant:fileset dir="${basedir}/dist/licenses"/>
+  	<ant:copy todir="${outputPath}">
+      <ant:fileset dir="${basedir}/dist/"/>
     </ant:copy>
   	
-    <ant:copy todir="${outputPath}">
-      <ant:fileset dir="${basedir}/src/scripts">
-        <ant:include name="*"/>
-      </ant:fileset>
-    </ant:copy>
     <ant:chmod file="${outputPath}/housekeeper.sh" perm="+x"/>
   </goal>
   

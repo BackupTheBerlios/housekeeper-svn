@@ -1,6 +1,6 @@
 /*-- 
 
- $Id$
+ $Id: jdom-LICENSE.txt,v 1.1 2004/10/22 19:35:20 notizklotz Exp $
 
  Copyright (C) 2000-2004 Jason Hunter & Brett McLaughlin.
  All rights reserved.

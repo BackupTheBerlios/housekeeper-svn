@@ -9,7 +9,7 @@
     <menu name="Overview">
       <item href="/index.html" name="Home" />
       <item href="/roadmap.html" name="Current Roadmap" />
-      <item href="/faq.html" name="FAQ" />
+      <!--<item href="/faq.html" name="FAQ" />-->
     </menu>
   </body>
 </project>
