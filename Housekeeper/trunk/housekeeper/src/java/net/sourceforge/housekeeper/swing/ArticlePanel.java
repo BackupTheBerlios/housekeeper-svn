@@ -24,20 +24,14 @@ package net.sourceforge.housekeeper.swing;
 
 
 import net.sourceforge.housekeeper.model.ArticleDescription;
-import net.sourceforge.housekeeper.storage.StorageFactory;
 
 import java.awt.BorderLayout;
-
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.AbstractTableModel;
 
 
 /**
@@ -70,7 +64,7 @@ final class ArticlePanel extends JPanel
      */
     private ArticlePanel()
     {
-        table = new JTable(new ArticleModel());
+        table = new JTable(ArticleDescriptionTableModel.getInstance());
         scrollPane = new JScrollPane(table);
         buttonPanel = new JPanel();
 
@@ -80,7 +74,7 @@ final class ArticlePanel extends JPanel
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
-        
+
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
@@ -91,13 +85,24 @@ final class ArticlePanel extends JPanel
      *
      * @return DOCUMENT ME!
      */
+    public static ArticlePanel getInstance()
+    {
+        return INSTANCE;
+    }
+
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
     ArticleDescription getSelectedArticle()
     {
         int selectedRow = table.getSelectedRow();
-        
+
         if (selectedRow > -1)
         {
-            ArticleModel tableModel = (ArticleModel)table.getModel();
+            ArticleDescriptionTableModel tableModel = (ArticleDescriptionTableModel)table.getModel();
+
             return tableModel.getObjectAtRow(selectedRow);
         }
         else
@@ -114,115 +119,5 @@ final class ArticlePanel extends JPanel
     JTable getTable()
     {
         return table;
-    }
-
-    public static ArticlePanel getInstance()
-    {
-        return INSTANCE;
-    }
-
-    //~ Inner Classes ----------------------------------------------------------
-
-    private class ArticleModel extends AbstractTableModel implements Observer
-    {
-        private final Class doubleClass = new Double(0).getClass();
-        private final Class integerClass = new Integer(0).getClass();
-        private final Class stringClass = new String().getClass();
-        private final Class[] columnClasses = 
-                                              {
-                                                  stringClass,
-                                                  stringClass,
-                                                  integerClass,
-                                                  stringClass,
-                                                  doubleClass
-                                              };
-        private final String[] columnHeaders = 
-                                               {
-                                                   "Name",
-                                                   "Dealer",
-                                                   "Quantity",
-                                                   "Unit",
-                                                   "Price"
-                                               };
-
-        private ArticleModel()
-        {
-            StorageFactory.getCurrentStorage().addObserver(this);
-        }
-
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getColumnClass(int)
-         */
-        public Class getColumnClass(int columnIndex)
-        {
-            return columnClasses[columnIndex];
-        }
-
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getColumnCount()
-         */
-        public int getColumnCount()
-        {
-            return columnHeaders.length;
-        }
-
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getColumnName(int)
-         */
-        public String getColumnName(int columnIndex)
-        {
-            return columnHeaders[columnIndex];
-        }
-
-        public ArticleDescription getObjectAtRow(int row)
-        {
-            return StorageFactory.getCurrentStorage().getArticle(row);
-        }
-
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getRowCount()
-         */
-        public int getRowCount()
-        {
-            return StorageFactory.getCurrentStorage().getArticles().size();
-        }
-
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getValueAt(int, int)
-         */
-        public Object getValueAt(int rowIndex, int columnIndex)
-        {
-            List articles = StorageFactory.getCurrentStorage().getArticles();
-            ArticleDescription article = (ArticleDescription)articles.get(rowIndex);
-
-            switch (columnIndex)
-            {
-                case 0:
-                    return article.getName();
-
-                case 1:
-                    return article.getStore();
-
-                case 2:
-                    return new Integer(article.getQuantity());
-
-                case 3:
-                    return article.getQuantityUnit();
-
-                case 4:
-                    return new Double(article.getPrice());
-
-                default:
-                    return null;
-            }
-        }
-
-        /* (non-Javadoc)
-         * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-         */
-        public void update(Observable o, Object arg)
-        {
-            fireTableDataChanged();
-        }
     }
 }
