@@ -23,14 +23,13 @@ package net.sf.housekeeper.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -69,11 +68,6 @@ final class SupplyPanel extends JPanel
     private final Action                  newItemAction;
 
     /**
-     * The objects which holds information about the items table.
-     */
-    private final SupplyPresentationModel supplyModel;
-
-    /**
      * The parent Frame of this panel.
      */
     private final Frame                   parent;
@@ -81,8 +75,11 @@ final class SupplyPanel extends JPanel
     /**
      * The manager for food objects.
      */
-    private final FoodManager itemManager;
+    private final FoodManager             itemManager;
+
+    private final FoodListPresenter convPresenter;
     
+
     /**
      * Creates a new SupplyPanel.
      * 
@@ -92,7 +89,7 @@ final class SupplyPanel extends JPanel
     SupplyPanel(final Frame parentFrame, final FoodManager itemManager)
     {
         super();
-        
+
         this.parent = parentFrame;
         this.itemManager = itemManager;
 
@@ -101,18 +98,24 @@ final class SupplyPanel extends JPanel
         duplicateItemAction = new DuplicateAction();
         editItemAction = new EditAction();
         deleteItemAction = new DeleteAction();
-        supplyModel = new SupplyPresentationModel(itemManager);
 
-        supplyModel.addTableSelectionListener(new ListSelectionListener() {
+        final ListSelectionListener selectionListener = new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent e)
             {
                 updateActionEnablement();
             }
-        });
+        };
 
-        //Layout content pane with components and initialize button enablement
-        buildContentPane();
+        convPresenter = new FoodListPresenter(itemManager, "convenienceFood");
+        convPresenter.addTableSelectionListener(selectionListener);
+
+        setLayout(new BorderLayout());
+        final JPanel contPane = new JPanel(new GridLayout(1, 0));
+        contPane.add(convPresenter.getView());
+        
+        add(contPane, BorderLayout.CENTER);
+        add(createButtonPanel(), BorderLayout.NORTH);
         updateActionEnablement();
     }
 
@@ -128,18 +131,6 @@ final class SupplyPanel extends JPanel
         {
             itemManager.add(item);
         }
-    }
-
-    /**
-     * Creates and adds the components to this Panel.
-     */
-    private void buildContentPane()
-    {
-        setLayout(new BorderLayout());
-        final JTable table = supplyModel.getSupplyTable();
-
-        add(new JScrollPane(table), BorderLayout.CENTER);
-        add(createButtonPanel(), BorderLayout.NORTH);
     }
 
     /**
@@ -162,7 +153,7 @@ final class SupplyPanel extends JPanel
      */
     private void editSelectedItem()
     {
-        final Food selected = supplyModel.getSelectedItem();
+        final Food selected = convPresenter.getSelected();
         boolean canceled = openEditor(selected);
         if (!canceled)
         {
@@ -191,7 +182,7 @@ final class SupplyPanel extends JPanel
      */
     private void updateActionEnablement()
     {
-        boolean hasSelection = supplyModel.hasSelection();
+        boolean hasSelection = convPresenter.hasSelection();
         duplicateItemAction.setEnabled(hasSelection);
         editItemAction.setEnabled(hasSelection);
         deleteItemAction.setEnabled(hasSelection);
@@ -213,7 +204,7 @@ final class SupplyPanel extends JPanel
 
         public void actionPerformed(ActionEvent arg0)
         {
-            supplyModel.deleteSelectedItem();
+            convPresenter.deleteSelected();
         }
     }
 
@@ -238,7 +229,7 @@ final class SupplyPanel extends JPanel
          */
         public void actionPerformed(ActionEvent e)
         {
-            supplyModel.duplicateSelectedItem();
+            convPresenter.duplicateSelected();
         }
 
     }

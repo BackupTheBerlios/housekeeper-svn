@@ -41,6 +41,11 @@ public final class Food extends Item
     public static final String PROPERTYNAME_EXPIRY       = "expiry";
 
     /**
+     * Name of the Bound Bean Property "category".
+     */
+    public static final String PROPERTYNAME_CATEGORY       = "category";
+    
+    /**
      * Category for misc food.
      */
     public static final String CATEGORY_MISC             = "misc";
