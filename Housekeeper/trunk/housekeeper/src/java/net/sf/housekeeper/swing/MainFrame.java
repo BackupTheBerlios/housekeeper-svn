@@ -223,6 +223,51 @@ public final class MainFrame
     }
 
     /**
+     * Shows the About dialog for the application.
+     */
+    private void showAboutDialog()
+    {
+        final JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        final String aboutFile = "/net/sf/housekeeper/about.html";
+        final URL helpURL = MainFrame.class.getResource(aboutFile);
+        if (helpURL != null)
+        {
+            try
+            {
+                editorPane.setPage(helpURL);
+            } catch (IOException ex)
+            {
+                LogFactory.getLog(MainFrame.AboutDialogAction.class)
+                        .error("Attempted to read a bad URL: " + helpURL,
+                               ex);
+            }
+        } else
+        {
+            LogFactory.getLog(MainFrame.AboutDialogAction.class)
+                    .error("Could not find file: " + aboutFile);
+        }
+
+        editorPane.setPreferredSize(new Dimension(400, 200));
+        JOptionPane.showMessageDialog(view, editorPane);
+    }
+
+    /**
+     * Saves the current domain objects to a persistent storage.
+     */
+    private void saveDomainData()
+    {
+        try
+        {
+            PersistenceController.saveDomainData();
+        } catch (IOException e1)
+        {
+            e1.printStackTrace();
+            showSavingErrorDialog();
+        }
+    }
+
+    /**
      * Action for exiting the application.
      */
     private class ExitAction extends AbstractAction
@@ -251,6 +296,14 @@ public final class MainFrame
         }
 
         public void actionPerformed(ActionEvent e)
+        {
+            loadDomainData();
+        }
+
+        /**
+         * 
+         */
+        private void loadDomainData()
         {
             try
             {
@@ -284,14 +337,7 @@ public final class MainFrame
 
         public void actionPerformed(ActionEvent e)
         {
-            try
-            {
-                PersistenceController.saveDomainData();
-            } catch (IOException e1)
-            {
-                e1.printStackTrace();
-                showSavingErrorDialog();
-            }
+            saveDomainData();
         }
     }
 
@@ -310,31 +356,7 @@ public final class MainFrame
          */
         public void actionPerformed(ActionEvent e)
         {
-
-            final JEditorPane editorPane = new JEditorPane();
-            editorPane.setEditable(false);
-            final String aboutFile = "/net/sf/housekeeper/about.html";
-            final URL helpURL = MainFrame.class.getResource(aboutFile);
-            if (helpURL != null)
-            {
-                try
-                {
-                    editorPane.setPage(helpURL);
-                } catch (IOException ex)
-                {
-                    LogFactory.getLog(MainFrame.AboutDialogAction.class)
-                            .error("Attempted to read a bad URL: " + helpURL,
-                                   ex);
-                }
-            } else
-            {
-                LogFactory.getLog(MainFrame.AboutDialogAction.class)
-                        .error("Could not find file: " + aboutFile);
-            }
-
-            editorPane.setPreferredSize(new Dimension(400, 200));
-            JOptionPane.showMessageDialog(view, editorPane);
-
+            showAboutDialog();
         }
     }
 }
