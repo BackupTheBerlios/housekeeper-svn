@@ -98,6 +98,7 @@ public final class PersistenceController
     {
         final Household household = jdomPersistence.loadData(dataFile);
         FoodItemManager.instance().replaceAll(household.getFoodItems());
+        FoodItemManager.instance().resetChangedStatus();
     }
 
     /**

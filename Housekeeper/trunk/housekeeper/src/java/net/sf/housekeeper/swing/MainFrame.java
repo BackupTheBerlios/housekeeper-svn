@@ -42,6 +42,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 import net.sf.housekeeper.util.ConfigurationManager;
@@ -210,23 +211,30 @@ public final class MainFrame
     {
         boolean exit = true;
 
-        final String question = LocalisationManager.INSTANCE
-                .getText("gui.mainFrame.saveModificationsQuestion");
-        final int option = JOptionPane.showConfirmDialog(view, question);
-        if (option == JOptionPane.YES_OPTION)
+        //Only show dialog for saving before exiting if any data has been
+        // changed
+        if (FoodItemManager.instance().hasChanged())
         {
-            try
+            final String question = LocalisationManager.INSTANCE
+                    .getText("gui.mainFrame.saveModificationsQuestion");
+            final int option = JOptionPane.showConfirmDialog(view, question);
+            
+            //If user choses yes try to save. If that fails do not exit.
+            if (option == JOptionPane.YES_OPTION)
             {
-                PersistenceController.instance().saveDomainData();
-            } catch (IOException e)
+                try
+                {
+                    PersistenceController.instance().saveDomainData();
+                } catch (IOException e)
+                {
+                    exit = false;
+                    showSavingErrorDialog();
+                    e.printStackTrace();
+                }
+            } else if (option == JOptionPane.CANCEL_OPTION)
             {
                 exit = false;
-                showSavingErrorDialog();
-                e.printStackTrace();
             }
-        } else if (option == JOptionPane.CANCEL_OPTION)
-        {
-            exit = false;
         }
 
         if (exit)

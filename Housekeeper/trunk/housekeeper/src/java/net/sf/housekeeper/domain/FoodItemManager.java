@@ -48,8 +48,9 @@ public final class FoodItemManager
     /**
      * Log to be used for this class.
      */
-    private static final Log LOG = LogFactory.getLog(FoodItemManager.class);
-    
+    private static final Log             LOG      = LogFactory
+                                                          .getLog(FoodItemManager.class);
+
     /**
      * Returns the Singleton instance of this class.
      * 
@@ -59,11 +60,16 @@ public final class FoodItemManager
     {
         return instance;
     }
-    
+
+    /**
+     * Flag indicating if any data has been changed.
+     */
+    private boolean         hasChanged;
+
     /**
      * Holds a list of all items on hand.
      */
-    private final EventList        supply;
+    private final EventList supply;
 
     /**
      * Do not use this constructor, use the public Singleton instance instead.
@@ -72,6 +78,7 @@ public final class FoodItemManager
     FoodItemManager()
     {
         supply = new BasicEventList();
+        resetChangedStatus();
     }
 
     /**
@@ -83,10 +90,11 @@ public final class FoodItemManager
     public void add(final FoodItem item)
     {
         supply.add(item);
+        hasChanged = true;
 
         LOG.debug("Added item: " + item);
     }
-    
+
     /**
      * Duplicates the provided item and adds it to the supply.
      * 
@@ -94,8 +102,9 @@ public final class FoodItemManager
      */
     public void duplicate(final FoodItem item)
     {
-        final FoodItem clonedItem = (FoodItem)item.clone();
+        final FoodItem clonedItem = (FoodItem) item.clone();
         add(clonedItem);
+        hasChanged = true;
     }
 
     /**
@@ -107,7 +116,7 @@ public final class FoodItemManager
     {
         return supply.iterator();
     }
-    
+
     /**
      * Returns the items on hold. You must NOT modify the returned list object
      * directly. Use the methods of this manager instead.
@@ -127,10 +136,11 @@ public final class FoodItemManager
     public void remove(final FoodItem item)
     {
         supply.remove(item);
-        
+        hasChanged = true;
+
         LOG.debug("Removed item: " + item);
     }
-    
+
     /**
      * Clears the list of all food items on hand and replaces it with a new one.
      * 
@@ -140,7 +150,8 @@ public final class FoodItemManager
     {
         supply.clear();
         supply.addAll(foodItems);
-        
+        hasChanged = true;
+
         LOG.debug("Replaced all items with: " + supply.toString());
     }
 
@@ -153,8 +164,29 @@ public final class FoodItemManager
     {
         final int index = supply.indexOf(item);
         supply.set(index, item);
-        
+        hasChanged = true;
+
         LOG.debug("Updated item: " + item);
+    }
+
+    /**
+     * Resets the status of the "has changed attribute". After calling this,
+     * {@link #hasChanged()}returns false.
+     */
+    public void resetChangedStatus()
+    {
+        hasChanged = false;
+    }
+
+    /**
+     * Returns true if any data has been changed since the last call to
+     * {@link #resetChangedStatus()}.
+     * 
+     * @return True if any dat has changed, false otherwise.
+     */
+    public boolean hasChanged()
+    {
+        return hasChanged;
     }
 
 }

@@ -7,6 +7,9 @@
             <action dev="notizklotz" type="add">German translations.</action>
             <action dev="notizklotz" type="add" issue="960802">Support for 
                 multiple languages.</action>
+            <action dev="notizklotz" type="fix" issue="1084437">Only ask the 
+                user if he wants to save the data before exiting if 
+                there have been any changes.</action>
         </release>
         <release version="0.2.0" date="2004-12-05">
             <action dev="notizklotz" type="add" issue="1054868">Added support 
