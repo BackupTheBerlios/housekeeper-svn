@@ -51,16 +51,13 @@ import com.odellengineeringltd.glazedlists.jtable.ListTable;
 final class StockPanel extends JPanel
 {
 
-    /** Singleton instance */
-    private static final StockPanel INSTANCE = new StockPanel();
-
     /** The table showing the items. */
     private ListTable               table;
 
     /**
      * Creates a new StockPanel object.
      */
-    private StockPanel()
+    StockPanel()
     {
         final JPanel buttonPanel = new JPanel();
         buttonPanel.add(new JButton(new NewStockItemAction()));
@@ -73,16 +70,6 @@ final class StockPanel extends JPanel
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
         add(table.getTableScrollPane(), BorderLayout.CENTER);
-    }
-
-    /**
-     * Returns the Singleton instance of this class.
-     * 
-     * @return The Singleton instance.
-     */
-    static StockPanel getInstance()
-    {
-        return INSTANCE;
     }
 
     /**

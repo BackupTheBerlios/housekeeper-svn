@@ -81,7 +81,7 @@ public final class MainFrame extends JFrame
     private void buildComponents()
     {
         tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Stock", StockPanel.getInstance());
+        tabbedPane.addTab("Stock", new StockPanel());
         getContentPane().add(tabbedPane);
     }
 
