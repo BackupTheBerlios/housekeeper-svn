@@ -210,7 +210,7 @@
     <dependency>
         <groupId>spring</groupId>
         <artifactId>spring-richclient</artifactId>
-        <version>20050226</version>
+        <version>20050324</version>
         <url>http://www.springframework.org/spring-rcp.html</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
@@ -258,7 +258,7 @@
     <dependency>
         <groupId>spring</groupId>
         <artifactId>spring-sandbox</artifactId>
-        <version>20050131</version>
+        <version>20050324</version>
         <url>http://www.springframework.org</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
