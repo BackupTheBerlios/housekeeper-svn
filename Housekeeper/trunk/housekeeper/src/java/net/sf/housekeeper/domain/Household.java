@@ -61,7 +61,8 @@ public final class Household
      * 
      * @param convenienceFoodManager The manager for convenience foods. Must not
      *            be null.
-     * @param miscFoodManager The manager for miscellaneous food. Must not be null.
+     * @param miscFoodManager The manager for miscellaneous food. Must not be
+     *            null.
      */
     public Household(final FoodManager convenienceFoodManager,
             final FoodManager miscFoodManager)
@@ -79,7 +80,7 @@ public final class Household
     {
         return convenienceFoodManager;
     }
-    
+
     /**
      * Returns the manager for miscellaneous food objects in this domain.
      * 
@@ -111,7 +112,8 @@ public final class Household
      */
     public boolean hasChanged()
     {
-        final boolean hasChanged = convenienceFoodManager.hasChanged() || miscFoodManager.hasChanged();
+        final boolean hasChanged = convenienceFoodManager.hasChanged()
+                || miscFoodManager.hasChanged();
         return hasChanged;
     }
 
@@ -122,7 +124,7 @@ public final class Household
     public void resetChangedStatus()
     {
         convenienceFoodManager.resetChangedStatus();
-        convenienceFoodManager.resetChangedStatus();
+        miscFoodManager.resetChangedStatus();
     }
 
     /*
@@ -147,10 +149,9 @@ public final class Household
         Household castedObj = (Household) o;
         final boolean isConvEqual = this.convenienceFoodManager == null ? castedObj.convenienceFoodManager == null
                 : this.convenienceFoodManager
-                .equals(castedObj.convenienceFoodManager);
+                        .equals(castedObj.convenienceFoodManager);
         final boolean isMiscEqual = this.miscFoodManager == null ? castedObj.miscFoodManager == null
-                : this.miscFoodManager
-                .equals(castedObj.miscFoodManager);
+                : this.miscFoodManager.equals(castedObj.miscFoodManager);
         return isConvEqual && isMiscEqual;
     }
 
@@ -166,10 +167,8 @@ public final class Household
                 * hashCode
                 + (convenienceFoodManager == null ? 0 : convenienceFoodManager
                         .hashCode());
-        hashCode = 31
-        * hashCode
-        + (miscFoodManager == null ? 0 : miscFoodManager
-                .hashCode());
+        hashCode = 31 * hashCode
+                + (miscFoodManager == null ? 0 : miscFoodManager.hashCode());
         return hashCode;
     }
 
