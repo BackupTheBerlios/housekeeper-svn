@@ -20,6 +20,10 @@
 
 package net.sf.housekeeper.swing;
 
+import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,6 +32,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import net.sf.housekeeper.Housekeeper;
+import net.sf.housekeeper.storage.StorageFactory;
 import net.sf.housekeeper.swing.stock.StockPanel;
 
 import com.jgoodies.plaf.Options;
@@ -105,10 +110,10 @@ public final class MainFrame extends JFrame
         menuFile = new JMenu("File");
         menuBar.add(menuFile);
 
-        menuFile.add(new JMenuItem(LoadDataAction.INSTANCE));
-        menuFile.add(new JMenuItem(SaveDataAction.INSTANCE));
+        menuFile.add(new JMenuItem(new LoadDataAction()));
+        menuFile.add(new JMenuItem(new SaveDataAction()));
         menuFile.addSeparator();
-        menuFile.add(new JMenuItem(ExitAction.INSTANCE));
+        menuFile.add(new JMenuItem(new ExitAction()));
 
     }
 
@@ -128,4 +133,62 @@ public final class MainFrame extends JFrame
         UIManager.put("Application.useSystemFontSettings", Boolean.TRUE);
         UIManager.put(Options.USE_SYSTEM_FONTS_APP_KEY, Boolean.TRUE);
     }
+    
+    /**
+     * Action for exiting the application.
+     */
+    private static class ExitAction extends AbstractAction
+    {
+        private ExitAction()
+        {
+            super("Exit");
+        }
+
+        public void actionPerformed(ActionEvent e)
+        {
+            System.exit(0);
+        }
+    }
+    
+    private static class LoadDataAction extends AbstractAction
+    {
+        private LoadDataAction()
+        {
+            super("Load Data");
+        }
+
+        public void actionPerformed(ActionEvent e)
+        {
+            try
+            {
+                StorageFactory.getCurrentStorage().loadData();
+            } catch (FileNotFoundException e1)
+            {
+                e1.printStackTrace();
+            }
+        }
+    }
+    
+    /**
+     * Action to cause saving of the data permanently.
+     */
+    public final class SaveDataAction extends AbstractAction
+    {
+        private SaveDataAction()
+        {
+            super("Save Data");
+        }
+
+        public void actionPerformed(ActionEvent e)
+        {
+            try
+            {
+                StorageFactory.getCurrentStorage().saveData();
+            } catch (FileNotFoundException e1)
+            {
+                e1.printStackTrace();
+            }
+        }
+    }
+
 }
