@@ -61,19 +61,19 @@ import com.jgoodies.forms.layout.FormLayout;
 final class FoodEditorView
 {
 
-    final JDialog    dialog;
+    private final JDialog    dialog;
 
-    final JTextField nameField;
+    private final JTextField nameField;
 
-    final JTextField quantityField;
+    private final JTextField quantityField;
 
-    final JSpinner   dateSpinner;
+    private final JSpinner   dateSpinner;
 
-    final JCheckBox  checkbox;
+    private final JCheckBox  checkbox;
 
-    final JButton    cancelButton;
+    private final JButton    cancelButton;
 
-    final JButton    okButton;
+    private final JButton    okButton;
 
     /**
      * Initializes a new View. It will be shown centered on the
