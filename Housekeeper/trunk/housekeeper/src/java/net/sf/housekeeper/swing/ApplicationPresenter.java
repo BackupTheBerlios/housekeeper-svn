@@ -22,30 +22,19 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.UIManager;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 import net.sf.housekeeper.swing.util.IconGenerator;
-import net.sf.housekeeper.util.ConfigurationManager;
 import net.sf.housekeeper.util.LocalisationManager;
 
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.richclient.application.support.AbstractView;
-
-import com.jgoodies.plaf.plastic.PlasticXPLookAndFeel;
 
 /**
  * Presenter for the main frame of the Housekeeper application GUI.
@@ -147,31 +136,6 @@ public final class ApplicationPresenter
         }
     }
 
-
-    /**
-     * Shows the About dialog for the application.
-     */
-    private void showAboutDialog()
-    {
-        final String aboutFile = "/net/sf/housekeeper/about.html";
-        final URL helpURL = ApplicationPresenter.class.getResource(aboutFile);
-        if (helpURL != null)
-        {
-            try
-            {
-                view.showAboutDialog(helpURL);
-            } catch (IOException ex)
-            {
-                LogFactory.getLog(ApplicationPresenter.AboutDialogAction.class)
-                        .error("Attempted to read a bad URL: " + helpURL, ex);
-            }
-        } else
-        {
-            LogFactory.getLog(ApplicationPresenter.AboutDialogAction.class)
-                    .error("Could not find file: " + aboutFile);
-        }
-    }
-
     /**
      * Shows a dialog which informs the user that saving was not succesful.
      *  
@@ -183,30 +147,6 @@ public final class ApplicationPresenter
         view.showErrorDialog(message);
     }
 
-    /**
-     * Action for displaying the about dialog.
-     */
-    private class AboutDialogAction extends AbstractAction
-    {
-
-        private AboutDialogAction()
-        {
-            super();
-            final String name = LocalisationManager.INSTANCE
-                    .getText("gui.mainFrame.about");
-            putValue(Action.NAME, name);
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-         */
-        public void actionPerformed(ActionEvent e)
-        {
-            showAboutDialog();
-        }
-    }
 
     /**
      * Action for exiting the application.

@@ -26,13 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.Action;
-import javax.swing.Box;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -138,33 +132,4 @@ final class ApplicationView extends JPanel
                                       JOptionPane.ERROR_MESSAGE);
     }
 
-    private JMenuBar buildMenuBar(final Action loadDataAction,
-                                  final Action saveDataAction,
-                                  final Action exitAction,
-                                  final Action aboutAction)
-    {
-        final JMenuBar menuBar = new JMenuBar();
-
-        //File Menu
-        final String fileMenuLabel = LocalisationManager.INSTANCE
-                .getText("gui.menu.file");
-        final JMenu menuFile = new JMenu(fileMenuLabel);
-        menuBar.add(menuFile);
-
-        menuFile.add(new JMenuItem(loadDataAction));
-        menuFile.add(new JMenuItem(saveDataAction));
-        menuFile.addSeparator();
-        menuFile.add(new JMenuItem(exitAction));
-
-        //Help Menu
-        final String helpMenuString = LocalisationManager.INSTANCE
-                .getText("gui.menu.help");
-        final JMenu menuHelp = new JMenu(helpMenuString);
-        menuBar.add(Box.createHorizontalGlue());
-        menuBar.add(menuHelp);
-
-        menuHelp.add(new JMenuItem(aboutAction));
-
-        return menuBar;
-    }
 }
