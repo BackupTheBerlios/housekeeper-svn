@@ -57,7 +57,9 @@ final class XMLSerializationStorage extends MemoryStorage
     //~ Static fields/initializers ---------------------------------------------
 
     /** The name of the file used for data storage */
-    private static final String FILENAME = "/home/phelan/test.xml";
+    private static final String FILENAME = System.getProperty("user.home") +
+                                       System.getProperty("file.separator") +
+                                       "housekeeper_ser.xml";
 
     //~ Instance fields --------------------------------------------------------
 

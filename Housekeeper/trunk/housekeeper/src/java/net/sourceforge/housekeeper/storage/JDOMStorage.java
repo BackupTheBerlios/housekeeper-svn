@@ -1,101 +1,114 @@
 /*
- * This file is part of housekeeper.
+ * This file is part of Housekeeper.
  *
- *	housekeeper is free software; you can redistribute it and/or modify
+ * Housekeeper is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation; either version 2 of the License, or
- *	(at your option) any later version.
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *	housekeeper is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
+ * Housekeeper is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *	You should have received a copy of the GNU General Public License
- *	along with housekeeper; if not, write to the Free Software
- *	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * You should have received a copy of the GNU General Public License
+ * along with Housekeeper; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA  02111-1307  USA
+ *
+ * Copyright 2003-2004, Adrian Gygax
+ * http://housekeeper.sourceforge.net
  */
 
 package net.sourceforge.housekeeper.storage;
+
+
+import net.sourceforge.housekeeper.domain.ArticleDescription;
+
+import org.jdom.Document;
+import org.jdom.Element;
+
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
 import java.util.Iterator;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
-
-import net.sourceforge.housekeeper.domain.ArticleDescription;
 
 /**
- * 
- * 
+ * DOCUMENT ME!
+ *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
+ *
  * @see
  * @since
  */
 class JDOMStorage extends MemoryStorage
 {
-
-    JDOMStorage()
-    {
-
-    }
-
     //~ Static fields/initializers ---------------------------------------------
 
     /** The name of the file used for data storage */
-    private static final String FILENAME = "/home/phelan/temp/housekeeper_jdom.xml";
-
-
+    private static final String FILENAME = System.getProperty("user.home") +
+                                           System.getProperty("file.separator") +
+                                           "housekeeper_jdom.xml";
 
     //~ Constructors -----------------------------------------------------------
 
+    /**
+     * Creates a new JDOMStorage object.
+     */
+    JDOMStorage()
+    {
+    }
 
     //~ Methods ----------------------------------------------------------------
 
-
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#loadData()
+     */
     public void loadData()
     {
         // TODO Auto-generated method stub
-
     }
 
-
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#saveData()
+     */
     public void saveData()
     {
         Element root = new Element("Housekeeper");
-        
-        for(Iterator i = articleDescriptions.iterator(); i.hasNext();)
+
+        for (Iterator i = articleDescriptions.iterator(); i.hasNext();)
         {
-            ArticleDescription object = (ArticleDescription)i.next();
-            Element element = new Element("ArticleDescription");
-            element.setAttribute("ID", ""+object.getID());
+            ArticleDescription object  = (ArticleDescription)i.next();
+            Element            element = new Element("ArticleDescription");
+            element.setAttribute("ID", "" + object.getID());
             element.setAttribute("Name", object.getName());
             element.setAttribute("Store", object.getStore());
-            element.setAttribute("Quantity", ""+object.getQuantity());
+            element.setAttribute("Quantity", "" + object.getQuantity());
             element.setAttribute("Unit", object.getUnit());
-            element.setAttribute("Price", ""+object.getPrice());
+            element.setAttribute("Price", "" + object.getPrice());
             root.addContent(element);
         }
-        
-        Document doc = new Document(root);
- 
- 
+
+
+        Document     doc = new Document(root);
+
         XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-        
-        try {
-          OutputStream stream = new BufferedOutputStream(new FileOutputStream(FILENAME));
-          outputter.output(doc, stream);       
+
+        try
+        {
+            OutputStream stream = new BufferedOutputStream(new FileOutputStream(FILENAME));
+            outputter.output(doc, stream);
         }
-        catch (IOException e) {
-          System.err.println(e);
+        catch (IOException e)
+        {
+            System.err.println(e);
         }
     }
-
 }
