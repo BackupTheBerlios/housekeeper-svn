@@ -109,16 +109,16 @@ public final class MainFrame extends JFrame
         menuFile = new JMenu("File");
         menuBar.add(menuFile);
 
-        menuFile.add(new JMenuItem(LoadData.INSTANCE));
-        menuFile.add(new JMenuItem(SaveData.INSTANCE));
+        menuFile.add(new JMenuItem(LoadDataAction.INSTANCE));
+        menuFile.add(new JMenuItem(SaveDataAction.INSTANCE));
         menuFile.addSeparator();
-        menuFile.add(new JMenuItem(Exit.INSTANCE));
+        menuFile.add(new JMenuItem(ExitAction.INSTANCE));
 
         //Articles menu
         menuArticles = new JMenu("Articles");
         menuBar.add(menuArticles);
 
-        menuArticles.add(new JMenuItem(NewArticle.INSTANCE));
+        menuArticles.add(new JMenuItem(NewArticleAction.INSTANCE));
     }
 
     /**

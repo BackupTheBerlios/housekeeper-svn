@@ -73,7 +73,7 @@ final class PurchasePanel extends JPanel
         scrollPane = new JScrollPane(table);
         buttonPanel = new JPanel();
 
-        buttonPanel.add(new JButton(ActionNewPurchase.INSTANCE));
+        buttonPanel.add(new JButton(NewPurchaseAction.INSTANCE));
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);

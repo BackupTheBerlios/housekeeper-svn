@@ -36,12 +36,12 @@ import net.sourceforge.housekeeper.storage.StorageFactory;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-final class NewArticle extends AbstractAction
+final class NewArticleAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    static final NewArticle INSTANCE = new NewArticle();
+    static final NewArticleAction INSTANCE = new NewArticleAction();
 
     //~ Constructors -----------------------------------------------------------
 
@@ -49,7 +49,7 @@ final class NewArticle extends AbstractAction
      *
      *
      */
-    private NewArticle()
+    private NewArticleAction()
     {
         super("New Article");
     }

@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.entities.ArticleDescription;
 
 import java.awt.event.ActionEvent;
 
@@ -35,22 +35,21 @@ import javax.swing.AbstractAction;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-final class LoadData extends AbstractAction
+public class ModifyArticleAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    static final LoadData INSTANCE = new LoadData();
+    public static final ModifyArticleAction INSTANCE = new ModifyArticleAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a new ModifyArticle object.
      */
-    private LoadData()
+    private ModifyArticleAction()
     {
-        super("Load Data");
+        super("Modify Article");
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -60,8 +59,14 @@ final class LoadData extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        StorageFactory.getCurrentStorage()
-                      .loadData();
-        DataUpdateMediator.getInstance().update();
+        ArticleDescription article = ArticlePanel.getInstance().getSelectedArticle();
+
+        if (article != null)
+        {
+            ArticleDialog d = new ArticleDialog();
+            d.show("Modify Article", article);
+
+            DataUpdateMediator.getInstance().update();
+        }
     }
 }

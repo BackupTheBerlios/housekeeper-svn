@@ -23,6 +23,8 @@
 package net.sourceforge.housekeeper.swing;
 
 
+import net.sourceforge.housekeeper.storage.StorageFactory;
+
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -33,22 +35,22 @@ import javax.swing.AbstractAction;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-final class Exit extends AbstractAction
+final class SaveDataAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    static final Exit INSTANCE = new Exit();
+    static final SaveDataAction INSTANCE = new SaveDataAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new Exit object.
+     * Creates a new SaveData object.
     
      */
-    private Exit()
+    private SaveDataAction()
     {
-        super("Exit");
+        super("Save Data");
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -58,6 +60,7 @@ final class Exit extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        System.exit(0);
+        StorageFactory.getCurrentStorage()
+                      .saveData();
     }
 }

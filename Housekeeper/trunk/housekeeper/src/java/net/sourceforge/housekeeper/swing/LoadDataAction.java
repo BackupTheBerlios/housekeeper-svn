@@ -35,22 +35,22 @@ import javax.swing.AbstractAction;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-final class SaveData extends AbstractAction
+final class LoadDataAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    static final SaveData INSTANCE = new SaveData();
+    static final LoadDataAction INSTANCE = new LoadDataAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new SaveData object.
-    
+     *
+     *
      */
-    private SaveData()
+    private LoadDataAction()
     {
-        super("Save Data");
+        super("Load Data");
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -61,6 +61,7 @@ final class SaveData extends AbstractAction
     public void actionPerformed(ActionEvent e)
     {
         StorageFactory.getCurrentStorage()
-                      .saveData();
+                      .loadData();
+        DataUpdateMediator.getInstance().update();
     }
 }

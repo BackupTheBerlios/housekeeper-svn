@@ -33,11 +33,11 @@ import net.sourceforge.housekeeper.storage.StorageFactory;
  * @see
  * @since
  */
-final class ActionNewPurchase extends AbstractAction
+final class NewPurchaseAction extends AbstractAction
 {
-    static final ActionNewPurchase INSTANCE = new ActionNewPurchase();
+    static final NewPurchaseAction INSTANCE = new NewPurchaseAction();
     
-    private ActionNewPurchase()
+    private NewPurchaseAction()
     {
         super("New Purchase");
     }

@@ -23,8 +23,6 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import net.sourceforge.housekeeper.entities.ArticleDescription;
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -35,21 +33,22 @@ import javax.swing.AbstractAction;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-public class ModifyArticle extends AbstractAction
+final class ExitAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    public static final ModifyArticle INSTANCE = new ModifyArticle();
+    static final ExitAction INSTANCE = new ExitAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new ModifyArticle object.
+     * Creates a new Exit object.
+    
      */
-    private ModifyArticle()
+    private ExitAction()
     {
-        super("Modify Article");
+        super("Exit");
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -59,14 +58,6 @@ public class ModifyArticle extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescription article = ArticlePanel.getInstance().getSelectedArticle();
-
-        if (article != null)
-        {
-            ArticleDialog d = new ArticleDialog();
-            d.show("Modify Article", article);
-
-            DataUpdateMediator.getInstance().update();
-        }
+        System.exit(0);
     }
 }
