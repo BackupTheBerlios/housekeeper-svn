@@ -140,8 +140,8 @@
     <report>maven-license-plugin</report>
     <!-- <report>maven-linkcheck-plugin</report> -->
     <report>maven-simian-plugin</report>
-    <report>maven-statcvs-plugin</report>
-    <report>maven-tasklist-plugin</report>
+    <!-- <report>maven-statcvs-plugin</report> -->
+    <!-- <report>maven-tasklist-plugin</report> -->
   </reports>
 
 </project>
