@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.swing.util;
 
+import java.awt.Dimension;
+
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
@@ -28,7 +30,6 @@ import javax.swing.UIManager;
 import org.springframework.richclient.command.AbstractCommand;
 import org.springframework.richclient.core.Message;
 import org.springframework.richclient.dialog.ApplicationDialog;
-import org.springframework.richclient.dialog.DefaultMessageAreaPane;
 import org.springframework.rules.reporting.Severity;
 import org.springframework.util.Assert;
 
@@ -46,7 +47,26 @@ public final class ErrorDialog extends ApplicationDialog
     private static final String ERRORICON        = "OptionPane.errorIcon";
 
     private final String        message;
+    
+    private final Exception exception;
 
+    /**
+     * Creates a dialog for showing an error message.
+     * 
+     * @param messageID The ID of the message to show. Can be null.
+     * @param e The exception associated with the error. Can be null.
+     */
+    public ErrorDialog(final String messageID, final Exception e)
+    {
+        Assert.notNull(messageID);
+        exception = e;
+        
+        message = getMessage(messageID);
+
+        final String title = getMessage(ERROR_MESSAGE_ID);
+        setTitle(title);
+    }
+    
     /**
      * Creates a dialog which gets the message from an Exception.
      * 
@@ -54,12 +74,7 @@ public final class ErrorDialog extends ApplicationDialog
      */
     public ErrorDialog(final Exception e)
     {
-        Assert.notNull(e);
-
-        message = e.getLocalizedMessage();
-
-        final String title = getMessage(ERROR_MESSAGE_ID);
-        setTitle(title);
+        this("", e);
     }
 
     /**
@@ -69,12 +84,7 @@ public final class ErrorDialog extends ApplicationDialog
      */
     public ErrorDialog(final String messageID)
     {
-        Assert.notNull(messageID);
-
-        message = getMessage(messageID);
-
-        final String title = getMessage(ERROR_MESSAGE_ID);
-        setTitle(title);
+        this(messageID, null);
     }
 
     /* (non-Javadoc)
@@ -82,10 +92,25 @@ public final class ErrorDialog extends ApplicationDialog
      */
     protected JComponent createDialogContentPane()
     {
-        final DefaultMessageAreaPane messagePane = new DefaultMessageAreaPane();
+        final TextAreaPane messagePane = new TextAreaPane();
         final Icon icon = UIManager.getIcon(ERRORICON);
         messagePane.setDefaultIcon(icon);
-        messagePane.setMessage(new Message(message, Severity.ERROR));
+        
+        final StringBuffer messageBuffer = new StringBuffer();
+        messageBuffer.append(message);
+
+        if (exception != null)
+        {
+            if (!message.equals(""))
+            {
+                messageBuffer.append("\n\n");
+            }
+            messageBuffer.append(exception.getLocalizedMessage());
+        }
+
+        messagePane.setMessage(new Message(messageBuffer.toString(), Severity.ERROR));
+        final JComponent paneConrol = messagePane.getControl();
+        paneConrol.setPreferredSize(new Dimension(400, 100));
         return messagePane.getControl();
     }
 

@@ -71,7 +71,7 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
             if (getApplicationWindow().getControl() != null)
             {
                 final ErrorDialog dialog = new ErrorDialog(
-                        "gui.mainFrame.nodata");
+                        "gui.mainFrame.nodata", exception);
                 dialog.showDialog();
             }
         } catch (Exception exception)

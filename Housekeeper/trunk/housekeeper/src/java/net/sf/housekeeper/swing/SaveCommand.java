@@ -87,7 +87,7 @@ public final class SaveCommand extends ActionCommand
                 LogFactory.getLog(getClass()).error("Could not save data",
                                                     exception);
                 final ErrorDialog dialog = new ErrorDialog(
-                        "gui.mainFrame.saveError");
+                        "gui.mainFrame.saveError", exception);
                 dialog.showDialog();
                 exception = null;
             } else
