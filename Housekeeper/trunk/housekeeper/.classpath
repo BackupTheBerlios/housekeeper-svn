@@ -13,7 +13,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/binding-1.0b5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-configuration/jars/commons-configuration-1.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="/home/phelan/temp/glazedlists-0.9.3.jar"/>
-	<classpathentry kind="lib" path="/home/phelan/temp/renderpack.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-0.9.3.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/renderpack/jars/renderpack-0.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
