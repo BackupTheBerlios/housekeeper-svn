@@ -159,11 +159,22 @@
 		<property name="viewClass">
 			<value>net.sf.housekeeper.swing.CategoriesView</value>
 		</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="categoryManager">
+          <ref local="categoryManager"/>
+        </entry>
+      </map>
+		</property>
 	</bean>
     
   <bean id="household"
 		class="net.sf.housekeeper.domain.Household">
     <constructor-arg><ref local="itemManager"/></constructor-arg>
+	</bean>
+  
+  <bean id="categoryManager"
+		class="net.sf.housekeeper.domain.CategoryManager">
 	</bean>
   
   <bean id="itemManager"

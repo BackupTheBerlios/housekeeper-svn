@@ -22,10 +22,9 @@
 package net.sf.housekeeper.domain;
 
 import java.rmi.server.UID;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.util.ToStringCreator;
 
@@ -35,24 +34,13 @@ import org.springframework.util.ToStringCreator;
  */
 public final class Category
 {
-
-    public static final Category    CONVENIENCE = new Category(
-                                                        "convenienceFood",
-                                                        "Convenience Food");
-
-    public static final Category    MISC        = new Category("misc", "Misc");
-
-    private static final Category[] subcats     = { CONVENIENCE, MISC };
-
-    public static final Category    FOOD        = new Category("food", "Food",
-                                                        Arrays.asList(subcats));
-
+    
     private final String            id;
 
     private String                  name;
 
-    private List                    children;
-
+    private Set                    children;
+    
     /**
      * Creates a new object with no name and children.
      */
@@ -69,21 +57,19 @@ public final class Category
      */
     public Category(String id, String name)
     {
-        this(id, name, new LinkedList());
+        this.id = id;
+        this.name = name;
+        this.children = new HashSet();
     }
 
     /**
-     * Creates a new object.
+     * Adds a child Category to this category.
      * 
-     * @param id
-     * @param name
-     * @param children
+     * @param child The child to add. Must not be null.
      */
-    public Category(String id, String name, List children)
+    public void addChild(final Category child)
     {
-        this.id = id;
-        this.name = name;
-        this.children = children;
+        children.add(child);
     }
     
     /**
@@ -112,13 +98,23 @@ public final class Category
 
         return false;
     }
-
+    
     /**
      * @return Returns the children.
      */
-    public List getChildren()
+    public Set getChildren()
     {
         return children;
+    }
+    
+    /**
+     * Returns an iterator for all children of this category.
+     * 
+     * @return An iterator for all children. Not null.
+     */
+    public Iterator getChildrenIterator()
+    {
+        return children.iterator();
     }
 
     /**
@@ -135,14 +131,6 @@ public final class Category
     public String getName()
     {
         return name;
-    }
-
-    /**
-     * @param children The children to set.
-     */
-    public void setChildren(List children)
-    {
-        this.children = children;
     }
 
     /**

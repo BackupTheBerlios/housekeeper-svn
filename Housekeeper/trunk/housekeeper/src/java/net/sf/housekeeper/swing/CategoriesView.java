@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.swing;
 
+import java.util.Iterator;
+
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
@@ -30,6 +32,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
+import net.sf.housekeeper.domain.CategoryManager;
 
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.tree.BeanTreeCellRenderer;
@@ -41,7 +44,17 @@ import org.springframework.richclient.tree.BeanTreeCellRenderer;
 public final class CategoriesView extends AbstractView
 {
 
-    private JTree tree;
+    private CategoryManager categoryManager;
+
+    /**
+     * Sets the category manager to be used.
+     * 
+     * @param manager the category manager to be used.
+     */
+    public void setCategoryManager(CategoryManager manager)
+    {
+        this.categoryManager = manager;
+    }
 
     /*
      * (non-Javadoc)
@@ -50,17 +63,15 @@ public final class CategoriesView extends AbstractView
      */
     protected JComponent createControl()
     {
-        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(Category.FOOD);
-        final DefaultMutableTreeNode convNode = new DefaultMutableTreeNode(Category.CONVENIENCE);
-        final DefaultMutableTreeNode miscNode = new DefaultMutableTreeNode(Category.MISC);
-        rootNode.add(convNode);
-        rootNode.add(miscNode);
-        
-        tree = new JTree(rootNode);
+        final DefaultMutableTreeNode rootNode = createNode(categoryManager
+                .getRootCategory());
+
+        final JTree tree = new JTree(rootNode);
         tree.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        final BeanTreeCellRenderer renderer = new BeanTreeCellRenderer(Category.class, "name");
+
+        final BeanTreeCellRenderer renderer = new BeanTreeCellRenderer(
+                Category.class, "name");
         renderer.setOpenIcon(null);
         renderer.setClosedIcon(null);
         renderer.setLeafIcon(null);
@@ -68,30 +79,46 @@ public final class CategoriesView extends AbstractView
 
         tree.addTreeSelectionListener(new TreeSelectionListener() {
 
-            public void valueChanged(TreeSelectionEvent e) {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode)
-                                   tree.getLastSelectedPathComponent();
+            public void valueChanged(TreeSelectionEvent e)
+            {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree
+                        .getLastSelectedPathComponent();
 
-                if (node == null) return;
+                if (node == null)
+                    return;
 
                 Object nodeInfo = node.getUserObject();
-                    Category cat = (Category)nodeInfo;
-                    publishSelectionEvent(cat);
+                Category cat = (Category) nodeInfo;
+                publishSelectionEvent(cat);
             }
         });
-        
+
         tree.setRootVisible(true);
 
         tree.setSelectionRow(0);
         return tree;
     }
-    
+
+    private DefaultMutableTreeNode createNode(final Category cat)
+    {
+        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(cat);
+
+        final Iterator catIter = cat.getChildrenIterator();
+        while (catIter.hasNext())
+        {
+            Category element = (Category) catIter.next();
+            rootNode.add(createNode(element));
+        }
+
+        return rootNode;
+    }
+
     private void publishSelectionEvent(Category cat)
     {
-        getApplicationContext()
-        .publishEvent(
-                      new HousekeeperEvent(
-                              HousekeeperEvent.SELECTED, cat));
+        getApplicationContext().publishEvent(
+                                             new HousekeeperEvent(
+                                                     HousekeeperEvent.SELECTED,
+                                                     cat));
     }
 
 }

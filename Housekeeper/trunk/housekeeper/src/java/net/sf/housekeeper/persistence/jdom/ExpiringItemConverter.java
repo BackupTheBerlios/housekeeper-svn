@@ -26,9 +26,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import net.sf.housekeeper.domain.Category;
+import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ExpiringItem;
 
 import org.jdom.Element;
+import org.springframework.richclient.application.Application;
 
 /**
  * Utility class for converting between JDOM Elements and
@@ -135,12 +137,9 @@ final class ExpiringItemConverter
         if (categoryElement != null)
         {
             String categoryID = categoryElement.getValue();
-            if (categoryID.equals("convenienceFood"))
-            {
-                item.setCategory(Category.CONVENIENCE);
-            } else {
-                item.setCategory(Category.MISC);
-            }
+            final CategoryManager catMan = (CategoryManager)Application.services().getBean("categoryManager");
+            final Category cat = catMan.getCategory(categoryID);
+            item.setCategory(cat);
         }
 
         return item;
