@@ -10,8 +10,9 @@
     <menu name="Overview">
         <item href="/index.html" name="Home" />
         <item 
-            href="https://developer.berlios.de/screenshots/?group_id=3180" 
+            href="http://developer.berlios.de/screenshots/?group_id=3180" 
             name="Screenshots"/>
+        <item href="/installation.html" name="Download and installation" />
         <item href="/changes-report.html" name="Changelog" />
         <item href="/faq.html" name="FAQ" />
     </menu>
