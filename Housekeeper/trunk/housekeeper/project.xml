@@ -132,7 +132,7 @@
     <dependency>
     	<groupId>jgoodies</groupId>
     	<artifactId>binding</artifactId>
-    	<version>1.0b5</version>
+    	<version>1.0b6</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
                 <properties>
             <category>shared</category>
@@ -198,17 +198,7 @@
             <category>shared</category>
         </properties>
     </dependency>
-    
-    <dependency>
-        <groupId>renderpack</groupId>
-        <artifactId>renderpack</artifactId>
-        <version>0.0.1</version>
-        <url>https://renderpack.dev.java.net/</url>
-        <properties>
-            <category>shared</category>
-        </properties>
-    </dependency>
-    
+        
     <dependency>
         <groupId>statcvs</groupId>
         <artifactId>maven-statcvs-plugin</artifactId>
