@@ -19,7 +19,7 @@
           </td>
           <td>
           </td>
-          <td>A more sophisticated single-user application.</td>
+          <td>A sophisticated single-user application.</td>
         </tr>
         <tr>
           <td>
@@ -84,16 +84,14 @@
                 <img alt="add" title="add" src="images/add.gif">
                 </img>
             </td>
-            <td>Management of ongoing food usage. (So you know exactly how much 
-                of each item you have got).</td>
+            <td>Shopping list</td>
+            <td>
+                <img alt="add" title="add" src="images/add.gif">
+                </img>
+            </td>
+            <td>Multiple language support</td>
         </tr>
-        <tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Basic budget functionality.</td>
-        </tr>
+
       </table>
     </section>
     <section name="Release 0.4">
@@ -257,19 +255,12 @@
           </td>
           <td>Cell phone based access application.</td>
         </tr>
-	<tr>
-          <td>
-            <img alt="add" title="add" src="images/add.gif">
-            </img>
-          </td>
-          <td>Generate new recipes from available ingredients.</td>
-        </tr>
-    <tr>
+
         <td>
             <img alt="add" title="add" src="images/add.gif">
             </img>
         </td>
-        <td>Propose meals/recipes/items from the user's past consumation 
+        <td>Propose meals from the user's past consumation 
             behaviour.</td>
     </tr>
       </table>
