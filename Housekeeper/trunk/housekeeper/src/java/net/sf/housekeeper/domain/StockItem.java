@@ -39,18 +39,26 @@ public final class StockItem
     private Date   bestBeforeEnd;
 
     /**
+     * The quantity of one exemplar of this item. For example, a bottle of milk
+     * which contains 1 litre would be one item an its quantity would be 1
+     * litre.
+     */
+    private String quantity;
+
+    /**
      * Creates a new StockItem object with specified values.
      * 
      * @param name Name of the item. Must not be null.
-     * @param bestBeforeEnd Date until this item should be consumed. Must not be null.
+     * @param bestBeforeEnd Date until this item should be consumed. Must not be
+     *            null.
+     * @param quantity The quantity which one exemplar of this item contains.
      */
-    public StockItem(final String name, final Date bestBeforeEnd)
+    public StockItem(final String name, final String quantity,
+            final Date bestBeforeEnd)
     {
-        assert name != null : "Parameter name must not be null";
-        assert bestBeforeEnd != null : "Parameter bestBeforeEnd must not be null";
-        
-        this.name = name;
-        this.bestBeforeEnd = bestBeforeEnd;
+        setName(name);
+        setBestBeforeEnd(bestBeforeEnd);
+        setQuantity(quantity);
     }
 
     /**
@@ -59,7 +67,7 @@ public final class StockItem
      */
     public StockItem()
     {
-        this("", new Date());
+        this("", "", new Date());
     }
 
     /**
@@ -70,7 +78,7 @@ public final class StockItem
     public void setBestBeforeEnd(final Date bestBeforeEnd)
     {
         assert bestBeforeEnd != null : "Parameter bestBeforeEnd must not be null";
-        
+
         this.bestBeforeEnd = bestBeforeEnd;
     }
 
@@ -100,7 +108,33 @@ public final class StockItem
     public void setName(final String name)
     {
         assert name != null : "Parameter name must not be null";
-        
+
         this.name = name;
+    }
+
+    /**
+     * @return Returns the quantity.
+     */
+    public String getQuantity()
+    {
+        return quantity;
+    }
+
+    /**
+     * Sets the quantity of one exemplar of this item. For example, a bottle of
+     * milk which contains 1 litre would be one item an its quantity would be 1
+     * litre.
+     * 
+     * @param quantity The quantity to set.
+     */
+    public void setQuantity(final String quantity)
+    {
+        if (quantity == null)
+        {
+            this.quantity = "";
+        } else
+        {
+            this.quantity = quantity;
+        }
     }
 }

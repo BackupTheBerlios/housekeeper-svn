@@ -31,6 +31,7 @@ import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.domain.StockItem;
 
+import com.odellengineeringltd.glazedlists.jtable.StyledDocumentRenderer;
 import com.odellengineeringltd.glazedlists.jtable.TableFormat;
 
 /**
@@ -76,7 +77,7 @@ final class StockTableCell implements TableFormat
     {
         final StockItem item = (StockItem) arg0;
 
-        if (arg1 == 0) { return item.getName(); }
+        if (arg1 == 0) { return item; }
         return item.getBestBeforeEnd();
     }
 
@@ -87,9 +88,30 @@ final class StockTableCell implements TableFormat
      */
     public void configureTable(JTable arg0)
     {
+        arg0.getColumnModel().getColumn(0).setCellRenderer(new DescriptionRenderer());
         arg0.getColumnModel().getColumn(1).setCellRenderer(new DateRenderer());
     }
 
+    private class DescriptionRenderer extends StyledDocumentRenderer
+    {
+        private DescriptionRenderer()
+        {
+            super(true);
+        }
+
+        /* (non-Javadoc)
+         * @see com.odellengineeringltd.glazedlists.jtable.StyledDocumentRenderer#writeObject(javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
+         */
+        public void writeObject(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+        {
+            final StockItem item = (StockItem)value;
+            append(item.getName(), strong);
+            append("\n", plain);
+            append(item.getQuantity(), plain);
+        }
+        
+    }
+    
     /**
      * Renders a {@link Date}object in a localized way.
      */
@@ -108,7 +130,7 @@ final class StockTableCell implements TableFormat
                                                        boolean arg3, int arg4,
                                                        int arg5)
         {
-            String date = DateFormat.getDateInstance().format((Date) arg1);
+            final String date = DateFormat.getDateInstance().format((Date) arg1);
             return new JLabel(date);
         }
     }

@@ -24,6 +24,7 @@ package net.sf.housekeeper.swing;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -45,7 +46,7 @@ import com.odellengineeringltd.glazedlists.jtable.ListTable;
 import com.odellengineeringltd.glazedlists.jtable.TableComparatorChooser;
 
 /**
- * Lets the user manage the {@link net.sf.housekeeper.domain.StockItem} objects.
+ * Lets the user manage the {@link net.sf.housekeeper.domain.StockItem}objects.
  * It provides access to displaying, adding and modifying items.
  * 
  * @author Adrian Gygax
@@ -71,9 +72,14 @@ final class StockPanel extends JPanel
 
         final EventList items = StorageFactory.getCurrentStorage()
                 .getAllStockItems();
-        final SortedList sortedList = new SortedList(items, null);
+        final SortedList sortedList = new SortedList(items,
+                new StockDescriptionComparator());
         table = new ListTable(sortedList, new StockTableCell());
-        new TableComparatorChooser(table, sortedList, false);
+        final TableComparatorChooser chooser = new TableComparatorChooser(
+                table, sortedList, false);
+        chooser.getComparatorsForColumn(0).clear();
+        chooser.getComparatorsForColumn(0)
+                .add(new StockDescriptionComparator());
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
@@ -141,31 +147,60 @@ final class StockPanel extends JPanel
             final JTextField nameField = new JTextField();
             d.addElement("Name", nameField, compWidth);
 
+            final JTextField quantityField = new JTextField();
+            d.addElement("Quantity", quantityField, compWidth);
+
             /*
-             * The next few lines just create a Date object with the current date
-             * not the exact current time. This prevents the problem that the date
-             * in the spinner can't be set to today, once it has been modified.
+             * The next few lines just create a Date object with the current
+             * date not the exact current time. This prevents the problem that
+             * the date in the spinner can't be set to today, once it has been
+             * modified.
              */
             final Calendar now = new GregorianCalendar();
             now.setTime(new Date());
-            final Calendar todayCal = new GregorianCalendar(now.get(Calendar.YEAR),
-                    now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            final Calendar todayCal = new GregorianCalendar(now
+                    .get(Calendar.YEAR), now.get(Calendar.MONTH), now
+                    .get(Calendar.DAY_OF_MONTH));
             final Date today = todayCal.getTime();
-            
+
             final SpinnerDateModel spinnerModel = new SpinnerDateModel();
             spinnerModel.setStart(today);
             final JSpinner spinner = new JSpinner(spinnerModel);
             spinner.setEditor(new DateEditor(spinner));
             d.addElement("Best Before End", spinner, compWidth);
 
-            
             final int dialogState = d.display();
             if (dialogState == StandardDialog.APPROVE)
             {
-                final StockItem item = new StockItem(nameField.getText(), spinnerModel.getDate());
+                final StockItem item = new StockItem(nameField.getText(),
+                        quantityField.getText(), spinnerModel.getDate());
                 StorageFactory.getCurrentStorage().add(item);
             }
         }
     }
 
+    private static class StockDescriptionComparator implements Comparator
+    {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
+        public int compare(Object o1, Object o2)
+        {
+            final StockItem item1 = (StockItem) o1;
+            final StockItem item2 = (StockItem) o2;
+
+            int returnValue = item1.getName()
+                    .compareToIgnoreCase(item2.getName());
+            if (returnValue == 0)
+            {
+                returnValue = item1.getQuantity()
+                        .compareToIgnoreCase(item2.getQuantity());
+            }
+            return returnValue;
+        }
+
+    }
 }
