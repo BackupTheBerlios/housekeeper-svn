@@ -91,6 +91,15 @@ public final class HousekeeperLifecycleAdvisor extends
         return exit;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.richclient.application.config.ApplicationLifecycleAdvisor#onWindowOpened(org.springframework.richclient.application.ApplicationWindow)
+     */
+    public void onWindowOpened(ApplicationWindow arg0)
+    {
+        arg0.getControl().toFront();
+        super.onWindowOpened(arg0);
+    }
+    
     /*
      * (non-Javadoc)
      * 
