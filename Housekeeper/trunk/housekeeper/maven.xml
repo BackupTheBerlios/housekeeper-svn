@@ -10,6 +10,7 @@
         value="${maven.build.dir}/release"/>
         
 	<attainGoal name="package-copy-misc" />
+	<attainGoal name="package-setup-scripts" />
 	<attainGoal name="package-copy-jars" />
     <attainGoal name="package-create-archives" />
   </goal>
@@ -28,6 +29,11 @@
     <attainGoal name="jar" />
     <ant:copy file="${maven.build.dir}/${maven.final.name}.jar" todir="${outputPath}"/>
     <deploy:copy-deps todir="${outputPath}/lib" excludes="maven-statcvs-plugin"/>
+  </goal>
+  
+  <goal name="package-setup-scripts">
+    <attainGoal name="package-copy-misc" />
+    <ant:replace dir="${outputPath}" includes="housekeeper.bat,housekeeper.sh" token="@@HOUSEKEEPER_JAR@@" value="${maven.final.name}.jar"/>
   </goal>
   
   <goal name="package-create-archives">
