@@ -128,8 +128,8 @@ public final class StockPanel extends JPanel
 
         public void actionPerformed(ActionEvent arg0)
         {
-            StockItemDialog d = new StockItemDialog();
-            StockItem item = d.show("Add item to stock");
+            final StockItemDialog d = new StockItemDialog("Add item to stock");
+            final StockItem item = d.display();
 
             if (item != null)
             {

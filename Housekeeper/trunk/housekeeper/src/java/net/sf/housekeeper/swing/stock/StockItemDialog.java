@@ -62,10 +62,13 @@ public final class StockItemDialog extends JDialog
 
     /**
      * Creates a new AssortimentItemDialog.
+     * 
+     * @param title title of the dialog's window. If null an empty string is
+     *  used.
      */
-    public StockItemDialog()
+    public StockItemDialog(final String title)
     {
-        super(MainFrame.INSTANCE, true);
+        super(MainFrame.INSTANCE, title, true);
 
         nameField = new JTextField();
 
@@ -106,14 +109,10 @@ public final class StockItemDialog extends JDialog
      * Shows a dialog for entering a new Article Description. The new object is
      * returned by this method.
      * 
-     * @param title Title of the dialog's window. If null an empty string is
-     *  used.
-     * 
      * @return The new object if the user confirms his entry, null if he aborts.
      */
-    public StockItem show(final String title)
+    public StockItem display()
     {
-        setTitle(title);
         super.show();
 
         return item;
@@ -123,21 +122,18 @@ public final class StockItemDialog extends JDialog
      * Shows a dialog for modifying an existing Article Description. The
      * modified object is returned by this method.
      * 
-     * @param title Title of the dialog's window. If null an empty string is
-     *  used.
      * @param stockItem Object that should be modified. Must not be null.
      * 
      * @return The modified object if the user confirms his entry, null if he
      *         aborts.
      */
-    public StockItem show(final String title, final StockItem stockItem)
+    public StockItem display(final StockItem stockItem)
     {
         assert stockItem != null : "Parameter stockItem must not be null";
-        
-        setTitle(title);
 
         this.item = stockItem;
         nameField.setText(stockItem.getName());
+        spinnerModel.setValue(stockItem.getBestBeforeEnd());
 
         super.show();
 
