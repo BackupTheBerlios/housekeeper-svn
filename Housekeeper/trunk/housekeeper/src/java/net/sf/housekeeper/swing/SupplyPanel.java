@@ -20,12 +20,12 @@ import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.domain.FoodItem;
 import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.swing.util.DateCellRenderer;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.SortedList;
 import ca.odell.glazedlists.swing.EventSelectionModel;
 import ca.odell.glazedlists.swing.EventTableModel;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
-import ca.odell.renderpack.DateTableCellRenderer;
 
 /**
  * @author Adrian Gygax
@@ -115,8 +115,7 @@ final class SupplyPanel extends JPanel
         //Register renderer for the expiry date
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
-        final TableCellRenderer dateRenderer = new DateTableCellRenderer(
-                dateFormat.toPattern());
+        final TableCellRenderer dateRenderer = new DateCellRenderer(dateFormat);
         table.getColumn("Expiry").setCellRenderer(dateRenderer);
 
         //init actions
