@@ -54,136 +54,134 @@ import java.util.List;
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
+ *
  * @since 0.1
  */
 final class XMLSerializationStorage extends Storage
 {
-	//~ Static fields/initializers ---------------------------------------------
+    //~ Static fields/initializers ---------------------------------------------
 
-	/** The name of the file used for data storage */
-	private static final String FILENAME = "/home/phelan/test.xml";
+    /** The name of the file used for data storage */
+    private static final String FILENAME = "/home/phelan/test.xml";
 
-	//~ Instance fields --------------------------------------------------------
+    //~ Instance fields --------------------------------------------------------
 
-	private Collection purchases;
-	private List	   articles;
-	private XMLDecoder xmlDecoder;
-	private XMLEncoder xmlEncoder;
+    private Collection articleDescriptions;
+    private Collection purchases;
+    private XMLDecoder xmlDecoder;
+    private XMLEncoder xmlEncoder;
 
-	//~ Constructors -----------------------------------------------------------
+    //~ Constructors -----------------------------------------------------------
 
-	/**
-	 * Creates a new XMLStorage object.
-	 */
-	XMLSerializationStorage()
-	{
-		articles  = new ArrayList();
-		purchases = new ArrayList();
-	}
+    /**
+     * Creates a new XMLStorage object.
+     */
+    XMLSerializationStorage()
+    {
+        articleDescriptions = new ArrayList();
+        purchases           = new ArrayList();
+    }
 
-	//~ Methods ----------------------------------------------------------------
+    //~ Methods ----------------------------------------------------------------
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
+     */
+    public Collection getArticles()
+    {
+        return articleDescriptions;
+    }
 
-    
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
+    public Collection getPurchases()
+    {
+        return purchases;
+    }
 
-	/* (non-Javadoc)
-	 * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
-	 */
-	public List getArticles()
-	{
-		return articles;
-	}
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @param article DOCUMENT ME!
+     */
+    public void add(ArticleDescription article)
+    {
+        articleDescriptions.add(article);
+        update();
+    }
 
-	/**
-	 * TODO DOCUMENT ME!
-	 *
-	 * @return DOCUMENT ME!
-	 */
-	public Collection getPurchases()
-	{
-		return purchases;
-	}
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @param purchase DOCUMENT ME!
+     */
+    public void add(Purchase purchase)
+    {
+        purchases.add(purchase);
+        update();
+    }
 
-	/**
-	 * TODO DOCUMENT ME!
-	 *
-	 * @param article DOCUMENT ME!
-	 */
-	public void add(ArticleDescription article)
-	{
-		articles.add(article);
-		update();
-	}
+    /**
+     * TODO DOCUMENT ME!
+     */
+    public void loadData()
+    {
+        try
+        {
+            xmlDecoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(FILENAME)));
 
-	/**
-	 * TODO DOCUMENT ME!
-	 *
-	 * @param purchase DOCUMENT ME!
-	 */
-	public void add(Purchase purchase)
-	{
-		purchases.add(purchase);
-		update();
-	}
+            Object result = xmlDecoder.readObject();
 
-	/**
-	 * TODO DOCUMENT ME!
-	 */
-	public void loadData()
-	{
-		try
-		{
-			xmlDecoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(FILENAME)));
+            xmlDecoder.close();
 
-			Object result = xmlDecoder.readObject();
+            articleDescriptions = (List)result;
+            update();
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found");
+        }
+    }
 
-			xmlDecoder.close();
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @param article DOCUMENT ME!
+     */
+    public void remove(ArticleDescription article)
+    {
+        articleDescriptions.remove(article);
+        update();
+    }
 
-			articles = (List)result;
-			update();
-		}
-		catch (FileNotFoundException e)
-		{
-			System.out.println("File not found");
-		}
-	}
+    /**
+     * TODO DOCUMENT ME!
+     */
+    public void saveData()
+    {
+        try
+        {
+            xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILENAME)));
 
-	/**
-	 * TODO DOCUMENT ME!
-	 *
-	 * @param article DOCUMENT ME!
-	 */
-	public void remove(ArticleDescription article)
-	{
-		articles.remove(article);
-		update();
-	}
+            xmlEncoder.writeObject(articleDescriptions);
 
-	/**
-	 * TODO DOCUMENT ME!
-	 */
-	public void saveData()
-	{
-		try
-		{
-			xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILENAME)));
+            xmlEncoder.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found");
+        }
+    }
 
-			xmlEncoder.writeObject(articles);
-
-			xmlEncoder.close();
-		}
-		catch (FileNotFoundException e)
-		{
-			System.out.println("File not found");
-		}
-	}
-
-	/**
-	 * TODO DOCUMENT ME!
-	 */
-	public void update()
-	{
-		setChanged();
-		notifyObservers();
-	}
+    /**
+     * TODO DOCUMENT ME!
+     */
+    public void update()
+    {
+        setChanged();
+        notifyObservers();
+    }
 }

@@ -27,7 +27,6 @@ import net.sourceforge.housekeeper.model.ArticleDescription;
 import net.sourceforge.housekeeper.model.Purchase;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Observable;
 
 
@@ -38,45 +37,55 @@ import java.util.Observable;
  */
 public abstract class Storage extends Observable
 {
-    //~ Methods ----------------------------------------------------------------
+	//~ Methods ----------------------------------------------------------------
 
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public abstract List getArticles();
-    
-    public abstract Collection getPurchases();
-    
-    public abstract void add(Purchase purchase);
-    
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param article DOCUMENT ME!
-     */
-    public abstract void add(ArticleDescription article);
+	/**
+	 * TODO DOCUMENT ME!
+	 *
+	 * @return DOCUMENT ME!
+	 */
+	public abstract Collection getArticles();
 
-    /**
-     * TODO DOCUMENT ME!
-     */
-    public abstract void loadData();
+	/**
+	 * TODO DOCUMENT ME!
+	 *
+	 * @return DOCUMENT ME!
+	 */
+	public abstract Collection getPurchases();
 
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param article DOCUMENT ME!
-     */
-    public abstract void remove(ArticleDescription article);
+	/**
+	 * TODO DOCUMENT ME!
+	 *
+	 * @param purchase DOCUMENT ME!
+	 */
+	public abstract void add(Purchase purchase);
 
-    /**
-     * TODO DOCUMENT ME!
-     */
-    public abstract void saveData();
+	/**
+	 * TODO DOCUMENT ME!
+	 *
+	 * @param article DOCUMENT ME!
+	 */
+	public abstract void add(ArticleDescription article);
 
-    /**
-     * TODO DOCUMENT ME!
-     */
-    public abstract void update();
+	/**
+	 * TODO DOCUMENT ME!
+	 */
+	public abstract void loadData();
+
+	/**
+	 * TODO DOCUMENT ME!
+	 *
+	 * @param article DOCUMENT ME!
+	 */
+	public abstract void remove(ArticleDescription article);
+
+	/**
+	 * TODO DOCUMENT ME!
+	 */
+	public abstract void saveData();
+
+	/**
+	 * TODO DOCUMENT ME!
+	 */
+	public abstract void update();
 }
