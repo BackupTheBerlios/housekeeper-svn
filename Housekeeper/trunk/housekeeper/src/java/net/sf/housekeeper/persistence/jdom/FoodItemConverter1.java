@@ -56,7 +56,7 @@ final class FoodItemConverter1
     static FoodItem convert(final Element foodItemElement)
     {
         final FoodItem foodItem = new FoodItem();
-        
+
         //Name
         final String itemName = foodItemElement.getAttributeValue("name");
         foodItem.setName(itemName);
@@ -65,11 +65,9 @@ final class FoodItemConverter1
         final Element quantityElement = foodItemElement.getChild("quantity");
         if (quantityElement != null)
         {
-            String quantity = quantityElement
-            .getAttributeValue("value");
+            String quantity = quantityElement.getAttributeValue("value");
             foodItem.setQuantity(quantity);
         }
-
 
         //Expiry
         final Element expiryElement = foodItemElement.getChild("expiry");
@@ -119,8 +117,8 @@ final class FoodItemConverter1
             calendar.setTime(item.getExpiry());
             expiryElement.setAttribute("day", ""
                     + calendar.get(GregorianCalendar.DAY_OF_MONTH));
-            expiryElement.setAttribute("month", ""
-                    + calendar.get(GregorianCalendar.MONTH));
+            final int month = calendar.get(GregorianCalendar.MONTH) + 1;
+            expiryElement.setAttribute("month", "" + month);
             expiryElement.setAttribute("year", ""
                     + calendar.get(GregorianCalendar.YEAR));
             xmlElement.addContent(expiryElement);
