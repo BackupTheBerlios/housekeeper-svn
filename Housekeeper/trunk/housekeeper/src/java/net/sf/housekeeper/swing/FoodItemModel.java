@@ -175,7 +175,7 @@ public final class FoodItemModel
      */
     private boolean openEditor(FoodItem item)
     {
-        FoodItemEditorDialog dialog = new FoodItemEditorDialog(item);
+        FoodItemEditorDialog dialog = new FoodItemEditorDialog(MainFrame.INSTANCE, item);
         dialog.open();
         return dialog.hasBeenCanceled();
     }
