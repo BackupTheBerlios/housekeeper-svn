@@ -73,8 +73,8 @@ public final class AssortimentItemDialog extends JDialog
 
         nameField     = new JTextField();
         storeField    = new JTextField();
-        priceField    = new JTextField();
-        quantityField = new JTextField();
+        priceField    = new JTextField("0");
+        quantityField = new JTextField("0");
         unitField     = new JTextField();
 
         buttonOK = new JButton("OK");
