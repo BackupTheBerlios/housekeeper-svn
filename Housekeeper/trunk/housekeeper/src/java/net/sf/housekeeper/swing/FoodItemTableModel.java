@@ -27,7 +27,7 @@ import javax.swing.ListModel;
 
 import net.sf.housekeeper.domain.FoodItem;
 
-import com.jgoodies.binding.adapter.TableAdapter;
+import com.jgoodies.binding.adapter.AbstractTableAdapter;
 
 /**
  * Provides a TableModel for displaying
@@ -38,7 +38,7 @@ import com.jgoodies.binding.adapter.TableAdapter;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class FoodItemTableModel extends TableAdapter
+final class FoodItemTableModel extends AbstractTableAdapter
 {
 
     /**
