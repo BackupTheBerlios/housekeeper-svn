@@ -40,7 +40,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @since
  */
-class ArticleDescriptionTableModel extends AbstractTableModel
+final class ArticleDescriptionTableModel extends AbstractTableModel
     implements Observer
 {
     //~ Static fields/initializers ---------------------------------------------
@@ -81,8 +81,9 @@ class ArticleDescriptionTableModel extends AbstractTableModel
 
     private ArticleDescriptionTableModel()
     {
-        tableData = StorageFactory.getCurrentStorage().getArticles().toArray();
+        updateTableData();
         StorageFactory.getCurrentStorage().addObserver(this);
+        
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -138,7 +139,7 @@ class ArticleDescriptionTableModel extends AbstractTableModel
      */
     public int getRowCount()
     {
-        return StorageFactory.getCurrentStorage().getArticles().size();
+        return tableData.length;
     }
 
     /* (non-Javadoc)
@@ -169,13 +170,18 @@ class ArticleDescriptionTableModel extends AbstractTableModel
                 return null;
         }
     }
+    
+    private void updateTableData()
+    {
+        tableData = StorageFactory.getCurrentStorage().getArticles().toArray();
+    }
 
     /* (non-Javadoc)
      * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
      */
     public void update(Observable o, Object arg)
     {
-        tableData = StorageFactory.getCurrentStorage().getArticles().toArray();
+        updateTableData();
         fireTableDataChanged();
     }
 }
