@@ -24,7 +24,7 @@ package net.sf.housekeeper.domain;
 import org.springframework.util.ToStringCreator;
 
 /**
- * A physical object present in a household.
+ * An arbitrary item.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$

@@ -10,7 +10,7 @@ import junit.framework.TestCase;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class FoodItemManagerTest extends TestCase
+public class ItemManagerTest extends TestCase
 {
 
     /**
@@ -19,10 +19,10 @@ public class FoodItemManagerTest extends TestCase
      */
     public void testAdd()
     {
-        final FoodManager manager = new FoodManager();
-        final Food item = new Food();
+        final ItemManager manager = new ItemManager();
+        final ExpiringItem item = new ExpiringItem();
         manager.add(item);
-        final boolean isItemInList = manager.getSupplyList().contains(item);
+        final boolean isItemInList = manager.getAllItems().contains(item);
         assertTrue("The item added cannot be found in the list", isItemInList);
     }
 
@@ -32,8 +32,8 @@ public class FoodItemManagerTest extends TestCase
      */
     public void testGetSupplyList()
     {
-        final FoodManager manager = new FoodManager();
-        final List supply = manager.getSupplyList();
+        final ItemManager manager = new ItemManager();
+        final List supply = manager.getAllItems();
         assertNotNull("getSupplyList() returns null", supply);
     }
 
@@ -43,19 +43,19 @@ public class FoodItemManagerTest extends TestCase
      */
     public void testReplaceAll()
     {
-        final FoodManager manager = new FoodManager();
-        final Food oldItem = new Food();
+        final ItemManager manager = new ItemManager();
+        final ExpiringItem oldItem = new ExpiringItem();
         manager.add(oldItem);
 
         final Collection col = new ArrayList();
-        final Food newItem = new Food();
+        final ExpiringItem newItem = new ExpiringItem();
         newItem.setName("NewItem");
         col.add(newItem);
         manager.replaceAll(col);
 
-        assertFalse("Manager still knows old item", manager.getSupplyList()
+        assertFalse("Manager still knows old item", manager.getAllItems()
                 .contains(oldItem));
-        assertTrue("Manager does not know new item", manager.getSupplyList()
+        assertTrue("Manager does not know new item", manager.getAllItems()
                 .contains(newItem));
     }
 
@@ -65,12 +65,12 @@ public class FoodItemManagerTest extends TestCase
      */
     public void testRemove()
     {
-        final FoodManager manager = new FoodManager();
-        final Food item = new Food();
+        final ItemManager manager = new ItemManager();
+        final ExpiringItem item = new ExpiringItem();
         manager.add(item);
         manager.remove(item);
 
-        final boolean isItemInList = manager.getSupplyList().contains(item);
+        final boolean isItemInList = manager.getAllItems().contains(item);
         assertFalse("The manager still knows the removed item", isItemInList);
     }
 

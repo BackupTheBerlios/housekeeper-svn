@@ -23,6 +23,7 @@ package net.sf.housekeeper.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,19 +31,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Holds a list of items and provides operations to add, delete and change a
- * Book.
+ * Holds a list of items and provides operations to add, delete and change an
+ * {@link net.sf.housekeeper.domain.Item}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class FoodManager
+public final class ItemManager
 {
 
     /**
      * Log to be used for this class.
      */
-    private static final Log LOG = LogFactory.getLog(FoodManager.class);
+    private static final Log LOG = LogFactory.getLog(ItemManager.class);
 
     /**
      * Flag indicating if any data has been changed.
@@ -50,45 +51,44 @@ public final class FoodManager
     private boolean          hasChanged;
 
     /**
-     * Holds a list of all items on hand.
+     * Holds a list of all managed items.
      */
-    private final List       foodList;
+    private final List       items;
 
     /**
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
      * returns <code>false</code>.
      */
-    public FoodManager()
+    public ItemManager()
     {
         this(new ArrayList());
     }
 
     /**
-     * Creates a new manager with an existing list of food. Afterwards,
+     * Creates a new manager with an existing list of {@link Item}s. Afterwards,
      * {@link #hasChanged()}returns <code>false</code>.
      * 
-     * @param items A list of {@link Food}s. The type of the elements the
+     * @param items A list of {@link Item}s. The types of the elements the
      *            collection are NOT checked by this method.
      */
-    public FoodManager(final List items)
+    public ItemManager(final List items)
     {
-        foodList = items;
+        this.items = items;
         resetChangedStatus();
     }
 
     /**
-     * Adds a Food object to the list and notifies observers of the supply
-     * {@link javax.swing.ListModel}about the change. Afterwards,
+     * Adds an {@link Item} object to the list. After execution,
      * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to add to the supply.
      */
-    public void add(final Food item)
+    public void add(final Item item)
     {
-        foodList.add(item);
+        items.add(item);
         hasChanged = true;
 
-        LOG.debug("Added convenience food: " + item);
+        LOG.debug("Added: " + item);
     }
 
     /**
@@ -97,32 +97,45 @@ public final class FoodManager
      * 
      * @param item The item to be duplicated.
      */
-    public void duplicate(final Food item)
+    public void duplicate(final Item item)
     {
-        final Food clonedItem = new Food(item);
+        final Item clonedItem = new Item(item);
+        add(clonedItem);
+        hasChanged = true;
+    }
+    
+    /**
+     * Duplicates the provided item and adds it to the to the list. Afterwards,
+     * {@link #hasChanged()}returns <code>true</code>.
+     * 
+     * @param item The item to be duplicated.
+     */
+    public void duplicate(final ExpiringItem item)
+    {
+        final ExpiringItem clonedItem = new ExpiringItem(item);
         add(clonedItem);
         hasChanged = true;
     }
 
     /**
-     * Provides an iterator for the list of items on hand.
+     * Provides an iterator for all managed items.
      * 
-     * @return an iterator for the list of items on hand.
+     * @return  an iterator for all managed items. Is not null.
      */
     public Iterator getItemsIterator()
     {
-        return foodList.iterator();
+        return items.iterator();
     }
 
     /**
-     * Returns the items on hold. You must NOT modify the returned list object
+     * Returns the items on hold. You cannot modify the returned list object
      * directly. Use the methods of this manager instead.
      * 
      * @return the supply.
      */
-    public List getSupplyList()
+    public List getAllItems()
     {
-        return foodList;
+        return Collections.unmodifiableList(items);
     }
 
     /**
@@ -136,14 +149,14 @@ public final class FoodManager
     {
         if (category == null)
         {
-            return getSupplyList();
+            return getAllItems();
         }
 
         final List categoryItems = new ArrayList();
-        final Iterator allItemsIter = foodList.iterator();
+        final Iterator allItemsIter = items.iterator();
         while (allItemsIter.hasNext())
         {
-            final Food item = (Food) allItemsIter.next();
+            final ExpiringItem item = (ExpiringItem) allItemsIter.next();
             final boolean isOfCategory = item.getCategory().equals(category);
             if (isOfCategory)
             {
@@ -154,45 +167,43 @@ public final class FoodManager
     }
 
     /**
-     * Removes a Food object from the supply. Afterwards, {@link #hasChanged()}
+     * Removes a {@link Item} object from the supply. Afterwards, {@link #hasChanged()}
      * returns <code>true</code>.
      * 
      * @param item the item to remove from the supply.
      */
-    public void remove(final Food item)
+    public void remove(final Item item)
     {
-        foodList.remove(item);
+        items.remove(item);
         hasChanged = true;
 
-        LOG.debug("Removed food: " + item);
+        LOG.debug("Removed: " + item);
     }
 
     /**
-     * Clears the list of all food on hand and replaces it with a new one.
+     * Clears the list of items and replaces it with a new one.
      * Afterwards, {@link #hasChanged()}returns <code>true</code>.
      * 
-     * @param food A collection of food.
+     * @param newItems The new items. Must not be null.
      */
-    public void replaceAll(final Collection food)
+    public void replaceAll(final Collection newItems)
     {
-        foodList.clear();
-        foodList.addAll(food);
+        items.clear();
+        items.addAll(newItems);
         hasChanged = true;
 
         LOG.debug("Replaced all food objects");
     }
 
     /**
-     * Updates an item in this manager. If you change a {@link Food}object you
+     * Updates an item in this manager. If you change a {@link Item} object you
      * MUST call this method so Observers can be notified of the update.
      * Afterwards, {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item The item which should be updated.
      */
-    public void update(final Food item)
+    public void update(final Item item)
     {
-        final int index = foodList.indexOf(item);
-        foodList.set(index, item);
         hasChanged = true;
 
         LOG.debug("Updated food: " + item);
@@ -237,9 +248,9 @@ public final class FoodManager
         {
             return false;
         }
-        FoodManager castedObj = (FoodManager) o;
-        return this.foodList == null ? castedObj.foodList == null
-                : this.foodList.equals(castedObj.foodList);
+        ItemManager castedObj = (ItemManager) o;
+        return this.items == null ? castedObj.items == null
+                : this.items.equals(castedObj.items);
     }
 
     /*
@@ -250,7 +261,7 @@ public final class FoodManager
     public int hashCode()
     {
         int hashCode = 1;
-        hashCode = 31 * hashCode + (foodList == null ? 0 : foodList.hashCode());
+        hashCode = 31 * hashCode + (items == null ? 0 : items.hashCode());
         return hashCode;
     }
 }

@@ -147,8 +147,8 @@
 		</property>
     <property name="viewProperties">
       <map>
-        <entry key="foodManager">
-          <ref local="foodManager"/>
+        <entry key="itemManager">
+          <ref local="itemManager"/>
         </entry>
       </map>
 		</property>
@@ -163,11 +163,11 @@
     
   <bean id="household"
 		class="net.sf.housekeeper.domain.Household">
-    <constructor-arg><ref local="foodManager"/></constructor-arg>
+    <constructor-arg><ref local="itemManager"/></constructor-arg>
 	</bean>
   
-  <bean id="foodManager"
-		class="net.sf.housekeeper.domain.FoodManager">
+  <bean id="itemManager"
+		class="net.sf.housekeeper.domain.ItemManager">
 	</bean>
   
   <bean id="persistenceController"

@@ -3,7 +3,7 @@ package net.sf.housekeeper.persistence.jdom;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import net.sf.housekeeper.domain.Food;
+import net.sf.housekeeper.domain.ExpiringItem;
 import net.sf.housekeeper.domain.Household;
 
 import org.jdom.Element;
@@ -62,18 +62,18 @@ final class ModelConverter
         .getItemsIterator();
         while (iter.hasNext())
         {
-            final Food item = (Food) iter.next();
-            root.addContent(FoodItemConverter.convert(item));
+            final ExpiringItem item = (ExpiringItem) iter.next();
+            root.addContent(ExpiringItemConverter.convert(item));
         }
         
         return root;
     }
 
     /**
-     * Creates {@link Food}objects from a food container.
+     * Creates {@link ExpiringItem}objects from a food container.
      * 
      * @param foodElement The container with the food elements.
-     * @return A list of {@link Food}objects.
+     * @return A list of {@link ExpiringItem}objects.
      */
     private ArrayList getFoodItems(final Element foodElement)
     {
@@ -83,7 +83,7 @@ final class ModelConverter
         while (foodItemIterator.hasNext())
         {
             final Element element = (Element) foodItemIterator.next();
-            final Food item = FoodItemConverter.convert(element);
+            final ExpiringItem item = ExpiringItemConverter.convert(element);
             food.add(item);
         }
         return food;

@@ -42,7 +42,7 @@ final class Version1To2Converter implements DocumentVersionConverter
         newRoot.setAttribute("version", "2");
 
         //Copy foodItem elements
-        final Collection foodItems = oldRoot.getChildren(FoodItemConverter.ELEMENT_FOODITEM);
+        final Collection foodItems = oldRoot.getChildren(ExpiringItemConverter.ELEMENT_FOODITEM);
 
         //Set category of all elements to a default value
         final Iterator iter = foodItems.iterator();
@@ -52,8 +52,8 @@ final class Version1To2Converter implements DocumentVersionConverter
             final Element cloned = (Element)food.clone();
 
             final Element category = new Element(
-                    FoodItemConverter.ELEMENT_CATEGORY);
-            category.setAttribute(FoodItemConverter.ATTRIBUTE_CATEGORY_NAME,
+                    ExpiringItemConverter.ELEMENT_CATEGORY);
+            category.setAttribute(ExpiringItemConverter.ATTRIBUTE_CATEGORY_NAME,
                                   "convenienceFood");
             cloned.addContent(category);
             newRoot.addContent(cloned);

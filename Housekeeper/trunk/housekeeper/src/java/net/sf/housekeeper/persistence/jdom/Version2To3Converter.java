@@ -57,7 +57,7 @@ final class Version2To3Converter implements DocumentVersionConverter
         //Set version
         oldRoot.setAttribute("version", "3");
         
-        final Iterator iterator = oldRoot.getChildren(FoodItemConverter.ELEMENT_FOODITEM).iterator();
+        final Iterator iterator = oldRoot.getChildren(ExpiringItemConverter.ELEMENT_FOODITEM).iterator();
         while (iterator.hasNext())
         {
             Element food = (Element) iterator.next();

@@ -34,7 +34,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.SAXException;
 
-import net.sf.housekeeper.domain.Food;
+import net.sf.housekeeper.domain.ExpiringItem;
 import net.sf.housekeeper.domain.Household;
 
 /**
@@ -133,7 +133,7 @@ public final class DataGenerator
 
     /**
      * Creates a {@link Household}object which is populated with a complex and
-     * a simple {@link Food}.
+     * a simple {@link ExpiringItem}.
      * 
      * @return Not null.
      */
@@ -147,11 +147,11 @@ public final class DataGenerator
     }
 
     /**
-     * Creates a {@link Food}object which has all attributes set to a value.
+     * Creates a {@link ExpiringItem}object which has all attributes set to a value.
      * 
      * @return Not null.
      */
-    public static Food createComplexItem()
+    public static ExpiringItem createComplexItem()
     {
         final String itemName = "aName";
         final String itemQuantity = "aQuantity";
@@ -162,21 +162,21 @@ public final class DataGenerator
         final int year = 2004;
         itemDate.set(year, month, day, 15, 22);
 
-        final Food item = new Food(itemName, itemQuantity, itemDate.getTime());
+        final ExpiringItem item = new ExpiringItem(itemName, itemQuantity, itemDate.getTime());
 
         return item;
     }
 
     /**
-     * Creates a {@link Food}object which has only its name set.
+     * Creates a {@link ExpiringItem}object which has only its name set.
      * 
      * @return Not null.
      */
-    public static Food createSimpleItem()
+    public static ExpiringItem createSimpleItem()
     {
         final String itemName = "aName";
 
-        final Food item = new Food(itemName, null, null);
+        final ExpiringItem item = new ExpiringItem(itemName, null, null);
 
         return item;
     }

@@ -42,8 +42,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.HousekeeperEvent;
-import net.sf.housekeeper.domain.Food;
-import net.sf.housekeeper.domain.FoodManager;
+import net.sf.housekeeper.domain.ExpiringItem;
+import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.swing.util.CustomTableUtils;
 
 import org.springframework.binding.form.FormModel;
@@ -64,7 +64,9 @@ import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 /**
- * @author
+ * A view for the display of all items on hand.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class ItemsTableView extends AbstractView implements
@@ -83,7 +85,7 @@ public final class ItemsTableView extends AbstractView implements
 
     private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
 
-    private FoodManager                    foodManager;
+    private ItemManager                    itemManager;
 
     private String                         category;
 
@@ -221,7 +223,7 @@ public final class ItemsTableView extends AbstractView implements
         return convCommandGroup.createPopupMenu();
     }
 
-    private Food getSelected()
+    private ExpiringItem getSelected()
     {
         if (hasSelection())
         {
@@ -230,7 +232,7 @@ public final class ItemsTableView extends AbstractView implements
                     .getModel();
             final int convertedRow = sortModel
                     .convertSortedIndexToDataIndex(selectedRow);
-            return (Food) tableModel.getRow(convertedRow);
+            return (ExpiringItem) tableModel.getRow(convertedRow);
         }
 
         return null;
@@ -250,15 +252,15 @@ public final class ItemsTableView extends AbstractView implements
      * 
      * @param manager
      */
-    public void setFoodManager(final FoodManager manager)
+    public void setItemManager(final ItemManager manager)
     {
-        this.foodManager = manager;
+        this.itemManager = manager;
     }
 
     private void refresh()
     {
         tableModel.clear();
-        tableModel.addRows(foodManager.getItemsForCategory(category));
+        tableModel.addRows(itemManager.getItemsForCategory(category));
     }
 
     private final class DoubleClickListener extends MouseAdapter
@@ -292,7 +294,7 @@ public final class ItemsTableView extends AbstractView implements
 
         private ItemsTableModel(List rows, MessageSource messages)
         {
-            super(Food.class, rows, messages);
+            super(ExpiringItem.class, rows, messages);
             setRowNumbers(false);
         }
 
@@ -318,8 +320,8 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final Food selectedItem = getSelected();
-            foodManager.remove(selectedItem);
+            final ExpiringItem selectedItem = getSelected();
+            itemManager.remove(selectedItem);
             refresh();
         }
     }
@@ -333,8 +335,8 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final Food selectedItem = getSelected();
-            foodManager.duplicate(selectedItem);
+            final ExpiringItem selectedItem = getSelected();
+            itemManager.duplicate(selectedItem);
             refresh();
         }
     }
@@ -347,10 +349,10 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final Food foodObject = getSelected();
+            final ExpiringItem foodObject = getSelected();
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
-            final FoodPropertiesForm form = new FoodPropertiesForm(formModel);
+            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(formModel);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                     form, getWindowControl()) {
@@ -363,7 +365,7 @@ public final class ItemsTableView extends AbstractView implements
                 protected boolean onFinish()
                 {
                     formModel.commit();
-                    foodManager.update(foodObject);
+                    itemManager.update(foodObject);
                     refresh();
                     return true;
                 }
@@ -380,11 +382,11 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final Food foodObject = new Food();
+            final ExpiringItem foodObject = new ExpiringItem();
             foodObject.setCategory(category);
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
-            final FoodPropertiesForm form = new FoodPropertiesForm(formModel);
+            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(formModel);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                     form, getWindowControl()) {
@@ -397,7 +399,7 @@ public final class ItemsTableView extends AbstractView implements
                 protected boolean onFinish()
                 {
                     formModel.commit();
-                    foodManager.add(foodObject);
+                    itemManager.add(foodObject);
                     refresh();
                     return true;
                 }

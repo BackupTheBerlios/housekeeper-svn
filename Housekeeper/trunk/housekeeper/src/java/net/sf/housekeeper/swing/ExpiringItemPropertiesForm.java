@@ -36,13 +36,13 @@ import org.springframework.richclient.forms.JGoodiesBeanFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * A Form for editing the properties of a {@link net.sf.housekeeper.domain.Food}
+ * A Form for editing the properties of an {@link net.sf.housekeeper.domain.ExpiringItem}
  * object.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class FoodPropertiesForm extends AbstractForm
+public final class ExpiringItemPropertiesForm extends AbstractForm
 {
 
     /**
@@ -50,7 +50,7 @@ public final class FoodPropertiesForm extends AbstractForm
      * 
      * @param formModel The model to use. Must not be null.
      */
-    public FoodPropertiesForm(final FormModel formModel)
+    public ExpiringItemPropertiesForm(final FormModel formModel)
     {
         super(formModel, "foodPropertiesForm");
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat

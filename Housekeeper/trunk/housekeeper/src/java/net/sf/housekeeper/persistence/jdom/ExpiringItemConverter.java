@@ -25,47 +25,47 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import net.sf.housekeeper.domain.Food;
+import net.sf.housekeeper.domain.ExpiringItem;
 
 import org.jdom.Element;
 
 /**
  * Utility class for converting between JDOM Elements and
- * {@link net.sf.housekeeper.domain.Food}objects.
+ * {@link net.sf.housekeeper.domain.ExpiringItem}objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class FoodItemConverter
+final class ExpiringItemConverter
 {
 
     /**
      * The name of the attribute "name" of the element
-     * {@link FoodItemConverter#ELEMENT_CATEGORY}.
+     * {@link ExpiringItemConverter#ELEMENT_CATEGORY}.
      */
     public static final String ATTRIBUTE_CATEGORY_NAME     = "name";
     
     /**
      * The name of the attribute "day" of the element
-     * {@link FoodItemConverter#ELEMENT_EXPIRY}.
+     * {@link ExpiringItemConverter#ELEMENT_EXPIRY}.
      */
     public static final String ATTRIBUTE_EXPIRY_DAY     = "day";
 
     /**
      * The name of the attribute "month" of the element
-     * {@link FoodItemConverter#ELEMENT_EXPIRY}.
+     * {@link ExpiringItemConverter#ELEMENT_EXPIRY}.
      */
     public static final String ATTRIBUTE_EXPIRY_MONTH   = "month";
 
     /**
      * The name of the attribute "year" of the element
-     * {@link FoodItemConverter#ELEMENT_EXPIRY}.
+     * {@link ExpiringItemConverter#ELEMENT_EXPIRY}.
      */
     public static final String ATTRIBUTE_EXPIRY_YEAR    = "year";
 
     /**
      * The name of the attribute "name" of the element
-     * {@link FoodItemConverter#ELEMENT_FOODITEM}.
+     * {@link ExpiringItemConverter#ELEMENT_FOODITEM}.
      */
     public static final String ATTRIBUTE_NAME           = "name";
 
@@ -90,15 +90,15 @@ final class FoodItemConverter
     public static final String ELEMENT_DESCRIPTION         = "description";
 
     /**
-     * Converts a JDOM Element object into a {@link Food}.
+     * Converts a JDOM Element object into a {@link ExpiringItem}.
      * 
      * @param foodElement The element to convert. It is not checked if this
-     *            Element actually can be converted to a Food.
-     * @return The Food object build from the given Element.
+     *            Element actually can be converted to a ExpiringItem.
+     * @return The ExpiringItem object build from the given Element.
      */
-    static Food convert(final Element foodElement)
+    static ExpiringItem convert(final Element foodElement)
     {
-        final Food food = new Food();
+        final ExpiringItem food = new ExpiringItem();
 
         //Name
         final String itemName = foodElement.getAttributeValue(ATTRIBUTE_NAME);
@@ -141,12 +141,12 @@ final class FoodItemConverter
     }
 
     /**
-     * Converts a {@link Food}object into a JDOM Element.
+     * Converts a {@link ExpiringItem}object into a JDOM Element.
      * 
      * @param item The item to be converted.
-     * @return The JDOM element representing the given Food.
+     * @return The JDOM element representing the given ExpiringItem.
      */
-    static Element convert(final Food item)
+    static Element convert(final ExpiringItem item)
     {
         final Element xmlElement = new Element(ELEMENT_FOODITEM);
 
@@ -192,7 +192,7 @@ final class FoodItemConverter
     /**
      * Prevents instanciation.
      */
-    private FoodItemConverter()
+    private ExpiringItemConverter()
     {
     }
 }

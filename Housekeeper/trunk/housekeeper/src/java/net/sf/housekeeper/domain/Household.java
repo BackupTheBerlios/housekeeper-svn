@@ -21,9 +21,10 @@
 
 package net.sf.housekeeper.domain;
 
+import org.springframework.util.ToStringCreator;
+
 /**
- * A container for a Housekeeper domain. It consists of references to a manager
- * for {@link Food} domain objects.
+ * A container for a Housekeeper domain.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -31,7 +32,7 @@ package net.sf.housekeeper.domain;
 public final class Household
 {
 
-    private final FoodManager foodManager;
+    private final ItemManager foodManager;
 
 
     /**
@@ -39,16 +40,16 @@ public final class Household
      */
     public Household()
     {
-        this(new FoodManager());
+        this(new ItemManager());
     }
 
     /**
-     * Creates a new domain using an existing {@link FoodManager}.
+     * Creates a new domain using an existing {@link ItemManager}.
      * 
      * @param manager The manager for food objects. Must not
      *            be null.
      */
-    public Household(final FoodManager manager)
+    public Household(final ItemManager manager)
     {
         this.foodManager = manager;
     }
@@ -58,7 +59,7 @@ public final class Household
      * 
      * @return The manager. Is not null.
      */
-    public FoodManager getFoodManager()
+    public ItemManager getFoodManager()
     {
         return foodManager;
     }
@@ -72,7 +73,7 @@ public final class Household
     public void replaceAll(final Household domain)
     {
         foodManager.replaceAll(domain.getFoodManager()
-                .getSupplyList());
+                .getAllItems());
     }
 
     /**
@@ -144,11 +145,6 @@ public final class Household
      */
     public String toString()
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("[Household:");
-        buffer.append(" Food: ");
-        buffer.append(foodManager);
-        buffer.append("]");
-        return buffer.toString();
+        return ToStringCreator.propertiesToString(this);
     }
 }

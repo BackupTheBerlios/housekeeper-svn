@@ -29,12 +29,12 @@ import org.springframework.util.ToStringCreator;
 import net.sf.housekeeper.util.DateUtils;
 
 /**
- * A concrete food item that has been purchased.
+ * An item which can have an expiry date.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class Food extends Item
+public final class ExpiringItem extends Item
 {
 
     /**
@@ -63,10 +63,10 @@ public final class Food extends Item
     private Date               expiry;
 
     /**
-     * Creates a new Food object with default values. Name, quantity and the
+     * Creates a new ExpiringItem object with default values. Name, quantity and the
      * expiry date remain unset.
      */
-    public Food()
+    public ExpiringItem()
     {
         super();
         setExpiry(null);
@@ -74,11 +74,11 @@ public final class Food extends Item
     }
 
     /**
-     * Creates a new item as a deep copy of an existing Food object.
+     * Creates a new item as a deep copy of an existing ExpiringItem object.
      * 
      * @param original The item to be cloned.
      */
-    public Food(final Food original)
+    public ExpiringItem(final ExpiringItem original)
     {
         super(original);
 
@@ -92,13 +92,13 @@ public final class Food extends Item
     }
 
     /**
-     * Creates a new Food object with specified values.
+     * Creates a new ExpiringItem object with specified values.
      * 
      * @param name The name of the item. Must not be null.
      * @param quantity The quantity which one exemplar of this item contains.
      * @param expiry The date until this item should be consumed.
      */
-    public Food(final String name, final String quantity, final Date expiry)
+    public ExpiringItem(final String name, final String quantity, final Date expiry)
     {
         super(name, quantity);
         setExpiry(expiry);
@@ -130,7 +130,7 @@ public final class Food extends Item
     }
 
     /**
-     * Gets the expiry date of this food.
+     * Returns the expiry date.
      * 
      * @return Returns the expiry date or null if none has been set.
      */
@@ -162,7 +162,7 @@ public final class Food extends Item
         {
             return false;
         }
-        Food castedObj = (Food) o;
+        ExpiringItem castedObj = (ExpiringItem) o;
 
         final boolean equalExpiry = this.expiry == null ? castedObj.expiry == null
                 : this.expiry.equals(castedObj.expiry);
