@@ -27,7 +27,7 @@
       <value>supplyView</value>
     </property>
     <property name="windowCommandBarDefinitions">
-			<value>net/sf/housekeeper/commands-context.xml</value>
+			<value>net/sf/housekeeper/config/commands-context.xml</value>
 		</property>
   </bean>
 	
@@ -111,7 +111,7 @@
         <value>
           classpath:org/springframework/richclient/image/images.properties</value>
                   <value>
-          classpath:net/sf/housekeeper/images.properties</value>
+          classpath:net/sf/housekeeper/config/images.properties</value>
       </list>
 		</property>
 		<property name="resourceBasePath">

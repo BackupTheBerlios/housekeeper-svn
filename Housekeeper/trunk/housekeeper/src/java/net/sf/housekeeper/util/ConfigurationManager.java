@@ -74,7 +74,7 @@ public final class ConfigurationManager
         }
 
         final URL defaultPropURL = getClass()
-                .getResource("/net/sf/housekeeper/housekeeper.properties");
+                .getResource("/net/sf/housekeeper/config/housekeeper.properties");
         final Configuration defaultConfiguration = new PropertiesConfiguration(
                 defaultPropURL);
 
