@@ -21,10 +21,6 @@
 
 package net.sf.housekeeper;
 
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import net.sf.housekeeper.swing.MainFrame;
 
 import org.apache.commons.lang.SystemUtils;
@@ -46,26 +42,10 @@ public final class Housekeeper
      * Prevents instances of this class.
      */
     private Housekeeper(String[] args)
-    {
-        if (args.length > 0 && args[0].equals("--debug"))
-        {
-            enableDebugMessages();
-        }
-        
+    {        
         LogFactory.getLog(Housekeeper.class).info("Starting Housekeeper " + VERSION);
         
         MainFrame.INSTANCE.show();
-    }
-    
-    /**
-     * Configures the logging component for printing debug messages to the
-     * console.
-     */
-    private void enableDebugMessages()
-    {
-        final Handler[] h = Logger.getLogger("").getHandlers();
-        h[0].setLevel(Level.ALL);
-        Logger.getLogger("").setLevel(Level.ALL);
     }
 
     /**
@@ -77,7 +57,7 @@ public final class Housekeeper
     {
         if(!SystemUtils.isJavaVersionAtLeast(140))
         {
-            System.err.println("You need at least JRE 1.4 to run Housekeeper!");
+            LogFactory.getLog(Housekeeper.class).fatal("You need at least JRE 1.4 to run Housekeeper!");
             System.exit(1);
         }
         new Housekeeper(args);
