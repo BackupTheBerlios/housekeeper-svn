@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+  <bean id="windowCommandManager" 
+    class="org.springframework.richclient.application.support.ApplicationWindowCommandManager">
+  </bean>
+
+	<bean id="menuBar" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+		<property name="members">
+			<list>
+				<ref bean="fileMenu"/>
+			</list>
+		</property>
+	</bean>
+  
+	<bean id="fileMenu" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+		<property name="members">
+      <list>
+        <bean 
+          class="net.sf.housekeeper.swing.LoadCommand"/>
+        <bean 
+          class="net.sf.housekeeper.swing.SaveCommand"/>
+        <bean 
+          class="org.springframework.richclient.command.support.ExitCommand"/>
+      </list>
+		</property>
+	</bean>
+  
+</beans>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+	<bean id="application" 
+		class="org.springframework.richclient.application.Application">
+    <constructor-arg index="0">
+			<ref bean="applicationDescriptor"/>
+		</constructor-arg>
+		<constructor-arg index="0">
+			<ref bean="lifecycleAdvisor"/>
+		</constructor-arg>
+	</bean>
+	
+   <bean id="applicationDescriptor" 
+		class="org.springframework.richclient.application.ApplicationDescriptor">
+		<property name="version">
+			<value>0.2.2</value>
+		</property>
+	</bean>
+  
+  <bean id="lifecycleAdvisor" 
+    class="org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor">
+    <property name="startingPageId">
+      <value>mainView</value>
+    </property>
+    <property name="windowCommandBarDefinitions">
+			<value>net/sf/housekeeper/commands-context.xml</value>
+		</property>
+  </bean>
+	
+	<bean id="mainView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+		<property name="viewClass">
+			<value>net.sf.housekeeper.swing.SupplyPresenter</value>
+		</property>
+	</bean>
+  
+	<bean id="applicationObjectConfigurer"
+		class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
+		<constructor-arg index="0">
+			<ref bean="messageSource"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="imageSource"/>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<ref bean="iconSource"/>
+		</constructor-arg>
+	</bean>
+		
+	<bean id="componentFactory" 
+		class="org.springframework.richclient.factory.DefaultComponentFactory">
+		<property name="iconSource">
+			<ref bean="iconSource"/>
+		</property>
+		<property name="messageSource">
+			<ref bean="messageSource"/>
+		</property>
+	</bean>
+  
+  <bean id="messageSource" 
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>org.springframework.richclient.application.messages</value>
+        <value>net.sf.housekeeper.translations</value>
+			</list>
+		</property>
+	</bean>
+  
+  <bean id="iconSource" 
+		class="org.springframework.richclient.image.DefaultIconSource">
+		<constructor-arg index="0">
+			<ref bean="imageSource"/>
+		</constructor-arg>
+	</bean>
+  
+  <bean id="imageSource" 
+		class="org.springframework.richclient.image.DefaultImageSource">
+		<constructor-arg index="0">
+			<ref bean="imageResourcesFactory"/>
+		</constructor-arg>
+		<property name="brokenImageIndicator">
+			<value>images/alert/error_obj.gif</value>
+		</property>
+	</bean>
+  
+  <bean id="imageResourcesFactory" 
+		class="org.springframework.context.support.ResourceMapFactoryBean">
+		<property name="locations">
+      <list>
+        <value>
+          classpath:org/springframework/richclient/image/images.properties</value>
+                  <value>
+          classpath:net/sf/housekeeper/images.properties</value>
+      </list>
+		</property>
+		<property name="resourceBasePath">
+			<value>images/</value>
+		</property>
+	</bean>
+  
+  <bean id="lookAndFeelConfigurer" 
+    class="org.springframework.richclient.application.config.JGoodiesLooksConfigurer">
+  </bean>
+
+</beans>

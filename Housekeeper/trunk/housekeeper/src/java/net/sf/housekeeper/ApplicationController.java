@@ -31,6 +31,8 @@ import net.sf.housekeeper.util.ConfigurationManager;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.support.StaticApplicationContext;
+import org.springframework.richclient.application.ApplicationLauncher;
 
 /**
  * Class containing the <code>main</code> method.
@@ -87,7 +89,7 @@ public final class ApplicationController
      * @throws IllegalStateException
      * @throws IOException
      */
-    private void initializeConfigurationManager()
+    private static void initializeConfigurationManager()
             throws ConfigurationException, IllegalStateException, IOException
     {
         final String homeDirString = System.getProperty("user.home");
@@ -125,8 +127,12 @@ public final class ApplicationController
                     .fatal("You need at least JRE 1.4 to run Housekeeper!");
             System.exit(1);
         }
-        instance = new ApplicationController();
-        instance.start();
+        
+        initializeConfigurationManager();
+        new ApplicationLauncher("/net/sf/housekeeper/application-context.xml");
+        
+        //instance = new ApplicationController();
+        //instance.start();
     }
 
 }

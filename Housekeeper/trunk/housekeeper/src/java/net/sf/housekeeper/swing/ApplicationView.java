@@ -29,10 +29,12 @@ import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import net.sf.housekeeper.util.LocalisationManager;
 
@@ -42,7 +44,7 @@ import net.sf.housekeeper.util.LocalisationManager;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class ApplicationView extends JFrame
+final class ApplicationView extends JPanel
 {
 
     /**
@@ -75,24 +77,10 @@ final class ApplicationView extends JFrame
     {
         super();
 
-        setJMenuBar(buildMenuBar(loadDataAction, saveDataAction, exitAction,
-                                 aboutAction));
-
-        supplyView.setParentFrame(this);
+        supplyView.setParentFrame(null);
         
-        getContentPane().add(supplyView);
-
-        pack();
+        add(supplyView);
         
-        //Set the width to the minimum with of the supply panel.
-        final int width = (int)supplyView.getMinimumSize().getWidth() + 10;
-        final int height = width * 2 / 3;
-        setSize(width, height);
-        
-        setLocationRelativeTo(null);
-        
-        //Use the controller for exiting the application
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     /**

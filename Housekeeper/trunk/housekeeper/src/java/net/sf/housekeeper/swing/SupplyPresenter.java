@@ -26,9 +26,11 @@ import java.util.EventObject;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.swing.util.IconGenerator;
 import net.sf.housekeeper.util.LocalisationManager;
@@ -39,7 +41,7 @@ import net.sf.housekeeper.util.LocalisationManager;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class SupplyPresenter
+final class SupplyPresenter extends org.springframework.richclient.application.support.AbstractView
 {
 
     private FoodListPresenter activePresenter;
@@ -54,20 +56,21 @@ final class SupplyPresenter
 
     private final Action      newMiscFoodAction;
 
+    public static final Household household = new Household();
+    
     private final FoodManager itemManager;
 
     private final SupplyView  view;
-
+    
+    
     /**
      * Creates a new SupplyPanel.
-     * 
-     * @param itemManager The manager which holds the food items.
      */
-    public SupplyPresenter(final FoodManager itemManager)
+    public SupplyPresenter()
     {
         super();
 
-        this.itemManager = itemManager;
+        this.itemManager = household.getFoodManager();
 
         //init actions
         final String newConvName = LocalisationManager.INSTANCE
@@ -312,6 +315,14 @@ final class SupplyPresenter
         {
             addNewItem(category);
         }
+    }
+
+    /* (non-Javadoc)
+     * @see org.springframework.richclient.application.support.AbstractView#createControl()
+     */
+    protected JComponent createControl()
+    {
+        return view;
     }
 
 }

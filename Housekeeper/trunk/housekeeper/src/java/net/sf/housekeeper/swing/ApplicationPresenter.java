@@ -30,6 +30,7 @@ import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.UIManager;
 
 import net.sf.housekeeper.domain.Household;
@@ -42,6 +43,7 @@ import net.sf.housekeeper.util.LocalisationManager;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.richclient.application.support.AbstractView;
 
 import com.jgoodies.plaf.plastic.PlasticXPLookAndFeel;
 
@@ -62,13 +64,18 @@ public final class ApplicationPresenter
     /**
      * The domain of this application.
      */
-    private final Household       household;
+    private Household       household;
 
     /**
      * The view of this main frame.
      */
-    private final ApplicationView view;
+    private  ApplicationView view;
 
+    public ApplicationPresenter()
+    {
+        this(new Household());
+    }
+    
     /**
      * Initializes and packs a new main frame.
      * 
@@ -79,26 +86,7 @@ public final class ApplicationPresenter
         super();
         this.household = household;
 
-        initLookAndFeel();
 
-        final SupplyPresenter supplyPresenter = new SupplyPresenter(household
-                .getFoodManager());
-
-
-        view = new ApplicationView(supplyPresenter.getView(),
-                new LoadDataAction(), new SaveDataAction(), new ExitAction(),
-                new AboutDialogAction());
-        final String version = ConfigurationManager.INSTANCE.getConfiguration()
-        .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
-        view.setTitle("Housekeeper " + version);
-
-        view.addWindowListener(new WindowAdapter() {
-
-            public void windowClosing(WindowEvent e)
-            {
-                exitApplication();
-            }
-        });
     }
 
     /**
@@ -159,72 +147,6 @@ public final class ApplicationPresenter
         }
     }
 
-    /**
-     * Initializes the Look and Feel.
-     */
-    private void initLookAndFeel()
-    {
-
-        if (SystemUtils.IS_OS_MAC_OSX)
-        {
-            try
-            {
-                UIManager.setLookAndFeel(UIManager
-                        .getSystemLookAndFeelClassName());
-            } catch (Exception e)
-            {
-                //Do nothing if setting the Look and Feel fails.
-            }
-        } else
-        {
-            try
-            {
-                UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
-            } catch (Exception e)
-            {
-                //Do nothing if setting the Look and Feel fails.
-            }
-        }
-
-        LOG.debug("Using Look and Feel: "
-                + UIManager.getLookAndFeel().getName());
-    }
-
-    /**
-     * Replaces the current domain objects from the persistent storage.
-     */
-    private void loadDomainData()
-    {
-        try
-        {
-            PersistenceController.instance().replaceDomainWithSaved(household);
-        } catch (FileNotFoundException exception)
-        {
-            LOG.error("Could not load domain data", exception);
-            final String nodata = LocalisationManager.INSTANCE
-                    .getText("gui.mainFrame.nodata");
-            view.showErrorDialog(nodata);
-        } catch (Exception exception)
-        {
-            LOG.error("Could not load domain data", exception);
-            view.showErrorDialog(exception.getLocalizedMessage());
-        }
-    }
-
-    /**
-     * Saves the current domain objects to a persistent storage.
-     */
-    private void saveDomainData()
-    {
-        try
-        {
-            PersistenceController.instance().saveDomainData(household);
-        } catch (IOException e1)
-        {
-            LOG.error("Error while saving.", e1);
-            showSavingErrorDialog();
-        }
-    }
 
     /**
      * Shows the About dialog for the application.
@@ -307,46 +229,5 @@ public final class ApplicationPresenter
         }
     }
 
-    /**
-     * Action for loading the data.
-     */
-    private class LoadDataAction extends AbstractAction
-    {
 
-        private LoadDataAction()
-        {
-            super();
-            final String name = LocalisationManager.INSTANCE
-                    .getText("gui.mainFrame.load");
-            putValue(Action.NAME, name);
-            putValue(Action.SMALL_ICON, IconGenerator.getIcon("fileopen.png"));
-        }
-
-        public void actionPerformed(ActionEvent e)
-        {
-            loadDomainData();
-        }
-
-    }
-
-    /**
-     * Action for persistently saving the data.
-     */
-    private class SaveDataAction extends AbstractAction
-    {
-
-        private SaveDataAction()
-        {
-            super();
-            final String name = LocalisationManager.INSTANCE
-                    .getText("gui.mainFrame.save");
-            putValue(Action.NAME, name);
-            putValue(Action.SMALL_ICON, IconGenerator.getIcon("filesave.png"));
-        }
-
-        public void actionPerformed(ActionEvent e)
-        {
-            saveDomainData();
-        }
-    }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configs>
+		<config>src/resources/net/sf/housekeeper/commands-context.xml</config>
+		<config>src/resources/net/sf/housekeeper/application-context.xml</config>
+	</configs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
