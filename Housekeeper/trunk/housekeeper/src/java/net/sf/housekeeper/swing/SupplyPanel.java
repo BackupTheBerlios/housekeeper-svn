@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -67,6 +69,33 @@ final class SupplyPanel extends JPanel
         //Add sorting functionality to headers
         final TableComparatorChooser comparatorChooser = new TableComparatorChooser(
                 table, sortedList, false);
+        comparatorChooser.getComparatorsForColumn(2).clear();
+        comparatorChooser.getComparatorsForColumn(2).add(new Comparator() {
+
+            public int compare(Object o1, Object o2)
+            {
+                final Date date1 = ((FoodItem)o1).getExpiry();
+                final Date date2 = ((FoodItem)o2).getExpiry();
+                
+                //Null is treated as being greater as any non-null expiry date.
+                //This has the effect of displaying items without an expiry
+                //At the end of a least-expiry-first table of items.
+                if (date1 == null)
+                {
+                    if (date2 == null)
+                    {
+                        return 0;
+                    }
+                    return 1;
+                }
+                if (date2 == null)
+                {
+                    return -1;
+                }
+                
+                return date1.compareTo(date2);
+            }
+        });
         comparatorChooser.chooseComparator(2, 0, false);
 
         //Listen for changes of the table row selection
