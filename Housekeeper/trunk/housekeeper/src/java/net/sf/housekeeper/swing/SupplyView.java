@@ -22,6 +22,9 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.EventObject;
 
 import javax.swing.BorderFactory;
@@ -146,6 +149,19 @@ public final class SupplyView extends AbstractView
         };
         convPresenter.addTableSelectionListener(selectionListener);
         miscPresenter.addTableSelectionListener(selectionListener);
+        
+        final MouseListener doubleClickListener = new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2
+                        && e.getButton() == MouseEvent.BUTTON1) {
+                    if (editExecutor.isEnabled()) {
+                        editExecutor.execute();
+                    }
+                }
+            }
+        };
+        convPresenter.addTableMouseListener(doubleClickListener);
+        miscPresenter.addTableMouseListener(doubleClickListener);
 
         updateActionEnablement();
 

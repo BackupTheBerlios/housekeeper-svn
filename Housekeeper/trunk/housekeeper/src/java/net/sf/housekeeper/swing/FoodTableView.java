@@ -22,6 +22,7 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.GridLayout;
+import java.awt.event.MouseListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -102,6 +103,16 @@ public final class FoodTableView extends AbstractView
     public void addTableSelectionListener(final EventObjectListener listener)
     {
         selectionListeners.add(listener);
+    }
+    
+    /**
+     * Adds a MouseListener to the table.
+     * 
+     * @param listener The listener to add.
+     */
+    public void addTableMouseListener(final MouseListener listener)
+    {
+        table.addMouseListener(listener);
     }
 
     /**
