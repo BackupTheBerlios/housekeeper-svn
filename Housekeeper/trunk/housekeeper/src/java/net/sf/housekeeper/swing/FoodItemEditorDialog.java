@@ -31,7 +31,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import net.sf.housekeeper.domain.StockItem;
+import net.sf.housekeeper.domain.FoodItem;
 
 import com.jgoodies.binding.PresentationModel;
 import com.jgoodies.forms.builder.PanelBuilder;
@@ -41,14 +41,14 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * A dialog for editing a StockItem. Uses a StockItemEditorBuilder to build the
+ * A dialog for editing a FoodItem. Uses a StockItemEditorBuilder to build the
  * editor form and just adds buttons to accept or cancel the edit. These buttons
  * trigger a commit or flush in the underlying PresentationModel.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class StockItemEditorDialog extends JDialog
+public class FoodItemEditorDialog extends JDialog
 {
 
     /**
@@ -66,7 +66,7 @@ public class StockItemEditorDialog extends JDialog
      * 
      * @param item the item to be edited.
      */
-    public StockItemEditorDialog(final StockItem item)
+    public FoodItemEditorDialog(final FoodItem item)
     {
         super((Frame) null, "Item Editor", true);
         this.presentationModel = new PresentationModel(item);
@@ -150,7 +150,7 @@ public class StockItemEditorDialog extends JDialog
      */
     private JComponent buildEditorPanel()
     {
-        return new StockItemEditorBuilder(presentationModel).build();
+        return new FoodItemEditorBuilder(presentationModel).build();
     }
 
     /**

@@ -27,7 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 
-import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.domain.FoodItemManager;
 
 import org.exolab.castor.mapping.Mapping;
 import org.exolab.castor.mapping.MappingException;
@@ -83,8 +83,8 @@ final class CastorXMLMapping implements PersistenceService
         try
         {
             final Unmarshaller unmarshaller = new Unmarshaller(mapping);
-            final Household household = (Household)unmarshaller.unmarshal(reader);
-            Household.setINSTANCE(household);
+            final FoodItemManager household = (FoodItemManager)unmarshaller.unmarshal(reader);
+            FoodItemManager.setINSTANCE(household);
         } catch (MarshalException e)
         {
             throw new IOException(e.getMessage());
@@ -112,7 +112,7 @@ final class CastorXMLMapping implements PersistenceService
             map.loadMapping("castor_mapping.xml");
             final Marshaller marshaller = new Marshaller(writer);
             marshaller.setMapping(map);
-            marshaller.marshal(Household.instance());
+            marshaller.marshal(FoodItemManager.instance());
         } catch (MarshalException e)
         {
             throw new IOException(e.getMessage());

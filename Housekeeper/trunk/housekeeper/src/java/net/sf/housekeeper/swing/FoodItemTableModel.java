@@ -23,20 +23,20 @@ package net.sf.housekeeper.swing;
 
 import javax.swing.ListModel;
 
-import net.sf.housekeeper.domain.StockItem;
+import net.sf.housekeeper.domain.FoodItem;
 
 import com.jgoodies.binding.adapter.TableAdapter;
 
 /**
  * Provides a TableModel for displaying
- * {@link net.sf.housekeeper.domain.StockItem}objects in a table. It
+ * {@link net.sf.housekeeper.domain.FoodItem}objects in a table. It
  * automcatically fires appropriate Events on any change in these objects or the
  * list.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class StockItemsTableModel extends TableAdapter
+final class FoodItemTableModel extends TableAdapter
 {
 
     /**
@@ -49,7 +49,7 @@ final class StockItemsTableModel extends TableAdapter
      * 
      * @param model The list to be used as data source.
      */
-    public StockItemsTableModel(ListModel model)
+    public FoodItemTableModel(ListModel model)
     {
         super(model, COLUMNS);
     }
@@ -61,7 +61,7 @@ final class StockItemsTableModel extends TableAdapter
      */
     public Object getValueAt(int rowIndex, int columnIndex)
     {
-        final StockItem item = (StockItem) getRow(rowIndex);
+        final FoodItem item = (FoodItem) getRow(rowIndex);
         switch (columnIndex)
         {
             case 0:

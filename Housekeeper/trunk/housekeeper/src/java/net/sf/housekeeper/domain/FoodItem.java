@@ -32,7 +32,7 @@ import com.jgoodies.binding.beans.Model;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class StockItem extends Model
+public final class FoodItem extends Model
 {
 
     /**
@@ -64,14 +64,14 @@ public final class StockItem extends Model
     private String             quantity;
 
     /**
-     * Creates a new StockItem object with specified values.
+     * Creates a new FoodItem object with specified values.
      * 
      * @param name Name of the item. Must not be null.
      * @param bestBeforeEnd Date until this item should be consumed. Must not be
      *            null.
      * @param quantity The quantity which one exemplar of this item contains.
      */
-    public StockItem(final String name, final String quantity,
+    public FoodItem(final String name, final String quantity,
             final Date bestBeforeEnd)
     {
         setName(name);
@@ -80,10 +80,10 @@ public final class StockItem extends Model
     }
 
     /**
-     * Creates a new StockItem object with default values. The related article
+     * Creates a new FoodItem object with default values. The related article
      * is an empty one, there are no consumptions and the date is set to today.
      */
-    public StockItem()
+    public FoodItem()
     {
         this("", "", new Date());
     }
@@ -166,6 +166,6 @@ public final class StockItem extends Model
      */
     public Object clone()
     {
-        return new StockItem(name, quantity, (Date) expiry.clone());
+        return new FoodItem(name, quantity, (Date) expiry.clone());
     }
 }

@@ -21,6 +21,7 @@
 
 package net.sf.housekeeper.swing;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -28,19 +29,24 @@ import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 
 import net.sf.housekeeper.Housekeeper;
+import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.persistence.PersistenceServiceFactory;
 
+import com.jgoodies.binding.adapter.SingleListSelectionAdapter;
 import com.jgoodies.plaf.Options;
 import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
@@ -81,7 +87,7 @@ public final class MainFrame extends JFrame
     private void buildComponents()
     {
         tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Stock", new StockPanel());
+        tabbedPane.addTab("Supply", createSupplyPanel());
         getContentPane().add(tabbedPane);
     }
 
@@ -109,6 +115,32 @@ public final class MainFrame extends JFrame
         menuHelp.add(new JMenuItem(new AboutDialogAction()));
 
         return menuBar;
+    }
+    
+    /**
+     * Creates a panel with table showing the items on hand and buttons for
+     * manipulation.
+     * 
+     * @return A JPanel for display and manipulation of items on hand.
+     */
+    private JPanel createSupplyPanel()
+    {
+        final JPanel supplyPanel = new JPanel(new BorderLayout());
+        final FoodItemModel model = new FoodItemModel(FoodItemManager.INSTANCE);
+
+        final JPanel buttonPanel = new JPanel();
+        buttonPanel.add(new JButton(model.getNewAction()));
+        buttonPanel.add(new JButton(model.getEditAction()));
+        buttonPanel.add(new JButton(model.getDeleteAction()));
+        supplyPanel.add(buttonPanel, BorderLayout.NORTH);
+
+        final JTable table = new JTable();
+        table.setModel(new FoodItemTableModel(model.getItemSelection()));
+        table.setSelectionModel(new SingleListSelectionAdapter(model
+                .getItemSelection().getSelectionIndexHolder()));
+        supplyPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+        
+        return supplyPanel;
     }
 
     /**

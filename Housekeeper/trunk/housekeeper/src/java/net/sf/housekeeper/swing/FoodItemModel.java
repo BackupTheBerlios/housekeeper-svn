@@ -28,8 +28,8 @@ import java.beans.PropertyChangeListener;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.domain.StockItem;
+import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.domain.FoodItem;
 
 import com.jgoodies.binding.list.SelectionInList;
 
@@ -43,7 +43,7 @@ import com.jgoodies.binding.list.SelectionInList;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class StockItemsModel
+public final class FoodItemModel
 {
 
     /**
@@ -59,7 +59,7 @@ public final class StockItemsModel
     /**
      * Household managing the StockItems in the domain.
      */
-    private final Household household;
+    private final FoodItemManager household;
 
     /**
      * Holds the items list plus the seletion information.
@@ -76,10 +76,10 @@ public final class StockItemsModel
      * 
      * @param household Manager of the StockItems.
      */
-    public StockItemsModel(final Household household)
+    public FoodItemModel(final FoodItemManager household)
     {
         this.household = household;
-        itemSelection = new SelectionInList(household.getStockItems());
+        itemSelection = new SelectionInList(household.getSupply());
         
         newAction = new NewAction();
         editAction = new EditAction();
@@ -148,9 +148,9 @@ public final class StockItemsModel
      * 
      * @returnthe selected item.
      */
-    private StockItem getSelectedItem()
+    private FoodItem getSelectedItem()
     {
-        return (StockItem) getItemSelection().getSelection();
+        return (FoodItem) getItemSelection().getSelection();
     }
 
     /**
@@ -159,9 +159,9 @@ public final class StockItemsModel
      * @param item The item to be edited.
      * @return True if the dialog has been canceled, false otherwise.
      */
-    private boolean openEditor(StockItem item)
+    private boolean openEditor(FoodItem item)
     {
-        StockItemEditorDialog dialog = new StockItemEditorDialog(item);
+        FoodItemEditorDialog dialog = new FoodItemEditorDialog(item);
         dialog.open();
         return dialog.hasBeenCanceled();
     }
@@ -210,7 +210,7 @@ public final class StockItemsModel
             boolean canceled = openEditor(getSelectedItem());
             if (!canceled)
             {
-                household.update(getSelectedIndex());
+                household.markItemChanged(getSelectedIndex());
             }
         }
     }
@@ -223,12 +223,12 @@ public final class StockItemsModel
 
         private NewAction()
         {
-            super("Add item to stock");
+            super("Add item to supply");
         }
 
         public void actionPerformed(ActionEvent arg0)
         {
-            final StockItem item = new StockItem();
+            final FoodItem item = new FoodItem();
             boolean canceled = openEditor(item);
             if (!canceled)
             {

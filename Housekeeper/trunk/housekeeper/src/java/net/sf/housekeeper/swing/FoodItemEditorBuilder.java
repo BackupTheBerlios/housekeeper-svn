@@ -25,7 +25,7 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 
-import net.sf.housekeeper.domain.StockItem;
+import net.sf.housekeeper.domain.FoodItem;
 import net.sf.housekeeper.swing.util.FormBuilder;
 
 import com.jgoodies.binding.PresentationModel;
@@ -37,7 +37,7 @@ import com.jgoodies.binding.adapter.BasicComponentFactory;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class StockItemEditorBuilder
+public class FoodItemEditorBuilder
 {
 
     /**
@@ -65,7 +65,7 @@ public class StockItemEditorBuilder
      * 
      * @param presentationModel provides the adapting ValueModels.
      */
-    public StockItemEditorBuilder(final PresentationModel presentationModel)
+    public FoodItemEditorBuilder(final PresentationModel presentationModel)
     {
         this.presentationModel = presentationModel;
     }
@@ -92,10 +92,10 @@ public class StockItemEditorBuilder
     private void initComponents()
     {
         nameField = BasicComponentFactory.createTextField(presentationModel
-                .getBufferedModel(StockItem.PROPERTYNAME_NAME));
+                .getBufferedModel(FoodItem.PROPERTYNAME_NAME));
         quantityField = BasicComponentFactory.createTextField(presentationModel
-                .getBufferedModel(StockItem.PROPERTYNAME_QUANTITY));
+                .getBufferedModel(FoodItem.PROPERTYNAME_QUANTITY));
         dateField = BasicComponentFactory.createDateField(presentationModel
-                .getBufferedModel(StockItem.PROPERTYNAME_EXPIRY));
+                .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY));
     }
 }
