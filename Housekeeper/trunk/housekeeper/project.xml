@@ -49,7 +49,7 @@
        scm:<system>:<system specific connection string> -->
   <repository>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</connection>
-    <developerConnection>scm:cvs:ext:notizklotz@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</developerConnection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</developerConnection>
     <url>http://cvs.sourceforge.net/viewcvs.py/housekeeper</url>
   </repository>
   
