@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Housekeeper">
+
+  <title>Housekeeper</title>
+
+  <body>
+    <links>
+      <item name="Sourceforge Project Site"  href="http://www.sourceforge.net/projects/housekeeper"/>
+    </links>
+   <footer>
+    <A href="http://sourceforge.net/projects/housekeeper">
+      <IMG src="http://sourceforge.net/sflogo.php?group_id=91396" border="0" alt="sourceforge project site"/>
+    </A>
+   </footer>
+  </body>
+</project>
