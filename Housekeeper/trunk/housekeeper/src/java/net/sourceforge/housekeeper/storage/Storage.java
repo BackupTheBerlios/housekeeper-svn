@@ -50,8 +50,6 @@ public abstract class Storage extends Observable
     public abstract Collection getPurchases();
     
     public abstract void add(Purchase purchase);
-
-    public abstract ArticleDescription getArticle(int i);
     
     /**
      * TODO DOCUMENT ME!

@@ -83,17 +83,8 @@ final class XMLSerializationStorage extends Storage
 
 	//~ Methods ----------------------------------------------------------------
 
-	/**
-	 * TODO DOCUMENT ME!
-	 *
-	 * @param i DOCUMENT ME!
-	 *
-	 * @return DOCUMENT ME!
-	 */
-	public ArticleDescription getArticle(int i)
-	{
-		return (ArticleDescription)articles.get(i);
-	}
+
+    
 
 	/* (non-Javadoc)
 	 * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
