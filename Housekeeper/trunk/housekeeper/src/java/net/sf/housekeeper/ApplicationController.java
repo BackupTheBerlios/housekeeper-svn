@@ -68,17 +68,7 @@ public final class ApplicationController
         final MainFrame main = new MainFrame();
         main.show();
     }
-    
-    /**
-     * Exits the application.
-     *
-     */
-    public void exit()
-    {
-        LogFactory.getLog(ApplicationController.class).info("Exiting Housekeeper...");
-        System.exit(0);
-    }
-    
+        
     /**
      * Returns the application controller Singleton.
      * 

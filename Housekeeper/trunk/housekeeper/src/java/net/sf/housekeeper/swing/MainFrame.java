@@ -42,7 +42,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
-import net.sf.housekeeper.ApplicationController;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.util.ConfigurationManager;
 import net.sf.housekeeper.util.LocalisationManager;
@@ -217,7 +216,7 @@ public final class MainFrame
 
         if (exit)
         {
-            ApplicationController.instance().exit();
+            System.exit(0);
         }
     }
 
