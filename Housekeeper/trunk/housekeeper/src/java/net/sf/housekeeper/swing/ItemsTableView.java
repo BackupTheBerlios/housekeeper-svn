@@ -44,6 +44,7 @@ import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
 
+import org.springframework.binding.form.FormModel;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
@@ -52,6 +53,8 @@ import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
+import org.springframework.richclient.dialog.TitledPageApplicationDialog;
+import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.ColumnToSort;
 import org.springframework.richclient.table.SortableTableModel;
@@ -196,30 +199,17 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     }
     
     private Food getSelected() {
-        List list = tableModel.getRows();
-        Food product = null;
-        if (!list.isEmpty())
-            product = ((Food) list.get(itemsTable.getSelectedRow()));
-
-        return product;
+        if (hasSelection())
+        {
+            final int selectedRow = itemsTable.getSelectedRow();
+            final SortableTableModel sortModel = (SortableTableModel)itemsTable.getModel();
+            final int convertedRow = sortModel.convertSortedIndexToDataIndex(selectedRow);
+            return (Food)tableModel.getRow(convertedRow);
+        }
+        
+        return null;
     }
-    
-    /**
-     * Opens an editor for the specified Item.
-     * 
-     * @param item The item to be edited.
-     * @return True if the dialog has been canceled, false otherwise.
-     */
-    private boolean openEditor(Food item)
-    {
-        final FoodEditorView editorView = new FoodEditorView(getActiveWindow()
-                .getControl());
-        final FoodEditorPresenter editor = new FoodEditorPresenter(editorView,
-                item);
-
-        return editor.show();
-    }
-    
+        
     private void assignDateColumnRenderer(JTable table, int column)
     {
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
@@ -248,7 +238,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     private final class DoubleClickListener extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-                getWindowCommandManager().getActionCommand("editCommand").execute();
+                getWindowCommandManager().getActionCommand("propertiesCommand").execute();
             }
         }
     }
@@ -310,6 +300,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
             refresh();
         }
     }
+    
 
     /**
      * Shows a dialog for modifying the currently selected item and updates it.
@@ -319,13 +310,24 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
 
         public void execute()
         {
-            final Food selected = getSelected();
-            boolean canceled = openEditor(selected);
-            if (!canceled)
-            {
-                foodManager.update(selected);
-                refresh();
-            }
+            final Food foodObject = getSelected();
+            final FormModel formModel = SwingFormModel.createFormModel(foodObject);
+            final FoodPropertiesForm form = new FoodPropertiesForm(formModel);
+
+            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(form, getWindowControl()) {
+                
+                protected void onAboutToShow() {
+                    setEnabled(true);
+                }
+
+                protected boolean onFinish() {
+                    formModel.commit();
+                    foodManager.update(foodObject);
+                    refresh();
+                    return true;
+                }
+            };
+            dialog.showDialog();
         }
     }
 
@@ -335,21 +337,26 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     private class NewCommandExecutor extends AbstractActionCommandExecutor
     {
 
-        private NewCommandExecutor()
-        {
-            super();
-        }
-
         public void execute()
         {
-            final Food item = new Food();
-            boolean canceled = openEditor(item);
-            if (!canceled)
-            {
-                item.setCategory(category);
-                foodManager.add(item);
-                refresh();
-            }
+            final Food foodObject = new Food();
+            final FormModel formModel = SwingFormModel.createFormModel(foodObject);
+            final FoodPropertiesForm form = new FoodPropertiesForm(formModel);
+
+            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(form, getWindowControl()) {
+                
+                protected void onAboutToShow() {
+                    setEnabled(true);
+                }
+
+                protected boolean onFinish() {
+                    formModel.commit();
+                    foodManager.add(foodObject);
+                    refresh();
+                    return true;
+                }
+            };
+            dialog.showDialog();
         }
     }
 
