@@ -58,7 +58,7 @@ public final class StorageFactory
     {
         if (currentStorage == null)
         {
-            currentStorage = new JDOMStorage();
+            currentStorage = new XMLSerializationStorage();
         }
 
 

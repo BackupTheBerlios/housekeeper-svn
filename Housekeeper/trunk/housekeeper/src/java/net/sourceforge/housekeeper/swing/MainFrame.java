@@ -88,7 +88,7 @@ public final class MainFrame extends JFrame
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Article Descriptions", ArticleDescriptionPanel.getInstance());
 
-        //tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
+        tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
         getContentPane().add(tabbedPane);
     }
 
@@ -115,7 +115,6 @@ public final class MainFrame extends JFrame
         menuBar.add(menuArticles);
 
         menuArticles.add(new JMenuItem(NewArticleDescriptionAction.INSTANCE));
-        menuArticles.add(new JMenuItem(ModifyArticleDescriptionAction.INSTANCE));
     }
 
     /**

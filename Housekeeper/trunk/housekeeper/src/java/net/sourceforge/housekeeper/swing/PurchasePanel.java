@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -25,7 +25,6 @@ package net.sourceforge.housekeeper.swing;
 
 import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.storage.StorageFactory;
-import net.sourceforge.housekeeper.swing.action.*;
 
 import java.awt.BorderLayout;
 
@@ -36,7 +35,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,24 +55,22 @@ final class PurchasePanel extends JPanel
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance */
     private static final PurchasePanel INSTANCE = new PurchasePanel();
 
     //~ Instance fields --------------------------------------------------------
 
-    private JPanel buttonPanel;
+    private JPanel      buttonPanel;
     private JScrollPane scrollPane;
-    private JTable table;
+    private JTable      table;
 
     //~ Constructors -----------------------------------------------------------
 
     private PurchasePanel()
     {
-        table = new JTable(new PurchasesTableModel());
-        scrollPane = new JScrollPane(table);
+        table       = new JTable(new PurchasesTableModel());
+        scrollPane  = new JScrollPane(table);
         buttonPanel = new JPanel();
-
-        buttonPanel.add(new JButton(NewPurchaseAction.INSTANCE));
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
@@ -90,15 +86,14 @@ final class PurchasePanel extends JPanel
         return INSTANCE;
     }
 
-
     //~ Inner Classes ----------------------------------------------------------
 
     private class PurchasesTableModel extends AbstractTableModel
         implements Observer
     {
-        private final Class dateClass = new Date().getClass();
-        private final Class doubleClass = new Double(0).getClass();
-        private List purchasesList;
+        private final Class   dateClass     = new Date().getClass();
+        private final Class   doubleClass   = new Double(0).getClass();
+        private List          purchasesList;
         private final Class[] columnClasses = 
                                               {
                                                   dateClass,
@@ -185,7 +180,7 @@ final class PurchasePanel extends JPanel
         private void update()
         {
             Collection purchasesCollection = StorageFactory.getCurrentStorage()
-                                             .getAllPurchases();
+                                                           .getAllPurchases();
             purchasesList = new ArrayList(purchasesCollection);
         }
     }
