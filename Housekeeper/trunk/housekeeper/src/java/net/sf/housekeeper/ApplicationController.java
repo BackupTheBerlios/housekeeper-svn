@@ -21,18 +21,13 @@
 
 package net.sf.housekeeper;
 
-import java.io.File;
-import java.io.IOException;
-
-import net.sf.housekeeper.util.ConfigurationManager;
-
-import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.application.ApplicationLauncher;
 
 /**
- * Class containing the <code>main</code> method.
+ * Has the <code>main</code> method which configures the Spring-RCP
+ * <code>ApplicationLauncher</code> and starts the application.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -40,53 +35,20 @@ import org.springframework.richclient.application.ApplicationLauncher;
 public final class ApplicationController
 {
 
-    
     /**
      * Prevents instances of this class.
      */
     private ApplicationController()
     {
- 
-    }
 
-    /**
-     * Initializes the {@link ConfigurationManager}.
-     * 
-     * @throws ConfigurationException
-     * @throws IllegalStateException
-     * @throws IOException
-     */
-    private static void initializeConfigurationManager()
-            throws ConfigurationException, IllegalStateException, IOException
-    {
-        final String homeDirString = System.getProperty("user.home");
-        final File hkDir = new File(homeDirString, ".housekeeper");
-        hkDir.mkdir();
-        ConfigurationManager.INSTANCE.init(hkDir);
-    }
-
-    /**
-     * Prints an application starting message including a version information.
-     *  
-     */
-    private static void logVersionInfo()
-    {
-        final String version = ConfigurationManager.INSTANCE.getConfiguration()
-                .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
-        LogFactory.getLog(ApplicationController.class).info(
-                                                  "Starting Housekeeper "
-                                                          + version);
     }
 
     /**
      * Starts the Housekeeper application with a Swing GUI.
      * 
-     * @param args
-     * @throws IOException
-     * @throws ConfigurationException
+     * @param args No parameters are used.
      */
-    public static void main(final String[] args) throws ConfigurationException,
-            IOException
+    public static void main(final String[] args)
     {
         if (!SystemUtils.isJavaVersionAtLeast(140))
         {
@@ -94,13 +56,12 @@ public final class ApplicationController
                     .fatal("You need at least JRE 1.4 to run Housekeeper!");
             System.exit(1);
         }
-        
-        initializeConfigurationManager();
-        logVersionInfo();
-        
+
         String rootContextDirectoryClassPath = "/net/sf/housekeeper/config/";
-        String startupContextPath = rootContextDirectoryClassPath + "startup-context.xml";
-        String applicationContextPath = rootContextDirectoryClassPath + "application-context.xml";
+        String startupContextPath = rootContextDirectoryClassPath
+                + "startup-context.xml";
+        String applicationContextPath = rootContextDirectoryClassPath
+                + "application-context.xml";
         new ApplicationLauncher(startupContextPath, applicationContextPath);
     }
 

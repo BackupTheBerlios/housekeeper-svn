@@ -171,28 +171,7 @@
         </properties>
     </dependency>
     
-    <dependency>
-        <groupId>commons-configuration</groupId>
-        <artifactId>commons-configuration</artifactId>
-        <version>1.0</version>
-        <url>http://jakarta.apache.org/commons/configuration/</url>
-        <properties>
-            <category>shared</category>
-            <jar.manifest.classpath>true</jar.manifest.classpath>
-        </properties>
-    </dependency>
-    
-    <dependency>
-        <groupId>commons-configuration</groupId>
-        <artifactId>commons-collections-forconfig</artifactId>
-        <version>1.0</version>
-        <properties>
-            <category>shared</category>
-            <jar.manifest.classpath>true</jar.manifest.classpath>
-        </properties>
-    </dependency>
-    
-	<dependency>
+	  <dependency>
         <groupId>jdom</groupId>
         <artifactId>jdom</artifactId>
         <version>1.0</version>

@@ -32,7 +32,6 @@ import java.io.OutputStream;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
-import net.sf.housekeeper.util.ConfigurationManager;
 
 /**
  * Provides methods to replace or store domain objects in a
@@ -67,11 +66,13 @@ public final class PersistenceController
      */
     private PersistenceController()
     {
-        final File dataDir = (File) ConfigurationManager.INSTANCE
-                .getConfiguration()
-                .getProperty(ConfigurationManager.DATA_DIRECTORY);
-
-        dataFile = new File(dataDir, "data.xml");
+        final String homeDirString = System.getProperty("user.home");
+        final File hkDir = new File(homeDirString, ".housekeeper");
+        
+        //Create directory for data if it doesn't exist.
+        hkDir.mkdir();
+       
+        dataFile = new File(hkDir, "data.xml");
 
         jdomPersistence = new JDOMPersistence();
     }

@@ -21,10 +21,6 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/commons-configuration/jars/commons-configuration-1.0.jar">
-  </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/commons-configuration/jars/commons-collections-forconfig-1.0.jar">
-  </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/jdom/jars/jdom-1.0.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-0.9.4.jar">
