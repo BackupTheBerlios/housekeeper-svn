@@ -1,19 +1,17 @@
 package net.sf.housekeeper.swing.stock;
 
 import java.awt.BorderLayout;
-import java.util.Observable;
-import java.util.Observer;
+import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 
 import net.sf.housekeeper.domain.StockItem;
 import net.sf.housekeeper.storage.StorageFactory;
-import net.sf.housekeeper.swing.DataUpdateMediator;
-import net.sf.housekeeper.swing.TableModelTemplate;
+
+import com.odellengineeringltd.glazedlists.EventList;
+import com.odellengineeringltd.glazedlists.jtable.ListTable;
 
 /**
  * 
@@ -21,35 +19,27 @@ import net.sf.housekeeper.swing.TableModelTemplate;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class StockPanel extends JPanel implements Observer
+public final class StockPanel extends JPanel
 {
     private static final StockPanel INSTANCE = new StockPanel();
-    
-    private JPanel      buttonPanel;
-    private JTable      table;
-    private TableModelTemplate model;
 
-    //~ Constructors -----------------------------------------------------------
+    private ListTable table2;
 
     /**
-     * Creates a new AssortimentItemPanel object.
+     * Creates a new StockPanel object.
      */
     private StockPanel()
     {
-        model = new StockTableModel();
-        table       = new JTable(model);
-        buttonPanel = new JPanel();
+        final EventList items =StorageFactory.getCurrentStorage().getAllStockItems();
+        table2 = new ListTable(items, new StockTableCell());
+        final JPanel buttonPanel = new JPanel();
 
         buttonPanel.add(new JButton(NewStockItemAction.INSTANCE));
-        buttonPanel.add(new JButton(DeleteStockItemAction.INSTANCE));
+        buttonPanel.add(new JButton(new DeleteStockItemAction()));
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
-        add(new JScrollPane(table), BorderLayout.CENTER);
-
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        DataUpdateMediator.getInstance().addObserver(this);
+        add(table2.getTableScrollPane(), BorderLayout.CENTER);
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -72,20 +62,30 @@ public final class StockPanel extends JPanel implements Observer
      */
     public StockItem getSelectedItem()
     {
-        int selectedRow = table.getSelectedRow();
-
-        if (selectedRow > -1)
-        {
-            return (StockItem)model.getObjectAtRow(selectedRow);
-        }
-        else
-        {
-            return null;
-        }
+            return (StockItem)table2.getSelected();
     }
 
-    public void update(Observable arg0, Object arg1)
+    private class DeleteStockItemAction extends AbstractAction
     {
-        model.setTableData(StorageFactory.getCurrentStorage().getAllStockItems());
+
+        private DeleteStockItemAction()
+        {
+            super("Delete Item");
+        }
+        
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed(ActionEvent arg0)
+        {
+            final StockItem item = getSelectedItem();
+
+            if (item != null)
+            {
+                StorageFactory.getCurrentStorage().remove(item);
+            }
+        }
     }
 }

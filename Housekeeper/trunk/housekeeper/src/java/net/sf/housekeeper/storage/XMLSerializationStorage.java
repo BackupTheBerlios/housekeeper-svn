@@ -9,11 +9,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 import net.sf.housekeeper.domain.StockItem;
 
+import com.odellengineeringltd.glazedlists.BasicEventList;
+import com.odellengineeringltd.glazedlists.EventList;
 
 /**
  * 
@@ -24,50 +24,52 @@ import net.sf.housekeeper.domain.StockItem;
 final class XMLSerializationStorage implements Storage
 {
     /** The path to the file that is used for data storage */
-    private static final File FILE = new File(System.getProperty("user.dir"),
-                                              "housekeeper_ser.xml");
+    private static final File FILE =
+        new File(System.getProperty("user.dir"), "housekeeper_ser.xml");
 
     /** All items that are on stock */
-    private Collection stockItems;
+    private EventList stockItems;
 
     /**
      * Initializes a XMLSerializationStorage.
      */
     XMLSerializationStorage()
     {
-        stockItems = new ArrayList();
+        stockItems = new BasicEventList();
     }
-   
-	/* (non-Javadoc)
+
+    /* (non-Javadoc)
      * @see net.sf.housekeeper.storage.DataMapper#saveData()
      */
     public void saveData() throws FileNotFoundException
-	{        
-            XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILE)));
-            xmlEncoder.writeObject(stockItems);
-            xmlEncoder.close();
-	}
+    {
+        XMLEncoder xmlEncoder =
+            new XMLEncoder(
+                new BufferedOutputStream(new FileOutputStream(FILE)));
+        xmlEncoder.writeObject(new ArrayList(stockItems));
+        xmlEncoder.close();
+    }
 
-	/* (non-Javadoc)
+    /* (non-Javadoc)
      * @see net.sf.housekeeper.storage.DataMapper#loadData()
      */
     public void loadData() throws FileNotFoundException
-	{
+    {
+        XMLDecoder xmlDecoder =
+            new XMLDecoder(new BufferedInputStream(new FileInputStream(FILE)));
+        ArrayList stock = (ArrayList)xmlDecoder.readObject();
+        xmlDecoder.close();
 
-            XMLDecoder xmlDecoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(FILE)));
-            Collection stock = (Collection)xmlDecoder.readObject();
-            xmlDecoder.close();
-
-            stockItems = stock;           
-
-	}
+        stockItems.clear();
+        stockItems.addAll(stock);
+    }
 
     /* (non-Javadoc)
      * @see net.sf.housekeeper.storage.DataMapper#getAllStockItems()
      */
-    public Collection getAllStockItems()
+    public EventList getAllStockItems()
     {
-        return Collections.unmodifiableCollection(stockItems);
+        return stockItems;
     }
 
     /* (non-Javadoc)

@@ -1,7 +1,8 @@
 package net.sf.housekeeper.storage;
 
 import java.io.FileNotFoundException;
-import java.util.Collection;
+
+import com.odellengineeringltd.glazedlists.EventList;
 
 import net.sf.housekeeper.domain.StockItem;
 
@@ -13,7 +14,7 @@ import net.sf.housekeeper.domain.StockItem;
  */
 public interface Storage
 {
-    Collection getAllStockItems();
+    EventList getAllStockItems();
     
     void add(StockItem stockItem);
     

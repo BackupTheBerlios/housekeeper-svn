@@ -29,7 +29,6 @@ import java.io.FileNotFoundException;
 import javax.swing.AbstractAction;
 
 import net.sf.housekeeper.storage.StorageFactory;
-import net.sf.housekeeper.swing.DataUpdateMediator;
 
 
 /**
@@ -67,7 +66,6 @@ public final class LoadDataAction extends AbstractAction
         try
         {
             StorageFactory.getCurrentStorage().loadData();
-            DataUpdateMediator.getInstance().update();
         } catch (FileNotFoundException e1)
         {
             e1.printStackTrace();

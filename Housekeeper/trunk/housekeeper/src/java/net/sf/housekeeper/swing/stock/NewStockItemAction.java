@@ -6,7 +6,6 @@ import javax.swing.AbstractAction;
 
 import net.sf.housekeeper.domain.StockItem;
 import net.sf.housekeeper.storage.StorageFactory;
-import net.sf.housekeeper.swing.DataUpdateMediator;
 
 /**
  * @author Adrian Gygax
@@ -33,7 +32,6 @@ final class NewStockItemAction extends AbstractAction
         if (item != null)
         {
             StorageFactory.getCurrentStorage().add(item);
-            DataUpdateMediator.getInstance().update();
         }
     }
 }
