@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.1-SNAPSHOT</currentVersion>
+  <currentVersion>0.1</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -88,8 +88,14 @@
     <dependency>
     	<groupId>JGoodies</groupId>
     	<artifactId>looks</artifactId>
-    	<version>1.2.1-snapshot</version>
+    	<version>1.2.1</version>
     </dependency>
+    
+    <dependency>
+		<groupId>jdom</groupId>
+		<artifactId>jdom</artifactId>
+		<version>beta10</version>
+	</dependency>
   </dependencies>
   
   <!-- build information for the project -->
