@@ -111,7 +111,7 @@ public final class StandardDialog extends JDialog
         builder.setButtons(ok, cancel);
         getContentPane().add(builder.getPanel());
         pack();
-        ComponentCenterer.centerOnComponent(this, getParent());
+        setLocationRelativeTo(getParent());
         show();
         return state;
     }

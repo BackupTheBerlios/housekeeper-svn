@@ -41,7 +41,6 @@ import javax.swing.UIManager;
 
 import net.sf.housekeeper.Housekeeper;
 import net.sf.housekeeper.storage.StorageFactory;
-import net.sf.housekeeper.swing.util.ComponentCenterer;
 
 import com.jgoodies.plaf.Options;
 import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
@@ -73,7 +72,7 @@ public final class MainFrame extends JFrame
 
         setTitle("Housekeeper " + Housekeeper.VERSION);
         pack();
-        ComponentCenterer.centerOnScreen(this);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
