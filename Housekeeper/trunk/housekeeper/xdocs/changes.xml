@@ -3,7 +3,7 @@
     <title>Change history</title>
   </properties>
   <body>
-    <release version="0.2.0" date="not yet released">
+    <release version="0.2.0" date="2004-12-05">
         <action dev="notizklotz" type="add" issue="1077892">Ask user if wants 
             to save modifications before exiting the application.</action>
         <action dev="notizklotz" type="add" issue="1045200">Fixed 

@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.1.2a</currentVersion>
+  <currentVersion>0.2.0</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -53,6 +53,11 @@
   </repository>
   
   <versions>
+    <version>
+        <id>0.2.0</id>
+        <name>0.2.0</name>
+        <tag>HOUSEKEEPER_0_2_0</tag>
+    </version>
     <version>
         <id>0.1.2a</id>
         <name>0.1.2a</name>
