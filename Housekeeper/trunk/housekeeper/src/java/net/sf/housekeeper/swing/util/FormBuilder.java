@@ -45,12 +45,12 @@ public final class FormBuilder
 {
 
     /** OK button of the button bar */
-    private JButton            okButton;
+    private JButton   okButton;
 
     /** Cancel button of the button bar */
-    private JButton            cancelButton;
+    private JButton   cancelButton;
 
-    private ArrayList          elements;
+    private ArrayList elements;
 
     /**
      * Initializes a FormBuilder.
@@ -107,18 +107,21 @@ public final class FormBuilder
         final Iterator iter = elements.iterator();
         while (iter.hasNext())
         {
-            final Element e = (Element)iter.next();
-            final int span = ((Integer)map.get(new Integer(e.length))).intValue();
+            final Element e = (Element) iter.next();
+            final int span = ((Integer) map.get(new Integer(e.length)))
+                    .intValue();
             builder.append(e.label, e.comp, span);
         }
 
         if (okButton != null && cancelButton != null)
         {
+            final int fullSpan = map.size() + 2;
             builder.appendSeparator();
             builder.append(ButtonBarFactory.buildOKCancelBar(okButton,
-                                                             cancelButton), 3);
+                                                             cancelButton),
+                           fullSpan);
         }
-        
+
         return builder.getPanel();
     }
 
@@ -140,7 +143,7 @@ public final class FormBuilder
         }
         return lengthsSet;
     }
-    
+
     /**
      * Generates a map where the key is a length and value is the according
      * number of columns an element has to span for the length.
@@ -150,11 +153,11 @@ public final class FormBuilder
     private HashMap generateMap()
     {
         final SortedSet lengthsSet = lengths();
-        
+
         final HashMap map = new HashMap();
         final Iterator iter = lengthsSet.iterator();
         int i = 1;
-        while(iter.hasNext())
+        while (iter.hasNext())
         {
             map.put(iter.next(), new Integer(i));
             i++;
@@ -174,11 +177,11 @@ public final class FormBuilder
         final Object[] lengths = lengthsSet.toArray();
         final StringBuffer col = new StringBuffer();
         col.append("right:pref, 3dlu");
-        col.append(", "+ lengths[0] + "dlu");
+        col.append(", " + lengths[0] + "dlu");
         for (int i = 1; i < lengths.length; i++)
         {
-            final int colSize = ((Integer)lengths[i]).intValue()
-                    - ((Integer)lengths[i - 1]).intValue();
+            final int colSize = ((Integer) lengths[i]).intValue()
+                    - ((Integer) lengths[i - 1]).intValue();
             col.append(", " + colSize + "dlu");
         }
         return new FormLayout(col.toString(), "");
@@ -190,6 +193,7 @@ public final class FormBuilder
      */
     private class Element
     {
+
         private String    label;
 
         private Component comp;
