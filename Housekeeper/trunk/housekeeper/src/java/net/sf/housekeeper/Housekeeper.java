@@ -21,7 +21,9 @@
 
 package net.sf.housekeeper;
 
-import javax.swing.JFrame;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.sf.housekeeper.swing.MainFrame;
 
@@ -42,21 +44,37 @@ public final class Housekeeper
     /**
      * Prevents instances of this class.
      */
-    private Housekeeper()
+    private Housekeeper(String[] args)
     {
+        if (args.length > 0 && args[0].equals("--debug"))
+        {
+            enableDebugMessages();
+        }
+        
+        LogFactory.getLog(Housekeeper.class).info("Starting Housekeeper " + VERSION);
+        
+        MainFrame.INSTANCE.show();
+    }
+    
+    /**
+     * Configures the logging component for printing debug messages to the
+     * console.
+     */
+    private void enableDebugMessages()
+    {
+        final Handler[] h = Logger.getLogger("").getHandlers();
+        h[0].setLevel(Level.ALL);
+        Logger.getLogger("").setLevel(Level.ALL);
     }
 
     /**
      * Starts the Housekeeper application with a Swing GUI.
      * 
-     * @param args unsused.
+     * @param args "--debug" enables debugging messages.
      */
     public static void main(final String[] args)
     {
-        LogFactory.getLog(Housekeeper.class).info("Starting Housekeeper " + VERSION);
-
-        JFrame mainFrame = MainFrame.INSTANCE;
-        mainFrame.show();
+        new Housekeeper(args);
     }
 
 }

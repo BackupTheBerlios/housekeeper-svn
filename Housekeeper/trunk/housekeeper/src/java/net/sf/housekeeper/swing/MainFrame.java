@@ -69,7 +69,7 @@ public final class MainFrame extends JFrame
     /**
      * Log to be used for this class.
      */
-    private static final Log LOG = LogFactory.getLog(MainFrame.class);
+    private final Log LOG = LogFactory.getLog(MainFrame.class);
     
     private JTabbedPane           tabbedPane;
 
@@ -94,9 +94,7 @@ public final class MainFrame extends JFrame
      * Builds the components of the frame and adds them to the content pane.
      */
     private void buildComponents()
-    {
-        LOG.debug("Building GUI components");
-        
+    {        
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Supply", createSupplyPanel());
         getContentPane().add(tabbedPane);
@@ -106,9 +104,7 @@ public final class MainFrame extends JFrame
      * Builds the menus.
      */
     private JMenuBar buildMenuBar()
-    {
-        LOG.debug("Building menu bar");
-        
+    {       
         final JMenuBar menuBar = new JMenuBar();
 
         //File Menu
