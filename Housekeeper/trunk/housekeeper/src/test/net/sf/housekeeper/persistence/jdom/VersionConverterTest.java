@@ -28,6 +28,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import net.sf.housekeeper.testutils.DataGenerator;
 
 import org.custommonkey.xmlunit.XMLTestCase;
+import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.output.DOMOutputter;
 import org.w3c.dom.Document;
@@ -58,8 +59,7 @@ public class VersionConverterTest extends XMLTestCase
         final Document convertedDoc = getConvertedDocument();
         final Document targetDoc = DataGenerator
                 .getW3CDocument(DataGenerator.VERSION1to2_DATA);
-
-        //Doesn't work. But why?
+        //Doesn't work for some reason.
         //assertXMLEqual(targetDoc, convertedDoc);
     }
 
@@ -70,10 +70,10 @@ public class VersionConverterTest extends XMLTestCase
 
         //Convert original v1 doc to new version
         final DocumentVersionConverter converter = new Version1To2Converter();
-        converter.convert(convertedJDOMDoc);
+        final Element newRoot = converter.convert(convertedJDOMDoc.getRootElement());
 
         DOMOutputter domOutputter = new DOMOutputter();
-        return domOutputter.output(convertedJDOMDoc);
+        return domOutputter.output(new org.jdom.Document(newRoot));
     }
 
 }

@@ -71,7 +71,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
     {
         //Read data from resources and parse it
         final InputStream dataStream = getClass()
-                .getResourceAsStream(DataGenerator.VERSION1_DATA);
+                .getResourceAsStream(DataGenerator.CURRENT_VERSION_DATA);
         final Household household = jdomPersistence.loadData(dataStream);
 
         //Save data to a temporary file
@@ -84,7 +84,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
 
         //Reopen the two XML files and test for equality
         final InputStream originalStream = getClass()
-                .getResourceAsStream(DataGenerator.VERSION1_DATA);
+                .getResourceAsStream(DataGenerator.CURRENT_VERSION_DATA);
         final Reader originalReader = new InputStreamReader(originalStream);
         final Reader savedReader = new FileReader(tempFile);
         assertXMLEqual(originalReader, savedReader);
@@ -145,11 +145,10 @@ public final class JDOMPersistenceTest extends XMLTestCase
      */
     private void checkUnsupportedVersion(final int version)
     {
-        final Element root1 = new Element(JDOMPersistence.ROOT_ELEMENT);
-        root1
+        final Element root = new Element(JDOMPersistence.ROOT_ELEMENT);
+        root
                 .setAttribute(JDOMPersistence.FILE_VERSION_ATTRIBUTE, ""
                         + version);
-        final Element root = root1;
 
         try
         {

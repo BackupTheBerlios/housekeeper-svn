@@ -67,6 +67,16 @@ public final class DataGenerator
      * Test data for document version 1.
      */
     public static final String  VERSION1_DATA    = prefix + "data_v1.xml";
+    
+    /**
+     * Test data for document version 1.
+     */
+    public static final String  VERSION2_DATA    = prefix + "data_v2.xml";
+    
+    /**
+     * Test data for the current version.
+     */
+    public static final String CURRENT_VERSION_DATA = VERSION2_DATA;
 
     private DataGenerator()
     {

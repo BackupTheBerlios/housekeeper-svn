@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<household version="1">
-  <foodItem name="Rösti">
-    <quantity value="250g" />
-  </foodItem>
-  <foodItem name="Pizza 4 formaggi">
-    <expiry day="19" month="1" year="2005" />
-  </foodItem>
-  <foodItem name="Risotto ai funghi porcini" />
-  <foodItem name="Risotto alla Milanese">
-    <quantity value="250g" />
-    <expiry day="8" month="2" year="2005" />
-  </foodItem>
-  <foodItem name="Milch">
-    <expiry day="22" month="1" year="2005" />
-  </foodItem>
-  <foodItem name="Älplermakronen">
-    <expiry day="30" month="1" year="2005" />
-  </foodItem>
-  <foodItem name="Fiori Lorraine">
-    <expiry day="22" month="1" year="2005" />
-  </foodItem>
+<household version="2">
+    <foodItem name="Rösti">
+      <quantity value="250g" />
+    </foodItem>
+    <foodItem name="Pizza 4 formaggi">
+      <expiry day="19" month="1" year="2005" />
+    </foodItem>
+    <foodItem name="Risotto ai funghi porcini" />
+    <foodItem name="Risotto alla Milanese">
+      <quantity value="250g" />
+      <expiry day="8" month="2" year="2005" />
+    </foodItem>
+    <foodItem name="Milch">
+      <expiry day="22" month="1" year="2005" />
+    </foodItem>
+    <foodItem name="Älplermakronen">
+      <expiry day="30" month="1" year="2005" />
+    </foodItem>
+    <foodItem name="Fiori Lorraine">
+      <expiry day="22" month="1" year="2005" />
+    </foodItem>
 </household>
 

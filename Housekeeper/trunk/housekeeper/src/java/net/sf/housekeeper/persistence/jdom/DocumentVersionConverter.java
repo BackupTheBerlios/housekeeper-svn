@@ -21,8 +21,7 @@
 
 package net.sf.housekeeper.persistence.jdom;
 
-import org.jdom.Document;
-
+import org.jdom.Element;
 
 /**
  * Converts a DOM to a DOM of another file version.
@@ -34,9 +33,11 @@ interface DocumentVersionConverter
 {
 
     /**
-     * Converts the given document to a document of a different file version.
+     * Converts the given document to a document of a different file version. No
+     * element in the passed tree gets modified.
      * 
-     * @param document The Housekeeper XML document. Must not be null.
+     * @param root The root element of a Housekeeper document. Must not be null.
+     * @return The root of the converted Housekeeper document.
      */
-    void convert(final Document document);
+    Element convert(final Element root);
 }

@@ -50,19 +50,23 @@ public final class JDOMPersistence implements PersistenceService
     /**
      * Name of the attribute wich specifies the file format version.
      */
-    public static final String  FILE_VERSION_ATTRIBUTE = "version";
+    public static final String   FILE_VERSION_ATTRIBUTE = "version";
 
     /**
      * Name of the root element.
      */
-    public static final String  ROOT_ELEMENT           = "household";
+    public static final String   ROOT_ELEMENT           = "household";
+
+    /**
+     * The current file version.
+     */
+    private static final int     CURRENT_FILE_VERSION   = 2;
 
     /**
      * The logger for this class.
      */
     private static final Log     LOG                    = LogFactory
                                                                 .getLog(JDOMPersistence.class);
-    
 
     /**
      * Object used for converting between DOM and domain model.
@@ -91,8 +95,7 @@ public final class JDOMPersistence implements PersistenceService
         try
         {
             final Document document = builder.build(location);
-            final Element root = document.getRootElement();
-            final Household household = convertToDomain(root);
+            final Household household = convertToDomain(document.getRootElement());
 
             return household;
         } catch (JDOMException e)
@@ -113,6 +116,7 @@ public final class JDOMPersistence implements PersistenceService
             throws IOException
     {
         final Element root = modelConverter.convertDomainToXML(household);
+        root.setAttribute("version", "" + CURRENT_FILE_VERSION);
         final Document document = new Document(root);
 
         final Format format = Format.getPrettyFormat();
@@ -121,26 +125,30 @@ public final class JDOMPersistence implements PersistenceService
         serializer.output(document, location);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see net.sf.housekeeper.persistence.PersistenceService#maxVersion()
      */
     public int maxVersion()
     {
-        return 1;
+        return CURRENT_FILE_VERSION;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see net.sf.housekeeper.persistence.PersistenceService#minVersion()
      */
     public int minVersion()
     {
         return 1;
     }
-    
+
     /**
      * Converts a DOM into a domain model. Package private for Unit Testing.
      * 
-     * @param root The root element of the data structure.
+     * @param root The root element of the DOM. Must not be null.
      * @return The converted domain model.
      * @throws UnsupportedFileVersionException if the file version of the data
      *             cannot be detected or is not supported.
@@ -150,44 +158,87 @@ public final class JDOMPersistence implements PersistenceService
     Household convertToDomain(final Element root)
             throws UnsupportedFileVersionException, IllegalArgumentException
     {
-        if (!root.getName().equals(ROOT_ELEMENT))
+        final boolean isHousekeeperDoc = root.getName().equals(ROOT_ELEMENT);
+        if (!isHousekeeperDoc)
         {
             throw new IllegalArgumentException(
-                    "This is no Housekeeper root element: " + root.getName());
+                    "This is no Housekeeper root element: "
+                            + root.getName());
         }
+
         //Extract version number
         final int version = getFileVersionFor(root);
         LogFactory.getLog(getClass())
                 .debug("Detected file version: " + version);
 
-        //Check if version is supported
-        if (!isVersionSupported(version))
-        {
-            throw new UnsupportedFileVersionException(version);
-        }
+        final Element newRoot = convertToLatestVersion(root);
 
-        //Convert the DOM
-        final Household household = modelConverter.convertToDomain(root);
+        final Household household = modelConverter.convertToDomain(newRoot);
         return household;
+    }
+
+    /**
+     * Converts the document to the latest version, if necessary.
+     * 
+     * @param root The root of the document to convert. Must not be null.
+     * @return The converted DOM.
+     * @throws UnsupportedFileVersionException If the document cannot be
+     *             converted.
+     */
+    private Element convertToLatestVersion(Element root)
+            throws UnsupportedFileVersionException
+    {
+        //Extract version number
+        final int version = getFileVersionFor(root);
+        LogFactory.getLog(getClass())
+                .debug("Detected file version: " + version);
+
+        final DocumentVersionConverter versionConverter = getConverterForVersion(version);
+        if (versionConverter != null)
+        {
+            return versionConverter.convert(root);
+        } else {
+            return root;
+        }
+    }
+
+    /**
+     * Returns the converter which converts from the specified version to the
+     * latest one.
+     * 
+     * @param version The version from which to convert.
+     * @return The converter object or null, if no conversion is necessary.
+     * @throws UnsupportedFileVersionException If the document cannot be
+     *             converted.
+     */
+    private DocumentVersionConverter getConverterForVersion(int version)
+            throws UnsupportedFileVersionException
+    {
+        DocumentVersionConverter docConverter = null;
+        switch (version)
+        {
+            case 1:
+                docConverter = new Version1To2Converter();
+                break;
+            case CURRENT_FILE_VERSION:
+                break;
+            default:
+                throw new UnsupportedFileVersionException(version);
+        }
+        return docConverter;
     }
 
     /**
      * Determines the file version for the given DOM.
      * 
-     * @param root The root element of the saved data.
+     * @param root The root element. Must not be null.
      * @return The version of the data structure.
      */
     private int getFileVersionFor(Element root)
     {
-        final String versionString = root
-                .getAttributeValue(FILE_VERSION_ATTRIBUTE);
+        final String versionString = root.getAttributeValue(FILE_VERSION_ATTRIBUTE);
         final int version = Integer.parseInt(versionString);
         return version;
-    }
-
-    private boolean isVersionSupported(int version)
-    {
-        return version >= minVersion() && version <= maxVersion();
     }
 
 }

@@ -1,11 +1,9 @@
 package net.sf.housekeeper.persistence.jdom;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 import net.sf.housekeeper.domain.Food;
-import net.sf.housekeeper.domain.FoodManager;
 import net.sf.housekeeper.domain.Household;
 
 import org.jdom.Element;
@@ -14,7 +12,7 @@ import org.jdom.Element;
  * Converts XML element hierarchies into domain objects and vice-versa. It does
  * only support the latest version of the Housekeeper XML file format. For
  * converting between formats use
- * {@link net.sf.housekeeper.persistence.jdom.DocumentVersionConverter} objects.
+ * {@link net.sf.housekeeper.persistence.jdom.DocumentVersionConverter}objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -22,20 +20,26 @@ import org.jdom.Element;
 final class ModelConverter
 {
 
-    /**
-     * The current file version.
-     */
-    private static final int CURRENT_FILE_VERSION = 1;
+    private static final String CONVENIENCE_FOOD_CATEGORY = "convenienceFoods";
 
-    
+    private static final String MISC_FOOD_CATEGORY        = "misc";
+
+    private static final String CATEGORY_ATTRIBUTE        = "category";
+
+    private static final String ELEMENT_FOOD_CONTAINER    = "food";
+
+    private static final String ELEMENT_FOOD_ITEM         = "foodItem";
+
+    private static final String ELEMENT_ROOT              = "household";
+
     /**
      * Creates a new converter.
      */
     ModelConverter()
     {
-        
+
     }
-    
+
     /**
      * Creates domain objects from XML objects.
      * 
@@ -44,17 +48,20 @@ final class ModelConverter
      */
     Household convertToDomain(final Element root)
     {
-        final List food = new LinkedList();
-        final Iterator foodItemIterator = root.getChildren("foodItem")
-                .iterator();
-        while (foodItemIterator.hasNext())
+        final Household household = new Household();
+
+        final ArrayList convFood = getConvenienceFood(root);
+        if (convFood != null)
         {
-            final Element element = (Element) foodItemIterator.next();
-            final Food item = FoodItemConverter.convert(element);
-            food.add(item);
+            household.getConvenienceFoodManager().replaceAll(convFood);
         }
-        final FoodManager foodManager = new FoodManager(food);
-        final Household household = new Household(foodManager);
+
+        final ArrayList miscFood = getMiscFood(root);
+        if (miscFood != null)
+        {
+            household.getMiscFoodManager().replaceAll(miscFood);
+        }
+
         return household;
     }
 
@@ -66,17 +73,127 @@ final class ModelConverter
      */
     Element convertDomainToXML(final Household household)
     {
-        final Element root = new Element("household");
-        root.setAttribute("version", "" + CURRENT_FILE_VERSION);
+        final Element root = new Element(ELEMENT_ROOT);
 
-        final Iterator iter = household.getConvenienceFoodManager().getItemsIterator();
-        while (iter.hasNext())
-        {
-            final Food item = (Food) iter.next();
-            root.addContent(FoodItemConverter.convert(item));
-        }
+        final Iterator iter = household.getConvenienceFoodManager()
+                .getItemsIterator();
+        addFoodContainerElement(root, CONVENIENCE_FOOD_CATEGORY, iter);
+
+        final Iterator iter2 = household.getMiscFoodManager()
+                .getItemsIterator();
+        addFoodContainerElement(root, MISC_FOOD_CATEGORY, iter2);
 
         return root;
+    }
+
+    /**
+     * Creates and adds an element containing food as a child of another
+     * {@link Element}. If <code>objectIterator</code> has no objects,
+     * <code>root</code> remains unmodified.
+     * 
+     * @param root The element to add the created element to.
+     * @param category The category of the container.
+     * @param objectIterator An iterator for the domain objects to convert.
+     */
+    private void addFoodContainerElement(final Element root,
+                                         final String category,
+                                         final Iterator objectIterator)
+    {
+        if (objectIterator.hasNext())
+        {
+            final Element foodContainer = new Element(ELEMENT_FOOD_CONTAINER);
+            foodContainer.setAttribute(CATEGORY_ATTRIBUTE, category);
+
+            while (objectIterator.hasNext())
+            {
+                final Food item = (Food) objectIterator.next();
+                foodContainer.addContent(FoodItemConverter.convert(item));
+            }
+
+            root.addContent(foodContainer);
+        }
+    }
+
+    /**
+     * Generates all {@link Food}food objects for the "Convenience Food"
+     * category.
+     * 
+     * @param root The root of the DOM.
+     * @return The genrated objects.
+     */
+    private ArrayList getConvenienceFood(final Element root)
+    {
+        final Element foodElement = getFoodElement(root,
+                                                   CONVENIENCE_FOOD_CATEGORY);
+        ArrayList foodItems = null;
+        if (foodElement != null)
+        {
+            foodItems = getFoodItems(foodElement);
+        }
+
+        return foodItems;
+    }
+
+    /**
+     * Generates all {@link Food}food objects for the "Misc" category.
+     * 
+     * @param root The root of the DOM.
+     * @return The genrated objects.
+     */
+    private ArrayList getMiscFood(final Element root)
+    {
+        final Element foodElement = getFoodElement(root, MISC_FOOD_CATEGORY);
+        ArrayList foodItems = null;
+        if (foodElement != null)
+        {
+            foodItems = getFoodItems(foodElement);
+        }
+
+        return foodItems;
+    }
+
+    /**
+     * Looks up the the JDOM element named "food" which has a category attribute
+     * with a value of <code>category</code>.
+     * 
+     * @param root The root of the DOM.
+     * @param category The name of the category.
+     * @return The looked-up element. If it doesn't exist, null is returned.
+     */
+    private Element getFoodElement(final Element root, final String category)
+    {
+
+        final Iterator foodElementIterator = root
+                .getChildren(ELEMENT_FOOD_CONTAINER).iterator();
+        while (foodElementIterator.hasNext())
+        {
+            Element element = (Element) foodElementIterator.next();
+            if (element.getAttributeValue(CATEGORY_ATTRIBUTE).equals(category))
+            {
+                return element;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Creates {@link Food}objects from a food container.
+     * 
+     * @param foodElement The container with the food elements.
+     * @return A list of {@link Food}objects.
+     */
+    private ArrayList getFoodItems(final Element foodElement)
+    {
+        final ArrayList food = new ArrayList();
+        final Iterator foodItemIterator = foodElement
+                .getChildren(ELEMENT_FOOD_ITEM).iterator();
+        while (foodItemIterator.hasNext())
+        {
+            final Element element = (Element) foodItemIterator.next();
+            final Food item = FoodItemConverter.convert(element);
+            food.add(item);
+        }
+        return food;
     }
 
 }

@@ -23,8 +23,6 @@ package net.sf.housekeeper.persistence.jdom;
 
 import java.util.Collection;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
 import org.jdom.Element;
 
 
@@ -36,23 +34,21 @@ final class Version1To2Converter implements DocumentVersionConverter
 {
 
 
-    public void convert(Document document)
-    {
-        final Element root = document.getRootElement();
-        
+    public Element convert(Element oldRoot)
+    {        
         //Set version
-        final Attribute versionAttribute = root.getAttribute("version");
-        versionAttribute.setValue("2");
+        final Element newRoot = new Element(oldRoot.getName());
+        newRoot.setAttribute("version", "2");
         
-        //Move foodItem elements
-        final Collection foodItems = root.cloneContent();
-        root.removeChildren("foodItem");
+        //Copy foodItem elements
+        final Collection foodItems = oldRoot.cloneContent();
 
         final Element convenianceElement = new Element("food");
         convenianceElement.setAttribute("category", "convenienceFoods");
         convenianceElement.addContent(foodItems);
         
-        root.addContent(convenianceElement);
+        newRoot.addContent(convenianceElement);
+        return newRoot;
     }
     
 
