@@ -4,15 +4,17 @@
     <author email="adrian.gygax(at)gmx.net">Adrian Gygax</author>
   </properties>
   <body>
-    <release version="0.2.0" date="not yet">
-        <action dev="notizklotz" type="fix">Modified start 
+    <release version="0.1.2a" date="2004-11-18">
+      <action dev="notizklotz" type="fix">Fixed application 
+            execution in Windows.</action>
+      <action dev="notizklotz" type="fix">Modified start 
             script for Unix derivaties to enable application start from a file 
-            manager. </action>
+            manager.</action>
     </release>
     <release version="0.1.2" date="2004-10-26">
-        <action dev="notizklotz" type="add" issue="1037939"> Added 
+      <action dev="notizklotz" type="add" issue="1037939"> Added 
             logging component for display of messages in the console.</action>
-        <action dev="notizklotz" type="add" issue="960660"> Implemented robust 
+      <action dev="notizklotz" type="add" issue="960660"> Implemented robust 
             persistence layer using JDOM for reading and writing XML. </action>
     </release>
     <release version="0.1.1" date="2004-07-07">

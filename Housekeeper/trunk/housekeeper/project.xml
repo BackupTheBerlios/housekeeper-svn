@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.2.0-SNAPSHOT</currentVersion>
+  <currentVersion>0.1.2a</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -55,6 +55,11 @@
   </repository>
   
   <versions>
+    <version>
+        <id>0.1.2a</id>
+        <name>0.1.2a</name>
+        <tag>HOUSEKEEPER_0_1_2A</tag>
+    </version>
     <version>
         <id>0.1.2</id>
         <name>0.1.2</name>
@@ -129,7 +134,7 @@
     <dependency>
     	<groupId>jgoodies</groupId>
     	<artifactId>binding</artifactId>
-    	<version>1.0b4</version>
+    	<version>1.0b5</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
                 <properties>
             <category>shared</category>
