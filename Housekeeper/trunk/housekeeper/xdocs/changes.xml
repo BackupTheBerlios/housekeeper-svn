@@ -1,0 +1,17 @@
+<document>
+  <properties>
+    <title>Page title</title>
+    <author email="notizklotz(at)gmx.net">Adrian Gygax</author>
+  </properties>
+  <body>
+
+    <release version="0.1.2" date="in CVS">
+      <action dev="notizklotz" type="add">
+        Added blah blah.
+      </action>  
+      <action dev="notizklotz" type="fix">
+        Added blah blah fgh.
+      </action>              
+    </release>
+  </body>
+</document>
