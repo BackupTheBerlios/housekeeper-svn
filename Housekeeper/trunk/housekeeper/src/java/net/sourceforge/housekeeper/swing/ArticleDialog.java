@@ -105,8 +105,7 @@ public class ArticleDialog extends ExtendedDialog
 			article.setQuantity(Integer.parseInt(quantityField.getText()));
 			article.setQuantityUnit(unitField.getText());
 			
-			StorageFactory.getCurrentStorage().addArticle(article);
-			StorageFactory.getCurrentStorage().saveData();
+			StorageFactory.getCurrentStorage().add(article);
 			
 			dispose();
 		}

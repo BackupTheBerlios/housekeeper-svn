@@ -8,16 +8,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import net.sourceforge.housekeeper.model.Article;
 
 /**
  * @author Adrian Gygax
  */
-public class XMLStorage implements Storage
+public class XMLStorage extends Storage
 {
-	private Collection articles;
+	private List articles;
 
 	private XMLEncoder xmlEncoder;
 
@@ -28,6 +28,21 @@ public class XMLStorage implements Storage
 	{
 		articles = new ArrayList();
 	}
+	
+	public void add(Article article)
+	{
+		articles.add(article);
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void remove(Article article)
+	{
+		articles.remove(article);
+		setChanged();
+		notifyObservers();
+	}
+	
 	
 
 	public void saveData()
@@ -59,7 +74,7 @@ public class XMLStorage implements Storage
 						new FileInputStream("/home/phelan/Test.xml")));
 			Object result = xmlDecoder.readObject();
 			
-			articles = (Collection) result;
+			articles = (List) result;
 			
 			xmlDecoder.close();
 		}
@@ -68,18 +83,13 @@ public class XMLStorage implements Storage
 			System.out.println("File not found");
 		}
 	}
-	
-	/**
-	 * 
-	 * @return
+
+	/* (non-Javadoc)
+	 * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
 	 */
-	public Collection getArticles()
+	public List getArticles()
 	{
 		return articles;
 	}
-	
-	public void addArticle(Article article)
-	{
-		articles.add(article);
-	}
+
 }

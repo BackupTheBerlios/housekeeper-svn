@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import com.jgoodies.plaf.Options;
@@ -25,6 +26,8 @@ public final class MainFrame extends ExtendedFrame
 	private JMenu menuArticles;
 	private JMenuItem itemNewArticle;
 	
+	private JTabbedPane tabbedPane;
+	
 	/**
 	 * 
 	 * 
@@ -35,6 +38,7 @@ public final class MainFrame extends ExtendedFrame
 
 		initLookAndFeel();
 		buildMenus();
+		buildComponents();
 		
 		setSize(400, 400);
 		setTitle("Housekeeper");
@@ -70,6 +74,14 @@ public final class MainFrame extends ExtendedFrame
 		itemNewArticle = new JMenuItem("New article");
 		menuArticles.add(itemNewArticle);
 		itemNewArticle.addActionListener(new MenuHandler());
+	}
+	
+	private void buildComponents()
+	{
+		tabbedPane = new JTabbedPane();
+		tabbedPane.addTab("Articles", new ArticlePanel());
+
+		getContentPane().add(tabbedPane);
 	}
 	
 	private class MenuHandler implements ActionListener
