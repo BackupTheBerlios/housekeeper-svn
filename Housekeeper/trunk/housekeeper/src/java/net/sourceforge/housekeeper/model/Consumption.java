@@ -57,12 +57,27 @@ public class Consumption
         quantity = 0;
     }
 
+    /**
+     * Creates an article with given attributes. If a parameter is null, the
+     * according attribute is set to a default value.
+     *
+     * @param date The date of the consumption
+     * @param quantity How much that has been consumed
+     */
+    public Consumption(Date date,
+                       int  quantity)
+    {
+        this();
+        this.date     = date;
+        this.quantity = quantity;
+    }
+
     //~ Methods ----------------------------------------------------------------
 
     /**
      * Sets the corresponding attribute to a new value.
      *
-     * @param store The new value.
+     * @param date The new value.
      */
     public void setDate(Date date)
     {
@@ -82,7 +97,7 @@ public class Consumption
     /**
      * Sets the corresponding attribute to a new value.
      *
-     * @param store The new value.
+     * @param quantity The new value.
      */
     public void setQuantity(int quantity)
     {
@@ -97,5 +112,13 @@ public class Consumption
     public int getQuantity()
     {
         return quantity;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return "Date: " + date + " Quantity: " + quantity;
     }
 }
