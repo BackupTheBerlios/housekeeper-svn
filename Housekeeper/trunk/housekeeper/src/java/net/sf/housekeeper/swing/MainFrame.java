@@ -222,7 +222,7 @@ public final class MainFrame
 
         //Only show dialog for saving before exiting if any data has been
         // changed
-        if (household.getFoodItemManager().hasChanged())
+        if (household.hasChanged())
         {
             final String question = LocalisationManager.INSTANCE
                     .getText("gui.mainFrame.saveModificationsQuestion");

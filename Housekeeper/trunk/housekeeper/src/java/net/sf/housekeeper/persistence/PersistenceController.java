@@ -99,7 +99,9 @@ public final class PersistenceController
     {
         final Household savedHousehold = jdomPersistence.loadData(dataFile);
         currentDomain.replaceAll(savedHousehold);
-        currentDomain.getFoodItemManager().resetChangedStatus();
+        
+        //The data has not been changed by the user.
+        currentDomain.resetChangedStatus();
     }
 
     /**
@@ -113,7 +115,9 @@ public final class PersistenceController
             throws IOException
     {
         jdomPersistence.saveData(currentDomain, dataFile);
-        currentDomain.getFoodItemManager().resetChangedStatus();
+        
+        //The data now has been saved.
+        currentDomain.resetChangedStatus();
     }
 
 }

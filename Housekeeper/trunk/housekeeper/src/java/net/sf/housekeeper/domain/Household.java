@@ -73,4 +73,24 @@ public final class Household
     {
         foodItems.replaceAll(domain.getFoodItemManager().getSupplyList());
     }
+    
+    /**
+     * Returns true if any data has been changed since the last call to
+     * {@link #resetChangedStatus()}.
+     * 
+     * @return True if any dat has changed, false otherwise.
+     */
+    public boolean hasChanged()
+    {
+        return foodItems.hasChanged();
+    }
+    
+    /**
+     * Resets the status of the "has changed" attribute. After calling this,
+     * {@link #hasChanged()}returns false.
+     */
+    public void resetChangedStatus()
+    {
+        foodItems.resetChangedStatus();
+    }
 }
