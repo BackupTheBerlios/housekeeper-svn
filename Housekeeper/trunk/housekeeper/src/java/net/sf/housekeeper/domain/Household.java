@@ -54,7 +54,7 @@ public final class Household
     }
 
     /**
-     * Returns the manager for convience food objects in this domain.
+     * Returns the manager for food objects in this domain.
      * 
      * @return The manager. Is not null.
      */
@@ -146,7 +146,7 @@ public final class Household
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[Household:");
-        buffer.append(" Convenience Food: ");
+        buffer.append(" Food: ");
         buffer.append(foodManager);
         buffer.append("]");
         return buffer.toString();
