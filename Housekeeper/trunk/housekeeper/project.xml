@@ -109,14 +109,14 @@
   	<developer>
   		<name>Adrian Gygax</name>
   		<id>notizklotz</id>
-  		<email>Adrian.Gygax(at)gmx.net</email>
+  		<email>notizklotz(at)users.sourceforge.net</email>
   		<roles>
-  			<role>Project Manager</role>
+  			<role>Lead developer</role>
   		</roles>
   		<timezone>+1</timezone>
   	</developer>
   </developers>
-  	
+
   <licences>
   	<licence>
   		<name>GNU General Public License (GPL)</name>
