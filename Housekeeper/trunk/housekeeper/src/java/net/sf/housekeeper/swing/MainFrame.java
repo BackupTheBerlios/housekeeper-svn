@@ -24,6 +24,8 @@ package net.sf.housekeeper.swing;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -83,7 +85,15 @@ public final class MainFrame extends JFrame
 
         pack();
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter() {
+
+            public void windowClosing(WindowEvent e)
+            {
+               ApplicationController.instance().exit();
+
+            }
+        });
     }
 
     /**
