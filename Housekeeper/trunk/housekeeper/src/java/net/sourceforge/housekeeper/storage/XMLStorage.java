@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.storage;
 
 
-import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.model.ArticleDescription;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -82,9 +82,9 @@ public final class XMLStorage extends Storage
         return articles;
     }
 
-    public Article getArticle(int i)
+    public ArticleDescription getArticle(int i)
     {
-        return (Article)articles.get(i);
+        return (ArticleDescription)articles.get(i);
     }
     
     /**
@@ -92,7 +92,7 @@ public final class XMLStorage extends Storage
      *
      * @param article DOCUMENT ME!
      */
-    public void add(Article article)
+    public void add(ArticleDescription article)
     {
         articles.add(article);
         update();
@@ -125,7 +125,7 @@ public final class XMLStorage extends Storage
      *
      * @param article DOCUMENT ME!
      */
-    public void remove(Article article)
+    public void remove(ArticleDescription article)
     {
         articles.remove(article);
         update();

@@ -27,7 +27,7 @@ import com.jgoodies.forms.extras.DefaultFormBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
-import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.model.ArticleDescription;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -46,7 +46,7 @@ class ArticleDialog extends ExtendedDialog
 {
     //~ Instance fields --------------------------------------------------------
 
-    private Article article;
+    private ArticleDescription article;
     private JButton buttonCancel;
     private JButton buttonOK;
     private JTextField nameField;
@@ -79,7 +79,7 @@ class ArticleDialog extends ExtendedDialog
      *
      * @return DOCUMENT ME!
      */
-    Article show(String title)
+    ArticleDescription show(String title)
     {
         setTitle(title);
         super.show();
@@ -95,7 +95,7 @@ class ArticleDialog extends ExtendedDialog
      *
      * @return DOCUMENT ME!
      */
-    Article show(String title, Article article)
+    ArticleDescription show(String title, ArticleDescription article)
     {
         this.article = article;
         setTitle(title);
@@ -177,7 +177,7 @@ class ArticleDialog extends ExtendedDialog
         {
             if (article == null)
             {
-                article = new Article();
+                article = new ArticleDescription();
             }
 
             article.setName(nameField.getText());

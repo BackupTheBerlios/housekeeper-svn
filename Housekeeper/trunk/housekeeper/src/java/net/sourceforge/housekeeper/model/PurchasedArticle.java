@@ -30,7 +30,7 @@ import java.util.Date;
 
 /**
  * A concrete article, that has been purchased. There can be multiple objects
- * of this class for every {@link Article}.
+ * of this class for every {@link ArticleDescription}.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -42,7 +42,7 @@ public class PurchasedArticle
     //~ Instance fields --------------------------------------------------------
 
     /** The type of article the object is */
-    private Article article;
+    private ArticleDescription article;
 
     /** Information about consumptions of this object */
     private Collection consumptions;
@@ -59,7 +59,7 @@ public class PurchasedArticle
      */
     public PurchasedArticle()
     {
-        article       = new Article();
+        article       = new ArticleDescription();
         consumptions  = new ArrayList();
         bestBeforeEnd = new Date();
     }
@@ -71,7 +71,7 @@ public class PurchasedArticle
      *
      * @param article The new value.
      */
-    public void setArticle(Article article)
+    public void setArticle(ArticleDescription article)
     {
         this.article = article;
     }
@@ -81,7 +81,7 @@ public class PurchasedArticle
      *
      * @return The corresponding attribute.
      */
-    public Article getArticle()
+    public ArticleDescription getArticle()
     {
         return article;
     }

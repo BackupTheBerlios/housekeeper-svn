@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.model.ArticleDescription;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 
 import java.awt.BorderLayout;
@@ -91,7 +91,7 @@ final class ArticlePanel extends JPanel
      *
      * @return DOCUMENT ME!
      */
-    Article getSelectedArticle()
+    ArticleDescription getSelectedArticle()
     {
         int selectedRow = table.getSelectedRow();
         
@@ -169,7 +169,7 @@ final class ArticlePanel extends JPanel
             return columnHeaders[columnIndex];
         }
 
-        public Article getObjectAtRow(int row)
+        public ArticleDescription getObjectAtRow(int row)
         {
             return StorageFactory.getCurrentStorage().getArticle(row);
         }
@@ -188,7 +188,7 @@ final class ArticlePanel extends JPanel
         public Object getValueAt(int rowIndex, int columnIndex)
         {
             List articles = StorageFactory.getCurrentStorage().getArticles();
-            Article article = (Article)articles.get(rowIndex);
+            ArticleDescription article = (ArticleDescription)articles.get(rowIndex);
 
             switch (columnIndex)
             {

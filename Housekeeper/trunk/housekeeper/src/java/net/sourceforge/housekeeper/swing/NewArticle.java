@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.model.ArticleDescription;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 
 
@@ -63,7 +63,7 @@ final class NewArticle extends AbstractAction
     public void actionPerformed(ActionEvent e)
     {
         ArticleDialog d = new ArticleDialog();
-        Article article = d.show("New Article");
+        ArticleDescription article = d.show("New Article");
 
         if (article != null)
         {

@@ -33,7 +33,7 @@ package net.sourceforge.housekeeper.model;
  *
  * @since 0.1
  */
-public class Article
+public class ArticleDescription
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -64,7 +64,7 @@ public class Article
      * Creates an article with default attributes. Name, store and unit are set
      * to an empty String. Price and quantity are set to zero.
      */
-    public Article()
+    public ArticleDescription()
     {
         name     = "";
         store    = "";
@@ -87,7 +87,7 @@ public class Article
      *        quantity would be six.
      * @param unit The unit this article is measured in, like pieces or litres.
      */
-    public Article(String name,
+    public ArticleDescription(String name,
                    String store,
                    double price,
                    int    quantity,

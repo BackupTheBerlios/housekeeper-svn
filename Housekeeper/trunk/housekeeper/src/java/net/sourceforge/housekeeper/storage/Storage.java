@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.storage;
 
 
-import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.model.ArticleDescription;
 
 import java.util.List;
 import java.util.Observable;
@@ -45,14 +45,14 @@ public abstract class Storage extends Observable
      */
     public abstract List getArticles();
 
-    public abstract Article getArticle(int i);
+    public abstract ArticleDescription getArticle(int i);
     
     /**
      * TODO DOCUMENT ME!
      *
      * @param article DOCUMENT ME!
      */
-    public abstract void add(Article article);
+    public abstract void add(ArticleDescription article);
 
     /**
      * TODO DOCUMENT ME!
@@ -64,7 +64,7 @@ public abstract class Storage extends Observable
      *
      * @param article DOCUMENT ME!
      */
-    public abstract void remove(Article article);
+    public abstract void remove(ArticleDescription article);
 
     /**
      * TODO DOCUMENT ME!

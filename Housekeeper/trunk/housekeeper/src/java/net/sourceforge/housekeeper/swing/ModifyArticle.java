@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.model.ArticleDescription;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 
 import java.awt.event.ActionEvent;
@@ -60,7 +60,7 @@ public class ModifyArticle extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        Article article = ArticlePanel.INSTANCE.getSelectedArticle();
+        ArticleDescription article = ArticlePanel.INSTANCE.getSelectedArticle();
 
         if (article != null)
         {
