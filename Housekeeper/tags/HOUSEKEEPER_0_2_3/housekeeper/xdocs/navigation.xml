@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="Housekeeper - The household management software">
+  <title>Housekeeper - The household management software</title>
+  <body>
+    <links>
+      <item name="Berlios Project Site" 
+        href="http://developer.berlios.de/projects/housekeeper/" />
+    </links>
+    <menu name="Overview">
+        <item href="/index.html" name="Home" />
+        <item 
+            href="http://developer.berlios.de/screenshots/?group_id=3180" 
+            name="Screenshots"/>
+        <item href="/installation.html" name="Download and installation" />
+        <item href="/changes-report.html" name="Changelog" />
+        <item href="/faq.html" name="FAQ" />
+    </menu>
+    <!--<search/>-->
+  </body>
+</project>

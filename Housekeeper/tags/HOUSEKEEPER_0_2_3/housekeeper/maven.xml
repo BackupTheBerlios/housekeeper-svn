@@ -1,0 +1,56 @@
+<project
+  xmlns:ant="jelly:ant"
+  xmlns:core="jelly:core"
+  xmlns:deploy="deploy">
+  
+  <goal name="package">    
+	  <attainGoal name="package-create-archives" />
+  </goal>
+  
+  <goal name="package-prepare-release">
+    <core:set var="outputPath" value="${maven.build.dir}/release"/>
+    <attainGoal name="clean" />
+    <attainGoal name="package-copy-misc" />
+    <attainGoal name="package-setup-scripts" />
+    <attainGoal name="package-copy-jars" />
+  </goal>
+  
+  <goal name="package-copy-misc">
+    <ant:copy file="${basedir}/GPL.txt" tofile="${outputPath}/LICENSE.txt"/>
+    <ant:copy file="${basedir}/src/resources/images/housekeeper_icon64.gif" 
+      todir="${outputPath}"/>
+    <ant:copy file="${basedir}/src/resources/images/housekeeper_icon64.xpm" 
+      todir="${outputPath}"/>
+
+    <ant:copy todir="${outputPath}">
+      <ant:fileset dir="${basedir}/dist/"/>
+    </ant:copy>
+    <ant:chmod file="${outputPath}/housekeeper.sh" perm="a+x"/>
+  </goal>
+  
+  <goal name="package-copy-jars">
+    <attainGoal name="jar" />
+    <ant:copy file="${maven.build.dir}/${maven.final.name}.jar" 
+      todir="${outputPath}"/>
+    <deploy:copy-deps todir="${outputPath}/lib" 
+      excludes="maven-statcvs-plugin,xmlunit"/>
+  </goal>
+  
+  <goal name="package-setup-scripts">
+    <attainGoal name="package-copy-misc" />
+    <ant:replace dir="${outputPath}" includes="housekeeper.bat,housekeeper.sh" token="@@HOUSEKEEPER_JAR@@" value="${maven.final.name}.jar"/>
+  </goal>
+  
+  <goal name="package-create-archives">
+    <attainGoal name="package-prepare-release" />
+    
+    <ant:zip zipfile="${maven.build.dir}/${maven.final.name}.zip">
+      <ant:zipfileset dir="${outputPath}" prefix="Housekeeper"/>
+    </ant:zip>
+    
+    <ant:tar longfile="gnu" compression="gzip" tarfile="${maven.build.dir}/${maven.final.name}.tar.gz">
+      <ant:tarfileset dir="${outputPath}" excludes="housekeeper.sh" prefix="housekeeper"/>
+      <ant:tarfileset dir="${outputPath}" includes="housekeeper.sh" prefix="housekeeper" mode="755"/>
+    </ant:tar>
+  </goal>
+</project>

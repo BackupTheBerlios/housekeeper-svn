@@ -1,0 +1,40 @@
+<faqs title="Frequently Asked Questions">
+
+  <part id="devel">
+    <title>Developer's corner</title>
+    <faq id="getting-started-devel">
+    <question><p>I'm a developer. How do I setup a development environment so I 
+        can start coding for Housekeeper? (UNDER CONSTRUCTION)</p>
+    </question>
+    <answer>
+    	<b>Install Sun JDK 1.4.2</b>
+    	<b>Install Eclipse</b>
+        <ol>
+            <li><a 
+                href="http://www.eclipse.org/downloads/index.php">Download 
+                and install Eclipse Platform SDK 3.0.x</a></li>
+            <li>Start Eclipse. Click on OK if you are asked for selecting your workspace. If you are not familiar with Eclipse it's a good idea to just play around with it right now. Step through a tutorial or look at the documentation.</li>
+            <li>Select from the menu: File -> New -> Other... -> CVS -> Checkout Projects from CVS</li>
+            <li><p>Enter the following information into the dialog:
+            	<br>Host: cvs.housekeeper.berlios.de</br>
+				<br>Repository path: /cvsroot/housekeeper</br>
+				<br>User: (Your BerliOS account name)</br>
+				<br>Password: (Your BerliOS account password)</br>
+				<br>Connection type: extssh</br></p>
+				<p>It is recommended to tick "Save Password" so you don't have to enter your password on every CVS access.</p></li>
+		<li>Click on the button "Next >"</li>
+		<li>Enter "housekeeper" in the text field</li>
+		<li>Click on "yes" or "ok" in the dialogs which pop up to allow encrypted communication using SSH. (Which is mandatory)</li>
+        	<li>In the dialog labeled "Check out As", make sure "Check out as project into workspace" is selected and the "Project name" is set to "housekeeper". Click "Next >"</li>
+        	<li>Click on "Next >" to accept the default workspace directory.</li>
+        	<li>Select "HEAD" and click the "Finish" button</li>
+        </ol>
+        <b>Install Maven</b>
+        <ol>
+            <li><a href="http://maven.apache.org/">Download and install Maven 
+                </a>.</li>
+        </ol>
+    </answer>
+    </faq>
+  </part>
+</faqs>
