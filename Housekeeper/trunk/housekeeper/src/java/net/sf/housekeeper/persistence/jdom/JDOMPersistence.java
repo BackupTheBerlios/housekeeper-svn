@@ -60,7 +60,7 @@ public final class JDOMPersistence implements PersistenceService
     /**
      * The current file version.
      */
-    private static final int     CURRENT_FILE_VERSION   = 3;
+    private static final int     CURRENT_FILE_VERSION   = 4;
 
     /**
      * The logger for this class.

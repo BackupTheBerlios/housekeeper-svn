@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <household version="4">
   <supply>
-  <foodItem name="Rösti">
-    <description>250g</description>
-    <category>convenienceFood<category/>
-  </foodItem>
-  <foodItem name="Pizza 4 formaggi">
-    <expiry day="19" month="1" year="2005" />
-    <category>convenienceFood<category/>
-  </foodItem>
-  <foodItem name="Risotto ai funghi porcini">
-    <category>convenienceFood<category/>
-  </foodItem>
-  <foodItem name="Risotto alla Milanese">
-    <description>250g</description>
-    <expiry day="8" month="2" year="2005" />
-    <<category>convenienceFood<category/>
-  </foodItem>
-  <foodItem name="Milch">
-    <expiry day="22" month="1" year="2005" />
-    <category>misc<category/>
-  </foodItem>
-  <foodItem name="Älplermakronen">
-    <expiry day="30" month="1" year="2005" />
-    <category>convenienceFood<category/>
-  </foodItem>
-  <foodItem name="Fiori Lorraine">
-    <expiry day="22" month="1" year="2005" />
-    <category>convenienceFood<category/>
-  </foodItem>
-  <supply>
-  <itemCategories>
+    <expiringItem name="Rösti">
+      <description>250g</description>
+      <category>convenienceFood</category>
+    </expiringItem>
+    <expiringItem name="Pizza 4 formaggi">
+      <expiry day="19" month="1" year="2005" />
+      <category>convenienceFood</category>
+    </expiringItem>
+    <expiringItem name="Risotto ai funghi porcini">
+      <category>convenienceFood</category>
+    </expiringItem>
+    <expiringItem name="Risotto alla Milanese">
+      <description>250g</description>
+      <expiry day="8" month="2" year="2005" />
+      <category>convenienceFood</category>
+    </expiringItem>
+    <expiringItem name="Milch">
+      <expiry day="22" month="1" year="2005" />
+      <category>misc</category>
+    </expiringItem>
+    <expiringItem name="Älplermakronen">
+      <expiry day="30" month="1" year="2005" />
+      <category>convenienceFood</category>
+    </expiringItem>
+    <expiringItem name="Fiori Lorraine">
+      <expiry day="22" month="1" year="2005" />
+      <category>convenienceFood</category>
+    </expiringItem>
+  </supply>
   <category id="food">
     <name>Food</name>
     <category id="convenienceFood">
@@ -40,6 +39,5 @@
       <name>Misc</name>
     </category>
   </category>
-  </itemCategories>
 </household>
 

@@ -20,7 +20,9 @@ import org.jdom.Element;
 final class ModelConverter
 {
 
-    private static final String ELEMENT_ITEM         = "item";
+    private static final String ELEMENT_SUPPLY         = "supply";
+    
+    private static final String ELEMENT_ITEM         = "expiringItem";
 
     private static final String ELEMENT_ROOT              = "household";
 
@@ -41,7 +43,7 @@ final class ModelConverter
     Household convertToDomain(final Element root)
     {
         final Household household = new Household();
-        final ArrayList items = getItems(root);
+        final ArrayList items = getItems(root.getChild(ELEMENT_SUPPLY));
         
         household.getFoodManager().replaceAll(items);
 
@@ -56,14 +58,16 @@ final class ModelConverter
      */
     Element convertDomainToXML(final Household household)
     {
+        final Element supplyElement = new Element(ELEMENT_SUPPLY);
         final Element root = new Element(ELEMENT_ROOT);
+        root.addContent(supplyElement);
 
         final Iterator iter = household.getFoodManager()
         .getItemsIterator();
         while (iter.hasNext())
         {
             final ExpiringItem item = (ExpiringItem) iter.next();
-            root.addContent(ExpiringItemConverter.convert(item));
+            supplyElement.addContent(ExpiringItemConverter.convert(item));
         }
         
         return root;
@@ -72,21 +76,21 @@ final class ModelConverter
     /**
      * Creates {@link ExpiringItem}objects from an item container.
      * 
-     * @param itemElement The container with the item elements.
+     * @param supplyElement The container with the item elements.
      * @return A list of {@link ExpiringItem}objects.
      */
-    private ArrayList getItems(final Element itemElement)
+    private ArrayList getItems(final Element supplyElement)
     {
-        final ArrayList food = new ArrayList();
-        final Iterator foodItemIterator = itemElement
+        final ArrayList itemObjectList = new ArrayList();
+        final Iterator itemElementIterator = supplyElement
                 .getChildren(ELEMENT_ITEM).iterator();
-        while (foodItemIterator.hasNext())
+        while (itemElementIterator.hasNext())
         {
-            final Element element = (Element) foodItemIterator.next();
+            final Element element = (Element) itemElementIterator.next();
             final ExpiringItem item = ExpiringItemConverter.convert(element);
-            food.add(item);
+            itemObjectList.add(item);
         }
-        return food;
+        return itemObjectList;
     }
 
 }
