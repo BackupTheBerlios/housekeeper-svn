@@ -90,7 +90,7 @@
     <dependency>
     	<groupId>jgoodies</groupId>
     	<artifactId>forms</artifactId>
-    	<version>1.0.4.snapshot</version>
+    	<version>1.0.4</version>
     </dependency>
     
     <dependency>
