@@ -15,6 +15,9 @@
           shortcuts.</action>
         <action dev="notizklotz" type="add"> Show splash screen 
           on startup.</action>
+        <action dev="notizklotz" type="update" 
+          issue="3432">Replaced the "quantity" attribute for food with a 
+          general "description" attribute.</action>
         <action dev="notizklotz" type="update">Toolbar only 
           shows icons.</action>
         <action dev="notizklotz" type="update">Changed default Look and 
