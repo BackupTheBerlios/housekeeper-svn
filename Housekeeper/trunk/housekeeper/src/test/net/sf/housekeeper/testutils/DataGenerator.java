@@ -59,18 +59,6 @@ public final class DataGenerator
                                                              + "notAnXmlFile.xml";
 
     /**
-     * Document which contains the same data as VERSION1_DATA but in the new
-     * format.
-     */
-    public static final String  VERSION1to2_DATA     = prefix
-                                                             + "data_v1_to_v2.xml";
-
-    /**
-     * Test data for document version 1.
-     */
-    public static final String  VERSION1_DATA        = prefix + "data_v1.xml";
-
-    /**
      * Test data for document version 2.
      */
     public static final String  VERSION2_DATA        = prefix + "data_v2.xml";

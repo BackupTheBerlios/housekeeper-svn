@@ -53,4 +53,8 @@
       <ant:tarfileset dir="${outputPath}" includes="housekeeper.sh" prefix="housekeeper" mode="755"/>
     </ant:tar>
   </goal>
+  
+  <postGoal name="java:compile">
+    <attainGoal name="jibx:bind"/>
+  </postGoal>
 </project>

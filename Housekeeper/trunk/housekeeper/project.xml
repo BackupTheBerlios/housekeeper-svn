@@ -184,6 +184,18 @@
     </dependency>
     
     <dependency>
+        <groupId>jibx</groupId>
+        <artifactId>jibx-run</artifactId>
+        <version>beta3c</version>
+        <url>http://www.jibx.org</url>
+        <properties>
+            <jnlp.jar>true</jnlp.jar>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
         <groupId>toedter</groupId>
         <artifactId>jcalendar</artifactId>
         <version>1.2.1</version>
@@ -256,10 +268,44 @@
     </dependency>
     
     <dependency>
+        <groupId>xpp3</groupId>
+        <artifactId>xpp3</artifactId>
+        <version>1.1.2a</version>
+        <url>http://www.extreme.indiana.edu/xgws/xsoap/xpp/mxp1/index.html</url>
+        <properties>
+            <jnlp.jar>true</jnlp.jar>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
         <groupId>xmlunit</groupId>
         <artifactId>xmlunit</artifactId>
         <version>1.0</version>
         <url>http://xmlunit.sourceforge.net/</url>
+    </dependency>
+
+    <dependency>
+        <groupId>jibx</groupId>
+        <artifactId>maven-jibx-plugin</artifactId>
+        <version>1.2</version>
+        <url>http://andreasbrenk.com/opensource/maven-jibx-plugin/</url>
+        <type>plugin</type>
+    </dependency>
+    
+    <dependency>
+        <groupId>jibx</groupId>
+        <artifactId>jibx-bind</artifactId>
+        <version>beta3c</version>
+        <url>http://www.jibx.org</url>
+    </dependency>
+    
+    <dependency>
+        <groupId>bcel</groupId>
+        <artifactId>bcel</artifactId>
+        <version>5.1</version>
+        <url>http://jakarta.apache.org/bcel/</url>
     </dependency>
         
     <dependency>
