@@ -150,7 +150,7 @@
     <dependency>
     	<groupId>jgoodies</groupId>
     	<artifactId>looks</artifactId>
-    	<version>1.2.2</version>
+    	<version>1.3.1</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
@@ -198,7 +198,7 @@
     <dependency>
         <groupId>spring</groupId>
         <artifactId>spring-richclient</artifactId>
-        <version>20050324</version>
+        <version>20050330</version>
         <url>http://www.springframework.org/spring-rcp.html</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
