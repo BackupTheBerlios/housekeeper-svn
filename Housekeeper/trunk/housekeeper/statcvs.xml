@@ -1,7 +1,6 @@
 <statcvs>
   <settings>
-  	<localRepository>./src/java</localRepository>
-    <include>./src/**/*.java</include>
+    <include>src/**/*.java</include>
     <modules type="map">
   		<setting key="GUI">src/java/**/swing/**/*</setting>
   		<setting key="Domain">src/java/**/domain/**/*</setting>
