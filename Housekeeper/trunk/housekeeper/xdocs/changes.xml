@@ -4,10 +4,15 @@
   </properties>
   <body>
     <release version="0.2.0" date="not yet released">
+        <action dev="notizklotz" type="fix" issue="1073874">Items with no 
+            expiry date are now displayed after any item which has a specified 
+            expiry date in the default table sorting.</action>
+        <action dev="notizklotz" type="fix" issue="1073313">Closing a dialog 
+            does now behave like pressing the Cancel button.</action>
         <action dev="notizklotz" type="fix" issue="1071590">Fixed a problem 
             where actions on food items sometimes modified the wrong 
             item.</action>
-      <action dev="notizklotz" type="fix" issue="1053909">Food items are not 
+        <action dev="notizklotz" type="fix" issue="1053909">Food items are not 
             forced to have an expiry date anymore.</action>
         <action dev="notizklotz" type="add" issue="1054868">Added support for 
             handling different file format versions. Future Housekeeper 
