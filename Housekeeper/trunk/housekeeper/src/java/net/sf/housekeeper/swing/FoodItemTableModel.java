@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.swing;
 
+import java.util.Date;
+
 import javax.swing.ListModel;
 
 import net.sf.housekeeper.domain.FoodItem;
@@ -53,7 +55,19 @@ final class FoodItemTableModel extends TableAdapter
     {
         super(model, COLUMNS);
     }
+    
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.TableModel#getColumnClass(int)
+     */
+    public Class getColumnClass(int columnIndex)
+    {
+        if (columnIndex == 2)
+        {
+            return Date.class;
+        }
+        return String.class;
+    }
     /*
      * (non-Javadoc)
      * 

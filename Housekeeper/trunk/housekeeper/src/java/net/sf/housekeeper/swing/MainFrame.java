@@ -50,6 +50,7 @@ import org.apache.commons.logging.LogFactory;
 import net.sf.housekeeper.Housekeeper;
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.persistence.PersistenceServiceFactory;
+import net.sf.housekeeper.swing.util.TableSorter;
 
 import com.jgoodies.binding.adapter.SingleListSelectionAdapter;
 import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
@@ -143,8 +144,11 @@ public final class MainFrame extends JFrame
         buttonPanel.add(new JButton(model.getDeleteAction()));
         supplyPanel.add(buttonPanel, BorderLayout.NORTH);
 
-        final JTable table = new JTable();
-        table.setModel(new FoodItemTableModel(model.getItemSelection()));
+        final TableSorter sorter = new TableSorter(new FoodItemTableModel(model.getItemSelection()));
+        final JTable table = new JTable(sorter);
+        sorter.setTableHeader(table.getTableHeader());
+        //initally sort after expiry dates
+        sorter.setSortingStatus(2, TableSorter.ASCENDING);
         table.setSelectionModel(new SingleListSelectionAdapter(model
                 .getItemSelection().getSelectionIndexHolder()));
         supplyPanel.add(new JScrollPane(table), BorderLayout.CENTER);
