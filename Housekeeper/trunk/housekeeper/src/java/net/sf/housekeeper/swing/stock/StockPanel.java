@@ -11,7 +11,9 @@ import net.sf.housekeeper.domain.StockItem;
 import net.sf.housekeeper.storage.StorageFactory;
 
 import com.odellengineeringltd.glazedlists.EventList;
+import com.odellengineeringltd.glazedlists.SortedList;
 import com.odellengineeringltd.glazedlists.jtable.ListTable;
+import com.odellengineeringltd.glazedlists.jtable.TableComparatorChooser;
 
 /**
  * 
@@ -23,23 +25,25 @@ public final class StockPanel extends JPanel
 {
     private static final StockPanel INSTANCE = new StockPanel();
 
-    private ListTable table2;
+    private ListTable table;
 
     /**
      * Creates a new StockPanel object.
      */
     private StockPanel()
     {
-        final EventList items =StorageFactory.getCurrentStorage().getAllStockItems();
-        table2 = new ListTable(items, new StockTableCell());
         final JPanel buttonPanel = new JPanel();
-
         buttonPanel.add(new JButton(new NewStockItemAction()));
         buttonPanel.add(new JButton(new DeleteStockItemAction()));
 
+        final EventList items = StorageFactory.getCurrentStorage().getAllStockItems();
+        final SortedList sortedList = new SortedList(items, null);
+        table = new ListTable(sortedList, new StockTableCell());
+        new TableComparatorChooser(table, sortedList, false);
+        
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
-        add(table2.getTableScrollPane(), BorderLayout.CENTER);
+        add(table.getTableScrollPane(), BorderLayout.CENTER);
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -62,7 +66,7 @@ public final class StockPanel extends JPanel
      */
     public StockItem getSelectedItem()
     {
-            return (StockItem)table2.getSelected();
+            return (StockItem)table.getSelected();
     }
 
     private class DeleteStockItemAction extends AbstractAction
