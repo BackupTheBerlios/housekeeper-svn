@@ -173,7 +173,7 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
     
     private void updateTableData()
     {
-        tableData = StorageFactory.getCurrentStorage().getArticles().toArray();
+        tableData = StorageFactory.getCurrentStorage().getAllArticleDescriptions().toArray();
     }
 
     /* (non-Javadoc)

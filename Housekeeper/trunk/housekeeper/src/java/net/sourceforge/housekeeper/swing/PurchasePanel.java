@@ -184,7 +184,7 @@ final class PurchasePanel extends JPanel
         private void update()
         {
             Collection purchasesCollection = StorageFactory.getCurrentStorage()
-                                             .getPurchases();
+                                             .getAllPurchases();
             purchasesList = new ArrayList(purchasesCollection);
         }
     }

@@ -43,43 +43,43 @@ public interface Storage
      *
      * @return DOCUMENT ME!
      */
-    public abstract Collection getArticles();
+    public Collection getAllArticleDescriptions();
 
     /**
      * TODO DOCUMENT ME!
      *
      * @return DOCUMENT ME!
      */
-    public abstract Collection getPurchases();
+    public Collection getAllPurchases();
 
     /**
      * TODO DOCUMENT ME!
      *
      * @param purchase DOCUMENT ME!
      */
-    public abstract void add(Purchase purchase);
+    public void add(Purchase purchase);
 
     /**
      * TODO DOCUMENT ME!
      *
      * @param article DOCUMENT ME!
      */
-    public abstract void add(ArticleDescription article);
+    public void add(ArticleDescription article);
 
     /**
      * TODO DOCUMENT ME!
      */
-    public abstract void loadData();
+    public void loadData();
 
     /**
      * TODO DOCUMENT ME!
      *
      * @param article DOCUMENT ME!
      */
-    public abstract void remove(ArticleDescription article);
+    public void remove(ArticleDescription article);
 
     /**
      * TODO DOCUMENT ME!
      */
-    public abstract void saveData();
+    public void saveData();
 }

@@ -88,7 +88,7 @@ final class XMLSerializationStorage implements Storage
     /* (non-Javadoc)
      * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
      */
-    public Collection getArticles()
+    public Collection getAllArticleDescriptions()
     {
         return Collections.unmodifiableCollection(articleDescriptions);
     }
@@ -98,7 +98,7 @@ final class XMLSerializationStorage implements Storage
      *
      * @return DOCUMENT ME!
      */
-    public Collection getPurchases()
+    public Collection getAllPurchases()
     {
         return Collections.unmodifiableCollection(purchases);
     }
