@@ -20,7 +20,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.swing;
+package net.sf.housekeeper.swing.util;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,11 +33,11 @@ import java.awt.Point;
  * @version $Revision$, $Date$
  * @since 0.1
  */
-public final class SwingUtils
+public final class ComponentCenterer
 {
 
     /** Prevent instanciation. */
-    private SwingUtils()
+    private ComponentCenterer()
     {
     }
 

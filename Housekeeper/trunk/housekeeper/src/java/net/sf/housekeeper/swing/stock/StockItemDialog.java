@@ -32,7 +32,7 @@ import javax.swing.SpinnerDateModel;
 import net.sf.housekeeper.domain.StockItem;
 import net.sf.housekeeper.swing.DefaultCancelButtonAction;
 import net.sf.housekeeper.swing.MainFrame;
-import net.sf.housekeeper.swing.SwingUtils;
+import net.sf.housekeeper.swing.util.ComponentCenterer;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
@@ -84,7 +84,7 @@ public final class StockItemDialog extends JDialog
         setContentPane(builder.getPanel());
 
         pack();
-        SwingUtils.centerOnComponent(this, getParent());
+        ComponentCenterer.centerOnComponent(this, getParent());
     }
 
     //~ Methods
