@@ -158,8 +158,8 @@ final class SupplyPresenter
      */
     private boolean openEditor(Food item)
     {
-        final FoodItemEditorView view = new FoodItemEditorView(parent);
-        final FoodItemEditorPresenter editor = new FoodItemEditorPresenter(
+        final FoodEditorView view = new FoodEditorView(parent);
+        final FoodEditorPresenter editor = new FoodEditorPresenter(
                 view, item);
 
         return editor.show();

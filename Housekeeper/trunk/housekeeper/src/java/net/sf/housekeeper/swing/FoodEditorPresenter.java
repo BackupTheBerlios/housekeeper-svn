@@ -33,11 +33,11 @@ import net.sf.housekeeper.domain.Food;
  * 
  * @see <a href="http://martinfowler.com/eaaDev/ModelViewPresenter.html">
  *      Model-View-Presenter </a>
- * @see net.sf.housekeeper.swing.FoodItemEditorView
+ * @see net.sf.housekeeper.swing.FoodEditorView
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class FoodItemEditorPresenter
+final class FoodEditorPresenter
 {
 
     /**
@@ -53,7 +53,7 @@ final class FoodItemEditorPresenter
     /**
      * The view to synchronsize with the model.
      */
-    private final FoodItemEditorView view;
+    private final FoodEditorView view;
 
     /**
      * Creates and initializes a new editor for a {@link Food}.
@@ -61,7 +61,7 @@ final class FoodItemEditorPresenter
      * @param view The View to be used for presenting the model.
      * @param model The Model to present.
      */
-    public FoodItemEditorPresenter(final FoodItemEditorView view,
+    public FoodEditorPresenter(final FoodEditorView view,
             final Food model)
     {
         this.view = view;
@@ -90,7 +90,7 @@ final class FoodItemEditorPresenter
      * 
      * @param view The view to add the listeners to.
      */
-    private void registerListeners(final FoodItemEditorView view)
+    private void registerListeners(final FoodEditorView view)
     {
         view.addOKActionListener(new ActionListener() {
 

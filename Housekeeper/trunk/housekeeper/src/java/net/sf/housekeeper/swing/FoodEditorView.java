@@ -51,15 +51,15 @@ import com.jgoodies.forms.layout.FormLayout;
  * allows modifications to them. This class plays the <code>View</code> role
  * in the <code>Model-View-Presenter</code> Pattern. You should not use this
  * View directly. Please use
- * {@link net.sf.housekeeper.swing.FoodItemEditorPresenter}.
+ * {@link net.sf.housekeeper.swing.FoodEditorPresenter}.
  * 
  * @see <a href="http://martinfowler.com/eaaDev/ModelViewPresenter.html">
  *      Model-View-Presenter </a>
- * @see net.sf.housekeeper.swing.FoodItemEditorPresenter
+ * @see net.sf.housekeeper.swing.FoodEditorPresenter
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class FoodItemEditorView
+final class FoodEditorView
 {
 
     final JDialog    dialog;
@@ -82,7 +82,7 @@ final class FoodItemEditorView
      * 
      * @param owner The owner of this View.
      */
-    FoodItemEditorView(final Frame owner)
+    FoodEditorView(final Frame owner)
     {
         final String dialogTitle = LocalisationManager.INSTANCE
                 .getText("gui.foodEditor.dialogTitle");
