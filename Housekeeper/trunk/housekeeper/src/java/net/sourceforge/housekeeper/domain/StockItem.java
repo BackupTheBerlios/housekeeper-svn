@@ -25,7 +25,6 @@ package net.sourceforge.housekeeper.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 
 /**
@@ -42,13 +41,13 @@ public class StockItem extends DomainObject
     //~ Instance fields --------------------------------------------------------
 
     /** The type of article the object is */
-    private AssortimentItem article;
+    private AssortimentItem assItem;
 
     /** Information about consumptions of this object */
     private Collection consumptions;
 
     /** The date, before the article should be consumed entirely */
-    private Date bestBeforeEnd;
+    private String bestBeforeEnd;
 
     //~ Constructors -----------------------------------------------------------
 
@@ -57,12 +56,18 @@ public class StockItem extends DomainObject
      * article is an empty one, there are no consumptions and the date is set
      * to today.
      */
+    public StockItem(AssortimentItem assItem, String bestBeforeEnd)
+    {
+        this.assItem       = assItem;
+        consumptions  = new ArrayList();
+        this.bestBeforeEnd = bestBeforeEnd;
+    }
+    
     public StockItem()
     {
-        article       = new AssortimentItem();
-        consumptions  = new ArrayList();
-        bestBeforeEnd = new Date();
+        this(new AssortimentItem(), "");
     }
+
 
     //~ Methods ----------------------------------------------------------------
 
@@ -73,7 +78,7 @@ public class StockItem extends DomainObject
      */
     public void setArticle(AssortimentItem article)
     {
-        this.article = article;
+        this.assItem = article;
     }
 
     /**
@@ -83,7 +88,7 @@ public class StockItem extends DomainObject
      */
     public AssortimentItem getArticle()
     {
-        return article;
+        return assItem;
     }
 
     /**
@@ -91,7 +96,7 @@ public class StockItem extends DomainObject
      *
      * @param bestBeforeEnd The new value.
      */
-    public void setBestBeforeEnd(Date bestBeforeEnd)
+    public void setBestBeforeEnd(String bestBeforeEnd)
     {
         this.bestBeforeEnd = bestBeforeEnd;
     }
@@ -101,7 +106,7 @@ public class StockItem extends DomainObject
      *
      * @return The corresponding attribute.
      */
-    public Date getBestBeforeEnd()
+    public String getBestBeforeEnd()
     {
         return bestBeforeEnd;
     }

@@ -2,7 +2,6 @@ package net.sourceforge.housekeeper.storage.memory;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.storage.AssortimentItemMapper;

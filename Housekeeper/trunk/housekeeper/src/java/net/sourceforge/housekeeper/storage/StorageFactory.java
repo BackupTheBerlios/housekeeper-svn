@@ -38,7 +38,7 @@ public final class StorageFactory
     //~ Static fields/initializers ---------------------------------------------
 
     /** An instance of the currently used storage technique */
-    private static DataMapperFactory currentStorage;
+    private static DataMapperFactory currentStorage = new XMLSerializationFactory();
 
     //~ Constructors -----------------------------------------------------------
 
@@ -47,6 +47,7 @@ public final class StorageFactory
      */
     private StorageFactory()
     {
+        
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -58,12 +59,6 @@ public final class StorageFactory
      */
     public static DataMapperFactory getCurrentStorage()
     {
-        if (currentStorage == null)
-        {
-            currentStorage = new XMLSerializationFactory();
-        }
-
-
         return currentStorage;
     }
 }

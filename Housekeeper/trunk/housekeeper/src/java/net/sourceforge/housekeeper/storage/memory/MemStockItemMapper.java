@@ -2,7 +2,6 @@ package net.sourceforge.housekeeper.storage.memory;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 import net.sourceforge.housekeeper.domain.StockItem;
 import net.sourceforge.housekeeper.storage.StockItemMapper;
@@ -26,7 +25,7 @@ public class MemStockItemMapper implements StockItemMapper
 
 	public Collection getAll()
 	{
-		return Collections.unmodifiableCollection(items);
+		return items;
 	}
 
 	public void add(Collection col)
@@ -37,7 +36,7 @@ public class MemStockItemMapper implements StockItemMapper
 
 	public void add(StockItem item)
 	{
-		// TODO Auto-generated method stub
+		items.add(item);
 		
 	}
 

@@ -23,20 +23,23 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import com.jgoodies.plaf.Options;
-import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
-
-import net.sourceforge.housekeeper.Housekeeper;
-import net.sourceforge.housekeeper.swing.action.*;
-import net.sourceforge.housekeeper.swing.assortimentItem.*;
-import net.sourceforge.housekeeper.swing.purchase.*;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
+
+import net.sourceforge.housekeeper.Housekeeper;
+import net.sourceforge.housekeeper.swing.action.ExitAction;
+import net.sourceforge.housekeeper.swing.action.LoadDataAction;
+import net.sourceforge.housekeeper.swing.action.SaveDataAction;
+import net.sourceforge.housekeeper.swing.assortimentItem.AssortimentItemPanel;
+import net.sourceforge.housekeeper.swing.assortimentItem.NewAssortimentItemAction;
+import net.sourceforge.housekeeper.swing.stock.StockPanel;
+
+import com.jgoodies.plaf.Options;
+import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
 
 /**
@@ -89,7 +92,7 @@ public final class MainFrame extends JFrame
     {
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Assortiment", AssortimentItemPanel.getInstance());
-
+        tabbedPane.addTab("Stock", StockPanel.getInstance());
         //tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
         getContentPane().add(tabbedPane);
     }

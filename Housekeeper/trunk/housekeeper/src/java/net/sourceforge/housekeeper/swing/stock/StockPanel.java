@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,9 +13,6 @@ import net.sourceforge.housekeeper.domain.StockItem;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 import net.sourceforge.housekeeper.swing.TableModelTemplate;
-import net.sourceforge.housekeeper.swing.assortimentItem.AssortimentItemTableModel;
-import net.sourceforge.housekeeper.swing.assortimentItem.ModifyAssortimentItemAction;
-import net.sourceforge.housekeeper.swing.assortimentItem.NewAssortimentItemAction;
 
 /**
  * 
@@ -45,8 +41,8 @@ public final class StockPanel extends JPanel implements Observer
         table       = new JTable(model);
         buttonPanel = new JPanel();
 
-        buttonPanel.add(new JButton(NewAssortimentItemAction.INSTANCE));
-        buttonPanel.add(new JButton(ModifyAssortimentItemAction.INSTANCE));
+        //buttonPanel.add(new JButton(NewAssortimentItemAction.INSTANCE));
+        
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
@@ -81,9 +77,7 @@ public final class StockPanel extends JPanel implements Observer
 
         if (selectedRow > -1)
         {
-            AssortimentItemTableModel tableModel = (AssortimentItemTableModel)table.getModel();
-
-            return (StockItem)tableModel.getObjectAtRow(selectedRow);
+            return (StockItem)model.getObjectAtRow(selectedRow);
         }
         else
         {

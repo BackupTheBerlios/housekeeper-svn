@@ -53,13 +53,14 @@ public final class XMLSerializationFactory implements DataMapperFactory
         {
             xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILE)));
 
-            xmlEncoder.writeObject(MemoryMapperFactory.INSTANCE.getAssortimentItemMapper().getAll());
+            xmlEncoder.writeObject(getAssortimentItemMapper().getAll());
+            xmlEncoder.writeObject(getStockItemMapper().getAll());
 
             xmlEncoder.close();
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("File not found");
+            System.err.println("File not found");
         }
 		
 
@@ -71,15 +72,17 @@ public final class XMLSerializationFactory implements DataMapperFactory
         {
             xmlDecoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(FILE)));
 
-            Object result = xmlDecoder.readObject();
+            Collection assortimentItems = (Collection)xmlDecoder.readObject();
+            Collection stockItems = (Collection)xmlDecoder.readObject();
 
             xmlDecoder.close();
 
-            MemoryMapperFactory.INSTANCE.getAssortimentItemMapper().add((Collection)result);
+            getAssortimentItemMapper().add(assortimentItems);
+            getStockItemMapper().add(stockItems);
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("File not found");
+            System.err.println("File not found");
         }
 
 	}
