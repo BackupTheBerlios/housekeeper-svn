@@ -208,9 +208,6 @@ public final class JDOMPersistence implements PersistenceService
         DocumentVersionConverter docConverter = null;
         switch (version)
         {
-            case 2:
-                docConverter = new Version2To3Converter();
-                break;
             case CURRENT_FILE_VERSION:
                 break;
             default:
