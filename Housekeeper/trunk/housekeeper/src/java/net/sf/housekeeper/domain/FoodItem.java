@@ -80,8 +80,8 @@ public final class FoodItem extends Model
     }
 
     /**
-     * Creates a new FoodItem object with default values. The related article
-     * is an empty one, there are no consumptions and the date is set to today.
+     * Creates a new FoodItem object with default values. The related article is
+     * an empty one, there are no consumptions and the date is set to today.
      */
     public FoodItem()
     {
@@ -159,13 +159,60 @@ public final class FoodItem extends Model
         firePropertyChange(PROPERTYNAME_QUANTITY, oldValue, quantity);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#clone()
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
      */
-    public Object clone()
+    public boolean equals(Object o)
     {
-        return new FoodItem(name, quantity, (Date) expiry.clone());
+        if (this == o)
+        {
+            return true;
+        }
+        if (!super.equals(o))
+        {
+            return false;
+        }
+        if (o == null)
+        {
+            return false;
+        }
+        if (o.getClass() != getClass())
+        {
+            return false;
+        }
+        FoodItem castedObj = (FoodItem) o;
+        return ((this.name == null ? castedObj.name == null : this.name
+                .equals(castedObj.name))
+                && (this.expiry == null ? castedObj.expiry == null
+                        : this.expiry.equals(castedObj.expiry)) && (this.quantity == null ? castedObj.quantity == null
+                : this.quantity.equals(castedObj.quantity)));
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode() {
+        int hashCode = super.hashCode();
+        hashCode = 31 * hashCode + (name == null ? 0 : name.hashCode());
+        hashCode = 31 * hashCode + (expiry == null ? 0 : expiry.hashCode());
+        hashCode = 31 * hashCode + (quantity == null ? 0 : quantity.hashCode());
+        return hashCode;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("[FoodItem:");
+        buffer.append(" name: ");
+        buffer.append(name);
+        buffer.append(" expiry: ");
+        buffer.append(expiry);
+        buffer.append(" quantity: ");
+        buffer.append(quantity);
+        buffer.append("]");
+        return buffer.toString();
     }
 }
