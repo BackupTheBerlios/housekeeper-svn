@@ -65,12 +65,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="#Special">Special features</a>
+                        <a href="#Special">Ideas</a>
                     </td>
                     <td>
                     </td>
                     <td>Special features which are particularly 
-                        interesting.</td>
+                        interesting but need to be investigated further.</td>
                 </tr>
             </table>
         </section>
@@ -218,7 +218,7 @@
                 </tr>
             </table>
         </section>
-        <section name="Special features">
+        <section name="Ideas">
             <a name="Future">
             </a>
             <table>
