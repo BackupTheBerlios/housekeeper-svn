@@ -18,7 +18,7 @@
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
-    <name>Housekeeper Project</name>
+    <name>The Housekeeper Project</name>
     <url>http://sourceforge.net/projects/housekeeper</url>
     <logo>http://sourceforge.net/sflogo.php?group_id=91396&amp;type=2</logo>
   </organization>
@@ -121,7 +121,8 @@
     	<artifactId>forms</artifactId>
     	<version>1.0.5</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
-                <properties>
+         <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
@@ -131,7 +132,8 @@
     	<artifactId>looks</artifactId>
     	<version>1.2.2</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
-                <properties>
+        <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
@@ -141,7 +143,8 @@
         <artifactId>commons-lang</artifactId>
         <version>2.0</version>
         <url>http://jakarta.apache.org/commons/lang/</url>
-                <properties>
+        <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
@@ -151,7 +154,8 @@
         <artifactId>commons-logging</artifactId>
         <version>1.0.4</version>
         <url>http://jakarta.apache.org/commons/logging/</url>
-                <properties>
+        <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
@@ -162,6 +166,7 @@
         <version>1.0</version>
         <url>http://jakarta.apache.org/commons/configuration/</url>
         <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
@@ -172,6 +177,7 @@
         <version>3.1</version>
         <url>http://jakarta.apache.org/commons/collections/</url>
         <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
@@ -181,7 +187,8 @@
         <artifactId>jdom</artifactId>
         <version>1.0</version>
         <url>http://www.jdom.org</url>
-                <properties>
+        <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
@@ -192,6 +199,7 @@
         <version>0.9.3</version>
         <url>http://publicobject.com/glazedlists/</url>
         <properties>
+            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
         </properties>
     </dependency>
