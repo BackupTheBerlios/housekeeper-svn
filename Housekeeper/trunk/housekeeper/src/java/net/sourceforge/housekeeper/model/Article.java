@@ -1,93 +1,201 @@
+/*
+ * This file is part of Housekeeper.
+ *
+ *	Housekeeper is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation; either version 2 of the License, or
+ *	(at your option) any later version.
+ *
+ *	Housekeeper is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with Housekeeper; if not, write to the Free Software
+ *	Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA  02111-1307  USA
+ */
+
 package net.sourceforge.housekeeper.model;
 
-
-
 /**
+ * An article like banana or a bottle of milk which can be bought. Notice, that
+ * this class doesn't represent a concrete article that has been bought. Use
+ * {@link PurchasedArticle} instead.
+ *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ * @since 0.1
  */
 public class Article
 {
-	private String name;
+    /** A describing name for the article. For example &quote;Banana&quote;. */
+    private String name;
 
-	private String store;
+    /** The store where the article can be bought. */
+    private String store;
 
-	private double price;
+    /**
+     * The price of one specimen of this article. If this article would be a box
+     * of six eggs, the price is for the whole box not for just one egg .
+     */
+    private double price;
 
-	private String unit;
+    /** The unit this article is measured in, like pieces or litres. */
+    private String unit;
 
-	private int quantity;
+    /**
+     * How many or how much of the unit a specimen of this article has.
+     * If this article would be a box of six eggs, the quantity would be six.
+     */
+    private int quantity;
 
-	/**
-	 * 
-	 * 
-	 */
-	public Article()
-	{
-		
-	}
-	
-	public Article(String name, String store, double price, int quantity, String unit)
-	{
-		this.name = name;
-		this.store = store;
-		this.price = price;
-		this.unit = unit;
-		this.quantity = quantity;
-	}
+    /**
+     * Creates an article with default attributes. Name, store and unit are
+     * set to an empty String. Price and quantity are set to zero.
+     */
+    public Article()
+    {
+        name = "";
+        store = "";
+        price = 0;
+        quantity = 0;
+        unit = "";
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    /**
+     * Creates an article with given attributes. If a parameter is null,
+     * the according attribute is set to a default value.
+     *
+     * @param name A describing name for the article. For example Banana.
+     * @param store The store where the article can be bought.
+     * @param price The price of one specimen of this article. If this article
+     *                        would be a box of six eggs, the price is for the
+     *                        whole box not for just one egg.
+     * @param quantity How many or how much of the unit a specimen of this
+     *                             article has. If this article would be a box
+     *                             of six eggs, the quantity would be six.
+     *
+     * @param unit The unit this article is measured in, like pieces or litres.
+     */
+    public Article(
+        String name,
+        String store,
+        double price,
+        int quantity,
+        String unit)
+    {
+        this(); //Assures that no attribute is null
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+        this.name = name;
+        this.store = store;
+        this.price = price;
+        this.unit = unit;
+        this.quantity = quantity;
+    }
 
-	public String getStore()
-	{
-		return store;
-	}
+    /**
+     * Gets the corresponding attribute.
+     *
+     * @return The corresponding attribute
+     */
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setStore(String store)
-	{
-		this.store = store;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-	public double getPrice()
-	{
-		return price;
-	}
+    /**
+     * Gets the current value corresponding attribute.
+     *
+     * @return The corresponding attribute
+     */
+    public String getStore()
+    {
+        return store;
+    }
 
-	public void setPrice(double price)
-	{
-		this.price = price;
-	}
+    /**
+     * Sets the corresponding attribute to a new value.
+     *
+     * @param store The new value of the to be set attribute.
+     */
+    public void setStore(String store)
+    {
+        this.store = store;
+    }
 
-	public String getQuantityUnit()
-	{
-		return unit;
-	}
+    /**
+     * Gets the corresponding attribute.
+     *
+     * @return The corresponding attribute
+     */
+    public double getPrice()
+    {
+        return price;
+    }
 
-	public void setQuantityUnit(String quantityUnit)
-	{
-		this.unit = quantityUnit;
-	}
+    /**
+     * Sets the corresponding attribute to a new value.
+     *
+     * @param price The new value of the to be set attribute.
+     */
+    public void setPrice(double price)
+    {
+        this.price = price;
+    }
 
-	public int getQuantity()
-	{
-		return quantity;
-	}
+    /**
+     * Gets the corresponding attribute.
+     *
+     * @return The corresponding attribute
+     */
+    public String getQuantityUnit()
+    {
+        return unit;
+    }
 
-	public void setQuantity(int quantity)
-	{
-		this.quantity = quantity;
-	}
-	
-	public String toString()
-	{
-		return name + " " + store + " " + price + " " + quantity + unit;
-	}
+    /**
+     * Sets the corresponding attribute to a new value.
+     *
+     * @param quantityUnit The new value of the to be set attribute.
+     */
+    public void setQuantityUnit(String quantityUnit)
+    {
+        this.unit = quantityUnit;
+    }
+
+    /**
+     * Gets the corresponding attribute.
+     *
+     * @return The corresponding attribute
+     */
+    public int getQuantity()
+    {
+        return quantity;
+    }
+
+    /**
+     * Sets the corresponding attribute to a new value.
+     *
+     * @param quantity The new value of the to be set attribute.
+     */
+    public void setQuantity(int quantity)
+    {
+        this.quantity = quantity;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return name + " " + store + " " + price + " " + quantity + unit;
+    }
 
 }
