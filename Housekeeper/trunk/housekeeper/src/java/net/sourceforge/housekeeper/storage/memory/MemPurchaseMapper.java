@@ -12,8 +12,6 @@ import net.sourceforge.housekeeper.storage.DataMapper;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public class MemPurchaseMapper implements DataMapper
 {

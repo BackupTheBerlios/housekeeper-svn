@@ -7,8 +7,6 @@ import java.util.Collection;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public interface DataMapper
 {

@@ -5,8 +5,6 @@ package net.sourceforge.housekeeper.storage;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public interface DataMapperFactory
 {

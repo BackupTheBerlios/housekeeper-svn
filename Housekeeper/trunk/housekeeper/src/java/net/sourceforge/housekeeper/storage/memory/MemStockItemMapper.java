@@ -11,8 +11,6 @@ import net.sourceforge.housekeeper.storage.StockItemMapper;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public class MemStockItemMapper implements StockItemMapper
 {

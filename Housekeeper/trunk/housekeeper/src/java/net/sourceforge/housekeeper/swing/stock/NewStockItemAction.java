@@ -17,8 +17,6 @@ import net.sourceforge.housekeeper.swing.assortimentItem.AssortimentItemPanel;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public final class NewStockItemAction extends AbstractAction
 {

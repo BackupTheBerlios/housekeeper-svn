@@ -11,8 +11,6 @@ import net.sourceforge.housekeeper.storage.AssortimentItemMapper;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public class MemAssItemMapper implements AssortimentItemMapper
 {

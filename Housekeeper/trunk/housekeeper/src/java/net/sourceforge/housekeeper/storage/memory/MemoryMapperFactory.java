@@ -10,8 +10,6 @@ import net.sourceforge.housekeeper.storage.StockItemMapper;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public class MemoryMapperFactory implements DataMapperFactory
 {
