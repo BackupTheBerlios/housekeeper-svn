@@ -42,18 +42,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import net.sf.housekeeper.Housekeeper;
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.persistence.PersistenceServiceFactory;
 import net.sf.housekeeper.swing.util.TableSorter;
 
+import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.jgoodies.binding.adapter.SingleListSelectionAdapter;
-import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
+import com.jgoodies.plaf.plastic.PlasticXPLookAndFeel;
 
 /**
  * The Main Frame of the Housekeeper application.
@@ -163,16 +163,28 @@ public final class MainFrame extends JFrame
      */
     private void initLookAndFeel()
     {
-        if (System.getProperty("os.name").equals("Linux"))
+
+        if (SystemUtils.IS_OS_MAC_OSX)
         {
             try
             {
-                UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
-            } catch (UnsupportedLookAndFeelException e)
+                UIManager.setLookAndFeel(UIManager
+                        .getSystemLookAndFeelClassName());
+            } catch (Exception e)
+            {
+                //Do nothing if setting the Look and Feel fails.
+            }
+        } else
+        {
+            try
+            {
+                UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
+            } catch (Exception e)
             {
                 //Do nothing if setting the Look and Feel fails.
             }
         }
+        
         LOG.debug("Using Look and Feel: "
                 + UIManager.getLookAndFeel().getName());
     }
