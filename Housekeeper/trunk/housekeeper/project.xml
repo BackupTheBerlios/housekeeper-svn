@@ -105,6 +105,13 @@
     	<version>0.8</version>
     </dependency>
     
+	<dependency>
+		<groupId>statcvs</groupId>
+		<artifactId>maven-statcvs-plugin</artifactId>
+		<version>2.4</version>
+		<type>plugin</type>
+	</dependency>
+    
   </dependencies>
   
   <!-- build information for the project -->
