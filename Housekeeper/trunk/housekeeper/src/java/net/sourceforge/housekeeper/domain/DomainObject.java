@@ -80,7 +80,12 @@ public class DomainObject
     {
         return id;
     }
-    
+
+    /**
+     * Returns the next available ID.
+     *
+     * @return The next ID.
+     */
     private long nextID()
     {
         return System.currentTimeMillis();

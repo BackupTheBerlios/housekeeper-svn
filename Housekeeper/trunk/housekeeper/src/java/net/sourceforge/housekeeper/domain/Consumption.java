@@ -64,8 +64,7 @@ public class Consumption extends DomainObject
      * @param date The date of the consumption
      * @param quantity How much that has been consumed
      */
-    public Consumption(Date date,
-                       int  quantity)
+    public Consumption(Date date, int quantity)
     {
         this();
         this.date     = date;

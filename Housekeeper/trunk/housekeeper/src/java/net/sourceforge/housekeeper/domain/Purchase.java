@@ -58,7 +58,7 @@ public class Purchase extends DomainObject
     public Purchase()
     {
         purchasedArticles = new ArrayList();
-        date = new Date();
+        date              = new Date();
     }
 
     //~ Methods ----------------------------------------------------------------

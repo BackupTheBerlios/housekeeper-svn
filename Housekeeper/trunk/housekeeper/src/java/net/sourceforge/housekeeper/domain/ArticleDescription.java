@@ -25,7 +25,7 @@ package net.sourceforge.housekeeper.domain;
 
 /**
  * An article like banana or a bottle of milk which can be bought. Notice, that
- * this class doesn't represent a concrete article that has been bought. Use
+ * objects of this class doesn't represent a concrete article that has been bought. Use
  * {@link PurchasedArticle} instead.
  *
  * @author Adrian Gygax
@@ -37,7 +37,7 @@ public class ArticleDescription extends DomainObject
 {
     //~ Instance fields --------------------------------------------------------
 
-    /** A describing name for the article. For example &quote;Banana&quote;. */
+    /** A describing name for this article. For example &quote;Banana&quote;. */
     private String name;
 
     /** The store where the article can be bought. */
@@ -87,11 +87,8 @@ public class ArticleDescription extends DomainObject
      *        quantity would be six.
      * @param unit The unit this article is measured in, like pieces or litres.
      */
-    public ArticleDescription(String name,
-                   String store,
-                   double price,
-                   int    quantity,
-                   String unit)
+    public ArticleDescription(String name, String store, double price,
+                              int quantity, String unit)
     {
         this(); //Assures that no attribute is null
 
@@ -145,10 +142,10 @@ public class ArticleDescription extends DomainObject
     }
 
     /**
-    * Sets the corresponding attribute to a new value.
-    *
-    * @param quantity The new value.
-    */
+     * Sets the corresponding attribute to a new value.
+     *
+     * @param quantity The new value.
+     */
     public void setQuantity(int quantity)
     {
         this.quantity = quantity;
