@@ -44,13 +44,11 @@ import java.util.Iterator;
 
 
 /**
- * DOCUMENT ME!
+ * Stores data in XML files using JDOM.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- *
- * @see
- * @since
+ * @since 0.1.1
  */
 class JDOMStorage extends MemoryStorage
 {

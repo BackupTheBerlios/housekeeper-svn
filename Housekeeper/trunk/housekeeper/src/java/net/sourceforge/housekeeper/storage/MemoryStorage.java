@@ -26,12 +26,11 @@ import net.sourceforge.housekeeper.domain.ArticleDescription;
 import net.sourceforge.housekeeper.domain.Purchase;
 
 /**
- * 
+ * Stores data in memory thus loading and saving has now effect.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
+ * @since 0.1.1
  */
 class MemoryStorage implements Storage
 {
