@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<jnlp codebase="http://housekeeper.sourceforge.net" href="housekeeper.jnlp">
+  <information>
+    <title>Housekeeper</title>
+    <vendor>The Housekeeper Project</vendor>
+    <homepage href="index.html"/>
+    <description>Housekeeper</description>
+    <description kind="short">A household management software.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.4+"/>
+    <jar href="housekeeper-SNAPSHOT.jar"/>
+    <jar href="maven/repository/jgoodies/jars/looks-1.2.1.jar"/>
+    <jar href="maven/repository/jgoodies/jars/forms-1.0.4.jar"/>
+    <jar href="maven/repository/glazedlists/jars/glazedlists-0.8.jar"/>
+  </resources>
+  <application-desc main-class="net.sf.housekeeper.Housekeeper"/>
+</jnlp>
