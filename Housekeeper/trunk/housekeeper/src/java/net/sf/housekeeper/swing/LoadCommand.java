@@ -40,19 +40,38 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
 
     private static final String ID = "loadCommand";
 
-    private final Household     household;
+    private Household     household;
+    
+    private PersistenceController persistenceController;
 
     /**
      * Creates a new LoadCommand.
-     * 
-     * @param household
      */
-    public LoadCommand(final Household household)
+    public LoadCommand()
     {
         super(ID);
+    }
+    
+    /**
+     * Sets the household property.
+     * 
+     * @param household the value to set.
+     */
+    public void setHousehold(Household household)
+    {
         this.household = household;
     }
-
+    
+    /**
+     * Sets the persistenceController property.
+     * 
+     * @param controller the value to set.
+     */
+    public void setPersistenceController(PersistenceController controller)
+    {
+        this.persistenceController = controller;
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -62,7 +81,7 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
     {
         try
         {
-            PersistenceController.instance().replaceDomainWithSaved(household);
+            persistenceController.replaceDomainWithSaved(household);
         } catch (FileNotFoundException exception)
         {
             //If called during startup, the application window is not yet

@@ -45,12 +45,22 @@
       <list>
         <bean 
           class="net.sf.housekeeper.swing.LoadCommand">
-              <constructor-arg><ref bean="household"/></constructor-arg>
-          </bean>
+          <property name="household">
+            <ref bean="household"/>
+          </property>
+          <property name="persistenceController">
+            <ref bean="persistenceController"/>
+          </property>
+        </bean>
         <bean 
           class="net.sf.housekeeper.swing.SaveCommand">
-          <constructor-arg><ref bean="household"/></constructor-arg>
-          </bean>
+          <property name="household">
+            <ref bean="household"/>
+          </property>
+          <property name="persistenceController">
+            <ref bean="persistenceController"/>
+          </property>
+        </bean>
         <value>separator</value>
         <bean 
           class="org.springframework.richclient.command.support.ExitCommand"/>

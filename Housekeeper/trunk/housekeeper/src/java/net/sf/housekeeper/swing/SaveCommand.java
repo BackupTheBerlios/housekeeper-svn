@@ -40,24 +40,43 @@ import org.springframework.richclient.command.support.ActionCommandInterceptorAd
 public final class SaveCommand extends ActionCommand
 {
 
-    private static final String ID = "saveCommand";
+    private static final String   ID = "saveCommand";
 
-    private final Household     household;
+    private Household             household;
 
-    private Exception           exception;
+    private PersistenceController persistenceController;
+
+    private Exception             exception;
 
     /**
-     * Creates a new Command for saving. If the action fails, an error dialog
-     * is shown.
-     * 
-     * @param household
+     * Creates a new Command for saving. If the action fails, an error dialog is
+     * shown.
      */
-    public SaveCommand(final Household household)
+    public SaveCommand()
     {
         super(ID);
-        this.household = household;
 
         addCommandInterceptor(new ErrorInterceptor());
+    }
+
+    /**
+     * Sets the household property.
+     * 
+     * @param household the value to set.
+     */
+    public void setHousehold(Household household)
+    {
+        this.household = household;
+    }
+
+    /**
+     * Sets the persistenceController property.
+     * 
+     * @param controller the value to set.
+     */
+    public void setPersistenceController(PersistenceController controller)
+    {
+        this.persistenceController = controller;
     }
 
     /*
@@ -69,7 +88,7 @@ public final class SaveCommand extends ActionCommand
     {
         try
         {
-            PersistenceController.instance().saveDomainData(household);
+            persistenceController.saveDomainData(household);
         } catch (IOException e)
         {
             exception = e;

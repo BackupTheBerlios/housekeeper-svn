@@ -30,6 +30,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
 
@@ -41,13 +46,8 @@ import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class PersistenceController
+public final class PersistenceController implements ApplicationContextAware
 {
-
-    /**
-     * Singleton instance.
-     */
-    private static PersistenceController instance;
 
     /**
      * Persistence using JDOM.
@@ -59,37 +59,24 @@ public final class PersistenceController
      */
     private final File                   dataFile;
 
+    private ApplicationContext           applicationContext;
+
     /**
      * Initializes the persistence service to use, which is currently fixed to
      * {@link JDOMPersistence}.
      *  
      */
-    private PersistenceController()
+    public PersistenceController()
     {
         final String homeDirString = System.getProperty("user.home");
         final File hkDir = new File(homeDirString, ".housekeeper");
-        
+
         //Create directory for data if it doesn't exist.
         hkDir.mkdir();
-       
+
         dataFile = new File(hkDir, "data.xml");
 
         jdomPersistence = new JDOMPersistence();
-    }
-
-    /**
-     * Returns the Singleton instance.
-     * 
-     * @return the Singleton instance.
-     */
-    public static PersistenceController instance()
-    {
-        if (instance == null)
-        {
-            instance = new PersistenceController();
-        }
-
-        return instance;
     }
 
     /**
@@ -112,6 +99,12 @@ public final class PersistenceController
 
         //The data has not been changed by the user.
         currentDomain.resetChangedStatus();
+
+        if (applicationContext != null)
+        {
+            applicationContext.publishEvent(new HousekeeperEvent(
+                    HousekeeperEvent.DATA_CHANGED, this));
+        }
     }
 
     /**
@@ -129,9 +122,20 @@ public final class PersistenceController
         jdomPersistence.saveData(currentDomain, dataStream);
         dataStream.flush();
         dataStream.close();
-        
+
         //The data now has been saved.
         currentDomain.resetChangedStatus();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
+    public void setApplicationContext(ApplicationContext arg0)
+            throws BeansException
+    {
+        this.applicationContext = arg0;
     }
 
 }

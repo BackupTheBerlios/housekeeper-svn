@@ -38,6 +38,12 @@ public class HousekeeperEvent extends ApplicationEvent
      * Event type if something gets selected by the user.
      */
     public static final String SELECTED = "housekeeperEvent.selected";
+    
+    /**
+     * Event type if something unspecified has been changed, and all views
+     * should be refreshed.
+     */
+    public static final String DATA_CHANGED = "houskeeperEvent.datachanged";
 
     /**
      * Creates a new event.
