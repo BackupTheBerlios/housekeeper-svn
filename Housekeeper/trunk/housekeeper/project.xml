@@ -285,14 +285,6 @@
         <version>1.0</version>
         <url>http://xmlunit.sourceforge.net/</url>
     </dependency>
-
-    <dependency>
-        <groupId>jibx</groupId>
-        <artifactId>maven-jibx-plugin</artifactId>
-        <version>1.2</version>
-        <url>http://andreasbrenk.com/opensource/maven-jibx-plugin/</url>
-        <type>plugin</type>
-    </dependency>
     
     <dependency>
         <groupId>jibx</groupId>
@@ -306,6 +298,14 @@
         <artifactId>bcel</artifactId>
         <version>5.1</version>
         <url>http://jakarta.apache.org/bcel/</url>
+    </dependency>
+    
+    <dependency>
+        <groupId>jibx</groupId>
+        <artifactId>maven-jibx-plugin</artifactId>
+        <version>1.2</version>
+        <url>http://andreasbrenk.com/opensource/maven-jibx-plugin/</url>
+        <type>plugin</type>
     </dependency>
         
     <dependency>
