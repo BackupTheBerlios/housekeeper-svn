@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.richclient.application.config.UIManagerConfigurer;
+import org.springframework.util.Assert;
 
 import com.jgoodies.looks.LookUtils;
 import com.jgoodies.looks.Options;
@@ -32,7 +33,9 @@ import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import com.jgoodies.looks.plastic.PlasticTheme;
 
 /**
- * @author
+ * Configures the Look&Feel depending on the platform.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class PlatformAwareUIConfigurer implements InitializingBean
@@ -48,7 +51,9 @@ public final class PlatformAwareUIConfigurer implements InitializingBean
                                                  .getLog(PlatformAwareUIConfigurer.class);
 
     /**
-     * @param configurer
+     * The configurer to use for selecting the L&F.
+     * 
+     * @param configurer the configurer.
      */
     public void setConfigurer(final UIManagerConfigurer configurer)
     {
@@ -56,10 +61,14 @@ public final class PlatformAwareUIConfigurer implements InitializingBean
     }
 
     /**
-     * @param theme
+     * The theme to use for the JGoodies L&F. If omitted, the default one is
+     * used.
+     * 
+     * @param theme != null.
      */
     public void setTheme(PlasticTheme theme)
     {
+        Assert.notNull(theme);
         PlasticLookAndFeel.setMyCurrentTheme(theme);
     }
 
