@@ -113,7 +113,7 @@
 	<bean id="supplyView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 		<property name="viewClass">
-			<value>net.sf.housekeeper.swing.SupplyPresenter</value>
+			<value>net.sf.housekeeper.swing.SupplyView</value>
 		</property>
     <property name="viewProperties">
       <map>
