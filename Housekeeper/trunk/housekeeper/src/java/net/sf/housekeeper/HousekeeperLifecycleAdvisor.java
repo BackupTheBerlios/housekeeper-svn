@@ -21,6 +21,14 @@
 
 package net.sf.housekeeper;
 
+import javax.swing.JOptionPane;
+
+import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.util.LocalisationManager;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor;
 import org.springframework.richclient.command.ActionCommand;
@@ -32,8 +40,10 @@ import org.springframework.richclient.command.ActionCommand;
  * @version $Revision$, $Date$
  */
 public final class HousekeeperLifecycleAdvisor extends
-        DefaultApplicationLifecycleAdvisor
+        DefaultApplicationLifecycleAdvisor implements BeanFactoryAware
 {
+
+    private BeanFactory beanFactory;
 
     /**
      * Loads data as soon as possible.
@@ -46,4 +56,46 @@ public final class HousekeeperLifecycleAdvisor extends
         super.onCommandsCreated(window);
     }
 
+    /**
+     * Ask if user wants to save before exiting.
+     */
+    public boolean onPreWindowClose(ApplicationWindow window)
+    {
+        boolean exit = true;
+
+        final Household household = (Household) beanFactory
+                .getBean("household");
+        //Only show dialog for saving before exiting if any data has been
+        // changed
+        if (household.hasChanged())
+        {
+            final String question = LocalisationManager.INSTANCE
+                    .getText("gui.mainFrame.saveModificationsQuestion");
+            final int option = JOptionPane.showConfirmDialog(window
+                    .getControl(), question);
+
+            //If user choses yes try to save. If that fails do not exit.
+            if (option == JOptionPane.YES_OPTION)
+            {
+                ActionCommand command = window.getCommandManager()
+                        .getActionCommand("saveCommand");
+                command.execute();
+
+            } else if (option == JOptionPane.CANCEL_OPTION)
+            {
+                exit = false;
+            }
+        }
+        return exit;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.beans.factory.BeanFactoryAware#setBeanFactory(org.springframework.beans.factory.BeanFactory)
+     */
+    public void setBeanFactory(BeanFactory arg0) throws BeansException
+    {
+        this.beanFactory = arg0;
+    }
 }
