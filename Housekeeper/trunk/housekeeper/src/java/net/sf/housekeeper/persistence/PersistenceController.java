@@ -21,14 +21,17 @@
 
 package net.sf.housekeeper.persistence;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.util.ConfigurationManager;
 
 /**
- * Provides methods to replace or store the current domain objects using the default {@link net.sf.housekeeper.persistence.PersistenceService}.
+ * Provides methods to replace or store the current domain objects using the
+ * default {@link net.sf.housekeeper.persistence.PersistenceService}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -36,28 +39,44 @@ import net.sf.housekeeper.domain.Household;
 public final class PersistenceController
 {
 
+    /**
+     * File used for loading and saving
+     */
+    private static final File dataFile;
+
+    static
+    {
+        final File dataDir = (File) ConfigurationManager.INSTANCE
+                .getConfiguration()
+                .getProperty(ConfigurationManager.DATA_DIRECTORY);
+
+        dataFile = new File(dataDir, "data.xml");
+    }
+
     private PersistenceController()
     {
 
     }
 
     /**
-     * Loads the saved data using the default {@link PersistenceService} and replaces all domain objects with them.
+     * Loads the saved data using the default {@link PersistenceService}and
+     * replaces all domain objects with them.
      * 
      * @throws IOException If the data couldn't be retrieved.
      * @throws UnsupportedFileVersionException if the version or format of the
-     *  data source is not supported.
+     *             data source is not supported.
      */
     public static void replaceDomainWithSaved() throws IOException,
             UnsupportedFileVersionException
     {
         final Household household = PersistenceServiceFactory
-                .getCurrentService().loadData();
+                .getCurrentService().loadData(dataFile);
         FoodItemManager.instance().replaceAll(household.getFoodItems());
     }
-    
+
     /**
-     * Persistently saves the current domain objects using the default {@link PersistenceService}.
+     * Persistently saves the current domain objects using the default
+     * {@link PersistenceService}.
      * 
      * @throws IOException If the data couldn't be stored.
      */
@@ -65,8 +84,8 @@ public final class PersistenceController
     {
         final Collection foodItems = FoodItemManager.instance().getSupplyList();
         final Household household = new Household(foodItems);
-        PersistenceServiceFactory.getCurrentService().saveData(household);
+        PersistenceServiceFactory.getCurrentService().saveData(household,
+                                                               dataFile);
     }
-    
-    
+
 }

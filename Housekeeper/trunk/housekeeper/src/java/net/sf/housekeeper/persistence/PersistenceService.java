@@ -21,13 +21,15 @@
 
 package net.sf.housekeeper.persistence;
 
+import java.io.File;
 import java.io.IOException;
 
 import net.sf.housekeeper.domain.Household;
 
 /**
- * PersistenceServices are able to store and load domain objects from/to a persistence data source. Examples for such a service
- * are mapping objects to an XML-file or a database backend.
+ * PersistenceServices are able to store and load domain objects from/to a
+ * persistence data source. Examples for such a service are mapping objects to
+ * an XML-file.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -36,22 +38,25 @@ public interface PersistenceService
 {
 
     /**
-     * Returns saved domain objects from this
-     * PersistenceService. For example, invoking this
-     * method could create objects from a default XML-File. 
+     * Returns saved domain objects from this PersistenceService. For example,
+     * invoking this method could create objects from a default XML-File.
      * 
+     * @param location The location of the data to be loaded.
      * @return A Household object holding the loaded data.
      * @throws IOException If the data couldn't be retrieved.
      * @throws UnsupportedFileVersionException if the version or format of the
-     *  data source is not supported.
+     *             data source is not supported.
      */
-    Household loadData() throws IOException, UnsupportedFileVersionException;
+    Household loadData(final File location) throws IOException,
+            UnsupportedFileVersionException;
 
     /**
      * Saves all domain objects of the given household persistently.
      * 
      * @param household The Household to be saved.
+     * @param location The location to save the data to.
      * @throws IOException If the data couldn't be stored.
      */
-    void saveData(final Household household) throws IOException;
+    void saveData(final Household household, final File location)
+            throws IOException;
 }
