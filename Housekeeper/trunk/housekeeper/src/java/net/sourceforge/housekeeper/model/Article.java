@@ -1,24 +1,21 @@
 package net.sourceforge.housekeeper.model;
 
-import java.util.Collection;
+
 
 /**
  * @author Adrian Gygax
  */
 public class Article
 {
-
-	private Collection purchasedArticle;
-
 	private int id;
 
 	private String name;
 
 	private String store;
 
-	private float price;
+	private double price;
 
-	private String quantityUnit;
+	private String unit;
 
 	private int quantity;
 
@@ -28,8 +25,17 @@ public class Article
 	 */
 	public Article()
 	{
-		super();
-		// TODO Auto-generated constructor stub
+		
+	}
+	
+	public Article(String name, String store, double price, int quantity, String unit)
+	{
+		id = -1;
+		this.name = name;
+		this.store = store;
+		this.price = price;
+		this.unit = unit;
+		this.quantity = quantity;
 	}
 
 	public int getId()
@@ -62,24 +68,24 @@ public class Article
 		this.store = store;
 	}
 
-	public float getPrice()
+	public double getPrice()
 	{
 		return price;
 	}
 
-	public void setPrice(float price)
+	public void setPrice(double price)
 	{
 		this.price = price;
 	}
 
 	public String getQuantityUnit()
 	{
-		return quantityUnit;
+		return unit;
 	}
 
 	public void setQuantityUnit(String quantityUnit)
 	{
-		this.quantityUnit = quantityUnit;
+		this.unit = quantityUnit;
 	}
 
 	public int getQuantity()
@@ -90,6 +96,11 @@ public class Article
 	public void setQuantity(int quantity)
 	{
 		this.quantity = quantity;
+	}
+	
+	public String toString()
+	{
+		return id + name + store + price + unit + quantity;
 	}
 
 }

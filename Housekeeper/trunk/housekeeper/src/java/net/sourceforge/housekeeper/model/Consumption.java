@@ -17,8 +17,7 @@ public class Consumption
 	 */
 	public Consumption()
 	{
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public int getQuantity()
