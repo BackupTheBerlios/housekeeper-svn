@@ -15,11 +15,14 @@
   </goal>
   
   <goal name="package-copy-misc">
-  	<ant:copy todir="${outputPath}">
-      <ant:fileset dir="${basedir}">
-        <ant:include name="GPL.txt"/>
-      </ant:fileset>
+  	<ant:copy file="${basedir}/GPL.txt" tofile="${outputPath}/LICENSE.txt"/>
+  	
+  	<ant:copy file="${basedir}/dist/README.txt" todir="${outputPath}"/>
+  	
+  	<ant:copy todir="${outputPath}/lib/licenses">
+      <ant:fileset dir="${basedir}/dist/licenses"/>
     </ant:copy>
+  	
     <ant:copy todir="${outputPath}">
       <ant:fileset dir="${basedir}/src/scripts">
         <ant:include name="*"/>
@@ -30,11 +33,7 @@
   
   <goal name="package-copy-jars">
     <attainGoal name="jar" />
-    <ant:copy todir="${outputPath}/lib">
-      <ant:fileset dir="${maven.build.dir}">
-        <ant:include name="${maven.final.name}.jar"/>
-      </ant:fileset>
-    </ant:copy>
+    <ant:copy file="${maven.build.dir}/${maven.final.name}.jar" todir="${outputPath}"/>
     <deploy:copy-deps todir="${outputPath}/lib" excludes="maven-statcvs-plugin"/>
   </goal>
   
