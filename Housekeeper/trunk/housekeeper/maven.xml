@@ -35,7 +35,7 @@
       <ant:zipfileset dir="${outputPath}" prefix="Housekeeper"/>
     </ant:zip>
     
-    <ant:tar longfile="gnu" compression="bzip2" tarfile="${maven.build.dir}/${maven.final.name}.tar.bz2">
+    <ant:tar longfile="gnu" compression="gzip" tarfile="${maven.build.dir}/${maven.final.name}.tar.gz">
       <ant:tarfileset dir="${outputPath}" excludes="housekeeper.sh" prefix="housekeeper"/>
       <ant:tarfileset dir="${outputPath}" includes="housekeeper.sh" prefix="housekeeper" mode="755"/>
     </ant:tar>
