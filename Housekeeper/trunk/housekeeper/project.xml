@@ -29,15 +29,16 @@
   <package>net.sf.housekeeper</package>
   
   <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
-    <description>This project's goal is to provide an application for managing 
+  <description>This project's goal is to provide an application for managing 
         all your household issues. Currently, it is able to keep a list of food 
         which is on hand. You can specify expiry dates and sort your food after 
         them so you always have an overview of what is going to seed soon.
-        </description>
+  </description>
   
   <!-- a short description of what the project does -->
-    <shortDescription>An application for keeping track 
-        of food in a household.</shortDescription>
+  <shortDescription>An application for keeping track 
+        of food in a household.
+  </shortDescription>
 
   <!-- the project home page -->
   <url>http://housekeeper.sourceforge.net</url>
@@ -111,13 +112,13 @@
   	</developer>
   </developers>
   	
-  	<licences>
-  		<licence>
-  			<name>GNU General Public License (GPL)</name>
-  			<url>http://www.gnu.org/licenses/gpl.html</url>
-  			<distribution>manual</distribution>
-  		</licence>
-  	</licences>
+  <licences>
+  	<licence>
+  		<name>GNU General Public License (GPL)</name>
+  		<url>http://www.gnu.org/licenses/gpl.html</url>
+  		<distribution>manual</distribution>
+  	</licence>
+  </licences>
 
   <!-- jar files the project is dependent on -->
   <dependencies>
@@ -192,7 +193,6 @@
         <version>1.0</version>
         <url>http://www.jdom.org</url>
         <properties>
-
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -207,6 +207,13 @@
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
+    </dependency>
+    
+    <dependency>
+        <groupId>xmlunit</groupId>
+        <artifactId>xmlunit</artifactId>
+        <version>1.0</version>
+        <url>http://xmlunit.sourceforge.net/</url>
     </dependency>
         
     <dependency>
@@ -228,6 +235,14 @@
       <includes>
         <include>**/*Test.java</include>
       </includes>
+      <resources>
+      <resource>
+        <directory>src/testresources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
     </unitTest>
 
     <resources>
@@ -245,8 +260,6 @@
     <report>maven-faq-plugin</report>
 	<report>maven-changes-plugin</report>
 	<report>maven-license-plugin</report>
-    <!-- <report>maven-developer-activity-plugin</report>-->
-    <!-- <report>maven-file-activity-plugin</report>-->
     <report>maven-javadoc-plugin</report>
     <!-- <report>maven-jdepend-plugin</report>-->
     <report>maven-junit-report-plugin</report>
@@ -255,7 +268,6 @@
     <!-- <report>maven-linkcheck-plugin</report>-->
     <report>maven-simian-plugin</report>
     <report>maven-statcvs-plugin</report>
-    <!-- <report>maven-tasklist-plugin</report> -->
     <!-- <report>maven-checkstyle-plugin</report> -->
   </reports>
 

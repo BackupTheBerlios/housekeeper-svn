@@ -50,9 +50,6 @@ public class ModelConverterTest extends TestCase
         final Element xmlDOM = converter.convertDomainToXML(originalDomain);
         final Household transformedDomain = converter.convertToDomain(xmlDOM);
 
-        final boolean domainsAreEqual = originalDomain
-                .equals(transformedDomain);
-
         assertEquals(originalDomain, transformedDomain);
     }
 
