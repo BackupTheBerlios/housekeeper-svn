@@ -36,6 +36,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -79,6 +80,8 @@ final class ArticlePanel extends JPanel
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
+        
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     //~ Methods ----------------------------------------------------------------
