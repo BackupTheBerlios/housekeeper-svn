@@ -285,7 +285,7 @@ public final class MainFrame extends JFrame
 
             final JEditorPane editorPane = new JEditorPane();
             editorPane.setEditable(false);
-            final String aboutFile = "/about.html";
+            final String aboutFile = "/net/sf/housekeeper/about.html";
             final URL helpURL = MainFrame.class.getResource(aboutFile);
             if (helpURL != null)
             {

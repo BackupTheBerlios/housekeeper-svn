@@ -183,7 +183,6 @@
   
   <!-- build information for the project -->
   <build>
-    <nagEmailAddress>Adrian.Gygax@gmx.net</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
 
@@ -196,8 +195,8 @@
     <resources>
       <resource>
         <directory>src/conf</directory>
+        <targetPath>net/sf/housekeeper</targetPath>
         <includes>
-          <include>*.properties</include>
           <include>about.html</include>
         </includes>
       </resource>
