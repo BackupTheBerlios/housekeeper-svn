@@ -114,7 +114,7 @@ final class SupplyPanel extends JPanel
 
         //Register renderer for the expiry date
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
-                .getDateInstance(DateFormat.LONG);
+                .getDateInstance(DateFormat.SHORT);
         final TableCellRenderer dateRenderer = new DateTableCellRenderer(
                 dateFormat.toPattern());
         table.getColumn("Expiry").setCellRenderer(dateRenderer);
