@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.storage;
 
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -98,9 +98,9 @@ class JDOMStorage extends MemoryStorage
     {
         Element root = new Element("Housekeeper");
 
-        for (Iterator i = articleDescriptions.iterator(); i.hasNext();)
+        for (Iterator i = assortimentItems.iterator(); i.hasNext();)
         {
-            ArticleDescription object  = (ArticleDescription)i.next();
+            AssortimentItem object  = (AssortimentItem)i.next();
             Element            element = new Element("ArticleDescription");
             element.setAttribute("ID", "" + object.getID());
             element.setAttribute("Name", object.getName());

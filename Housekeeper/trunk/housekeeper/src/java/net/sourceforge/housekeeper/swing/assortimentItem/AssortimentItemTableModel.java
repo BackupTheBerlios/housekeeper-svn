@@ -20,10 +20,10 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing.articledescription;
+package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.swing.TableModelTemplate;
 
 
@@ -35,7 +35,7 @@ import net.sourceforge.housekeeper.swing.TableModelTemplate;
  *
  * @since 0.1
  */
-public final class ArticleDescriptionTableModel extends TableModelTemplate
+public final class AssortimentItemTableModel extends TableModelTemplate
 {
 
     /** Header names for the table */
@@ -54,7 +54,7 @@ public final class ArticleDescriptionTableModel extends TableModelTemplate
     /**
      * Creates a new ArticleDescriptionModel object.
      */
-    public ArticleDescriptionTableModel()
+    public AssortimentItemTableModel()
     {
         super(COLUMNHEADERS);
     }
@@ -67,7 +67,7 @@ public final class ArticleDescriptionTableModel extends TableModelTemplate
      */
     public Object getValueAt(int rowIndex, int columnIndex)
     {
-        ArticleDescription article = (ArticleDescription)getObjectAtRow(rowIndex);
+        AssortimentItem article = (AssortimentItem)getObjectAtRow(rowIndex);
 
         switch (columnIndex)
         {

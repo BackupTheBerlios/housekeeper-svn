@@ -38,7 +38,7 @@ import javax.swing.table.TableModel;
 import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.swing.MainFrame;
 import net.sourceforge.housekeeper.swing.SwingUtils;
-import net.sourceforge.housekeeper.swing.articledescription.ArticleDescriptionTableModel;
+import net.sourceforge.housekeeper.swing.assortimentItem.AssortimentItemTableModel;
 
 
 /**
@@ -61,7 +61,7 @@ public final class PurchaseDialog extends JDialog
         super(MainFrame.INSTANCE, true);
         
         
-        JTable table = new JTable(new ArticleDescriptionTableModel());
+        JTable table = new JTable(new AssortimentItemTableModel());
         
         final String[] COLUMNHEADERS = 
                                                       {

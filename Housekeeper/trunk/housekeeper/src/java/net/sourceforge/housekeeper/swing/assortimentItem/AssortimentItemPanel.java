@@ -20,10 +20,10 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing.articledescription;
+package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 import net.sourceforge.housekeeper.swing.TableModelTemplate;
@@ -48,12 +48,12 @@ import javax.swing.ListSelectionModel;
  *
  * @since 0.1
  */
-public final class ArticleDescriptionPanel extends JPanel implements Observer
+public final class AssortimentItemPanel extends JPanel implements Observer
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** Singleton instance */
-    private static final ArticleDescriptionPanel INSTANCE = new ArticleDescriptionPanel();
+    private static final AssortimentItemPanel INSTANCE = new AssortimentItemPanel();
 
     //~ Instance fields --------------------------------------------------------
 
@@ -65,17 +65,17 @@ public final class ArticleDescriptionPanel extends JPanel implements Observer
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new ArticleDescriptionPanel object.
+     * Creates a new AssortimentItemPanel object.
      */
-    private ArticleDescriptionPanel()
+    private AssortimentItemPanel()
     {
-        model = new ArticleDescriptionTableModel();
+        model = new AssortimentItemTableModel();
         table       = new JTable(model);
         scrollPane  = new JScrollPane(table);
         buttonPanel = new JPanel();
 
-        buttonPanel.add(new JButton(NewArticleDescriptionAction.INSTANCE));
-        buttonPanel.add(new JButton(ModifyArticleDescriptionAction.INSTANCE));
+        buttonPanel.add(new JButton(NewAssortimentItemAction.INSTANCE));
+        buttonPanel.add(new JButton(ModifyAssortimentItemAction.INSTANCE));
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
@@ -93,7 +93,7 @@ public final class ArticleDescriptionPanel extends JPanel implements Observer
      *
      * @return The Singleton instance.
      */
-    public static ArticleDescriptionPanel getInstance()
+    public static AssortimentItemPanel getInstance()
     {
         return INSTANCE;
     }
@@ -104,15 +104,15 @@ public final class ArticleDescriptionPanel extends JPanel implements Observer
      * @return The selected Article Description or null if no table row is
      *         selected.
      */
-    public ArticleDescription getSelectedArticle()
+    public AssortimentItem getSelectedArticle()
     {
         int selectedRow = table.getSelectedRow();
 
         if (selectedRow > -1)
         {
-            ArticleDescriptionTableModel tableModel = (ArticleDescriptionTableModel)table.getModel();
+            AssortimentItemTableModel tableModel = (AssortimentItemTableModel)table.getModel();
 
-            return (ArticleDescription)tableModel.getObjectAtRow(selectedRow);
+            return (AssortimentItem)tableModel.getObjectAtRow(selectedRow);
         }
         else
         {
@@ -122,6 +122,6 @@ public final class ArticleDescriptionPanel extends JPanel implements Observer
 
 	public void update(Observable arg0, Object arg1)
 	{
-		model.setTableData(StorageFactory.getCurrentStorage().getAllArticleDescriptions());
+		model.setTableData(StorageFactory.getCurrentStorage().getAllAssortimentItems());
 	}
 }

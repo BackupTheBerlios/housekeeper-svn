@@ -90,7 +90,7 @@ final class XMLSerializationStorage extends MemoryStorage
 
             xmlDecoder.close();
 
-            articleDescriptions = (List)result;
+            assortimentItems = (List)result;
         }
         catch (FileNotFoundException e)
         {
@@ -107,7 +107,7 @@ final class XMLSerializationStorage extends MemoryStorage
         {
             xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILE)));
 
-            xmlEncoder.writeObject(articleDescriptions);
+            xmlEncoder.writeObject(assortimentItems);
 
             xmlEncoder.close();
         }

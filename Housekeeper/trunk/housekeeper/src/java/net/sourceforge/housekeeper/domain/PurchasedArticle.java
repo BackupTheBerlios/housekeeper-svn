@@ -30,7 +30,7 @@ import java.util.Date;
 
 /**
  * A concrete article, that has been purchased. There can be multiple objects
- * of this class for every {@link ArticleDescription}.
+ * of this class for every {@link AssortimentItem}.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -42,7 +42,7 @@ public class PurchasedArticle extends DomainObject
     //~ Instance fields --------------------------------------------------------
 
     /** The type of article the object is */
-    private ArticleDescription article;
+    private AssortimentItem article;
 
     /** Information about consumptions of this object */
     private Collection consumptions;
@@ -59,7 +59,7 @@ public class PurchasedArticle extends DomainObject
      */
     public PurchasedArticle()
     {
-        article       = new ArticleDescription();
+        article       = new AssortimentItem();
         consumptions  = new ArrayList();
         bestBeforeEnd = new Date();
     }
@@ -71,7 +71,7 @@ public class PurchasedArticle extends DomainObject
      *
      * @param article The new value.
      */
-    public void setArticle(ArticleDescription article)
+    public void setArticle(AssortimentItem article)
     {
         this.article = article;
     }
@@ -81,7 +81,7 @@ public class PurchasedArticle extends DomainObject
      *
      * @return The corresponding attribute.
      */
-    public ArticleDescription getArticle()
+    public AssortimentItem getArticle()
     {
         return article;
     }

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.domain.Purchase;
 
 /**
@@ -34,21 +34,21 @@ import net.sourceforge.housekeeper.domain.Purchase;
  */
 class MemoryStorage implements Storage
 {
-	protected Collection articleDescriptions;
+	protected Collection assortimentItems;
 	protected Collection purchases;
 
 	MemoryStorage()
 	{
-		articleDescriptions = new ArrayList();
+		assortimentItems = new ArrayList();
 		purchases = new ArrayList();
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
 	 */
-	public Collection getAllArticleDescriptions()
+	public Collection getAllAssortimentItems()
 	{
-		return Collections.unmodifiableCollection(articleDescriptions);
+		return Collections.unmodifiableCollection(assortimentItems);
 	}
 
 	/* (non-Javadoc)
@@ -62,9 +62,9 @@ class MemoryStorage implements Storage
 	/* (non-Javadoc)
 	 * @see net.sourceforge.housekeeper.storage.Storage#add(net.sourceforge.housekeeper.domain.ArticleDescription)
 	 */
-	public void add(ArticleDescription article)
+	public void add(AssortimentItem article)
 	{
-		articleDescriptions.add(article);
+		assortimentItems.add(article);
 	}
 
 	/* (non-Javadoc)
@@ -74,9 +74,9 @@ class MemoryStorage implements Storage
 	{
 		purchases.add(purchase);
 	}
-	public void remove(ArticleDescription article)
+	public void remove(AssortimentItem article)
 	{
-		articleDescriptions.remove(article);
+		assortimentItems.remove(article);
 	}
 
 	public void loadData()

@@ -20,14 +20,14 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing.articledescription;
+package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.swing.MainFrame;
 import net.sourceforge.housekeeper.swing.SwingUtils;
 import net.sourceforge.housekeeper.swing.action.*;
@@ -49,11 +49,11 @@ import javax.swing.JTextField;
  *
  * @since 0.1
  */
-public final class ArticleDescriptionDialog extends JDialog
+public final class AssortimentItemDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
-    private ArticleDescription article;
+    private AssortimentItem article;
     private JButton            buttonCancel;
     private JButton            buttonOK;
     private JTextField         nameField;
@@ -65,9 +65,9 @@ public final class ArticleDescriptionDialog extends JDialog
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new ArticleDescriptionDialog.
+     * Creates a new AssortimentItemDialog.
      */
-    public ArticleDescriptionDialog()
+    public AssortimentItemDialog()
     {
         super(MainFrame.INSTANCE, true);
 
@@ -99,7 +99,7 @@ public final class ArticleDescriptionDialog extends JDialog
      * @return The new object if the user confirms his entry, null if he
      *         aborts.
      */
-    public ArticleDescription show(String title)
+    public AssortimentItem show(String title)
     {
         setTitle(title);
         super.show();
@@ -117,8 +117,8 @@ public final class ArticleDescriptionDialog extends JDialog
      * @return The modified object if the user confirms his entry, null if he
      *         aborts.
      */
-    public ArticleDescription show(String title,
-                                   ArticleDescription articleDescription)
+    public AssortimentItem show(String title,
+                                   AssortimentItem articleDescription)
     {
         setTitle(title);
 
@@ -183,7 +183,7 @@ public final class ArticleDescriptionDialog extends JDialog
         {
             if (article == null)
             {
-                article = new ArticleDescription();
+                article = new AssortimentItem();
             }
 
 

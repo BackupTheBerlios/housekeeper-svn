@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.storage;
 
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.domain.Purchase;
 
 import java.util.Collection;
@@ -46,7 +46,7 @@ public interface Storage
      *
      * @return All Article Descriptions.
      */
-    public Collection getAllArticleDescriptions();
+    public Collection getAllAssortimentItems();
 
     /**
      * Returns an unmodifiable Collection of all Purchases.
@@ -67,7 +67,7 @@ public interface Storage
      *
      * @param article Article Description to be added.
      */
-    public void add(ArticleDescription articleDescription);
+    public void add(AssortimentItem articleDescription);
 
     /**
      * Causes data to be loaded from persistent storage.
@@ -79,7 +79,7 @@ public interface Storage
      *
      * @param article Article Description to be removed.
      */
-    public void remove(ArticleDescription article);
+    public void remove(AssortimentItem article);
 
     /**
      * Causes datat to be saved to persistent storage.

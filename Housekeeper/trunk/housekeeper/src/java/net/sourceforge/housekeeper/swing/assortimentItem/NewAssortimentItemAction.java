@@ -20,10 +20,10 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing.articledescription;
+package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
@@ -33,19 +33,19 @@ import javax.swing.AbstractAction;
 
 
 /**
- * Action to cause the display of a dialog for adding an ArticleDescription.
+ * Action to cause the display of a dialog for adding an AssortimentItem.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  *
  * @since 0.1
  */
-public final class NewArticleDescriptionAction extends AbstractAction
+public final class NewAssortimentItemAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** Singleton instance of this object. */
-    public static final NewArticleDescriptionAction INSTANCE = new NewArticleDescriptionAction();
+    public static final NewAssortimentItemAction INSTANCE = new NewAssortimentItemAction();
 
     /** Title to be shown in GUI */
     private static final String TITLE = "New Article Description";
@@ -55,7 +55,7 @@ public final class NewArticleDescriptionAction extends AbstractAction
     /**
      * Creates a new NewArticleDescription object.
      */
-    private NewArticleDescriptionAction()
+    private NewAssortimentItemAction()
     {
         super(TITLE);
     }
@@ -67,8 +67,8 @@ public final class NewArticleDescriptionAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescriptionDialog d       = new ArticleDescriptionDialog();
-        ArticleDescription       article = d.show(TITLE);
+        AssortimentItemDialog d       = new AssortimentItemDialog();
+        AssortimentItem       article = d.show(TITLE);
 
         if (article != null)
         {

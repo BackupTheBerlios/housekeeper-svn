@@ -20,10 +20,10 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing.articledescription;
+package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 import java.awt.event.ActionEvent;
@@ -32,19 +32,19 @@ import javax.swing.AbstractAction;
 
 
 /**
- * Action to cause the display of a dialog for modifying an ArticleDescription.
+ * Action to cause the display of a dialog for modifying an AssortimentItem.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  *
  * @since 0.1
  */
-public final class ModifyArticleDescriptionAction extends AbstractAction
+public final class ModifyAssortimentItemAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** Singleton instance of this object. */
-    public static final ModifyArticleDescriptionAction INSTANCE = new ModifyArticleDescriptionAction();
+    public static final ModifyAssortimentItemAction INSTANCE = new ModifyAssortimentItemAction();
 
     /** Title to be shown in GUI */
     private static final String TITLE = "Modify Article Description";
@@ -54,7 +54,7 @@ public final class ModifyArticleDescriptionAction extends AbstractAction
     /**
      * Creates a new ModifyArticleDescription object.
      */
-    private ModifyArticleDescriptionAction()
+    private ModifyAssortimentItemAction()
     {
         super(TITLE);
     }
@@ -66,12 +66,12 @@ public final class ModifyArticleDescriptionAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescription article = ArticleDescriptionPanel.getInstance()
+        AssortimentItem article = AssortimentItemPanel.getInstance()
                                                             .getSelectedArticle();
 
         if (article != null)
         {
-            ArticleDescriptionDialog d = new ArticleDescriptionDialog();
+            AssortimentItemDialog d = new AssortimentItemDialog();
             d.show(TITLE, article);
 
             DataUpdateMediator.getInstance().update();

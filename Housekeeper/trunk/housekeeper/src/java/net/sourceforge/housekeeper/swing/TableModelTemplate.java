@@ -41,7 +41,7 @@ public abstract class TableModelTemplate extends AbstractTableModel
     }
     
     /**
-     * Returns the ArticleDescription object at the given row.
+     * Returns the AssortimentItem object at the given row.
      *
      * @param row Row of the object to be returned.
      *

@@ -28,7 +28,7 @@ import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
 import net.sourceforge.housekeeper.Housekeeper;
 import net.sourceforge.housekeeper.swing.action.*;
-import net.sourceforge.housekeeper.swing.articledescription.*;
+import net.sourceforge.housekeeper.swing.assortimentItem.*;
 import net.sourceforge.housekeeper.swing.purchase.*;
 
 import javax.swing.JFrame;
@@ -56,7 +56,7 @@ public final class MainFrame extends JFrame
 
     //~ Instance fields --------------------------------------------------------
 
-    private JMenu       menuArticles;
+    private JMenu       menuAssortiment;
     private JMenu       menuFile;
     private JMenuBar    menuBar;
     private JTabbedPane tabbedPane;
@@ -88,7 +88,7 @@ public final class MainFrame extends JFrame
     private void buildComponents()
     {
         tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Article Descriptions", ArticleDescriptionPanel.getInstance());
+        tabbedPane.addTab("Assortiment", AssortimentItemPanel.getInstance());
 
         tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
         getContentPane().add(tabbedPane);
@@ -113,10 +113,10 @@ public final class MainFrame extends JFrame
         menuFile.add(new JMenuItem(ExitAction.INSTANCE));
 
         //Articles menu
-        menuArticles = new JMenu("Article Descriptions");
-        menuBar.add(menuArticles);
+        menuAssortiment = new JMenu("Assortiment");
+        menuBar.add(menuAssortiment);
 
-        menuArticles.add(new JMenuItem(NewArticleDescriptionAction.INSTANCE));
+        menuAssortiment.add(new JMenuItem(NewAssortimentItemAction.INSTANCE));
     }
 
     /**
