@@ -23,11 +23,9 @@ package net.sf.housekeeper.swing;
 
 import java.io.FileNotFoundException;
 
-import javax.swing.JOptionPane;
-
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
-import net.sf.housekeeper.util.LocalisationManager;
+import net.sf.housekeeper.swing.util.ErrorDialog;
 
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 
@@ -41,8 +39,8 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
 {
 
     private static final String ID = "loadCommand";
-    
-    private final Household household;
+
+    private final Household     household;
 
     /**
      * Creates a new LoadCommand.
@@ -64,8 +62,7 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
     {
         try
         {
-            PersistenceController.instance()
-                    .replaceDomainWithSaved(household);
+            PersistenceController.instance().replaceDomainWithSaved(household);
         } catch (FileNotFoundException exception)
         {
             //If called during startup, the application window is not yet
@@ -73,27 +70,15 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
             //found" error on startup.
             if (getApplicationWindow().getControl() != null)
             {
-                final String nodata = LocalisationManager.INSTANCE
-                        .getText("gui.mainFrame.nodata");
-                showErrorDialog(nodata);
+                final ErrorDialog dialog = new ErrorDialog(
+                        "gui.mainFrame.nodata");
+                dialog.showDialog();
             }
         } catch (Exception exception)
         {
-            showErrorDialog(exception.getLocalizedMessage());
+            final ErrorDialog dialog = new ErrorDialog(exception);
+            dialog.showDialog();
         }
-
-    }
-
-    /**
-     * Shows an error dialog with the given message.
-     * 
-     * @param message The message to display.
-     */
-    private void showErrorDialog(final String message)
-    {
-        final String error = LocalisationManager.INSTANCE.getText("gui.error");
-        JOptionPane.showMessageDialog(getParentWindowControl(), message, error,
-                                      JOptionPane.ERROR_MESSAGE);
     }
 
 }

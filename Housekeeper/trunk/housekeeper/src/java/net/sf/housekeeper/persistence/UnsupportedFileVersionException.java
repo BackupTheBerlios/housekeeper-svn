@@ -21,8 +21,6 @@
 
 package net.sf.housekeeper.persistence;
 
-import net.sf.housekeeper.util.LocalisationManager;
-
 /**
  * Signals that the format version of a data source is not supported.
  * 
@@ -57,18 +55,6 @@ public final class UnsupportedFileVersionException extends Exception
     public int getVersion()
     {
         return version;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Throwable#getLocalizedMessage()
-     */
-    public String getLocalizedMessage()
-    {
-        final String text = LocalisationManager.INSTANCE
-                .getText("persistence.unsupportedVersion");
-        return text;
     }
 
 }

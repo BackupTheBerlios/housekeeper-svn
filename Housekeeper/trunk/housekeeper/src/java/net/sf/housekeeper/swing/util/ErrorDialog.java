@@ -32,59 +32,77 @@ import org.springframework.richclient.dialog.DefaultMessageAreaPane;
 import org.springframework.rules.reporting.Severity;
 import org.springframework.util.Assert;
 
-
 /**
  * A default dialog for showing an error message.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class ErrorDialog extends ApplicationDialog
+public final class ErrorDialog extends ApplicationDialog
 {
-    private final String message;
-    
+
+    private static final String ERROR_MESSAGE_ID = "gui.error";
+
+    private static final String ERRORICON        = "OptionPane.errorIcon";
+
+    private final String        message;
+
+    /**
+     * Creates a dialog which gets the message from an Exception.
+     * 
+     * @param e The exception to get the message from.
+     */
+    public ErrorDialog(final Exception e)
+    {
+        Assert.notNull(e);
+
+        message = e.getLocalizedMessage();
+
+        final String title = getMessage(ERROR_MESSAGE_ID);
+        setTitle(title);
+    }
+
     /**
      * Creates a dialog for showing an error message.
      * 
      * @param messageID The ID of the message to show.
      */
-    public ErrorDialog(final String messageID) {
-        super();
+    public ErrorDialog(final String messageID)
+    {
         Assert.notNull(messageID);
-        
+
         message = getMessage(messageID);
-        
-        final String title = getMessage("gui.error");
+
+        final String title = getMessage(ERROR_MESSAGE_ID);
         setTitle(title);
     }
 
-    /** 
+    /* (non-Javadoc)
+     * @see org.springframework.richclient.dialog.ApplicationDialog#createDialogContentPane()
+     */
+    protected JComponent createDialogContentPane()
+    {
+        final DefaultMessageAreaPane messagePane = new DefaultMessageAreaPane();
+        final Icon icon = UIManager.getIcon(ERRORICON);
+        messagePane.setDefaultIcon(icon);
+        messagePane.setMessage(new Message(message, Severity.ERROR));
+        return messagePane.getControl();
+    }
+
+    /**
+     * Show only the OK button.
+     */
+    protected Object[] getCommandGroupMembers()
+    {
+        return new AbstractCommand[] { getFinishCommand() };
+    }
+
+    /**
      * Always completes successfully.
      */
     protected boolean onFinish()
     {
         return true;
-    }
-    
-
-    /**
-     * Show only the OK button.
-     */
-    protected Object[] getCommandGroupMembers() {
-        return new AbstractCommand[] { getFinishCommand() };
-    }
-
-
-    /**
-     * Shows the error message.
-     */
-    protected JComponent createDialogContentPane()
-    {
-        final DefaultMessageAreaPane messagePane = new DefaultMessageAreaPane();
-        Icon icon = UIManager.getIcon("OptionPane.errorIcon");
-        messagePane.setDefaultIcon(icon);
-        messagePane.setMessage(new Message(message, Severity.ERROR));
-        return messagePane.getControl();
     }
 
 }
