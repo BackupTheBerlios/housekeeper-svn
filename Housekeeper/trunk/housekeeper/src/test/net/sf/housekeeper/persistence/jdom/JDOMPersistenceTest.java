@@ -21,15 +21,9 @@
 
 package net.sf.housekeeper.persistence.jdom;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Reader;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
@@ -170,7 +164,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
      * @return A file which didn't exist before.
      * @throws IOException If any error occurs.
      */
-    private File createTempFile() throws IOException
+    public File createTempFile() throws IOException
     {
         final File temp = File.createTempFile("hok", null);
         temp.deleteOnExit();
