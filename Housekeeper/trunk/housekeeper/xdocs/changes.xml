@@ -3,7 +3,7 @@
         <title>Change history</title>
     </properties>
     <body>
-      <release version="0.3.0" date="February 2005">
+      <release version="0.2.3" date="2005-03-01">
         <action dev="notizklotz" type="add" issue="3441">The expiry date can 
           now be selected using a calendar.</action>
         <action dev="notizklotz" type="add">The tables now have 
