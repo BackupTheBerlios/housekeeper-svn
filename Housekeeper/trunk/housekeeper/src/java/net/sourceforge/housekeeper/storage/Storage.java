@@ -24,7 +24,9 @@ package net.sourceforge.housekeeper.storage;
 
 
 import net.sourceforge.housekeeper.model.ArticleDescription;
+import net.sourceforge.housekeeper.model.Purchase;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 
@@ -44,6 +46,10 @@ public abstract class Storage extends Observable
      * @return DOCUMENT ME!
      */
     public abstract List getArticles();
+    
+    public abstract Collection getPurchases();
+    
+    public abstract void add(Purchase purchase);
 
     public abstract ArticleDescription getArticle(int i);
     

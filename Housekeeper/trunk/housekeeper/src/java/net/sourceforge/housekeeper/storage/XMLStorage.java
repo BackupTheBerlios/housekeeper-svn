@@ -24,6 +24,7 @@ package net.sourceforge.housekeeper.storage;
 
 
 import net.sourceforge.housekeeper.model.ArticleDescription;
+import net.sourceforge.housekeeper.model.Purchase;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -35,6 +36,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -54,6 +56,8 @@ public final class XMLStorage extends Storage
 
     /** TODO DOCUMENT ME! */
     private List articles;
+    
+    private Collection purchases;
 
     /** TODO DOCUMENT ME! */
     private XMLDecoder xmlDecoder;
@@ -70,6 +74,7 @@ public final class XMLStorage extends Storage
     XMLStorage()
     {
         articles = new ArrayList();
+        purchases = new ArrayList();
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -157,5 +162,16 @@ public final class XMLStorage extends Storage
     {
         setChanged();
         notifyObservers();
+    }
+
+    public Collection getPurchases()
+    {
+        return purchases;
+    }
+    
+    public void add(Purchase purchase)
+    {
+        purchases.add(purchase);
+        update();
     }
 }
