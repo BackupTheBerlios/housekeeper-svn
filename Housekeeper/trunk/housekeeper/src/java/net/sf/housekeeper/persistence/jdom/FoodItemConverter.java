@@ -40,11 +40,60 @@ final class FoodItemConverter
 {
 
     /**
-     * Prevents instanciation.
+     * The name of the attribute "name" of the element
+     * {@link FoodItemConverter#ELEMENT_CATEGORY}.
      */
-    private FoodItemConverter()
-    {
-    }
+    public static final String ATTRIBUTE_CATEGORY_NAME     = "name";
+    
+    /**
+     * The name of the attribute "day" of the element
+     * {@link FoodItemConverter#ELEMENT_EXPIRY}.
+     */
+    public static final String ATTRIBUTE_EXPIRY_DAY     = "day";
+
+    /**
+     * The name of the attribute "month" of the element
+     * {@link FoodItemConverter#ELEMENT_EXPIRY}.
+     */
+    public static final String ATTRIBUTE_EXPIRY_MONTH   = "month";
+
+    /**
+     * The name of the attribute "year" of the element
+     * {@link FoodItemConverter#ELEMENT_EXPIRY}.
+     */
+    public static final String ATTRIBUTE_EXPIRY_YEAR    = "year";
+
+    /**
+     * The name of the attribute "name" of the element
+     * {@link FoodItemConverter#ELEMENT_FOODITEM}.
+     */
+    public static final String ATTRIBUTE_NAME           = "name";
+
+    /**
+     * The name of the attribute "value" of the element
+     * {@link FoodItemConverter#ELEMENT_QUANTITY}.
+     */
+    public static final String ATTRIBUTE_QUANTITY_VALUE = "value";
+
+    /**
+     * The name of the "category" element.
+     */
+    public static final String ELEMENT_CATEGORY         = "category";
+
+    /**
+     * The name of the expiry element.
+     */
+    public static final String ELEMENT_EXPIRY           = "expiry";
+
+    /**
+     * The name of the root element.
+     */
+    public static final String ELEMENT_FOODITEM         = "foodItem";
+
+    /**
+     * The name of the quantity element.
+     */
+    public static final String ELEMENT_QUANTITY         = "quantity";
 
     /**
      * Converts a JDOM Element object into a {@link Food}.
@@ -58,31 +107,40 @@ final class FoodItemConverter
         final Food food = new Food();
 
         //Name
-        final String itemName = foodElement.getAttributeValue("name");
+        final String itemName = foodElement.getAttributeValue(ATTRIBUTE_NAME);
         food.setName(itemName);
 
         //Quantity
-        final Element quantityElement = foodElement.getChild("quantity");
+        final Element quantityElement = foodElement.getChild(ELEMENT_QUANTITY);
         if (quantityElement != null)
         {
-            String quantity = quantityElement.getAttributeValue("value");
+            String quantity = quantityElement
+                    .getAttributeValue(ATTRIBUTE_QUANTITY_VALUE);
             food.setQuantity(quantity);
         }
 
         //Expiry
-        final Element expiryElement = foodElement.getChild("expiry");
+        final Element expiryElement = foodElement.getChild(ELEMENT_EXPIRY);
         if (expiryElement != null)
         {
             final int day = Integer.parseInt(expiryElement
-                    .getAttributeValue("day"));
+                    .getAttributeValue(ATTRIBUTE_EXPIRY_DAY));
             final int month = Integer.parseInt(expiryElement
-                    .getAttributeValue("month"));
+                    .getAttributeValue(ATTRIBUTE_EXPIRY_MONTH));
             final int year = Integer.parseInt(expiryElement
-                    .getAttributeValue("year"));
+                    .getAttributeValue(ATTRIBUTE_EXPIRY_YEAR));
             final Calendar expiryCalendar = new GregorianCalendar(year,
                     month - 1, day);
             Date expiryDate = expiryCalendar.getTime();
             food.setExpiry(expiryDate);
+        }
+
+        //Category
+        final Element categoryElement = foodElement.getChild(ELEMENT_CATEGORY);
+        if (categoryElement != null)
+        {
+            String category = categoryElement.getAttributeValue(ATTRIBUTE_CATEGORY_NAME);
+            food.setCategory(category);
         }
 
         return food;
@@ -96,34 +154,51 @@ final class FoodItemConverter
      */
     static Element convert(final Food item)
     {
-        final Element xmlElement = new Element("foodItem");
+        final Element xmlElement = new Element(ELEMENT_FOODITEM);
 
         //Name
-        xmlElement.setAttribute("name", item.getName());
+        xmlElement.setAttribute(ATTRIBUTE_NAME, item.getName());
 
         //Quantity
         if (item.getQuantity() != null)
         {
-            final Element quantityElement = new Element("quantity");
-            quantityElement.setAttribute("value", item.getQuantity());
+            final Element quantityElement = new Element(ELEMENT_QUANTITY);
+            quantityElement.setAttribute(ATTRIBUTE_QUANTITY_VALUE, item
+                    .getQuantity());
             xmlElement.addContent(quantityElement);
         }
 
         //Expiry
         if (item.getExpiry() != null)
         {
-            final Element expiryElement = new Element("expiry");
+            final Element expiryElement = new Element(ELEMENT_EXPIRY);
             final Calendar calendar = GregorianCalendar.getInstance();
             calendar.setTime(item.getExpiry());
-            expiryElement.setAttribute("day", ""
+            expiryElement.setAttribute(ATTRIBUTE_EXPIRY_DAY, ""
                     + calendar.get(GregorianCalendar.DAY_OF_MONTH));
             final int month = calendar.get(GregorianCalendar.MONTH) + 1;
-            expiryElement.setAttribute("month", "" + month);
-            expiryElement.setAttribute("year", ""
+            expiryElement.setAttribute(ATTRIBUTE_EXPIRY_MONTH, "" + month);
+            expiryElement.setAttribute(ATTRIBUTE_EXPIRY_YEAR, ""
                     + calendar.get(GregorianCalendar.YEAR));
             xmlElement.addContent(expiryElement);
         }
 
+        //Category
+        if (item.getCategory() != null)
+        {
+            String category = item.getCategory();
+            Element categoryElement = new Element(ELEMENT_CATEGORY);
+            categoryElement.setAttribute(ATTRIBUTE_CATEGORY_NAME, category);
+            xmlElement.addContent(categoryElement);
+        }
+
         return xmlElement;
+    }
+
+    /**
+     * Prevents instanciation.
+     */
+    private FoodItemConverter()
+    {
     }
 }

@@ -38,12 +38,32 @@ public final class Food extends Item
     /**
      * Name of the Bound Bean Property "expiry".
      */
-    public static final String PROPERTYNAME_EXPIRY = "expiry";
+    public static final String PROPERTYNAME_EXPIRY       = "expiry";
+
+    /**
+     * Category for misc food.
+     */
+    public static final String CATEGORY_MISC             = "misc";
+
+    /**
+     * Category for convenience foods.
+     */
+    public static final String CATEGORY_CONVENIENCE_FOOD = "convenienceFood";
+
+    /**
+     * Default category.
+     */
+    public static final String CATEGORY_DEFAULT          = CATEGORY_CONVENIENCE_FOOD;
 
     /**
      * The date before the item should have been consumed entirely.
      */
     private Date               expiry;
+
+    /**
+     * The category.
+     */
+    private String             category;
 
     /**
      * Creates a new Food object with default values. Name, quantity and the
@@ -53,6 +73,7 @@ public final class Food extends Item
     {
         super();
         setExpiry(null);
+        setCategory(CATEGORY_DEFAULT);
     }
 
     /**
@@ -68,6 +89,9 @@ public final class Food extends Item
                 : (Date) original.getExpiry().clone();
 
         setExpiry(clonedExpiry);
+
+        //No need to clone Strings, they are always copied by value.
+        setCategory(original.getCategory());
     }
 
     /**
@@ -81,6 +105,23 @@ public final class Food extends Item
     {
         super(name, quantity);
         setExpiry(expiry);
+        setCategory(CATEGORY_DEFAULT);
+    }
+
+    /**
+     * @return Returns the category.
+     */
+    public String getCategory()
+    {
+        return category;
+    }
+
+    /**
+     * @param category The category to set.
+     */
+    public void setCategory(String category)
+    {
+        this.category = category;
     }
 
     /**
@@ -141,8 +182,12 @@ public final class Food extends Item
             return false;
         }
         Food castedObj = (Food) o;
-        return ((this.expiry == null ? castedObj.expiry == null : this.expiry
-                .equals(castedObj.expiry)));
+
+        final boolean equalExpiry = this.expiry == null ? castedObj.expiry == null
+                : this.expiry.equals(castedObj.expiry);
+        final boolean equalCategory = this.category == null ? castedObj.category == null
+                : this.category.equals(castedObj.category);
+        return equalExpiry && equalCategory;
     }
 
     /*
@@ -154,6 +199,7 @@ public final class Food extends Item
     {
         int hashCode = super.hashCode();
         hashCode = 31 * hashCode + (expiry == null ? 0 : expiry.hashCode());
+        hashCode = 31 * hashCode + (category == null ? 0 : category.hashCode());
         return hashCode;
     }
 
@@ -168,6 +214,8 @@ public final class Food extends Item
         buffer.append("[Food:");
         buffer.append(" expiry: ");
         buffer.append(expiry);
+        buffer.append(" category: ");
+        buffer.append(category);
         buffer.append(super.toString());
         buffer.append("]");
         return buffer.toString();

@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <household version="2">
-  <food category="convenienceFoods">
     <foodItem name="Rösti">
       <quantity value="250g" />
+      <category name="convenienceFood" />
     </foodItem>
     <foodItem name="Pizza 4 formaggi">
       <expiry day="19" month="1" year="2005" />
+      <category name="convenienceFood" />
     </foodItem>
-    <foodItem name="Risotto ai funghi porcini" />
+    <foodItem name="Risotto ai funghi porcini">
+      <category name="convenienceFood" />
+    </foodItem>
     <foodItem name="Risotto alla Milanese">
       <quantity value="250g" />
       <expiry day="8" month="2" year="2005" />
+      <category name="convenienceFood" />
     </foodItem>
     <foodItem name="Milch">
       <expiry day="22" month="1" year="2005" />
+      <category name="convenienceFood" />
     </foodItem>
     <foodItem name="Älplermakronen">
       <expiry day="30" month="1" year="2005" />
+      <category name="convenienceFood" />
     </foodItem>
     <foodItem name="Fiori Lorraine">
       <expiry day="22" month="1" year="2005" />
+      <category name="convenienceFood" />
     </foodItem>
-  </food>
 </household>
 

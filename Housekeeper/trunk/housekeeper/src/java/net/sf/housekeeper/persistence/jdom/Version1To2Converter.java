@@ -22,9 +22,9 @@
 package net.sf.housekeeper.persistence.jdom;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.jdom.Element;
-
 
 /**
  * @author
@@ -33,23 +33,31 @@ import org.jdom.Element;
 final class Version1To2Converter implements DocumentVersionConverter
 {
 
-
     public Element convert(Element oldRoot)
-    {        
+    {
         //Set version
         final Element newRoot = new Element(oldRoot.getName());
         newRoot.setAttribute("version", "2");
-        
-        //Copy foodItem elements
-        final Collection foodItems = oldRoot.cloneContent();
 
-        final Element convenianceElement = new Element("food");
-        convenianceElement.setAttribute("category", "convenienceFoods");
-        convenianceElement.addContent(foodItems);
-        
-        newRoot.addContent(convenianceElement);
+        //Copy foodItem elements
+        final Collection foodItems = oldRoot.getChildren(FoodItemConverter.ELEMENT_FOODITEM);
+
+        //Set category of all elements to a default value
+        final Iterator iter = foodItems.iterator();
+        while (iter.hasNext())
+        {
+            final Element food = (Element) iter.next();
+            final Element cloned = (Element)food.clone();
+
+            final Element category = new Element(
+                    FoodItemConverter.ELEMENT_CATEGORY);
+            category.setAttribute(FoodItemConverter.ATTRIBUTE_CATEGORY_NAME,
+                                  "convenienceFood");
+            cloned.addContent(category);
+            newRoot.addContent(cloned);
+        }
+
         return newRoot;
     }
-    
 
 }
