@@ -88,7 +88,7 @@ public final class ItemsTableView extends AbstractView implements
 
     private ItemManager                    itemManager;
 
-    private Category                         category;
+    private Category                       category;
 
     /**
      * Creates a new view showing a list of items.
@@ -135,7 +135,7 @@ public final class ItemsTableView extends AbstractView implements
 
         table.getSelectionModel()
                 .addListSelectionListener(new TableSelectionListener());
-        table.addMouseListener(new PopupMenuMouseListener(createContextMenu()));
+        table.addMouseListener(new PopupTriggerListener(createContextMenu()));
         table.addMouseListener(new DoubleClickListener());
         assignDateColumnRenderer(table, 2);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
@@ -353,7 +353,8 @@ public final class ItemsTableView extends AbstractView implements
             final ExpirableItem foodObject = getSelected();
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
-            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(formModel);
+            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(
+                    formModel);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                     form, getWindowControl()) {
@@ -387,7 +388,8 @@ public final class ItemsTableView extends AbstractView implements
             foodObject.setCategory(category);
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
-            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(formModel);
+            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(
+                    formModel);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                     form, getWindowControl()) {
@@ -437,4 +439,22 @@ public final class ItemsTableView extends AbstractView implements
         }
     }
 
+    private class PopupTriggerListener extends PopupMenuMouseListener
+    {
+
+        private PopupTriggerListener(final JPopupMenu menu)
+        {
+            super(menu);
+        }
+
+        /**
+         * Selects the row beneath the cursor before showing the popup menu
+         */
+        protected boolean onAboutToShow(MouseEvent e)
+        {
+            final int row = itemsTable.rowAtPoint(e.getPoint());
+            itemsTable.getSelectionModel().setSelectionInterval(row, row);
+            return super.onAboutToShow(e);
+        }
+    }
 }
