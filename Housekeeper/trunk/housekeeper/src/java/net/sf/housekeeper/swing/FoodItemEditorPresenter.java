@@ -37,7 +37,7 @@ import net.sf.housekeeper.domain.FoodItem;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class FoodItemEditorPresenter
+final class FoodItemEditorPresenter
 {
 
     /**

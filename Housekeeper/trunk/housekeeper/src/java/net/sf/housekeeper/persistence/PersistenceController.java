@@ -55,7 +55,8 @@ public final class PersistenceController
     private final File                   dataFile;
 
     /**
-     * Initializes the persistence service to use, which is currently fixed to {@link JDOMPersistence}.
+     * Initializes the persistence service to use, which is currently fixed to
+     * {@link JDOMPersistence}.
      *  
      */
     private PersistenceController()

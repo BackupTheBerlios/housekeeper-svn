@@ -31,7 +31,7 @@ final class ModelConverter
     /**
      * Creates a new converter.
      */
-    public ModelConverter()
+    ModelConverter()
     {
         
     }

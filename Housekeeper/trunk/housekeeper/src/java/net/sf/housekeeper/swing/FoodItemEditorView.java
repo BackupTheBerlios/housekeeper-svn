@@ -59,7 +59,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-class FoodItemEditorView
+final class FoodItemEditorView
 {
 
     final JDialog    dialog;
