@@ -45,7 +45,8 @@ import org.springframework.util.Styler;
  * stable which means that it does not move around rows when its comparison
  * function returns 0 to denote that they are equivalent.
  * 
- * Modified to treat null as larger than any other value.
+ * This is the same as the Spring RCP ShuttleSortableTableModel, except that
+ * null values are not treated any special on comparison.
  */
 public class ShuttleSortableTableModel extends AbstractTableModelFilter implements SortableTableModel {
     public static final Comparator OBJECT_COMPARATOR = new Comparator() {
@@ -287,13 +288,6 @@ public class ShuttleSortableTableModel extends AbstractTableModelFilter implemen
         // If both values are null, return 0.
         if (o1 == null && o2 == null) {
             return 0;
-        }
-        else if (o1 == null) {
-            // Define null more than everything
-            return 1;
-        }
-        else if (o2 == null) {
-            return -1;
         }
 
         Comparator comparator = columnComparators[column];

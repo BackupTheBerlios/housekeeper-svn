@@ -118,7 +118,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
             final JTable table = CustomTableUtils.createStandardSortableTable(model);
             
             final SortableTableModel sortableModel = (SortableTableModel)table.getModel();
-            //sortableModel.setComparator(2, new ExpiryDateComparator());
+            sortableModel.setComparator(2, new ExpiryDateComparator());
             
             //Sort expiry dates by default
             sortableModel.sortByColumn(new ColumnToSort(0, 2));
@@ -367,27 +367,26 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     {
         
             public int compare(Object o1, Object o2)
-            {
-                final Date date1 = (Date)o1;
-                final Date date2 = (Date)o2;
-
+            {                
+                if (o1 == null && o2 == null)
+                {
+                    return 0;
+                }
+                
                 //Null is treated as being greater as any non-null expiry date.
                 //This has the effect of displaying items without an expiry
                 //At the end of a least-expiry-first table of items.
-                if (date1 == null)
-                {
-                    System.out.println("Date null");
-                    if (date2 == null)
-                    {
-                        return 0;
-                    }
-                    return -1;
-                }
-                if (date2 == null)
+                if (o1 == null)
                 {
                     return 1;
                 }
+                if (o2 == null)
+                {
+                    return -1;
+                }
 
+                final Date date1 = (Date)o1;
+                final Date date2 = (Date)o2;
                 return date1.compareTo(date2);
             }
     }
