@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Housekeeper">
 
-  <title>Housekeeper</title>
-
+<project name="Housekeeper - The household management software">
+  <title>Housekeeper - The household management software</title>
   <body>
     <links>
-      <item name="Sourceforge Project Site"  href="http://www.sourceforge.net/projects/housekeeper"/>
+      <item name="Sourceforge Project Site"  href="http://www.sourceforge.net/projects/housekeeper" />
     </links>
-   <footer>
-    <A href="http://sourceforge.net/projects/housekeeper">
-      <IMG src="http://sourceforge.net/sflogo.php?group_id=91396" border="0" alt="sourceforge project site"/>
-    </A>
-   </footer>
+    <menu name="Overview">
+      <item href="/index.html" name="Home" />
+      <item href="/changes-report.html" name="Current Roadmap" />
+      <item href="/faq.html" name="FAQ" />
+    </menu>
   </body>
 </project>
