@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <household version="4">
-  <supply>
     <expiringItem name="Rösti">
       <description>250g</description>
       <category>convenienceFood</category>
@@ -29,7 +28,6 @@
       <expiry day="22" month="1" year="2005" />
       <category>convenienceFood</category>
     </expiringItem>
-  </supply>
   <category id="food">
     <name>Food</name>
     <category id="convenienceFood">

@@ -22,18 +22,22 @@
 package net.sf.housekeeper.swing;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.CategoryManager;
 
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.tree.BeanTreeCellRenderer;
 
@@ -41,17 +45,20 @@ import org.springframework.richclient.tree.BeanTreeCellRenderer;
  * @author
  * @version $Revision$, $Date$
  */
-public final class CategoriesView extends AbstractView
+public final class CategoriesView extends AbstractView implements
+        ApplicationListener
 {
 
-    private CategoryManager categoryManager;
+    private List  categoryManager;
+
+    private JTree tree;
 
     /**
      * Sets the category manager to be used.
      * 
      * @param manager the category manager to be used.
      */
-    public void setCategoryManager(CategoryManager manager)
+    public void setCategoryManager(List manager)
     {
         this.categoryManager = manager;
     }
@@ -63,10 +70,8 @@ public final class CategoriesView extends AbstractView
      */
     protected JComponent createControl()
     {
-        final DefaultMutableTreeNode rootNode = createNode(categoryManager
-                .getRootCategory());
+        tree = new JTree();
 
-        final JTree tree = new JTree(rootNode);
         tree.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -76,6 +81,7 @@ public final class CategoriesView extends AbstractView
         renderer.setClosedIcon(null);
         renderer.setLeafIcon(null);
         tree.setCellRenderer(renderer);
+        tree.setRootVisible(true);
 
         tree.addTreeSelectionListener(new TreeSelectionListener() {
 
@@ -93,10 +99,17 @@ public final class CategoriesView extends AbstractView
             }
         });
 
-        tree.setRootVisible(true);
-
-        tree.setSelectionRow(0);
+        refresh();
         return tree;
+    }
+
+    private void refresh()
+    {
+        final DefaultMutableTreeNode rootNode = createNode((Category) categoryManager
+                .get(0));
+        final DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
+        tree.setModel(treeModel);
+        tree.setSelectionRow(0);
     }
 
     private DefaultMutableTreeNode createNode(final Category cat)
@@ -119,6 +132,30 @@ public final class CategoriesView extends AbstractView
                                              new HousekeeperEvent(
                                                      HousekeeperEvent.SELECTED,
                                                      cat));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+     */
+    public void onApplicationEvent(ApplicationEvent e)
+    {
+        if (e instanceof HousekeeperEvent)
+        {
+            final HousekeeperEvent le = (HousekeeperEvent) e;
+            if (le.getEventType() == HousekeeperEvent.CATEGORIES_MODIFIED)
+            {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run()
+                    {
+                        refresh();
+                    }
+                });
+            }
+        }
+
     }
 
 }

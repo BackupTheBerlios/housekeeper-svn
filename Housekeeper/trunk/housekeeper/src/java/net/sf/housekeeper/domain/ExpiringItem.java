@@ -63,8 +63,8 @@ public final class ExpiringItem extends Item
     private Date               expiry;
 
     /**
-     * Creates a new ExpiringItem object with default values. All properties
-     * are not set.
+     * Creates a new ExpiringItem object with default values. All properties are
+     * not set.
      */
     public ExpiringItem()
     {
@@ -96,16 +96,16 @@ public final class ExpiringItem extends Item
      * @param quantity The quantity which one exemplar of this item contains.
      * @param expiry The date until this item should be consumed.
      */
-    public ExpiringItem(final String name, final String quantity, final Date expiry)
+    public ExpiringItem(final String name, final String quantity,
+            final Date expiry)
     {
         super(name, quantity);
         setExpiry(expiry);
     }
 
     /**
-     * Sets the expiry date of this item to one second before midnight of the
-     * given date. A value of null specifies that the expiry for this item
-     * should not be set to a value.
+     * Sets the expiry date. A value of null specifies that the expiry for this
+     * item should not be set to a value.
      * 
      * @param expiry The new expiry date or null to unset the date.
      */
@@ -113,13 +113,7 @@ public final class ExpiringItem extends Item
     {
         if (expiry != null)
         {
-            final Date truncatedExpiry = DateUtils
-                    .truncate(expiry, Calendar.DAY_OF_MONTH);
-            final Calendar calendar = Calendar.getInstance();
-            calendar.setTime(truncatedExpiry);
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            calendar.add(Calendar.SECOND, -1);
-            this.expiry = calendar.getTime();
+            this.expiry = DateUtils.truncate(expiry, Calendar.DAY_OF_MONTH);
         } else
         {
             this.expiry = null;

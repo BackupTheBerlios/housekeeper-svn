@@ -37,6 +37,7 @@ import org.springframework.context.ApplicationContextAware;
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
+import net.sf.housekeeper.persistence.jibx.JiBXPersistence;
 
 /**
  * Provides methods to replace or store domain objects in a
@@ -49,17 +50,19 @@ import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
 public final class PersistenceController implements ApplicationContextAware
 {
 
+    private final PersistenceService jibxPersistence;
+
     /**
      * Persistence using JDOM.
      */
-    private final PersistenceService     jdomPersistence;
+    private final PersistenceService jdomPersistence;
 
     /**
      * File used for loading and saving
      */
-    private final File                   dataFile;
+    private final File               dataFile;
 
-    private ApplicationContext           applicationContext;
+    private ApplicationContext       applicationContext;
 
     /**
      * Initializes the persistence service to use, which is currently fixed to
@@ -76,6 +79,7 @@ public final class PersistenceController implements ApplicationContextAware
 
         dataFile = new File(hkDir, "data.xml");
 
+        jibxPersistence = new JiBXPersistence();
         jdomPersistence = new JDOMPersistence();
     }
 
@@ -93,8 +97,20 @@ public final class PersistenceController implements ApplicationContextAware
     {
         final InputStream dataStream = new BufferedInputStream(
                 new FileInputStream(dataFile));
-        final Household savedHousehold = jdomPersistence.loadData(dataStream);
-        dataStream.close();
+
+        Household savedHousehold;
+        try
+        {
+            savedHousehold = jdomPersistence.loadData(dataStream);
+        } catch (UnsupportedFileVersionException e)
+        {
+            dataStream.close();
+
+            final InputStream newStream = new BufferedInputStream(
+                    new FileInputStream(dataFile));
+            savedHousehold = jibxPersistence.loadData(newStream);
+        }
+
         currentDomain.replaceAll(savedHousehold);
 
         //The data has not been changed by the user.
@@ -103,7 +119,9 @@ public final class PersistenceController implements ApplicationContextAware
         if (applicationContext != null)
         {
             applicationContext.publishEvent(new HousekeeperEvent(
-                    HousekeeperEvent.DATA_CHANGED, this));
+                    HousekeeperEvent.CATEGORIES_MODIFIED, this));
+            applicationContext.publishEvent(new HousekeeperEvent(
+                    HousekeeperEvent.SUPPLY_MODIFIED, this));
         }
     }
 
@@ -119,7 +137,7 @@ public final class PersistenceController implements ApplicationContextAware
     {
         final OutputStream dataStream = new BufferedOutputStream(
                 new FileOutputStream(dataFile));
-        jdomPersistence.saveData(currentDomain, dataStream);
+        jibxPersistence.saveData(currentDomain, dataStream);
         dataStream.flush();
         dataStream.close();
 

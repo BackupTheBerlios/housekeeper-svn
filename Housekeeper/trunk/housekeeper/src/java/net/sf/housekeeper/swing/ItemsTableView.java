@@ -194,7 +194,7 @@ public final class ItemsTableView extends AbstractView implements
                         setCategory(cat);
                     }
                 });
-            } else if (le.getEventType() == HousekeeperEvent.DATA_CHANGED)
+            } else if (le.getEventType() == HousekeeperEvent.SUPPLY_MODIFIED)
             {
                 SwingUtilities.invokeLater(new Runnable() {
 

@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.domain;
 
+import java.util.ArrayList;
+
 import org.springframework.util.ToStringCreator;
 
 /**
@@ -33,14 +35,17 @@ public final class Household
 {
 
     private final ItemManager foodManager;
+    
+    private ArrayList categories;
 
+    private int version = 4;
 
     /**
      * Creates a new domain with no data.
      */
     public Household()
     {
-        this(new ItemManager());
+        this(new ItemManager(), new ArrayList());
     }
 
     /**
@@ -49,11 +54,22 @@ public final class Household
      * @param manager The manager for food objects. Must not
      *            be null.
      */
-    public Household(final ItemManager manager)
+    public Household(final ItemManager manager, final ArrayList categories)
     {
         this.foodManager = manager;
+        this.categories = categories;
+        final Category rootCategory = new Category("food", "domain.food");
+        rootCategory.addChild(new Category("convenienceFood",
+                                             "domain.food.convenienceFoods"));
+        rootCategory.addChild(new Category("misc", "domain.food.misc"));
+        categories.add(rootCategory);
     }
 
+    public ArrayList getCategories()
+    {
+        return categories;
+    }
+    
     /**
      * Returns the manager for food objects in this domain.
      * 
@@ -74,6 +90,8 @@ public final class Household
     {
         foodManager.replaceAll(domain.getFoodManager()
                 .getAllItems());
+        categories.clear();
+        categories.addAll(domain.getCategories());
     }
 
     /**
@@ -95,47 +113,6 @@ public final class Household
     public void resetChangedStatus()
     {
         foodManager.resetChangedStatus();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
-            return true;
-        }
-        if (o == null)
-        {
-            return false;
-        }
-        if (o.getClass() != getClass())
-        {
-            return false;
-        }
-        Household castedObj = (Household) o;
-        final boolean isConvEqual = this.foodManager == null ? castedObj.foodManager == null
-                : this.foodManager
-                        .equals(castedObj.foodManager);
-        return isConvEqual;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode()
-    {
-        int hashCode = 1;
-        hashCode = 31
-                * hashCode
-                + (foodManager == null ? 0 : foodManager
-                        .hashCode());
-        return hashCode;
     }
 
     /*

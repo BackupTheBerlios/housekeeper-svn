@@ -17,5 +17,10 @@
 	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.1.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-sandbox-20050324.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/xmlunit/jars/xmlunit-1.0.jar"/>
+	<classpathentry kind="lib" path="/data1/transfer/jibx-beta3c/jibx/lib/bcel.jar"/>
+	<classpathentry kind="lib" path="/data1/transfer/jibx-beta3c/jibx/lib/jibx-bind.jar"/>
+	<classpathentry kind="lib" path="/data1/transfer/jibx-beta3c/jibx/lib/jibx-extras.jar"/>
+	<classpathentry kind="lib" path="/data1/transfer/jibx-beta3c/jibx/lib/jibx-run.jar"/>
+	<classpathentry kind="lib" path="/data1/transfer/jibx-beta3c/jibx/lib/xpp3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

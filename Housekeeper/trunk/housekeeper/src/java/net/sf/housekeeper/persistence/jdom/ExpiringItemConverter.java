@@ -21,12 +21,14 @@
 
 package net.sf.housekeeper.persistence.jdom;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ExpiringItem;
 
 import org.jdom.Element;
@@ -99,7 +101,7 @@ final class ExpiringItemConverter
      *            Element actually can be converted to a ExpiringItem.
      * @return The ExpiringItem object build from the given Element.
      */
-    static ExpiringItem convert(final Element itemElement)
+    static ExpiringItem convert(final Category categories, final Element itemElement)
     {
         final ExpiringItem item = new ExpiringItem();
 
@@ -136,13 +138,31 @@ final class ExpiringItemConverter
         final Element categoryElement = itemElement.getChild(ELEMENT_CATEGORY);
         if (categoryElement != null)
         {
-            String categoryID = categoryElement.getValue();
-            final CategoryManager catMan = (CategoryManager)Application.services().getBean("categoryManager");
-            final Category cat = catMan.getCategory(categoryID);
+            String categoryID = categoryElement.getAttributeValue("name");
+            final Category cat = findCategory(categories, categoryID);
             item.setCategory(cat);
         }
 
         return item;
+    }
+    
+    private static Category findCategory(Category cat, String id)
+    {
+        if(cat.getId().equals(id))
+        {
+            return cat;
+        }
+        
+        final Iterator iter = cat.getChildrenIterator();
+        while(iter.hasNext())
+        {
+            Category c = (Category)iter.next();
+            if (c.getId().equals(id))
+            {
+                return c;
+            }
+        }
+        return null;
     }
 
     /**

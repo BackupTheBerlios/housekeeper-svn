@@ -53,7 +53,7 @@ public final class ItemManager
     /**
      * Holds a list of all managed items.
      */
-    private final List       items;
+    private final ArrayList       items;
 
     /**
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
@@ -71,9 +71,9 @@ public final class ItemManager
      * @param items A list of {@link Item}s. The types of the elements the
      *            collection are NOT checked by this method.
      */
-    public ItemManager(final List items)
+    public ItemManager(final Collection items)
     {
-        this.items = items;
+        this.items = new ArrayList(items);
         resetChangedStatus();
     }
 

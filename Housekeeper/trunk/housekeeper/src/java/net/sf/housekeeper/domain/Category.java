@@ -39,7 +39,7 @@ public final class Category
 
     private String                  name;
 
-    private Set                    children;
+    private HashSet                    children;
     
     /**
      * Creates a new object with no name and children.

@@ -3,6 +3,7 @@ package net.sf.housekeeper.persistence.jdom;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpiringItem;
 import net.sf.housekeeper.domain.Household;
 
@@ -20,9 +21,7 @@ import org.jdom.Element;
 final class ModelConverter
 {
 
-    private static final String ELEMENT_SUPPLY         = "supply";
-    
-    private static final String ELEMENT_ITEM         = "expiringItem";
+    private static final String ELEMENT_FOOD_ITEM         = "foodItem";
 
     private static final String ELEMENT_ROOT              = "household";
 
@@ -43,7 +42,7 @@ final class ModelConverter
     Household convertToDomain(final Element root)
     {
         final Household household = new Household();
-        final ArrayList items = getItems(root.getChild(ELEMENT_SUPPLY));
+        final ArrayList items = getFoodItems((Category)household.getCategories().get(0), root);
         
         household.getFoodManager().replaceAll(items);
 
@@ -51,46 +50,34 @@ final class ModelConverter
     }
 
     /**
-     * Creates an XML element hierarchy from the given domain objects.
+     * Not supported anymore.
      * 
      * @param household The data to save. Must not be null.
-     * @return the DOM generated from the domain. Is not null.
+     * @return null.
      */
     Element convertDomainToXML(final Household household)
-    {
-        final Element supplyElement = new Element(ELEMENT_SUPPLY);
-        final Element root = new Element(ELEMENT_ROOT);
-        root.addContent(supplyElement);
-
-        final Iterator iter = household.getFoodManager()
-        .getItemsIterator();
-        while (iter.hasNext())
-        {
-            final ExpiringItem item = (ExpiringItem) iter.next();
-            supplyElement.addContent(ExpiringItemConverter.convert(item));
-        }
-        
-        return root;
+    {        
+        return null;
     }
 
     /**
-     * Creates {@link ExpiringItem}objects from an item container.
+     * Creates {@link ExpiringItem}objects from a food container.
      * 
-     * @param supplyElement The container with the item elements.
+     * @param foodElement The container with the food elements.
      * @return A list of {@link ExpiringItem}objects.
      */
-    private ArrayList getItems(final Element supplyElement)
+    private ArrayList getFoodItems(final Category categories, final Element foodElement)
     {
-        final ArrayList itemObjectList = new ArrayList();
-        final Iterator itemElementIterator = supplyElement
-                .getChildren(ELEMENT_ITEM).iterator();
-        while (itemElementIterator.hasNext())
+        final ArrayList food = new ArrayList();
+        final Iterator foodItemIterator = foodElement
+                .getChildren(ELEMENT_FOOD_ITEM).iterator();
+        while (foodItemIterator.hasNext())
         {
-            final Element element = (Element) itemElementIterator.next();
-            final ExpiringItem item = ExpiringItemConverter.convert(element);
-            itemObjectList.add(item);
+            final Element element = (Element) foodItemIterator.next();
+            final ExpiringItem item = ExpiringItemConverter.convert(categories, element);
+            food.add(item);
         }
-        return itemObjectList;
+        return food;
     }
 
 }

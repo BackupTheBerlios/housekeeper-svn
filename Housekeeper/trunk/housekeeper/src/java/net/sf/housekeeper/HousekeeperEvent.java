@@ -40,11 +40,17 @@ public class HousekeeperEvent extends ApplicationEvent
     public static final String SELECTED = "housekeeperEvent.selected";
     
     /**
+     * Event type if items in supply has been changed, and all views
+     * should be refreshed.
+     */
+    public static final String SUPPLY_MODIFIED = "houskeeperEvent.supplyModified";
+
+    /**
      * Event type if something unspecified has been changed, and all views
      * should be refreshed.
      */
-    public static final String DATA_CHANGED = "houskeeperEvent.datachanged";
-
+    public static final String CATEGORIES_MODIFIED = "houskeeperEvent.categoriesModified";
+    
     /**
      * Creates a new event.
      * 

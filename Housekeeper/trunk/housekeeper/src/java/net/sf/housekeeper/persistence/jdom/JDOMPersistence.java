@@ -35,8 +35,6 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 
 /**
  * Uses JDOM to convert data between an XML file and domain objects.
@@ -60,7 +58,7 @@ public final class JDOMPersistence implements PersistenceService
     /**
      * The current file version.
      */
-    private static final int     CURRENT_FILE_VERSION   = 4;
+    private static final int     CURRENT_FILE_VERSION   = 3;
 
     /**
      * The logger for this class.
@@ -115,14 +113,7 @@ public final class JDOMPersistence implements PersistenceService
     public void saveData(final Household household, final OutputStream location)
             throws IOException
     {
-        final Element root = modelConverter.convertDomainToXML(household);
-        root.setAttribute("version", "" + CURRENT_FILE_VERSION);
-        final Document document = new Document(root);
-
-        final Format format = Format.getPrettyFormat();
-        final XMLOutputter serializer = new XMLOutputter(format);
-
-        serializer.output(document, location);
+        
     }
 
     /*
@@ -217,9 +208,6 @@ public final class JDOMPersistence implements PersistenceService
         DocumentVersionConverter docConverter = null;
         switch (version)
         {
-            case 1:
-                docConverter = new Version2To3Converter(new Version1To2Converter());
-                break;
             case 2:
                 docConverter = new Version2To3Converter();
                 break;
