@@ -89,7 +89,8 @@ public final class FoodItemManager
     }
     
     /**
-     * Returns the items on hold.
+     * Returns the items on hold. You must NOT modify the returned list object
+     * directly. Use the methods of this manager instead.
      * 
      * @return the supply.
      */

@@ -37,6 +37,7 @@ public class FoodItemManagerTest extends TestCase
 
         final Collection col = new ArrayList();
         final FoodItem newItem = new FoodItem();
+        newItem.setName("NewItem");
         col.add(newItem);
         manager.replaceAll(col);
 

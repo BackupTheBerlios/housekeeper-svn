@@ -9,14 +9,14 @@ import junit.framework.TestCase;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class FoodItemTest extends TestCase
+public final class FoodItemTest extends TestCase
 {
 
     /**
-     * Tests if the attributes are set to the correct values
-     * using the constructor.
+     * Tests if the attributes are set to the correct values using the
+     * constructor.
      */
-    public final void testFoodItemStringStringDate()
+    public void testFoodItemStringStringDate()
     {
         final String itemName = "aName";
         final String itemQuantity = "aQuantity";
@@ -45,9 +45,9 @@ public class FoodItemTest extends TestCase
 
     /**
      * Tests the setting of a normal expiry date.
-     *
+     *  
      */
-    public final void testSetExpiry()
+    public void testSetExpiry()
     {
         final FoodItem item = new FoodItem();
         final Calendar nowCal = Calendar.getInstance();
@@ -62,11 +62,11 @@ public class FoodItemTest extends TestCase
         assertEquals(nowCal.get(Calendar.MONTH), itemCal.get(Calendar.MONTH));
         assertEquals(nowCal.get(Calendar.YEAR), itemCal.get(Calendar.YEAR));
     }
-    
+
     /**
      * Tests the unsetting of an expiry date.
      */
-    public final void testUnsetExpiry()
+    public void testUnsetExpiry()
     {
         final FoodItem item = new FoodItem();
         item.setExpiry(new Date());
@@ -77,7 +77,7 @@ public class FoodItemTest extends TestCase
     /**
      * Tests setting a normal name.
      */
-    public final void testSetNormalName()
+    public void testSetNormalName()
     {
         //Test normal
         final FoodItem item = new FoodItem();
@@ -85,42 +85,84 @@ public class FoodItemTest extends TestCase
         item.setName(name);
         assertEquals(name, item.getName());
     }
-    
+
     /**
      * Tests setting the name to null.
      */
-    public final void testSetNullName()
+    public void testSetNullName()
     {
-      try
-      {
-          final FoodItem item = new FoodItem();
-          item.setName(null);
-          fail("Item.setName(String) must not allow null as parameter");
-      } catch (IllegalArgumentException e)
-      {
-          //No code as the exception is expected be thrown.
-      }
+        try
+        {
+            final FoodItem item = new FoodItem();
+            item.setName(null);
+            fail("Item.setName(String) must not allow null as parameter");
+        } catch (IllegalArgumentException e)
+        {
+            //No code as the exception is expected be thrown.
+        }
     }
 
     /**
      * Tests setting the quantity.
      */
-    public final void testSetQuantity()
+    public void testSetQuantity()
     {
         final FoodItem item = new FoodItem();
         final String quantity = "quant";
         item.setQuantity(quantity);
         assertEquals(quantity, item.getQuantity());
     }
-    
+
     /**
      * Tests unsetting the quantity.
      */
-    public final void testUnsetQuantity()
+    public void testUnsetQuantity()
     {
         final FoodItem item = new FoodItem();
         item.setQuantity("");
         assertNull(item.getQuantity());
+    }
+
+    /**
+     * Tests if isEqual() returns true if two items are euqal.
+     */
+    public void testEquality()
+    {
+        final String name = "AName";
+        final Date expiry = new Date();
+        final String quantity = "AQuantity";
+
+        final FoodItem item = new FoodItem("AName", "AQuantity", expiry);
+        final FoodItem item2 = new FoodItem("AName", "AQuantity", (Date) expiry.clone());
+        
+        final boolean itemEqualsItem2 = item.equals(item2);
+        final boolean item2EqualsItem = item2.equals(item);
+        
+        assertTrue("Items are reported as not equal but they are.", itemEqualsItem2);
+        assertTrue("Items are reported as not equal but they are.", item2EqualsItem);
+    }
+    
+    public void testInequality()
+    {
+        final String name = "AName";
+        final Date expiry = new Date();
+        final String quantity = "AQuantity";
+        final FoodItem item = new FoodItem(name, quantity, expiry);
+        
+        final FoodItem differentName = new FoodItem("FAwer", quantity, expiry);
+        final boolean isEqualDifName = item.equals(differentName);
+        assertFalse(isEqualDifName);
+        
+        final FoodItem differentQuantity = new FoodItem(name, "faase", expiry);
+        final boolean isEqualDifQuantity = item.equals(differentQuantity);
+        assertFalse(isEqualDifQuantity);
+        
+        final FoodItem differentExpiry = new FoodItem(name, quantity, new Date(2));
+        final boolean isEqualDifExpiry = item.equals(differentExpiry);
+        assertFalse(isEqualDifExpiry);
+        
+        final boolean equalsNull = item.equals(null);
+        assertFalse(equalsNull);
     }
 
 }

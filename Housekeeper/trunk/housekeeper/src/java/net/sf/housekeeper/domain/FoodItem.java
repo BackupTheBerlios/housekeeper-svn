@@ -192,37 +192,6 @@ public final class FoodItem extends Model
     /*
      * (non-Javadoc)
      * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
-            return true;
-        }
-        if (!super.equals(o))
-        {
-            return false;
-        }
-        if (o == null)
-        {
-            return false;
-        }
-        if (o.getClass() != getClass())
-        {
-            return false;
-        }
-        FoodItem castedObj = (FoodItem) o;
-        return ((this.name == null ? castedObj.name == null : this.name
-                .equals(castedObj.name))
-                && (this.expiry == null ? castedObj.expiry == null
-                        : this.expiry.equals(castedObj.expiry)) && (this.quantity == null ? castedObj.quantity == null
-                : this.quantity.equals(castedObj.quantity)));
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see java.lang.Object#hashCode()
      */
     public int hashCode()
@@ -266,5 +235,32 @@ public final class FoodItem extends Model
         inst.quantity = this.quantity == null ? null
                 : new String(this.quantity);
         return inst;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null)
+        {
+            return false;
+        }
+        if (o.getClass() != getClass())
+        {
+            return false;
+        }
+        FoodItem castedObj = (FoodItem) o;
+        return ((this.name == null ? castedObj.name == null : this.name
+                .equals(castedObj.name))
+                && (this.expiry == null ? castedObj.expiry == null
+                        : this.expiry.equals(castedObj.expiry)) && (this.quantity == null ? castedObj.quantity == null
+                : this.quantity.equals(castedObj.quantity)));
     }
 }
