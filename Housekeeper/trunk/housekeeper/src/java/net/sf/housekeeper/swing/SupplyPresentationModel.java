@@ -248,7 +248,7 @@ public class SupplyPresentationModel
      */
     private void setSelectionModel(final JTable table)
     {
-        table.setSelectionModel(selectionModel.getListSelectionModel());
+        table.setSelectionModel(selectionModel);
         table.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
