@@ -125,13 +125,11 @@
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
 
-	<!--
     <unitTest>
       <includes>
         <include>**/*Test.java</include>
       </includes>
     </unitTest>
-    -->
 
     <resources>
       <resource>
@@ -153,6 +151,7 @@
     <report>maven-javadoc-plugin</report>
     <report>maven-jdepend-plugin</report>
     <report>maven-junit-report-plugin</report>
+    <report>maven-jcoverage-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-linkcheck-plugin</report>
     <report>maven-simian-plugin</report>
