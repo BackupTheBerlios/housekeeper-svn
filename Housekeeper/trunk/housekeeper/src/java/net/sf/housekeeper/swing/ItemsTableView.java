@@ -80,6 +80,11 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     
     private String category;
         
+    public ItemsTableView()
+    {
+        newItemExecutor.setEnabled(true);
+    }
+    
     /* (non-Javadoc)
      * @see org.springframework.richclient.factory.AbstractControlFactory#createControl()
      */
