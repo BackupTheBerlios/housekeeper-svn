@@ -52,18 +52,23 @@ import org.apache.commons.logging.LogFactory;
 import com.jgoodies.plaf.plastic.PlasticXPLookAndFeel;
 
 /**
- * The Main Frame of the Housekeeper application.
+ * The main frame of the Housekeeper application.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class MainFrame extends JFrame
+public final class MainFrame
 {
 
     /**
      * Log to be used for this class.
      */
-    private static final Log             LOG      = LogFactory.getLog(MainFrame.class);
+    private static final Log LOG = LogFactory.getLog(MainFrame.class);
+
+    /**
+     * The view of this main frame.
+     */
+    private final JFrame     view;
 
     /**
      * Initializes and packs a new main frame.
@@ -71,26 +76,38 @@ public final class MainFrame extends JFrame
     public MainFrame()
     {
         super();
+
+        view = new JFrame();
+
         initLookAndFeel();
-        
+
         final String version = ConfigurationManager.INSTANCE.getConfiguration()
                 .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
-        setTitle("Housekeeper " + version);
+        view.setTitle("Housekeeper " + version);
 
-        setJMenuBar(buildMenuBar());
-        getContentPane().add(buildComponents());
+        view.setJMenuBar(buildMenuBar());
+        view.getContentPane().add(buildComponents());
 
-        pack();
-        setLocationRelativeTo(null);
-        
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
+        view.pack();
+        view.setLocationRelativeTo(null);
+
+        //Use the controller for exiting the application
+        view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        view.addWindowListener(new WindowAdapter() {
 
             public void windowClosing(WindowEvent e)
             {
-               exitApplication();
+                exitApplication();
             }
         });
+    }
+    
+    /**
+     * Displays this main frame.
+     */
+    public void show()
+    {
+        view.show();
     }
 
     /**
@@ -99,7 +116,7 @@ public final class MainFrame extends JFrame
     private Component buildComponents()
     {
         final JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Supply", new SupplyPanel(this));
+        tabbedPane.addTab("Supply", new SupplyPanel(view));
         return tabbedPane;
     }
 
@@ -166,8 +183,9 @@ public final class MainFrame extends JFrame
     private void exitApplication()
     {
         boolean exit = true;
-        
-        final int option = JOptionPane.showConfirmDialog(this, "Save modifications before exiting?");
+
+        final int option = JOptionPane
+                .showConfirmDialog(view, "Save modifications before exiting?");
         if (option == JOptionPane.YES_OPTION)
         {
             try
@@ -183,27 +201,27 @@ public final class MainFrame extends JFrame
         {
             exit = false;
         }
-        
+
         if (exit)
         {
             ApplicationController.instance().exit();
         }
     }
-    
+
     /**
      * Shows a dialog which informs the user that saving was not succesful.
-     *
+     *  
      */
     private void showSavingErrorDialog()
     {
         JOptionPane
-        .showMessageDialog(
-                           this,
-                           "There was a problem saving the data.\n" +
-                           "Your modifications have NOT been saved.",
-                           "Error", JOptionPane.ERROR_MESSAGE);
+                .showMessageDialog(
+                                   view,
+                                   "There was a problem saving the data.\n"
+                                           + "Your modifications have NOT been saved.",
+                                   "Error", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     /**
      * Action for exiting the application.
      */
@@ -239,15 +257,16 @@ public final class MainFrame extends JFrame
                 PersistenceController.replaceDomainWithSaved();
             } catch (FileNotFoundException exception)
             {
-                JOptionPane.showMessageDialog(MainFrame.this,
+                JOptionPane.showMessageDialog(view,
                                               "No data has been saved yet.",
                                               "Error",
                                               JOptionPane.ERROR_MESSAGE);
             } catch (Exception exception)
             {
                 exception.printStackTrace();
-                JOptionPane.showMessageDialog(MainFrame.this, exception
-                        .getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view, exception.getMessage(),
+                                              "Error",
+                                              JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -314,7 +333,7 @@ public final class MainFrame extends JFrame
             }
 
             editorPane.setPreferredSize(new Dimension(400, 200));
-            JOptionPane.showMessageDialog(MainFrame.this, editorPane);
+            JOptionPane.showMessageDialog(view, editorPane);
 
         }
     }

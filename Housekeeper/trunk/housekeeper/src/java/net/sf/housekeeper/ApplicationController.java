@@ -51,7 +51,7 @@ public final class ApplicationController
      * @throws IOException
      * @throws ConfigurationException
      */
-    private ApplicationController(String[] args) throws ConfigurationException,
+    private ApplicationController() throws ConfigurationException,
             IOException
     {
         initializeConfigurationManager(); 
@@ -134,7 +134,7 @@ public final class ApplicationController
                     .fatal("You need at least JRE 1.4 to run Housekeeper!");
             System.exit(1);
         }
-        instance = new ApplicationController(args);
+        instance = new ApplicationController();
         instance.start();
     }
 
