@@ -48,7 +48,7 @@ public final class NewAssortimentItemAction extends AbstractAction
     public static final NewAssortimentItemAction INSTANCE = new NewAssortimentItemAction();
 
     /** Title to be shown in GUI */
-    private static final String TITLE = "New Assortiment Item";
+    private static final String TITLE = "Create Assortiment Item";
 
     //~ Constructors -----------------------------------------------------------
 
