@@ -69,23 +69,20 @@ public final class FoodItem extends Model
     /**
      * Creates a new FoodItem object with specified values.
      * 
-     * @param name Name of the item. Must not be null.
-     * @param bestBeforeEnd Date until this item should be consumed. Must not be
-     *            null.
+     * @param name The name of the item. Must not be null.
      * @param quantity The quantity which one exemplar of this item contains.
+     * @param expiry The date until this item should be consumed.
      */
-    public FoodItem(final String name, final String quantity,
-            final Date bestBeforeEnd)
+    public FoodItem(final String name, final String quantity, final Date expiry)
     {
         setName(name);
-        setExpiry(bestBeforeEnd);
         setQuantity(quantity);
+        setExpiry(expiry);
     }
 
     /**
-     * Creates a new FoodItem object with default values. The related article is
-     * an empty one, there are no consumptions and the expiry date is set to
-     * today.
+     * Creates a new FoodItem object with default values. The name is empty,
+     * there is no quantity set and the expiry date is set to today.
      */
     public FoodItem()
     {
@@ -94,28 +91,35 @@ public final class FoodItem extends Model
 
     /**
      * Sets the expiry date of this item to one second before midnight of the
-     * given date.
+     * given date. A value of null specifies that the expiry for this item
+     * should not be set to a value.
      * 
-     * @param expiry The new expiry date.
+     * @param expiry The new expiry date or null.
      */
     public void setExpiry(final Date expiry)
     {
         final Object oldValue = getExpiry();
-        final Date truncatedExpiry = DateUtils.truncate(expiry,
-                                                        Calendar.DAY_OF_MONTH);
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(truncatedExpiry);
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        calendar.add(Calendar.SECOND, -1);
-        this.expiry = calendar.getTime();
-        
+
+        if (expiry != null)
+        {
+            final Date truncatedExpiry = DateUtils
+                    .truncate(expiry, Calendar.DAY_OF_MONTH);
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTime(truncatedExpiry);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            calendar.add(Calendar.SECOND, -1);
+            this.expiry = calendar.getTime();
+        } else {
+            this.expiry = null;
+        }
+
         firePropertyChange(PROPERTYNAME_EXPIRY, oldValue, getExpiry());
     }
 
     /**
-     * Gets the corresponding attribute.
+     * Gets the expiry date of this item.
      * 
-     * @return The corresponding attribute.
+     * @return Returns the expiry date or null if none has been set.
      */
     public Date getExpiry()
     {
@@ -133,6 +137,8 @@ public final class FoodItem extends Model
     }
 
     /**
+     * Sets the name of this item.
+     * 
      * @param name The name to set.
      */
     public void setName(final String name)
