@@ -27,6 +27,7 @@ import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,7 @@ import javax.swing.table.TableCellRenderer;
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
+import net.sf.housekeeper.swing.util.CustomTableUtils;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.context.ApplicationEvent;
@@ -58,7 +60,6 @@ import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.ColumnToSort;
 import org.springframework.richclient.table.SortableTableModel;
-import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
@@ -101,7 +102,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     {
         tableModel = new ItemsTableModel(new ArrayList(), getApplicationContext());
         itemsTable = createTable(tableModel);
-        
+           
         final JPanel panel = new JPanel();
         //Without that, the tables won't grow and shrink with the window's
         // size.
@@ -114,10 +115,12 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     }
     
     private JTable createTable(ItemsTableModel model) {
-            final JTable table = TableUtils.createStandardSortableTable(model);
+            final JTable table = CustomTableUtils.createStandardSortableTable(model);
+            
+            final SortableTableModel sortableModel = (SortableTableModel)table.getModel();
+            //sortableModel.setComparator(2, new ExpiryDateComparator());
             
             //Sort expiry dates by default
-            final SortableTableModel sortableModel = (SortableTableModel)table.getModel();
             sortableModel.sortByColumn(new ColumnToSort(0, 2));
             
             table.getSelectionModel().addListSelectionListener(new TableSelectionListener());
@@ -358,6 +361,35 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
             };
             dialog.showDialog();
         }
+    }
+    
+    private static class ExpiryDateComparator implements Comparator
+    {
+        
+            public int compare(Object o1, Object o2)
+            {
+                final Date date1 = (Date)o1;
+                final Date date2 = (Date)o2;
+
+                //Null is treated as being greater as any non-null expiry date.
+                //This has the effect of displaying items without an expiry
+                //At the end of a least-expiry-first table of items.
+                if (date1 == null)
+                {
+                    System.out.println("Date null");
+                    if (date2 == null)
+                    {
+                        return 0;
+                    }
+                    return -1;
+                }
+                if (date2 == null)
+                {
+                    return 1;
+                }
+
+                return date1.compareTo(date2);
+            }
     }
 
 }
