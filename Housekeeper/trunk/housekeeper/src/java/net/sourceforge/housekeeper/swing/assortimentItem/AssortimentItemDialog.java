@@ -53,14 +53,14 @@ public final class AssortimentItemDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
-    private AssortimentItem article;
-    private JButton            buttonCancel;
-    private JButton            buttonOK;
-    private JTextField         nameField;
-    private JTextField         priceField;
-    private JTextField         quantityField;
-    private JTextField         storeField;
-    private JTextField         unitField;
+    private AssortimentItem item;
+    private JButton         buttonCancel;
+    private JButton         buttonOK;
+    private JTextField      nameField;
+    private JTextField      priceField;
+    private JTextField      quantityField;
+    private JTextField      storeField;
+    private JTextField      unitField;
 
     //~ Constructors -----------------------------------------------------------
 
@@ -82,7 +82,6 @@ public final class AssortimentItemDialog extends JDialog
 
         buttonCancel = new JButton(new DefaultCancelButtonActionListener(this));
 
-        
         buildLayout();
         pack();
         SwingUtils.centerOnComponent(this, getParent());
@@ -104,7 +103,7 @@ public final class AssortimentItemDialog extends JDialog
         setTitle(title);
         super.show();
 
-        return article;
+        return item;
     }
 
     /**
@@ -117,12 +116,11 @@ public final class AssortimentItemDialog extends JDialog
      * @return The modified object if the user confirms his entry, null if he
      *         aborts.
      */
-    public AssortimentItem show(String title,
-                                   AssortimentItem articleDescription)
+    public AssortimentItem show(String title, AssortimentItem articleDescription)
     {
         setTitle(title);
 
-        this.article = articleDescription;
+        this.item = articleDescription;
         nameField.setText(articleDescription.getName());
         storeField.setText(articleDescription.getStore());
         priceField.setText("" + articleDescription.getPrice());
@@ -155,7 +153,7 @@ public final class AssortimentItemDialog extends JDialog
 
         builder.setDefaultDialogBorder();
 
-        builder.appendTitle("Article");
+        builder.appendTitle("Assortiment Item");
         builder.nextLine();
 
         builder.append("Name", nameField, 2);
@@ -171,7 +169,6 @@ public final class AssortimentItemDialog extends JDialog
         setContentPane(builder.getPanel());
     }
 
-
     //~ Inner Classes ----------------------------------------------------------
 
     private class OKButtonActionListener implements ActionListener
@@ -181,17 +178,17 @@ public final class AssortimentItemDialog extends JDialog
          */
         public void actionPerformed(ActionEvent e)
         {
-            if (article == null)
+            if (item == null)
             {
-                article = new AssortimentItem();
+                item = new AssortimentItem();
             }
 
 
-            article.setName(nameField.getText());
-            article.setStore(storeField.getText());
-            article.setPrice(Double.parseDouble(priceField.getText()));
-            article.setQuantity(Integer.parseInt(quantityField.getText()));
-            article.setUnit(unitField.getText());
+            item.setName(nameField.getText());
+            item.setStore(storeField.getText());
+            item.setPrice(Double.parseDouble(priceField.getText()));
+            item.setQuantity(Integer.parseInt(quantityField.getText()));
+            item.setUnit(unitField.getText());
 
             dispose();
         }
