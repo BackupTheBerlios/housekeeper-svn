@@ -209,6 +209,7 @@ public class Article
      */
     public String toString()
     {
-        return name + " " + store + " " + price + " " + quantity + unit;
+        return "Name: " + name + " Store: " + store + " Price: " + price +
+               " Quantity: " + quantity + " " + unit;
     }
 }
