@@ -26,14 +26,15 @@ package net.sourceforge.housekeeper.swing;
 import com.jgoodies.plaf.Options;
 import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
+import net.sourceforge.housekeeper.Housekeeper;
+import net.sourceforge.housekeeper.swing.action.*;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
-
-import net.sourceforge.housekeeper.swing.action.*;
 
 
 /**
@@ -51,10 +52,10 @@ public final class MainFrame extends JFrame
     //~ Instance fields --------------------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    private JMenu    menuArticles;
+    private JMenu menuArticles;
 
     /** TODO DOCUMENT ME! */
-    private JMenu    menuFile;
+    private JMenu menuFile;
 
     /** TODO DOCUMENT ME! */
     private JMenuBar menuBar;
@@ -76,8 +77,7 @@ public final class MainFrame extends JFrame
         buildMenus();
         buildComponents();
 
-        //setSize(400, 400);
-        setTitle("Housekeeper");
+        setTitle("Housekeeper " + Housekeeper.VERSION);
         pack();
         SwingUtils.centerOnScreen(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -92,10 +92,9 @@ public final class MainFrame extends JFrame
     {
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Articles", ArticleDescriptionPanel.getInstance());
-        tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
 
-        getContentPane()
-            .add(tabbedPane);
+        //tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
+        getContentPane().add(tabbedPane);
     }
 
     /**
