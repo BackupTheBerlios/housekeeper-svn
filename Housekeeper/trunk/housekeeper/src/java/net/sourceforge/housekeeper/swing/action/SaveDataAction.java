@@ -23,11 +23,11 @@
 package net.sourceforge.housekeeper.swing.action;
 
 
-import net.sourceforge.housekeeper.storage.StorageFactory;
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+
+import net.sourceforge.housekeeper.storage.StorageFactory;
 
 
 /**

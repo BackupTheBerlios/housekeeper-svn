@@ -14,7 +14,6 @@ import net.sourceforge.housekeeper.storage.StockItemMapper;
 public class MemoryMapperFactory implements DataMapperFactory
 {
     private MemAssItemMapper assItemMapper;
-    private MemPurchaseMapper purchaseMapper;
     private MemStockItemMapper stockItemMapper;
 
     public static final MemoryMapperFactory INSTANCE = new MemoryMapperFactory();
@@ -22,7 +21,6 @@ public class MemoryMapperFactory implements DataMapperFactory
     private MemoryMapperFactory()
     {
         assItemMapper = new MemAssItemMapper();
-        purchaseMapper = new MemPurchaseMapper();
         stockItemMapper = new MemStockItemMapper();
     }
 

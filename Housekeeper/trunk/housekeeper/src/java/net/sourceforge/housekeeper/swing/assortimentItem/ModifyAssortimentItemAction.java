@@ -23,12 +23,12 @@
 package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
-import net.sourceforge.housekeeper.domain.AssortimentItem;
-import net.sourceforge.housekeeper.swing.DataUpdateMediator;
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+
+import net.sourceforge.housekeeper.domain.AssortimentItem;
+import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 
 /**

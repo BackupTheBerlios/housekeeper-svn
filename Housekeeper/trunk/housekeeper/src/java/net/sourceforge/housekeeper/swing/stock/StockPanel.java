@@ -19,8 +19,6 @@ import net.sourceforge.housekeeper.swing.TableModelTemplate;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public final class StockPanel extends JPanel implements Observer
 {

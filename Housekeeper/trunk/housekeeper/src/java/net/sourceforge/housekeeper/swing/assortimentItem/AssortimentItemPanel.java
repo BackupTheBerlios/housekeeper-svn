@@ -23,12 +23,6 @@
 package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
-import net.sourceforge.housekeeper.domain.AssortimentItem;
-import net.sourceforge.housekeeper.storage.StorageFactory;
-import net.sourceforge.housekeeper.swing.DataUpdateMediator;
-import net.sourceforge.housekeeper.swing.TableModelTemplate;
-import net.sourceforge.housekeeper.swing.stock.NewStockItemAction;
-
 import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
@@ -38,6 +32,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+
+import net.sourceforge.housekeeper.domain.AssortimentItem;
+import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.DataUpdateMediator;
+import net.sourceforge.housekeeper.swing.TableModelTemplate;
+import net.sourceforge.housekeeper.swing.stock.NewStockItemAction;
 
 
 /**

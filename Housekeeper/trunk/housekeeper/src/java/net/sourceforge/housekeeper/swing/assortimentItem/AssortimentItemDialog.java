@@ -23,15 +23,6 @@
 package net.sourceforge.housekeeper.swing.assortimentItem;
 
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.ButtonBarFactory;
-import com.jgoodies.forms.layout.FormLayout;
-
-import net.sourceforge.housekeeper.domain.AssortimentItem;
-import net.sourceforge.housekeeper.swing.MainFrame;
-import net.sourceforge.housekeeper.swing.SwingUtils;
-import net.sourceforge.housekeeper.swing.action.*;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +30,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
+
+import net.sourceforge.housekeeper.domain.AssortimentItem;
+import net.sourceforge.housekeeper.swing.MainFrame;
+import net.sourceforge.housekeeper.swing.SwingUtils;
+import net.sourceforge.housekeeper.swing.action.DefaultCancelButtonActionListener;
+
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.ButtonBarFactory;
+import com.jgoodies.forms.layout.FormLayout;
 
 
 /**

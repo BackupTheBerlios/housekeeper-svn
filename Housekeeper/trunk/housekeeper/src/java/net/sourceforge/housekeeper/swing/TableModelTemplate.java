@@ -9,8 +9,6 @@ import javax.swing.table.AbstractTableModel;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public abstract class TableModelTemplate extends AbstractTableModel
 {

@@ -20,8 +20,6 @@ import net.sourceforge.housekeeper.storage.memory.MemoryMapperFactory;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @see
- * @since
  */
 public final class XMLSerializationFactory implements DataMapperFactory
 {
