@@ -22,6 +22,7 @@
 package net.sf.housekeeper.domain;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -75,11 +76,19 @@ public final class FoodItemManager
     public void add(final FoodItem item)
     {
         supply.add(item);
-        
-        if (LOG.isDebugEnabled())
-        {
-            LOG.debug("Added item: " + item);
-        }
+
+        LOG.debug("Added item: " + item);
+    }
+    
+    /**
+     * Duplicates the provided item and adds it to the supply.
+     * 
+     * @param item The item to be duplicated.
+     */
+    public void duplicate(final FoodItem item)
+    {
+        final FoodItem clonedItem = (FoodItem)item.clone();
+        add(clonedItem);
     }
 
     /**
@@ -99,7 +108,7 @@ public final class FoodItemManager
      */
     public List getSupplyList()
     {
-        return supply;
+        return Collections.unmodifiableList(supply);
     }
 
     /**
@@ -112,10 +121,7 @@ public final class FoodItemManager
         supply.clear();
         supply.addAll(foodItems);
         
-        if (LOG.isDebugEnabled())
-        {
-            LOG.debug("Replaced all items: " + supply.toString());
-        }
+        LOG.debug("Replaced all items with: " + supply.toString());
     }
 
     /**
@@ -137,6 +143,8 @@ public final class FoodItemManager
     public void markItemChanged(int index)
     {
         supply.fireContentsChanged(index);
+        
+        LOG.debug("Marked item as changed: " + supply.get(index));
     }
 
     /**
@@ -149,10 +157,7 @@ public final class FoodItemManager
     {
         supply.remove(item);
         
-        if (LOG.isDebugEnabled())
-        {
-            LOG.debug("Removed item: " + item);
-        }
+        LOG.debug("Removed item: " + item);
     }
 
 }

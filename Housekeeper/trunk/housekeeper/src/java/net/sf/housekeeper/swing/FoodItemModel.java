@@ -271,8 +271,7 @@ public final class FoodItemModel
         public void actionPerformed(ActionEvent e)
         {
             final FoodItem selectedItem = getSelectedItem();
-            final FoodItem newItem = (FoodItem) selectedItem.clone();
-            itemManager.add(newItem);
+            itemManager.duplicate(selectedItem);
         }
 
     }
