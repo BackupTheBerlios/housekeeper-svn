@@ -26,7 +26,9 @@ package net.sourceforge.housekeeper.swing;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JDialog;
+
+import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.storage.StorageFactory;
 
 
 /**
@@ -52,16 +54,20 @@ final class NewArticle extends AbstractAction
         super("New Article");
     }
 
+
     //~ Methods ----------------------------------------------------------------
 
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param e DOCUMENT ME!
+    /* (non-Javadoc)
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
     public void actionPerformed(ActionEvent e)
     {
-        JDialog articleDialog = new ArticleDialog();
-        articleDialog.show();
+        ArticleDialog d = new ArticleDialog();
+        Article article = d.show("New Article");
+
+        if (article != null)
+        {
+            StorageFactory.getCurrentStorage().add(article);
+        }
     }
 }

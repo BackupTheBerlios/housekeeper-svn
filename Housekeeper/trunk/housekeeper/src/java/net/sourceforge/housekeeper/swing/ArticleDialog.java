@@ -28,7 +28,6 @@ import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
 import net.sourceforge.housekeeper.model.Article;
-import net.sourceforge.housekeeper.storage.StorageFactory;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -47,31 +46,13 @@ class ArticleDialog extends ExtendedDialog
 {
     //~ Instance fields --------------------------------------------------------
 
-    /** TODO DOCUMENT ME! */
-    private ActionListener okButtonListener;
-
-    /** TODO DOCUMENT ME! */
-    private Article    article;
-
-    /** TODO DOCUMENT ME! */
-    private JButton    buttonCancel;
-
-    /** TODO DOCUMENT ME! */
-    private JButton    buttonOK;
-
-    /** TODO DOCUMENT ME! */
+    private Article article;
+    private JButton buttonCancel;
+    private JButton buttonOK;
     private JTextField nameField;
-
-    /** TODO DOCUMENT ME! */
     private JTextField priceField;
-
-    /** TODO DOCUMENT ME! */
     private JTextField quantityField;
-
-    /** TODO DOCUMENT ME! */
     private JTextField storeField;
-
-    /** TODO DOCUMENT ME! */
     private JTextField unitField;
 
     //~ Constructors -----------------------------------------------------------
@@ -83,31 +64,52 @@ class ArticleDialog extends ExtendedDialog
     {
         super(MainFrame.INSTANCE, true);
 
-        article          = new Article();
-        okButtonListener = new LocalActionListener();
-
-        setTitle("New Article");
-        init();
-    }
-
-    /**
-     * Creates a new ArticleDialog object.
-    
-     *
-     * @param article DOCUMENT ME!
-     */
-    ArticleDialog(Article article)
-    {
-        super(MainFrame.INSTANCE, true);
-
-        this.article     = article;
-        okButtonListener = new ModifyActionListener();
-
-        setTitle("Modify Article");
-        init();
+        initComponents();
+        buildLayout();
+        pack();
+        center();
     }
 
     //~ Methods ----------------------------------------------------------------
+
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @param title DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
+    Article show(String title)
+    {
+        setTitle(title);
+        super.show();
+
+        return article;
+    }
+
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @param title DOCUMENT ME!
+     * @param article DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
+    Article show(String title, Article article)
+    {
+        this.article = article;
+        setTitle(title);
+
+        nameField.setText(article.getName());
+        storeField.setText(article.getStore());
+        priceField.setText("" + article.getPrice());
+        quantityField.setText("" + article.getQuantity());
+        unitField.setText(article.getQuantityUnit());
+
+        super.show();
+
+        return article;
+    }
 
     /**
      * TODO DOCUMENT ME!
@@ -149,73 +151,40 @@ class ArticleDialog extends ExtendedDialog
     /**
      * TODO DOCUMENT ME!
      */
-    private void init()
-    {
-        initComponents();
-        buildLayout();
-        pack();
-        center();
-    }
-
-    /**
-     * TODO DOCUMENT ME!
-     */
     private void initComponents()
     {
-        nameField     = new JTextField(article.getName());
-        storeField    = new JTextField(article.getStore());
-        priceField    = new JTextField("" + article.getPrice());
-        quantityField = new JTextField("" + article.getQuantity());
-        unitField     = new JTextField(article.getQuantityUnit());
+        nameField = new JTextField();
+        storeField = new JTextField();
+        priceField = new JTextField();
+        quantityField = new JTextField();
+        unitField = new JTextField();
 
         buttonOK = new JButton("OK");
-        buttonOK.addActionListener(okButtonListener);
+        buttonOK.addActionListener(new OKButtonActionListener());
 
         buttonCancel = new JButton("Cancel");
         buttonCancel.addActionListener(new DefaultCancelButtonActionListener());
     }
 
-    /**
-     * TODO DOCUMENT ME!
-     */
-    private void readFields()
-    {
-        article.setName(nameField.getText());
-        article.setStore(storeField.getText());
-        article.setPrice(Double.parseDouble(priceField.getText()));
-        article.setQuantity(Integer.parseInt(quantityField.getText()));
-        article.setQuantityUnit(unitField.getText());
-    }
-
     //~ Inner Classes ----------------------------------------------------------
 
-    private class LocalActionListener implements ActionListener
+    private class OKButtonActionListener implements ActionListener
     {
         /* (non-Javadoc)
          * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
          */
         public void actionPerformed(ActionEvent e)
         {
-            readFields();
+            if (article == null)
+            {
+                article = new Article();
+            }
 
-            StorageFactory.getCurrentStorage()
-                          .add(article);
-
-            dispose();
-        }
-    }
-
-    private class ModifyActionListener implements ActionListener
-    {
-        /* (non-Javadoc)
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-         */
-        public void actionPerformed(ActionEvent e)
-        {
-            readFields();
-
-            StorageFactory.getCurrentStorage()
-                          .update();
+            article.setName(nameField.getText());
+            article.setStore(storeField.getText());
+            article.setPrice(Double.parseDouble(priceField.getText()));
+            article.setQuantity(Integer.parseInt(quantityField.getText()));
+            article.setQuantityUnit(unitField.getText());
 
             dispose();
         }

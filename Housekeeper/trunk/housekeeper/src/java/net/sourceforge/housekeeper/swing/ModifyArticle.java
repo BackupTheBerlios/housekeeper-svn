@@ -29,7 +29,6 @@ import net.sourceforge.housekeeper.storage.StorageFactory;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JDialog;
 
 
 /**
@@ -48,7 +47,6 @@ public class ModifyArticle extends AbstractAction
 
     /**
      * Creates a new ModifyArticle object.
-    
      */
     private ModifyArticle()
     {
@@ -63,10 +61,12 @@ public class ModifyArticle extends AbstractAction
     public void actionPerformed(ActionEvent e)
     {
         Article article = (Article)StorageFactory.getCurrentStorage()
-                                                 .getArticles()
-                                                 .get(ArticlePanel.INSTANCE.getTable().getSelectedRow());
+                                   .getArticles().get(ArticlePanel.INSTANCE.getTable()
+                                                      .getSelectedRow());
 
-        JDialog articleDialog = new ArticleDialog(article);
-        articleDialog.show();
+        ArticleDialog d = new ArticleDialog();
+        d.show("Modify Article", article);
+
+        StorageFactory.getCurrentStorage().update();
     }
 }
