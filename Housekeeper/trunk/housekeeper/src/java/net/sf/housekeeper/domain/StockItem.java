@@ -137,4 +137,14 @@ public final class StockItem
             this.quantity = quantity;
         }
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+    {
+        return new StockItem(name, quantity, (Date) bestBeforeEnd.clone());
+    }
 }

@@ -64,8 +64,9 @@ final class StockPanel extends JPanel
     {
         final JPanel buttonPanel = new JPanel();
         buttonPanel.add(new JButton(new NewStockItemAction()));
-        buttonPanel.add(new JButton(new DeleteStockItemAction()));
         buttonPanel.add(new JButton(new ModifyStockItemAction()));
+        buttonPanel.add(new JButton(new DuplicateStockItemAction()));
+        buttonPanel.add(new JButton(new DeleteStockItemAction()));
 
         table = StockTableFactory.getStockTable();
 
@@ -227,4 +228,29 @@ final class StockPanel extends JPanel
 
     }
 
+    private class DuplicateStockItemAction extends AbstractAction
+    {
+
+        private DuplicateStockItemAction()
+        {
+            super("Duplicate Item");
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed(ActionEvent e)
+        {
+            final StockItem item = getSelectedItem();
+
+            if (item != null)
+            {
+                StorageFactory.getCurrentStorage()
+                        .add((StockItem) item.clone());
+            }
+
+        }
+    }
 }
