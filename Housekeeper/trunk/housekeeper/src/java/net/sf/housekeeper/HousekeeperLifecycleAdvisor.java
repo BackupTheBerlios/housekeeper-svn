@@ -24,7 +24,6 @@ package net.sf.housekeeper;
 import javax.swing.JOptionPane;
 
 import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.util.LocalisationManager;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -71,8 +70,8 @@ public final class HousekeeperLifecycleAdvisor extends
         // changed
         if (household.hasChanged())
         {
-            final String question = LocalisationManager.INSTANCE
-                    .getText("gui.mainFrame.saveModificationsQuestion");
+            final String question = getApplicationServices().getMessages()
+                    .getMessage("gui.mainFrame.saveModificationsQuestion");
             final int option = JOptionPane.showConfirmDialog(window
                     .getControl(), question);
 
@@ -91,7 +90,9 @@ public final class HousekeeperLifecycleAdvisor extends
         return exit;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.config.ApplicationLifecycleAdvisor#onWindowOpened(org.springframework.richclient.application.ApplicationWindow)
      */
     public void onWindowOpened(ApplicationWindow arg0)
@@ -99,7 +100,7 @@ public final class HousekeeperLifecycleAdvisor extends
         arg0.getControl().toFront();
         super.onWindowOpened(arg0);
     }
-    
+
     /*
      * (non-Javadoc)
      * 

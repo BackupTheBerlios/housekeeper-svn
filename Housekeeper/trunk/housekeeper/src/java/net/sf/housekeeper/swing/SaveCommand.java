@@ -23,14 +23,13 @@ package net.sf.housekeeper.swing;
 
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
-import net.sf.housekeeper.util.LocalisationManager;
+import net.sf.housekeeper.swing.util.ErrorDialog;
 
-import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
-
+import org.apache.commons.logging.LogFactory;
+import org.springframework.richclient.command.ActionCommand;
+import org.springframework.richclient.command.support.ActionCommandInterceptorAdapter;
 
 /**
  * Command for saving data to persistent storage.
@@ -38,15 +37,18 @@ import org.springframework.richclient.command.support.ApplicationWindowAwareComm
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class SaveCommand extends ApplicationWindowAwareCommand
+public final class SaveCommand extends ActionCommand
 {
 
     private static final String ID = "saveCommand";
 
-    private final Household household;
-    
+    private final Household     household;
+
+    private Exception           exception;
+
     /**
-     * Creates a new Command for saving.
+     * Creates a new Command for saving. If the action fails, an error dialog
+     * is shown.
      * 
      * @param household
      */
@@ -54,10 +56,13 @@ public final class SaveCommand extends ApplicationWindowAwareCommand
     {
         super(ID);
         this.household = household;
+
+        addCommandInterceptor(new ErrorInterceptor());
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.command.ActionCommand#doExecuteCommand()
      */
     protected void doExecuteCommand()
@@ -67,18 +72,29 @@ public final class SaveCommand extends ApplicationWindowAwareCommand
             PersistenceController.instance().saveDomainData(household);
         } catch (IOException e)
         {
-            e.printStackTrace();
-            final String message = LocalisationManager.INSTANCE
-            .getText("gui.mainFrame.saveError");
-            showErrorDialog(message);
+            exception = e;
         }
-        
+
     }
-    
-    private void showErrorDialog(String message)
+
+    private class ErrorInterceptor extends ActionCommandInterceptorAdapter
     {
-        final String error = LocalisationManager.INSTANCE.getText("gui.error");
-        JOptionPane.showMessageDialog(getParentWindowControl(), message, error,
-                                      JOptionPane.ERROR_MESSAGE);
+
+        public void postExecution(ActionCommand arg0)
+        {
+            if (exception != null)
+            {
+                LogFactory.getLog(getClass()).error("Could not save data",
+                                                    exception);
+                final ErrorDialog dialog = new ErrorDialog(
+                        "gui.mainFrame.saveError");
+                dialog.showDialog();
+                exception = null;
+            } else
+            {
+                LogFactory.getLog(getClass()).info("Data successfully saved");
+            }
+        }
     }
+
 }
