@@ -353,7 +353,7 @@ public final class ItemsTableView extends AbstractView implements
             final ExpirableItem foodObject = getSelected();
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
-            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(
+            final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
                     formModel);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
@@ -388,7 +388,7 @@ public final class ItemsTableView extends AbstractView implements
             foodObject.setCategory(category);
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
-            final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(
+            final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
                     formModel);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(

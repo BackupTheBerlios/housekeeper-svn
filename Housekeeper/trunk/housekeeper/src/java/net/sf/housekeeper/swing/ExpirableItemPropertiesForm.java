@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ExpiringItemPropertiesForm extends AbstractForm
+public final class ExpirableItemPropertiesForm extends AbstractForm
 {
 
     /**
@@ -50,7 +50,7 @@ public final class ExpiringItemPropertiesForm extends AbstractForm
      * 
      * @param formModel The model to use. Must not be null.
      */
-    public ExpiringItemPropertiesForm(final FormModel formModel)
+    public ExpirableItemPropertiesForm(final FormModel formModel)
     {
         super(formModel, "foodPropertiesForm");
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
