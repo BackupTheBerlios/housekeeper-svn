@@ -53,10 +53,29 @@
     <url>http://cvs.sourceforge.net/viewcvs.py/housekeeper</url>
   </repository>
   
-  <versions/>
+  <versions>
+    <version>
+        <id>0.1.1</id>
+        <name>0.1.1</name>
+        <tag>HOUSEKEEPER_0_1_1</tag>
+    </version>
+  </versions>
     
   <!-- any mailing lists for the project -->
-  <mailingLists/>
+  <mailingLists>
+    <mailingList>
+        <name>housekeeper-devel</name>
+        <subscribe>
+            http://lists.sourceforge.net/lists/listinfo/housekeeper-devel
+        </subscribe>
+        <unsubscribe>
+            http://lists.sourceforge.net/lists/listinfo/housekeeper-devel
+        </unsubscribe>
+        <archive>
+            http://sourceforge.net/mailarchive/forum.php?forum=housekeeper-devel
+        </archive>
+    </mailingList>
+  </mailingLists>
   
   <!-- who the developers are for the project -->
   <developers>
