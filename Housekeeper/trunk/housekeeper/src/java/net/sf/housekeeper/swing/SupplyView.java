@@ -190,53 +190,6 @@ public final class SupplyView extends AbstractView
     }
 
     /**
-     * Opens a dialog for adding a new item.
-     * 
-     * @param category The category to assign to the item.
-     */
-    private void addNewItem(final String category)
-    {
-        final Food item = new Food();
-        boolean canceled = openEditor(item);
-        if (!canceled)
-        {
-            item.setCategory(category);
-            foodManager.add(item);
-        }
-    }
-
-    /**
-     * Deletes the item which is selected in the table.
-     */
-    private void deleteSelectedItem()
-    {
-        final Food selectedItem = activePresenter.getSelected();
-        foodManager.remove(selectedItem);
-    }
-
-    /**
-     * Duplicates the selected item.
-     */
-    private void duplicateSelectedItem()
-    {
-        final Food selectedItem = activePresenter.getSelected();
-        foodManager.duplicate(selectedItem);
-    }
-
-    /**
-     * Opens a dialog for editing the selected item.
-     */
-    private void editSelectedItem()
-    {
-        final Food selected = activePresenter.getSelected();
-        boolean canceled = openEditor(selected);
-        if (!canceled)
-        {
-            foodManager.update(selected);
-        }
-    }
-
-    /**
      * Opens an editor for the specified Item.
      * 
      * @param item The item to be edited.
@@ -283,7 +236,8 @@ public final class SupplyView extends AbstractView
 
         public void execute()
         {
-            deleteSelectedItem();
+            final Food selectedItem = activePresenter.getSelected();
+            foodManager.remove(selectedItem);
         }
     }
 
@@ -296,7 +250,8 @@ public final class SupplyView extends AbstractView
 
         public void execute()
         {
-            duplicateSelectedItem();
+            final Food selectedItem = activePresenter.getSelected();
+            foodManager.duplicate(selectedItem);
         }
     }
 
@@ -308,7 +263,12 @@ public final class SupplyView extends AbstractView
 
         public void execute()
         {
-            editSelectedItem();
+            final Food selected = activePresenter.getSelected();
+            boolean canceled = openEditor(selected);
+            if (!canceled)
+            {
+                foodManager.update(selected);
+            }
         }
     }
 
@@ -328,7 +288,13 @@ public final class SupplyView extends AbstractView
 
         public void execute()
         {
-            addNewItem(category);
+            final Food item = new Food();
+            boolean canceled = openEditor(item);
+            if (!canceled)
+            {
+                item.setCategory(category);
+                foodManager.add(item);
+            }
         }
     }
 
