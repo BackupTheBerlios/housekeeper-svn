@@ -85,6 +85,8 @@
                 </img>
             </td>
             <td>Shopping list</td>
+        </tr>
+        <tr>
             <td>
                 <img alt="add" title="add" src="images/add.gif">
                 </img>
@@ -255,14 +257,14 @@
           </td>
           <td>Cell phone based access application.</td>
         </tr>
-
+		<tr>
         <td>
             <img alt="add" title="add" src="images/add.gif">
             </img>
         </td>
         <td>Propose meals from the user's past consumation 
             behaviour.</td>
-    </tr>
+    	</tr>
       </table>
     </section>
   </body>
