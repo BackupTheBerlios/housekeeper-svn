@@ -32,22 +32,19 @@ package net.sourceforge.housekeeper.domain;
  *
  * @since 0.1
  */
-class DomainObject
+public class DomainObject
 {
     //~ Instance fields --------------------------------------------------------
 
     /** The identification number of this object */
     private long id;
-    
-    /** Number of the next available free ID */
-    private static long nextId = 0;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
      * Creates a new DomainObject object.
      */
-    protected DomainObject()
+    public DomainObject()
     {
         this.id = nextID();
     }
@@ -57,7 +54,7 @@ class DomainObject
      *
      * @param id The identification number of the new object
      */
-    protected DomainObject(long id)
+    public DomainObject(long id)
     {
         this.id = id;
     }
@@ -86,6 +83,6 @@ class DomainObject
     
     private long nextID()
     {
-        return nextId++;
+        return System.currentTimeMillis();
     }
 }
