@@ -47,7 +47,7 @@
   	<taskdef name="izpack" classpath="${basedir}/lib/izpack-standalone-compiler.jar"
          classname="com.izforge.izpack.ant.IzPackTask"/>
     <izpack input="${maven.build.dir}/installer_config.xml"
-        output="${maven.build.dir}/Housekeeper-install.jar"
+        output="${maven.build.dir}/${maven.final.name}-install.jar"
         installerType="standard"
         basedir="${outputPath}"/>
   </goal>
