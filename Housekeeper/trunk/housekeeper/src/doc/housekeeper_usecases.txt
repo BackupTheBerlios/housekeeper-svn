@@ -1,0 +1,41 @@
+Verwaltung von Artikeln
+
+Neuen Artikel erstellen
+
+Der Benutzer erstellt einen neuen Artikel, wie z. B. eine Flasche Milch. Das System speichert den Artikel.
+
+Bestehenden Artikel modifizieren
+
+Der Benutzer wählt einen Artikel aus und ändert dessen Daten. Das System überprüft die Verträglichkeit mit bereits bestehenden eingekauften Artikeln.
+
+Bestehenden Artikel löschen
+
+Der Benutzer wählt einen Artikel aus und löscht ihn. Das System markiert den
+Artikel als gelöscht.
+
+Alle Artikel anzeigen
+
+Dem Benutzer werden alle gespeicherten Artikel angezeigt.
+
+
+Verwaltung von Einkäufen
+
+Neuen Einkauf eingeben
+
+Der Benutzer wählt aus der Liste der Artikel die gekauften an. Zusätzlich gibt er die Menge und den Lagerort, optional das Verfallsdatum an. Das System speichert die Daten.
+
+Alle Einkäufe anzeigen
+
+Dem Benutzer werden alle Einkäufe angezeigt.
+
+
+Verwalten des Vorrats
+
+Verbrauch eines gekauften Artikels
+
+Der Benutzer wählt aus der Liste der gekauften Artikel denjenigen aus, den er verbraucht hat. Das System zeigt Informationen zu dem Artikel an und der Benutzer gibt die verbrauchte Menge an. Wird der ganze Artikel verbraucht, wird er aus dem Vorrat entfernt.
+
+Vorräte anzeigen
+
+Dem Benutzer werden die Vorräte aller noch vorhandenen Artikel angezeigt.
+
