@@ -23,50 +23,53 @@
 package net.sourceforge.housekeeper.model;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 
 /**
- * DOCUMENT ME!
+ * A concrete article, that has been purchased. There can be multiple objects
+ * of this class for every {@link Article}.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public class PurchasedArticle
 {
     //~ Instance fields --------------------------------------------------------
 
-    /** TODO DOCUMENT ME! */
-    private Article    article;
+    /** The type of article the object is */
+    private Article article;
 
-    /** TODO DOCUMENT ME! */
-    private Collection consumption;
+    /** Information about consumptions of this object */
+    private Collection consumptions;
 
-    /** TODO DOCUMENT ME! */
+    /** The date, before the article should be consumed entirely */
     private Date bestBeforeEnd;
-
-    /** TODO DOCUMENT ME! */
-    private int id;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a new PurchasedArticle object with default values. The related
+     * article is an empty one, there are no consumptions and the date is set
+     * to today.
      */
     public PurchasedArticle()
     {
-        super();
-
-        // TODO Auto-generated constructor stub
+        article       = new Article();
+        consumptions  = new ArrayList();
+        bestBeforeEnd = new Date();
     }
 
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Sets the corresponding attribute to a new value.
      *
-     * @param article DOCUMENT ME!
+     * @param article The new value.
      */
     public void setArticle(Article article)
     {
@@ -74,9 +77,9 @@ public class PurchasedArticle
     }
 
     /**
-     * DOCUMENT ME!
+     * Gets the corresponding attribute.
      *
-     * @return
+     * @return The corresponding attribute.
      */
     public Article getArticle()
     {
@@ -84,9 +87,9 @@ public class PurchasedArticle
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Sets the corresponding attribute to a new value.
      *
-     * @param bestBeforeEnd DOCUMENT ME!
+     * @param bestBeforeEnd The new value.
      */
     public void setBestBeforeEnd(Date bestBeforeEnd)
     {
@@ -94,9 +97,9 @@ public class PurchasedArticle
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Gets the corresponding attribute.
      *
-     * @return DOCUMENT ME!
+     * @return The corresponding attribute.
      */
     public Date getBestBeforeEnd()
     {
@@ -104,42 +107,32 @@ public class PurchasedArticle
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Sets the corresponding attribute to a new value.
      *
-     * @param consumption DOCUMENT ME!
+     * @param consumption The new value.
      */
     public void setConsumption(Collection consumption)
     {
-        this.consumption = consumption;
+        this.consumptions = consumption;
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Gets the corresponding attribute.
      *
-     * @return DOCUMENT ME!
+     * @return The corresponding attribute.
      */
     public Collection getConsumption()
     {
-        return consumption;
+        return consumptions;
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Adds a consumption reducing the remaining available quantity.
      *
-     * @param id DOCUMENT ME!
+     * @param consumption The consumption to be added.
      */
-    public void setId(int id)
+    public void add(Consumption consumption)
     {
-        this.id = id;
-    }
-
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public int getId()
-    {
-        return id;
+        consumptions.add(consumption);
     }
 }
