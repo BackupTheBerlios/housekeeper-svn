@@ -19,13 +19,15 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.storage;
+package net.sf.housekeeper.persistence;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+
+import net.sf.housekeeper.domain.Household;
 
 import org.exolab.castor.mapping.Mapping;
 import org.exolab.castor.mapping.MappingException;
@@ -34,12 +36,6 @@ import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 import org.exolab.castor.xml.ValidationException;
 
-import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.domain.StockItem;
-
-import com.odellengineeringltd.glazedlists.BasicEventList;
-import com.odellengineeringltd.glazedlists.EventList;
-
 
 /**
  * Uses <a href="http://www.castor.org">Castor</a> for XML binding.
@@ -47,19 +43,15 @@ import com.odellengineeringltd.glazedlists.EventList;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class CastorStorage implements Storage
+final class CastorXMLMapping implements PersistenceLayer
 {
-    
-    /** All items that are on stock. */
-    private EventList                           stockItems;
     
     private static final File DATAFILE = new File("HK_castor.xml");
     
     private final Mapping mapping;
 
-    public CastorStorage()
+    CastorXMLMapping()
     {
-        stockItems = new BasicEventList();
         mapping = new Mapping();
         try
         {
@@ -72,47 +64,6 @@ public final class CastorStorage implements Storage
             e.printStackTrace();
         }
     }
-    
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.storage.DataMapper#getAllStockItems()
-     */
-    public EventList getAllStockItems()
-    {
-        return stockItems;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.storage.DataMapper#
-     *      add(net.sf.housekeeper.domain.StockItem)
-     */
-    public void add(final StockItem stockItem)
-    {
-        stockItems.add(stockItem);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.storage.DataMapper#
-     *      remove(net.sf.housekeeper.domain.StockItem)
-     */
-    public void remove(final StockItem item)
-    {
-        stockItems.remove(item);
-    }
-
-    /* (non-Javadoc)
-     * @see net.sf.housekeeper.storage.Storage#update(net.sf.housekeeper.domain.StockItem)
-     */
-    public void update(StockItem item)
-    {
-       stockItems.remove(item);
-       stockItems.add(item);
-    }
 
     /* (non-Javadoc)
      * @see net.sf.housekeeper.storage.Storage#loadData()
@@ -124,8 +75,7 @@ public final class CastorStorage implements Storage
         {
             final Unmarshaller unmarshaller = new Unmarshaller(mapping);
             final Household household = (Household)unmarshaller.unmarshal(reader);
-            stockItems.clear();
-            stockItems.addAll(household.getStockItems());
+            Household.setINSTANCE(household);
         } catch (MarshalException e)
         {
             throw new IOException(e.getMessage());
@@ -153,7 +103,7 @@ public final class CastorStorage implements Storage
             map.loadMapping("castor_mapping.xml");
             final Marshaller marshaller = new Marshaller(writer);
             marshaller.setMapping(map);
-            marshaller.marshal(new Household(stockItems));
+            marshaller.marshal(Household.instance());
         } catch (MarshalException e)
         {
             throw new IOException(e.getMessage());

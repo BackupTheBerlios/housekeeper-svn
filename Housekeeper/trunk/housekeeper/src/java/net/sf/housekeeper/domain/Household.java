@@ -21,7 +21,7 @@
 
 package net.sf.housekeeper.domain;
 
-import java.util.Collection;
+import java.util.List;
 
 import com.odellengineeringltd.glazedlists.BasicEventList;
 
@@ -34,31 +34,59 @@ import com.odellengineeringltd.glazedlists.BasicEventList;
  */
 public final class Household
 {
-    private Collection stockItems;
+    private List stockItems;
+    
+    private static Household INSTANCE = new Household();
     
     public Household()
     {
         stockItems = new BasicEventList();
     }
     
-    public Household(final Collection stockItems)
+    public Household(final List stockItems)
     {
-        this.stockItems = stockItems;
+        stockItems.clear();
+        stockItems.addAll(stockItems);
     }
 
     /**
+     * @return Returns the iNSTANCE.
+     */
+    public static Household instance()
+    {
+        return INSTANCE;
+    }
+    
+    /**
+     * @param instance The iNSTANCE to set.
+     */
+    public static void setINSTANCE(Household instance)
+    {
+        INSTANCE = instance;
+    }
+    
+    /**
      * @return Returns the stockItems.
      */
-    public Collection getStockItems()
+    public List getStockItems()
     {
         return stockItems;
     }
     
-    /**
-     * @param stockItems The stockItems to set.
-     */
-    public void setStockItems(Collection stockItems)
+    public void add(final StockItem item)
     {
-        this.stockItems = stockItems;
+        stockItems.add(item);
     }
+    
+    public void remove(final StockItem item)
+    {
+        stockItems.remove(item);
+    }
+    
+    public void update(final StockItem item)
+    {
+        stockItems.remove(item);
+        stockItems.add(item);
+    }
+    
 }

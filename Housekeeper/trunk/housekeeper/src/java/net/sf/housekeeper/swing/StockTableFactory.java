@@ -30,8 +30,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.domain.StockItem;
-import net.sf.housekeeper.storage.StorageFactory;
 
 import com.odellengineeringltd.glazedlists.EventList;
 import com.odellengineeringltd.glazedlists.SortedList;
@@ -60,8 +60,8 @@ final class StockTableFactory
      */
     static ListTable getStockTable()
     {
-        final EventList items = StorageFactory.getCurrentStorage()
-                .getAllStockItems();
+        final EventList items = (EventList)Household.instance()
+                .getStockItems();
         final SortedList sortedList = new SortedList(items,
                 new StockDescriptionComparator());
 

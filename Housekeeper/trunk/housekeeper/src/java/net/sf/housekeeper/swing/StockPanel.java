@@ -34,8 +34,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.domain.StockItem;
-import net.sf.housekeeper.storage.StorageFactory;
 import net.sf.housekeeper.swing.util.DateEditor;
 import net.sf.housekeeper.swing.util.StandardDialog;
 
@@ -113,7 +113,7 @@ final class StockPanel extends JPanel
 
             if (item != null)
             {
-                StorageFactory.getCurrentStorage().remove(item);
+                Household.instance().remove(item);
             }
         }
     }
@@ -163,7 +163,7 @@ final class StockPanel extends JPanel
             {
                 final StockItem item = new StockItem(nameField.getText(),
                         quantityField.getText(), spinnerModel.getDate());
-                StorageFactory.getCurrentStorage().add(item);
+                Household.instance().add(item);
             }
         }
     }
@@ -221,7 +221,7 @@ final class StockPanel extends JPanel
                     item.setQuantity(quantityField.getText());
                     item.setExpiry(spinnerModel.getDate());
 
-                    StorageFactory.getCurrentStorage().update(item);
+                    Household.instance().update(item);
                 }
             }
         }
@@ -247,7 +247,7 @@ final class StockPanel extends JPanel
 
             if (item != null)
             {
-                StorageFactory.getCurrentStorage()
+                Household.instance()
                         .add((StockItem) item.clone());
             }
 

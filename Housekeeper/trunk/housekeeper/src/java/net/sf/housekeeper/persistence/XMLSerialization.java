@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.storage;
+package net.sf.housekeeper.persistence;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -29,13 +29,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import net.sf.housekeeper.domain.StockItem;
-
-import com.odellengineeringltd.glazedlists.BasicEventList;
-import com.odellengineeringltd.glazedlists.EventList;
+import net.sf.housekeeper.domain.Household;
 
 /**
  * Storage technique using simple XML serialization. Should only be used for
@@ -45,26 +40,19 @@ import com.odellengineeringltd.glazedlists.EventList;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class XMLSerializationStorage implements Storage
+final class XMLSerialization implements PersistenceLayer
 {
 
     /** The path to the file that is used for data storage. */
     private File                                file;
 
-    /** All items that are on stock. */
-    private EventList                           stockItems;
-
-    /** singleton instance. */
-    public static final XMLSerializationStorage INSTANCE = new XMLSerializationStorage();
-
     /**
      * Initializes an XMLSerializationStorage.
      */
-    private XMLSerializationStorage()
+    XMLSerialization()
     {
         String defaultDir = System.getProperty("user.dir");
         file = new File(defaultDir, "housekeeper_ser.xml");
-        stockItems = new BasicEventList();
     }
 
     /*
@@ -76,7 +64,7 @@ final class XMLSerializationStorage implements Storage
     {
         XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(
                 new FileOutputStream(file)));
-        xmlEncoder.writeObject(new ArrayList(stockItems));
+        xmlEncoder.writeObject(Household.instance());
         xmlEncoder.close();
     }
 
@@ -89,52 +77,10 @@ final class XMLSerializationStorage implements Storage
     {
         XMLDecoder xmlDecoder = new XMLDecoder(new BufferedInputStream(
                 new FileInputStream(file)));
-        List stock = (ArrayList) xmlDecoder.readObject();
+        final Household household = (Household) xmlDecoder.readObject();
         xmlDecoder.close();
 
-        stockItems.clear();
-        stockItems.addAll(stock);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.storage.DataMapper#getAllStockItems()
-     */
-    public EventList getAllStockItems()
-    {
-        return stockItems;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.storage.DataMapper#
-     *      add(net.sf.housekeeper.domain.StockItem)
-     */
-    public void add(final StockItem stockItem)
-    {
-        stockItems.add(stockItem);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.storage.DataMapper#
-     *      remove(net.sf.housekeeper.domain.StockItem)
-     */
-    public void remove(final StockItem item)
-    {
-        stockItems.remove(item);
-    }
-
-    /* (non-Javadoc)
-     * @see net.sf.housekeeper.storage.Storage#update(net.sf.housekeeper.domain.StockItem)
-     */
-    public void update(StockItem item)
-    {
-       stockItems.remove(item);
-       stockItems.add(item);
+        Household.setINSTANCE(household);
     }
 
 }

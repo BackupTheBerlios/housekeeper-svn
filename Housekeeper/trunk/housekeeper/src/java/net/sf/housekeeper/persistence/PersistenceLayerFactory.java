@@ -19,37 +19,40 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.storage;
+package net.sf.housekeeper.persistence;
 
 /**
- * A Factory for centralized management of Storage techniques. Objects should
- * call {@link #getCurrentStorage()} to receive a reference to the currently
- * used storage technique.
- *
+ * A Factory for centralized management of of the persistence layer. Objects
+ * should call {@link #getCurrentLayer()}to receive a reference to the
+ * currently used persistence layer implementation.
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class StorageFactory
+public final class PersistenceLayerFactory
 {
 
-    /** An instance of the currently used storage technique. */
-    private static Storage currentStorage = new CastorStorage();
+    /**
+     * An instance of the currently used persistence layer implementation.
+     */
+    private static PersistenceLayer currentLayer = new CastorXMLMapping();
 
     /**
      * Prevents object instanciation.
      */
-    private StorageFactory()
+    private PersistenceLayerFactory()
     {
 
     }
 
     /**
-     * Returns a reference to the currently used storage technique.
-     *
-     * @return Currently used storage technique.
+     * Returns a reference to the currently used persistence layer
+     * implementation.
+     * 
+     * @return The currently used persistence layer implementation.
      */
-    public static Storage getCurrentStorage()
+    public static PersistenceLayer getCurrentLayer()
     {
-        return currentStorage;
+        return currentLayer;
     }
 }

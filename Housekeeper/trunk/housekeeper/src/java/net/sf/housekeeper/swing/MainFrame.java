@@ -39,7 +39,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import net.sf.housekeeper.Housekeeper;
-import net.sf.housekeeper.storage.StorageFactory;
+import net.sf.housekeeper.persistence.PersistenceLayerFactory;
 
 import com.jgoodies.plaf.Options;
 import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
@@ -160,7 +160,7 @@ public final class MainFrame extends JFrame
         {
             try
             {
-                StorageFactory.getCurrentStorage().loadData();
+                PersistenceLayerFactory.getCurrentLayer().loadData();
             } catch (IOException e1)
             {
                 e1.printStackTrace();
@@ -183,7 +183,7 @@ public final class MainFrame extends JFrame
         {
             try
             {
-                StorageFactory.getCurrentStorage().saveData();
+                PersistenceLayerFactory.getCurrentLayer().saveData();
             } catch (IOException e1)
             {
                 e1.printStackTrace();
