@@ -127,7 +127,6 @@
     	<version>1.0.5</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
          <properties>
-            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -139,7 +138,6 @@
     	<version>1.2.2</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
         <properties>
-            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -151,7 +149,6 @@
         <version>2.0</version>
         <url>http://jakarta.apache.org/commons/lang/</url>
         <properties>
-            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -163,7 +160,6 @@
         <version>1.0.4</version>
         <url>http://jakarta.apache.org/commons/logging/</url>
         <properties>
-            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -175,7 +171,6 @@
         <version>1.0</version>
         <url>http://jakarta.apache.org/commons/configuration/</url>
         <properties>
-            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -186,7 +181,6 @@
         <artifactId>commons-collections-forconfig</artifactId>
         <version>1.0</version>
         <properties>
-            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -198,7 +192,7 @@
         <version>1.0</version>
         <url>http://www.jdom.org</url>
         <properties>
-            <jnlp.jar>true</jnlp.jar>
+
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
@@ -210,7 +204,6 @@
         <version>0.9.4</version>
         <url>http://publicobject.com/glazedlists/</url>
         <properties>
-            <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
