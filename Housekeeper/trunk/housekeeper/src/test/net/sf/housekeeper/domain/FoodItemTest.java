@@ -174,7 +174,7 @@ public final class FoodItemTest extends TestCase
     public void testClone()
     {
         final FoodItem originalItem = DataGenerator.createComplexItem();
-        final FoodItem clonedItem = (FoodItem)originalItem.clone();
+        final FoodItem clonedItem = new FoodItem(originalItem);
         assertEquals(clonedItem, originalItem);
     }
 

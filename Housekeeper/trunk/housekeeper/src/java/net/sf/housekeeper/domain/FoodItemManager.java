@@ -116,7 +116,7 @@ public final class FoodItemManager
      */
     public void duplicate(final FoodItem item)
     {
-        final FoodItem clonedItem = (FoodItem) item.clone();
+        final FoodItem clonedItem = new FoodItem(item);
         add(clonedItem);
         hasChanged = true;
     }

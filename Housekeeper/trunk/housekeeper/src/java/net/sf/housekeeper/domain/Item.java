@@ -21,7 +21,6 @@
 
 package net.sf.housekeeper.domain;
 
-
 /**
  * A physical object present in a household.
  * 
@@ -34,22 +33,58 @@ public class Item
     /**
      * Name of the Bound Bean Property "name".
      */
-    public static final String PROPERTYNAME_NAME = "name";
-    
+    public static final String PROPERTYNAME_NAME     = "name";
+
     /**
      * Name of the Bound Bean Property "quantity".
      */
     public static final String PROPERTYNAME_QUANTITY = "quantity";
-    
+
     /**
      * The name of this item.
      */
-    private String name;
-    
+    private String             name;
+
     /**
      * The quantity of one exemplar of this item.
      */
-    private String quantity;
+    private String             quantity;
+
+    /**
+     * Creates a new item with an empty name and an unset quantity.
+     */
+    public Item()
+    {
+        this("", null);
+    }
+
+    /**
+     * Creates a new item as a deep copy of an existing item.
+     * 
+     * @param original The item to be cloned.
+     */
+    public Item(final Item original)
+    {
+        final String clonedName = original.getName() == null ? null
+                : new String(original.getName());
+        final String clonedQuantity = original.getQuantity() == null ? null
+                : new String(original.getQuantity());
+
+        setName(clonedName);
+        setQuantity(clonedQuantity);
+    }
+
+    /**
+     * Creates a new item with the given attributes.
+     * 
+     * @param name The name of the item. Must not be null.
+     * @param quantity The quantity of the item.
+     */
+    public Item(final String name, final String quantity)
+    {
+        setName(name);
+        setQuantity(quantity);
+    }
 
     /**
      * Returns the name.
@@ -74,7 +109,7 @@ public class Item
             throw new IllegalArgumentException(
                     "Parameter 'name' must not be null.");
         }
-    
+
         this.name = name;
     }
 
@@ -104,55 +139,52 @@ public class Item
             this.quantity = quantity;
         }
     }
-    
-    /* (non-Javadoc)
-     * @see java.lang.Object#clone()
-     */
-    public Object clone() {
-        Item inst = new Item();
-        inst.name = this.name == null ? null : new String(this.name);
-        inst.quantity = this.quantity == null
-            ? null
-            : new String(this.quantity);
-        return inst;
-    }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
             return true;
         }
-        if (o == null) {
+        if (o == null)
+        {
             return false;
         }
-        if (o.getClass() != getClass()) {
+        if (o.getClass() != getClass())
+        {
             return false;
         }
         Item castedObj = (Item) o;
         return ((this.name == null ? castedObj.name == null : this.name
-            .equals(castedObj.name)) && (this.quantity == null
-            ? castedObj.quantity == null
-            : this.quantity.equals(castedObj.quantity)));
+                .equals(castedObj.name)) && (this.quantity == null ? castedObj.quantity == null
+                : this.quantity.equals(castedObj.quantity)));
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
-    public int hashCode() {
+    public int hashCode()
+    {
         int hashCode = 1;
         hashCode = 31 * hashCode + (name == null ? 0 : name.hashCode());
         hashCode = 31 * hashCode + (quantity == null ? 0 : quantity.hashCode());
         return hashCode;
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    public String toString()
+    {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[Item:");
         buffer.append(" name: ");

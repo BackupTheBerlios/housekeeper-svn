@@ -38,12 +38,37 @@ public final class FoodItem extends Item
     /**
      * Name of the Bound Bean Property "expiry".
      */
-    public static final String PROPERTYNAME_EXPIRY   = "expiry";
+    public static final String PROPERTYNAME_EXPIRY = "expiry";
 
     /**
      * The date before the item should have been consumed entirely.
      */
     private Date               expiry;
+
+    /**
+     * Creates a new FoodItem object with default values. Name, quantity and the
+     * expiry date remain unset.
+     */
+    public FoodItem()
+    {
+        super();
+        setExpiry(null);
+    }
+
+    /**
+     * Creates a new item as a deep copy of an existing item.
+     * 
+     * @param original The item to be cloned.
+     */
+    public FoodItem(final FoodItem original)
+    {
+        super(original);
+
+        final Date clonedExpiry = original.getExpiry() == null ? null
+                : (Date) original.getExpiry().clone();
+
+        setExpiry(clonedExpiry);
+    }
 
     /**
      * Creates a new FoodItem object with specified values.
@@ -54,18 +79,8 @@ public final class FoodItem extends Item
      */
     public FoodItem(final String name, final String quantity, final Date expiry)
     {
-        setName(name);
-        setQuantity(quantity);
+        super(name, quantity);
         setExpiry(expiry);
-    }
-
-    /**
-     * Creates a new FoodItem object with default values. Name, quantity and the
-     * expiry date remain unset.
-     */
-    public FoodItem()
-    {
-        this("", null, null);
     }
 
     /**
@@ -102,55 +117,53 @@ public final class FoodItem extends Item
         return expiry;
     }
 
-    
-    /* (non-Javadoc)
-     * @see java.lang.Object#clone()
-     */
-    public Object clone() {
-        FoodItem inst = new FoodItem();
-        
-        final String thisName = getName();
-        inst.setName(getName() == null ? null : new String(getName()));
-        inst.setQuantity(getQuantity() == null ? null : new String(getQuantity()));
-        inst.expiry = this.expiry == null ? null : (Date) this.expiry.clone();
-        return inst;
-    }
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
             return true;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(o))
+        {
             return false;
         }
-        if (o == null) {
+        if (o == null)
+        {
             return false;
         }
-        if (o.getClass() != getClass()) {
+        if (o.getClass() != getClass())
+        {
             return false;
         }
         FoodItem castedObj = (FoodItem) o;
         return ((this.expiry == null ? castedObj.expiry == null : this.expiry
-            .equals(castedObj.expiry)));
+                .equals(castedObj.expiry)));
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
-    public int hashCode() {
+    public int hashCode()
+    {
         int hashCode = super.hashCode();
         hashCode = 31 * hashCode + (expiry == null ? 0 : expiry.hashCode());
         return hashCode;
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    public String toString()
+    {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[FoodItem:");
         buffer.append(" expiry: ");
