@@ -284,13 +284,19 @@ public final class MainFrame
             PersistenceController.instance().replaceDomainWithSaved();
         } catch (FileNotFoundException exception)
         {
-            JOptionPane.showMessageDialog(view, "No data has been saved yet.",
-                                          "Error", JOptionPane.ERROR_MESSAGE);
+            final String error = LocalisationManager.INSTANCE
+                    .getText("gui.error");
+            final String nodata = LocalisationManager.INSTANCE
+                    .getText("gui.mainframe.nodata");
+            JOptionPane.showMessageDialog(view, nodata, error,
+                                          JOptionPane.ERROR_MESSAGE);
         } catch (Exception exception)
         {
             exception.printStackTrace();
-            JOptionPane.showMessageDialog(view, exception.getMessage(),
-                                          "Error", JOptionPane.ERROR_MESSAGE);
+            final String error = LocalisationManager.INSTANCE
+                    .getText("gui.error");
+            JOptionPane.showMessageDialog(view, exception.getMessage(), error,
+                                          JOptionPane.ERROR_MESSAGE);
         }
     }
 
