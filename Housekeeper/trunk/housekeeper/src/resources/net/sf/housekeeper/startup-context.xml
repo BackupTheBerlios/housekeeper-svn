@@ -6,10 +6,8 @@
 	<bean id="splashScreen" 
 		class="org.springframework.richclient.application.SplashScreen" 
 		singleton="false">
-    <!-- Temporarily disabled
 		<property name="imageResourcePath">
-			<value>/images/splash-screen.jpg</value>
+			<value>/images/splash-screen.gif</value>
 		</property>
-    -->
 	</bean>
 </beans>
