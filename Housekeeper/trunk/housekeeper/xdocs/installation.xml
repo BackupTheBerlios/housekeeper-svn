@@ -24,8 +24,7 @@
           Java with the software package manager tool of their distribution (for 
           example YaST or APT). Alternatively, you can <a href="http://www.java.com">get a free 
                JRE at java.com</a>.</li>
-            <li><b>Mac OS X</b> already comes with Java. 
-          You can install it with the software manager of Mac OS X.</li>
+            <li><b>Mac OS X</b> already comes with Java installed. Just make sure to always have the latest system updates installed.</li>
           </ul> 
        </li>
       </ol>
