@@ -18,12 +18,16 @@
 
 package net.sourceforge.housekeeper.storage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
 import net.sourceforge.housekeeper.domain.Purchase;
@@ -117,11 +121,27 @@ public class JDOMStorage implements Storage
         
         for(Iterator i = articleDescriptions.iterator(); i.hasNext();)
         {
-            ArticleDescription ad = (ArticleDescription)i.next();
-            Element articleDescription = new Element("ArticleDescription");
-            
+            ArticleDescription object = (ArticleDescription)i.next();
+            Element element = new Element("ArticleDescription");
+            element.setAttribute("ID", ""+object.getID());
+            element.setAttribute("Name", object.getName());
+            element.setAttribute("Store", object.getStore());
+            element.setAttribute("Quantity", ""+object.getQuantity());
+            element.setAttribute("Unit", object.getUnit());
+            element.setAttribute("Price", ""+object.getPrice());
+            root.addContent(element);
         }
-
+        
+        Document doc = new Document(root);
+        
+        XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        
+        try {
+          outputter.output(doc, System.out);       
+        }
+        catch (IOException e) {
+          System.err.println(e);
+        }
     }
 
 }
