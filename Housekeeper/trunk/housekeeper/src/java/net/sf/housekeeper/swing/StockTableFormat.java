@@ -41,7 +41,7 @@ import com.odellengineeringltd.glazedlists.jtable.TableFormat;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class StockTableCell implements TableFormat
+final class StockTableFormat implements TableFormat
 {
 
     /*

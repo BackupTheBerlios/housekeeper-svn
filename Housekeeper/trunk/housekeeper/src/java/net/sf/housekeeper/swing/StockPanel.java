@@ -74,7 +74,7 @@ final class StockPanel extends JPanel
                 .getAllStockItems();
         final SortedList sortedList = new SortedList(items,
                 new StockDescriptionComparator());
-        table = new ListTable(sortedList, new StockTableCell());
+        table = new ListTable(sortedList, new StockTableFormat());
         final TableComparatorChooser chooser = new TableComparatorChooser(
                 table, sortedList, false);
         chooser.getComparatorsForColumn(0).clear();
