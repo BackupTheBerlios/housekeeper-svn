@@ -103,7 +103,7 @@
     <dependency>
     	<groupId>jgoodies</groupId>
     	<artifactId>forms</artifactId>
-    	<version>1.0.4</version>
+    	<version>1.0.5</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
     </dependency>
     
@@ -117,15 +117,8 @@
     <dependency>
     	<groupId>jgoodies</groupId>
     	<artifactId>binding</artifactId>
-    	<version>1.0b2</version>
+    	<version>1.0b3</version>
     	<url>http://www.jgoodies.com/downloads/libraries.html</url>
-    </dependency>
-    
-    <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.1</version>
-        <url>http://jakarta.apache.org/commons/collections/</url>
     </dependency>
     
     <dependency>
@@ -133,13 +126,6 @@
         <artifactId>commons-lang</artifactId>
         <version>2.0</version>
         <url>http://jakarta.apache.org/commons/lang/</url>
-    </dependency>
-    
-    <dependency>
-        <groupId>commons-configuration</groupId>
-        <artifactId>commons-configuration</artifactId>
-        <version>1.0-rc2</version>
-        <url>http://jakarta.apache.org/commons/configuration/</url>
     </dependency>
     
     <dependency>
