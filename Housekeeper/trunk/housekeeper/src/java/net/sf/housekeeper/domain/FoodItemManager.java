@@ -23,6 +23,7 @@ package net.sf.housekeeper.domain;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ListModel;
 
@@ -49,9 +50,10 @@ public final class FoodItemManager
     private ArrayListModel        supply;
 
     /**
-     * Prevents instanciation.
+     * Do not use this constructor, use the public Singleton instance instead.
+     * This one is only package private because of the unit tests.
      */
-    private FoodItemManager()
+    FoodItemManager()
     {
         supply = new ArrayListModel();
     }
@@ -68,11 +70,21 @@ public final class FoodItemManager
     }
 
     /**
-     * Returns the items on hold in ListModel.
+     * Returns the items on hold as a ListModel.
      * 
      * @return the supply.
      */
-    public ListModel getSupply()
+    public ListModel getSupplyListModel()
+    {
+        return supply;
+    }
+    
+    /**
+     * Returns the items on hold.
+     * 
+     * @return the supply.
+     */
+    public List getSupplyList()
     {
         return supply;
     }

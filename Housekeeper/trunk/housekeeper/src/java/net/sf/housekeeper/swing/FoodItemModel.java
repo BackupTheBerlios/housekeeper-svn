@@ -79,7 +79,7 @@ public final class FoodItemModel
     public FoodItemModel(final FoodItemManager household)
     {
         this.household = household;
-        itemSelection = new SelectionInList(household.getSupply());
+        itemSelection = new SelectionInList(household.getSupplyListModel());
         
         newAction = new NewAction();
         editAction = new EditAction();
