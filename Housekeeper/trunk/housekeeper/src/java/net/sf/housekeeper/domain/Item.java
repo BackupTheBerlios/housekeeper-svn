@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.domain;
 
+import org.springframework.util.ToStringCreator;
+
 /**
  * A physical object present in a household.
  * 
@@ -216,16 +218,7 @@ public class Item
      */
     public String toString()
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("[Item:");
-        buffer.append(" name: ");
-        buffer.append(name);
-        buffer.append(" description: ");
-        buffer.append(description);
-        buffer.append(" category: ");
-        buffer.append(category);
-        buffer.append("]");
-        return buffer.toString();
+        return ToStringCreator.propertiesToString(this);
     }
 
 }

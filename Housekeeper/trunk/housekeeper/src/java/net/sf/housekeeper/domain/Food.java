@@ -24,6 +24,8 @@ package net.sf.housekeeper.domain;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.util.ToStringCreator;
+
 import net.sf.housekeeper.util.DateUtils;
 
 /**
@@ -186,12 +188,6 @@ public final class Food extends Item
      */
     public String toString()
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("[Food:");
-        buffer.append(" expiry: ");
-        buffer.append(expiry);
-        buffer.append(super.toString());
-        buffer.append("]");
-        return buffer.toString();
+        return ToStringCreator.propertiesToString(this);
     }
 }
