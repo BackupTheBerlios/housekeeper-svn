@@ -21,6 +21,7 @@
 
 package net.sf.housekeeper.swing;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -28,15 +29,17 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
 import net.sf.housekeeper.domain.FoodItem;
+import net.sf.housekeeper.swing.util.BoundComponentFactory;
 
 import com.jgoodies.binding.PresentationModel;
-import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.binding.adapter.BasicComponentFactory;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.ButtonBarFactory;
-import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -131,15 +134,13 @@ public class FoodItemEditorDialog extends JDialog
      * 
      * @return the whole editor pane.
      */
-    private JComponent buildContentPane()
+    private JPanel buildContentPane()
     {
-        FormLayout layout = new FormLayout("fill:pref", "fill:pref, pref");
-        PanelBuilder builder = new PanelBuilder(layout);
-        builder.getPanel().setBorder(new EmptyBorder(12, 10, 10, 10));
-        CellConstraints cc = new CellConstraints();
-        builder.add(buildEditorPanel(), cc.xy(1, 1));
-        builder.add(buildButtonBar(), cc.xy(1, 2));
-        return builder.getPanel();
+        final JPanel panel = new JPanel(new BorderLayout());
+        panel.add(buildEditorPanel(), BorderLayout.CENTER);
+        panel.add(buildButtonBar(), BorderLayout.SOUTH);
+        panel.setBorder(Borders.DIALOG_BORDER);
+        return panel;
     }
 
     /**
@@ -149,7 +150,30 @@ public class FoodItemEditorDialog extends JDialog
      */
     private JComponent buildEditorPanel()
     {
-        return new FoodItemEditorBuilder(presentationModel).build();
+        //Create components
+        final JTextField nameField = BasicComponentFactory
+                .createTextField(presentationModel
+                        .getBufferedModel(FoodItem.PROPERTYNAME_NAME));
+        nameField.setColumns(20);
+        final JTextField quantityField = BasicComponentFactory
+                .createTextField(presentationModel
+                        .getBufferedModel(FoodItem.PROPERTYNAME_QUANTITY));
+        quantityField.setColumns(20);
+        final JSpinner dateSpinner = BoundComponentFactory
+                .createDateSpinner(presentationModel
+                        .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY));
+
+        //Build layout
+        final FormLayout layout = new FormLayout(
+                "right:pref, 3dlu, default:grow");
+        final DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+        builder.setDefaultDialogBorder();
+
+        builder.append("Name", nameField);
+        builder.append("Quantity", quantityField);
+        builder.append("Expiry", dateSpinner);
+
+        return builder.getPanel();
     }
 
     /**
