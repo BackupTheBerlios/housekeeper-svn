@@ -84,11 +84,11 @@
         
         
         <!-- Checks for whitespace                               -->
-        <!-- See http://checkstyle.sf.net/config_whitespace.html -->
+        <!-- See http://checkstyle.sf.net/config_whitespace.html-->
         <module name="EmptyForIteratorPad"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore"/>
-        <module name="OperatorWrap"/>
+        <module name="OperatorWrap"/> 
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
         <module name="TabCharacter"/>
@@ -164,10 +164,6 @@
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <module name="FinalParameters"/>
-        <module name="GenericIllegalRegexp">
-            <property name="format" value="\s+$"/>
-            <property name="message" value="Line has trailing spaces."/>
-        </module>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
 
@@ -181,7 +177,6 @@
 		
 		<module name="usage.OneMethodPrivateField"/>
 		<module name="usage.UnusedLocalVariable"/>
-		<module name="usage.UnusedParameter"/>
 		<module name="usage.UnusedPrivateField"/>
 		<module name="usage.UnusedPrivateMethod"/>
     </module>
