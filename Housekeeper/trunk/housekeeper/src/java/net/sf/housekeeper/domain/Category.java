@@ -29,7 +29,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.ToStringCreator;
 
 /**
- * @author
+ * A category for an {@link net.sf.housekeeper.domain.Item}.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class Category
