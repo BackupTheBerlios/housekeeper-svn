@@ -1,0 +1,29 @@
+<document>
+  <properties>
+    <title>Change history</title>
+    <author email="adrian.gygax(at)gmx.net">Adrian Gygax</author>
+  </properties>
+  <body>
+    <release version="0.1.2" date="2004-10-26">
+        <action dev="notizklotz" type="add" issue="1037939"> Added 
+            logging component for display of messages in the console.</action>
+        <action dev="notizklotz" type="add" issue="960660"> Implemented robust 
+            persistence layer using JDOM for reading and writing XML. </action>
+    </release>
+    <release version="0.1.1" date="2004-07-07">
+      <action dev="notizklotz" type="add">
+        Added basic item management functionality. (Add, Delete, Modify, Duplicate)
+      </action>
+      <action dev="notizklotz" type="add">
+        Items can be sorted by clicking on the table header.
+      </action>
+      <action dev="notizklotz" type="add">
+        Simple saving and loading mechanism implemented. BUT: Files saved with this version
+        will not be readable in the future anymore!
+      </action>
+      <action dev="notizklotz" type="add">
+        Basic about dialog with information about the libraries which are used.
+      </action>
+    </release>
+  </body>
+</document>
