@@ -46,21 +46,41 @@ import org.jdom.output.XMLOutputter;
 public final class JDOMPersistence implements PersistenceService
 {
 
-    /* (non-Javadoc)
+    /**
+     * Name of the attribute wich specifies the file format version.
+     */
+    private static final String  FILE_VERSION_ATTRIBUTE = "version";
+
+    /**
+     * Object used for converting between DOM and domain model.
+     */
+    private final ModelConverter modelConverter;
+
+    /**
+     * Initializes a JDOM persistence service.
+     *
+     */
+    public JDOMPersistence()
+    {
+        modelConverter = new ModelConverter();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see net.sf.housekeeper.persistence.PersistenceService#loadData(java.io.File)
      */
-    public Household loadData(final File location) throws IOException, UnsupportedFileVersionException
+    public Household loadData(final File location) throws IOException,
+            UnsupportedFileVersionException
     {
         final SAXBuilder builder = new SAXBuilder();
-        LogFactory.getLog(getClass()).debug(
-                                            "Trying to load file: "
-                                                    + location);
+        LogFactory.getLog(getClass()).debug("Trying to load file: " + location);
         try
         {
             final Document document = builder.build(location);
             final Element root = document.getRootElement();
-            final Household household = DomainConverterProxy.instance().convertToDomain(root);
-            
+            final Household household = convertToDomain(root);
+
             return household;
         } catch (JDOMException e)
         {
@@ -70,13 +90,16 @@ public final class JDOMPersistence implements PersistenceService
         }
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.housekeeper.persistence.PersistenceService#saveData(net.sf.housekeeper.domain.Household, java.io.File)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see net.sf.housekeeper.persistence.PersistenceService#saveData(net.sf.housekeeper.domain.Household,
+     *      java.io.File)
      */
-    public void saveData(final Household household, final File location) throws IOException
+    public void saveData(final Household household, final File location)
+            throws IOException
     {
-        final Element root = DomainConverterProxy.instance()
-                .convertDomainToXML(household);
+        final Element root = modelConverter.convertDomainToXML(household);
         final Document document = new Document(root);
 
         final Format format = Format.getPrettyFormat();
@@ -84,6 +107,59 @@ public final class JDOMPersistence implements PersistenceService
         final FileWriter fileWriter = new FileWriter(location);
         serializer.output(document, fileWriter);
         fileWriter.close();
+    }
+
+    /**
+     * Converts a DOM into a domain model.
+     * 
+     * @param root The root element of the data structure.
+     * @return The converted domain model.
+     * @throws UnsupportedFileVersionException if the file version of the data
+     *             cannot be detected or is not supported.
+     */
+    private Household convertToDomain(final Element root)
+            throws UnsupportedFileVersionException
+    {
+        //Extract version number
+        final int version = getFileVersionFor(root);
+        LogFactory.getLog(getClass())
+        .debug("Detected file version: " + version);
+        
+        //Check if version is supported
+        if (!isVersionSupported(version))
+        {
+            throw new UnsupportedFileVersionException(version);
+        }
+
+        //Convert the DOM
+        final Household household = modelConverter.convertToDomain(root);
+        return household;
+    }
+
+    /**
+     * Determines the file version for the given DOM.
+     * 
+     * @param root The root element of the saved data.
+     * @return The version of the data structure.
+     * @throws UnsupportedFileVersionException if the version cannot be detected.
+     */
+    private int getFileVersionFor(Element root)
+            throws UnsupportedFileVersionException
+    {
+        final String versionString = root
+                .getAttributeValue(FILE_VERSION_ATTRIBUTE);
+        if (versionString == null)
+        {
+            throw new UnsupportedFileVersionException(
+                    "Could not detect version of the file structure.");
+        }
+        final int version = Integer.parseInt(versionString);
+        return version;
+    }
+
+    private boolean isVersionSupported(int version)
+    {
+        return version == 1;
     }
 
 }

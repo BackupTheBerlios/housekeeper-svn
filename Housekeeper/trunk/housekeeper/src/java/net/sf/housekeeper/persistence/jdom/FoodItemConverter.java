@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.persistence.jdom.v1;
+package net.sf.housekeeper.persistence.jdom;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,13 +36,13 @@ import org.jdom.Element;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class FoodItemConverter1
+final class FoodItemConverter
 {
 
     /**
      * Prevents instanciation.
      */
-    private FoodItemConverter1()
+    private FoodItemConverter()
     {
     }
 
