@@ -91,11 +91,16 @@ public final class HousekeeperLifecycleAdvisor extends
     }
     
 
-    public void onPostStartup()
+    public void onCommandsCreated(ApplicationWindow window)
     {
-        ActionCommand command = getApplication().getActiveWindow().getCommandManager()
+        ActionCommand command = window.getCommandManager()
         .getActionCommand("loadCommand");
         command.execute();
+        super.onCommandsCreated(window);
+    }
+    
+    public void onPostStartup()
+    {
         super.onPostStartup();
     }
     
