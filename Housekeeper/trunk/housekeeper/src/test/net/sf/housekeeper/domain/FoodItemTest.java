@@ -142,6 +142,10 @@ public final class FoodItemTest extends TestCase
         assertTrue("Items are reported as not equal but they are.", item2EqualsItem);
     }
     
+    /**
+     * Tests equals() to return false if two items are not equal.
+     *
+     */
     public void testInequality()
     {
         final String name = "AName";

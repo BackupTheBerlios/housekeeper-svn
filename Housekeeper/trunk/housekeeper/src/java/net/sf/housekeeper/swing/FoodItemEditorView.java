@@ -308,6 +308,8 @@ class FoodItemEditorView
     /**
      * Creats a panel which which holds the components for editing an item's
      * attributes.
+     * 
+     * @return The created panel. Is not null.
      */
     private JPanel createEditorPanel()
     {

@@ -114,6 +114,8 @@ public final class MainFrame
 
     /**
      * Builds the components of the frame and adds them to the content pane.
+     * 
+     * @return The created components. Is not null.
      */
     private Component buildComponents()
     {
@@ -126,6 +128,8 @@ public final class MainFrame
 
     /**
      * Builds the menus.
+     * 
+     * @return The created menu bar. Is not null.
      */
     private JMenuBar buildMenuBar()
     {

@@ -13,6 +13,10 @@ import junit.framework.TestCase;
 public class FoodItemManagerTest extends TestCase
 {
 
+    /**
+     * Tests if an added item is contained in the list.
+     *
+     */
     public void testAdd()
     {
         final FoodItemManager manager = new FoodItemManager();
@@ -22,6 +26,10 @@ public class FoodItemManagerTest extends TestCase
         assertTrue("The item added cannot be found in the list", isItemInList);
     }
 
+    /**
+     * Tests if supply list is not null.
+     *
+     */
     public void testGetSupplyList()
     {
         final FoodItemManager manager = new FoodItemManager();
@@ -29,6 +37,10 @@ public class FoodItemManagerTest extends TestCase
         assertNotNull("getSupplyList() returns null", supply);
     }
 
+    /**
+     * Tests replacement of all items.
+     *
+     */
     public void testReplaceAll()
     {
         final FoodItemManager manager = new FoodItemManager();
@@ -47,6 +59,10 @@ public class FoodItemManagerTest extends TestCase
                 .contains(newItem));
     }
 
+    /**
+     * Tests the removal of items.
+     *
+     */
     public void testRemove()
     {
         final FoodItemManager manager = new FoodItemManager();

@@ -51,6 +51,16 @@ public final class FoodItemManager
     private static final Log LOG = LogFactory.getLog(FoodItemManager.class);
     
     /**
+     * Returns the Singleton instance of this class.
+     * 
+     * @return The Singleton instance.
+     */
+    public static FoodItemManager instance()
+    {
+        return instance;
+    }
+    
+    /**
      * Holds a list of all items on hand.
      */
     private final EventList        supply;
@@ -87,6 +97,16 @@ public final class FoodItemManager
         final FoodItem clonedItem = (FoodItem)item.clone();
         add(clonedItem);
     }
+
+    /**
+     * Provides an iterator for the list of items on hand.
+     * 
+     * @return an iterator for the list of items on hand.
+     */
+    public Iterator getItemsIterator()
+    {
+        return supply.iterator();
+    }
     
     /**
      * Returns the items on hold. You must NOT modify the returned list object
@@ -97,6 +117,18 @@ public final class FoodItemManager
     public EventList getSupplyList()
     {
         return supply;
+    }
+
+    /**
+     * Removes a FoodItem from the supply.
+     * 
+     * @param item the item to remove from the supply.
+     */
+    public void remove(final FoodItem item)
+    {
+        supply.remove(item);
+        
+        LOG.debug("Removed item: " + item);
     }
     
     /**
@@ -113,16 +145,6 @@ public final class FoodItemManager
     }
 
     /**
-     * Provides an iterator for the list of items on hand.
-     * 
-     * @return an iterator for the list of items on hand.
-     */
-    public Iterator getItemsIterator()
-    {
-        return supply.iterator();
-    }
-
-    /**
      * Updates an item in this manager.
      * 
      * @param item The item which should be updated.
@@ -133,23 +155,6 @@ public final class FoodItemManager
         supply.set(index, item);
         
         LOG.debug("Updated item: " + item);
-    }
-
-    /**
-     * Removes a FoodItem from the supply.
-     * 
-     * @param item the item to remove from the supply.
-     */
-    public void remove(final FoodItem item)
-    {
-        supply.remove(item);
-        
-        LOG.debug("Removed item: " + item);
-    }
-    
-    public static FoodItemManager instance()
-    {
-        return instance;
     }
 
 }
