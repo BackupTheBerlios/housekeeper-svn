@@ -24,6 +24,7 @@ package net.sf.housekeeper.swing;
 import java.util.EventObject;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
@@ -44,7 +45,7 @@ import org.springframework.richclient.command.support.GlobalCommandIds;
 public final class SupplyPresenter extends AbstractView
 {
 
-    private FoodListPresenter              activePresenter;
+    private FoodTableView                  activePresenter;
 
     private final EditCommandExecutor      editExecutor               = new EditCommandExecutor();
 
@@ -62,9 +63,9 @@ public final class SupplyPresenter extends AbstractView
 
     private SupplyView                     view;
 
-    private FoodListPresenter              convPresenter;
+    private FoodTableView                  convPresenter;
 
-    private FoodListPresenter              miscPresenter;
+    private FoodTableView                  miscPresenter;
 
     /**
      * Creates a new SupplyPanel.
@@ -76,10 +77,10 @@ public final class SupplyPresenter extends AbstractView
         newConvenienceFoodExecutor.setEnabled(true);
         newMiscFoodExecutor.setEnabled(true);
 
-        convPresenter = new FoodListPresenter();
+        convPresenter = new FoodTableView();
         convPresenter.setCategory("convenienceFood");
 
-        miscPresenter = new FoodListPresenter();
+        miscPresenter = new FoodTableView();
         miscPresenter.setCategory("misc");
     }
 
@@ -186,7 +187,7 @@ public final class SupplyPresenter extends AbstractView
         deleteExecutor.setEnabled(hasSelection);
     }
 
-    private void updateActivePresenter(final FoodListPresenter presenter)
+    private void updateActivePresenter(final FoodTableView presenter)
     {
         if (presenter != activePresenter)
         {
@@ -262,22 +263,21 @@ public final class SupplyPresenter extends AbstractView
     {
         view = new SupplyView();
 
-        convPresenter.getView()
-                .setName(
-                         LocalisationManager.INSTANCE
-                                 .getText("domain.food.convenienceFoods"));
-        view.addPanel(convPresenter.getView());
+        JPanel convPanel = (JPanel) convPresenter.getControl();
+        convPanel.setName(LocalisationManager.INSTANCE
+                .getText("domain.food.convenienceFoods"));
+        view.addPanel(convPanel);
 
-        miscPresenter.getView().setName(
-                                        LocalisationManager.INSTANCE
-                                                .getText("domain.food.misc"));
-        view.addPanel(miscPresenter.getView());
+        JPanel miscPanel = (JPanel) miscPresenter.getControl();
+        miscPanel.setName(LocalisationManager.INSTANCE
+                .getText("domain.food.misc"));
+        view.addPanel(miscPanel);
 
         final EventObjectListener selectionListener = new EventObjectListener() {
 
             public void handleEvent(EventObject event)
             {
-                updateActivePresenter((FoodListPresenter) event.getSource());
+                updateActivePresenter((FoodTableView) event.getSource());
                 updateActionEnablement();
 
             }
