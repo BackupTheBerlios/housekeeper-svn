@@ -3,6 +3,26 @@
         <title>Change history</title>
     </properties>
     <body>
+      <release version="0.2.4" date="2005-04-06">
+        <action dev="notizklotz" type="update" issue="3522">Use platform 
+          specific Look&amp;Feel.</action>
+        <action dev="notizklotz" type="update" issue="3620">Redesigned user 
+          interface to show only items of categories selected by the 
+          user.</action>
+        <action dev="notizklotz" type="update">Instead of individual buttons 
+          for creating items of different categories, the category of an item 
+          is set to the selected category.</action>
+        <action dev="notizklotz" type="add" issue="3495">Accept changes in food 
+          editor upon pressing enter.</action>
+        <action dev="notizklotz" type="fix" issue="3443">Button states not 
+          updated when removing all items.</action>
+        <action dev="notizklotz" type="fix" issue="3496">Select item beneath 
+          mouse cursor before popup menu is displayed.</action>
+        <action dev="notizklotz" type="fix" issue="3716">Unix start script 
+          works correctly if started from a file manager.</action>
+        <action dev="notizklotz" type="remove">Support for data created with 
+          Housekeeper 0.2.2 and below has been dropped.</action>
+      </release>
       <release version="0.2.3" date="2005-03-01">
         <action dev="notizklotz" type="add" issue="3441">The expiry date can 
           now be selected using a calendar.</action>
