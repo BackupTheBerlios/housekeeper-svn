@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import net.sourceforge.housekeeper.model.Article;
+import net.sourceforge.housekeeper.storage.StorageFactory;
+
 import com.jgoodies.forms.extras.DefaultFormBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
@@ -95,7 +98,16 @@ public class ArticleDialog extends ExtendedDialog
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			System.out.println("OK");
+			Article article = new Article();
+			article.setName(nameField.getText());
+			article.setStore(storeField.getText());
+			article.setPrice(Double.parseDouble(priceField.getText()));
+			article.setQuantity(Integer.parseInt(quantityField.getText()));
+			article.setQuantityUnit(unitField.getText());
+			
+			StorageFactory.getCurrentStorage().addArticle(article);
+			StorageFactory.getCurrentStorage().saveData();
+			
 			dispose();
 		}
 		
