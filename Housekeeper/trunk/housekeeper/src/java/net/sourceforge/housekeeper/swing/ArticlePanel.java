@@ -26,16 +26,13 @@ public class ArticlePanel extends JPanel
 		scrollPane = new JScrollPane(table);
 
 		add(scrollPane);
-		StorageFactory.getCurrentStorage();
 	}
 
 	private class ArticleModel extends AbstractTableModel implements Observer
 	{
-		List articles;
 
 		private ArticleModel()
 		{
-			articles = StorageFactory.getCurrentStorage().getArticles();
 			StorageFactory.getCurrentStorage().addObserver(this);
 		}
 
@@ -52,7 +49,7 @@ public class ArticlePanel extends JPanel
 		 */
 		public int getRowCount()
 		{
-			return articles.size();
+			return StorageFactory.getCurrentStorage().getArticles().size();
 		}
 
 		/* (non-Javadoc)
@@ -60,6 +57,7 @@ public class ArticlePanel extends JPanel
 		 */
 		public Object getValueAt(int rowIndex, int columnIndex)
 		{
+			List articles = StorageFactory.getCurrentStorage().getArticles();
 			Article article = (Article)articles.get(rowIndex);
 
 			switch (columnIndex)
@@ -82,7 +80,7 @@ public class ArticlePanel extends JPanel
 				default :
 					break;
 			}
-
+			System.err.println("Null");
 			return null;
 		}
 

@@ -15,16 +15,17 @@ import net.sourceforge.housekeeper.model.Article;
 /**
  * @author Adrian Gygax
  */
-public class XMLStorage extends Storage
+public final class XMLStorage extends Storage
 {
 	private List articles;
 
 	private XMLEncoder xmlEncoder;
-
 	private XMLDecoder xmlDecoder;
+	
+	private final static String FILENAME = "/home/phelan/test.xml";
 
 
-	public XMLStorage()
+	XMLStorage()
 	{
 		articles = new ArrayList();
 	}
@@ -52,7 +53,7 @@ public class XMLStorage extends Storage
 			xmlEncoder =
 				new XMLEncoder(
 					new BufferedOutputStream(
-						new FileOutputStream("/home/phelan/Test.xml")));
+						new FileOutputStream(FILENAME)));
 		
 			xmlEncoder.writeObject(articles);
 			
@@ -71,10 +72,13 @@ public class XMLStorage extends Storage
 			xmlDecoder =
 				new XMLDecoder(
 					new BufferedInputStream(
-						new FileInputStream("/home/phelan/Test.xml")));
+						new FileInputStream(FILENAME)));
 			Object result = xmlDecoder.readObject();
 			
 			articles = (List) result;
+			
+			setChanged();
+			notifyObservers();
 			
 			xmlDecoder.close();
 		}
@@ -82,6 +86,8 @@ public class XMLStorage extends Storage
 		{
 			System.out.println("File not found");
 		}
+		
+		
 	}
 
 	/* (non-Javadoc)
