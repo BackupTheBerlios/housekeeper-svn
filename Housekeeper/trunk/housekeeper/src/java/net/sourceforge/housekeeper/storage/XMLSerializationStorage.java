@@ -23,9 +23,6 @@
 package net.sourceforge.housekeeper.storage;
 
 
-import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.domain.Purchase;
-
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 
@@ -35,9 +32,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -58,7 +52,7 @@ import java.util.List;
  *
  * @since 0.1
  */
-final class XMLSerializationStorage implements Storage
+final class XMLSerializationStorage extends MemoryStorage
 {
     //~ Static fields/initializers ---------------------------------------------
 
@@ -67,8 +61,6 @@ final class XMLSerializationStorage implements Storage
 
     //~ Instance fields --------------------------------------------------------
 
-    private Collection articleDescriptions;
-    private Collection purchases;
     private XMLDecoder xmlDecoder;
     private XMLEncoder xmlEncoder;
 
@@ -79,43 +71,10 @@ final class XMLSerializationStorage implements Storage
      */
     XMLSerializationStorage()
     {
-        articleDescriptions = new ArrayList();
-        purchases           = new ArrayList();
+
     }
 
     //~ Methods ----------------------------------------------------------------
-
-    /* (non-Javadoc)
-     * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
-     */
-    public Collection getAllArticleDescriptions()
-    {
-        return Collections.unmodifiableCollection(articleDescriptions);
-    }
-
-    /* (non-Javadoc)
-     * @see net.sourceforge.housekeeper.storage.Storage#getAllPurchases()
-     */
-    public Collection getAllPurchases()
-    {
-        return Collections.unmodifiableCollection(purchases);
-    }
-
-    /* (non-Javadoc)
-     * @see net.sourceforge.housekeeper.storage.Storage#add(net.sourceforge.housekeeper.domain.ArticleDescription)
-     */
-    public void add(ArticleDescription article)
-    {
-        articleDescriptions.add(article);
-    }
-
-    /* (non-Javadoc)
-     * @see net.sourceforge.housekeeper.storage.Storage#add(net.sourceforge.housekeeper.domain.Purchase)
-     */
-    public void add(Purchase purchase)
-    {
-        purchases.add(purchase);
-    }
 
 
     /* (non-Javadoc)
@@ -137,14 +96,6 @@ final class XMLSerializationStorage implements Storage
         {
             System.out.println("File not found");
         }
-    }
-
-    /* (non-Javadoc)
-     * @see net.sourceforge.housekeeper.storage.Storage#remove(net.sourceforge.housekeeper.domain.ArticleDescription)
-     */
-    public void remove(ArticleDescription article)
-    {
-        articleDescriptions.remove(article);
     }
 
 

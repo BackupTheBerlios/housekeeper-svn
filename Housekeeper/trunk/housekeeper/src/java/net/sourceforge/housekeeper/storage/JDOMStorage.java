@@ -19,9 +19,6 @@
 package net.sourceforge.housekeeper.storage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.jdom.Document;
@@ -30,7 +27,6 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.domain.Purchase;
 
 /**
  * 
@@ -40,67 +36,25 @@ import net.sourceforge.housekeeper.domain.Purchase;
  * @see
  * @since
  */
-public class JDOMStorage implements Storage
+class JDOMStorage extends MemoryStorage
 {
 
-    public JDOMStorage()
+    JDOMStorage()
     {
-        articleDescriptions = new ArrayList();
-        purchases           = new ArrayList();
+
     }
 
     //~ Static fields/initializers ---------------------------------------------
 
     /** The name of the file used for data storage */
-    private static final String FILENAME = "/home/phelan/jdom.xml";
+    private static final String FILENAME = "/home/phelan/temp/jdom.xml";
 
-    //~ Instance fields --------------------------------------------------------
 
-    private Collection articleDescriptions;
-    private Collection purchases;
 
     //~ Constructors -----------------------------------------------------------
 
 
     //~ Methods ----------------------------------------------------------------
-
-    /* (non-Javadoc)
-     * @see net.sourceforge.housekeeper.storage.Storage#getArticles()
-     */
-    public Collection getAllArticleDescriptions()
-    {
-        return Collections.unmodifiableCollection(articleDescriptions);
-    }
-
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public Collection getAllPurchases()
-    {
-        return Collections.unmodifiableCollection(purchases);
-    }
-
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param article DOCUMENT ME!
-     */
-    public void add(ArticleDescription article)
-    {
-        articleDescriptions.add(article);
-    }
-
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param purchase DOCUMENT ME!
-     */
-    public void add(Purchase purchase)
-    {
-        purchases.add(purchase);
-    }
 
 
     public void loadData()
@@ -109,11 +63,6 @@ public class JDOMStorage implements Storage
 
     }
 
-    public void remove(ArticleDescription article)
-    {
-        // TODO Auto-generated method stub
-
-    }
 
     public void saveData()
     {
