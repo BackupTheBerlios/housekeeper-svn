@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <binding>
   
-  <mapping name="item" class="net.sf.housekeeper.domain.Item" abstract="true">
+  <mapping class="net.sf.housekeeper.domain.Item" abstract="true">
     <value name="name" field="name" usage="optional"/>
     <value name="description" field="description" usage="optional"/>
     <value name="category" field="category" ident="ref"/>
