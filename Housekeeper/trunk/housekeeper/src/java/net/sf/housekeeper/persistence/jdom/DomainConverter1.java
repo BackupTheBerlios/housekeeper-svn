@@ -78,7 +78,7 @@ final class DomainConverter1 implements DomainConverter
         final Element root = new Element("housekeeper");
         root.setAttribute("version", "" + SUPPORTED_FILE_VERSION);
 
-        final Iterator iter = FoodItemManager.INSTANCE.getSupplyIterator();
+        final Iterator iter = FoodItemManager.INSTANCE.getItemsIterator();
         while (iter.hasNext())
         {
             final FoodItem item = (FoodItem) iter.next();

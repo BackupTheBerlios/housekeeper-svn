@@ -192,6 +192,26 @@
     </dependency>
     
     <dependency>
+        <groupId>glazedlists</groupId>
+        <artifactId>glazedlists</artifactId>
+        <version>0.9.3</version>
+        <url>http://publicobject.com/glazedlists/</url>
+        <properties>
+            <category>shared</category>
+        </properties>
+    </dependency>
+    
+    <dependency>
+        <groupId>renderpack</groupId>
+        <artifactId>renderpack</artifactId>
+        <version>0.0.1</version>
+        <url>https://renderpack.dev.java.net/</url>
+        <properties>
+            <category>shared</category>
+        </properties>
+    </dependency>
+    
+    <dependency>
         <groupId>statcvs</groupId>
         <artifactId>maven-statcvs-plugin</artifactId>
         <version>2.5</version>

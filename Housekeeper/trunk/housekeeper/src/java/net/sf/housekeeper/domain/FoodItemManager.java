@@ -22,16 +22,13 @@
 package net.sf.housekeeper.domain;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.ListModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.jgoodies.binding.list.ArrayListModel;
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
 
 /**
  * Holds a list of items and provides operations to add, delete and change a
@@ -56,7 +53,7 @@ public final class FoodItemManager
     /**
      * Holds a list of all items on hand.
      */
-    private ArrayListModel        supply;
+    private final EventList        supply;
 
     /**
      * Do not use this constructor, use the public Singleton instance instead.
@@ -64,7 +61,7 @@ public final class FoodItemManager
      */
     FoodItemManager()
     {
-        supply = new ArrayListModel();
+        supply = new BasicEventList();
     }
 
     /**
@@ -90,27 +87,17 @@ public final class FoodItemManager
         final FoodItem clonedItem = (FoodItem)item.clone();
         add(clonedItem);
     }
-
-    /**
-     * Returns the items on hold as a ListModel.
-     * 
-     * @return the supply.
-     */
-    public ListModel getSupplyListModel()
-    {
-        return supply;
-    }
     
     /**
      * Returns the items on hold.
      * 
      * @return the supply.
      */
-    public List getSupplyList()
+    public EventList getSupplyList()
     {
-        return Collections.unmodifiableList(supply);
+        return supply;
     }
-
+    
     /**
      * Clears the list of all food items on hand and replaces it with a new one.
      * 
@@ -129,27 +116,26 @@ public final class FoodItemManager
      * 
      * @return an iterator for the list of items on hand.
      */
-    public Iterator getSupplyIterator()
+    public Iterator getItemsIterator()
     {
         return supply.iterator();
     }
 
     /**
-     * Marks the FoodItem at the specified index as changed observers of the
-     * supply ListModel about the change.
+     * Updates an item in this manager.
      * 
-     * @param index
+     * @param item The item which should be updated.
      */
-    public void markItemChanged(int index)
+    public void update(final FoodItem item)
     {
-        supply.fireContentsChanged(index);
+        final int index = supply.indexOf(item);
+        supply.set(index, item);
         
-        LOG.debug("Marked item as changed: " + supply.get(index));
+        LOG.debug("Updated item: " + item);
     }
 
     /**
-     * Removes a FoodItem from the supply and notifies observers of the supply
-     * ListModel about the change.
+     * Removes a FoodItem from the supply.
      * 
      * @param item the item to remove from the supply.
      */

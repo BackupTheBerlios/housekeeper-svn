@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.ListModel;
-
 import junit.framework.TestCase;
 
 /**
@@ -29,13 +27,6 @@ public class FoodItemManagerTest extends TestCase
         final FoodItemManager manager = new FoodItemManager();
         final List supply = manager.getSupplyList();
         assertNotNull("getSupplyList() returns null", supply);
-    }
-
-    public void testGetSupplyListModel()
-    {
-        final FoodItemManager manager = new FoodItemManager();
-        final ListModel supply = manager.getSupplyListModel();
-        assertNotNull("getSupplyListModel() returns null", supply);
     }
 
     public void testReplaceAll()
