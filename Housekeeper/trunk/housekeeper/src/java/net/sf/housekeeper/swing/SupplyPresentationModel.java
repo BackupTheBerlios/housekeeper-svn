@@ -96,14 +96,14 @@ public class SupplyPresentationModel
         supplyTable = new JTable(tableModel);
 
         //Adds the sorting functionality to the table
-        addSorting(sortedList);
+        addSorting(supplyTable, sortedList);
 
         //Listen for changes of the table row selection
         selectionModel = new EventSelectionModel(sortedList);
-        setSelectionModel();
+        setSelectionModel(supplyTable);
 
         //Register renderer for the expiry date
-        setExpiryDateRenderer();
+        setExpiryDateRenderer(supplyTable);
     }
 
     /**
@@ -179,12 +179,13 @@ public class SupplyPresentationModel
     /**
      * Adds sorting functionality to the headers.
      * 
+     * @param table The table to add sorting to.
      * @param sortedList The list which holds the table's data.
      */
-    private void addSorting(final SortedList sortedList)
+    private void addSorting(final JTable table, final SortedList sortedList)
     {
         final TableComparatorChooser comparatorChooser = new TableComparatorChooser(
-                supplyTable, sortedList, false);
+                table, sortedList, false);
         comparatorChooser.getComparatorsForColumn(2).clear();
         comparatorChooser.getComparatorsForColumn(2).add(new Comparator() {
 
@@ -218,23 +219,27 @@ public class SupplyPresentationModel
     /**
      * Sets the renderer for the expiry date. It is shown in the current
      * locale's short format.
+     * 
+     * @param table The table for which the renderer should be set.
      */
-    private void setExpiryDateRenderer()
+    private void setExpiryDateRenderer(final JTable table)
     {
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
         final TableCellRenderer dateRenderer = new DateCellRenderer(dateFormat);
-        supplyTable.getColumn("Expiry").setCellRenderer(dateRenderer);
+        table.getColumn("Expiry").setCellRenderer(dateRenderer);
     }
 
     /**
      * Sets the {@link ListSelectionModel}of the table to
      * {@link SupplyPresentationModel#selectionModel}.
+     * 
+     * @param table The table for which the selection model shall be set.
      */
-    private void setSelectionModel()
+    private void setSelectionModel(final JTable table)
     {
-        supplyTable.setSelectionModel(selectionModel.getListSelectionModel());
-        supplyTable.getSelectionModel()
+        table.setSelectionModel(selectionModel.getListSelectionModel());
+        table.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 }
