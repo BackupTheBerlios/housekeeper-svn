@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -33,41 +33,42 @@ import javax.swing.table.AbstractTableModel;
 
 
 /**
- * TODO DOCUMENT ME!
+ * A table model for display of all Article Descriptions in a table.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  *
- * @since
+ * @since 0.1
  */
 final class ArticleDescriptionTableModel extends AbstractTableModel
     implements Observer
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    private static ArticleDescriptionTableModel instance = new ArticleDescriptionTableModel();
+    /** Singleton instance */
+    private static final ArticleDescriptionTableModel INSTANCE = new ArticleDescriptionTableModel();
 
-    /** TODO DOCUMENT ME! */
-    private static final Class doubleClass = new Double(0).getClass();
+    /** Double class */
+    private static final Class DOUBLECLASS = new Double(0).getClass();
 
-    /** TODO DOCUMENT ME! */
-    private static final Class integerClass = new Integer(0).getClass();
+    /** Integer class */
+    private static final Class INTEGERCLASS = new Integer(0).getClass();
 
-    /** TODO DOCUMENT ME! */
-    private static final Class stringClass = new String().getClass();
+    /** String class */
+    private static final Class STRINGCLASS = new String().getClass();
 
-    /** TODO DOCUMENT ME! */
-    private static final Class[] columnClasses = 
+    /** The classes of the data of the table's columns */
+    private static final Class[] COLUMNCLASSES = 
                                                  {
-                                                     stringClass,
-                                                     stringClass,
-                                                     integerClass,
-                                                     stringClass,
-                                                     doubleClass
+                                                     STRINGCLASS,
+                                                     STRINGCLASS,
+                                                     INTEGERCLASS,
+                                                     STRINGCLASS,
+                                                     DOUBLECLASS
                                                  };
 
-    /** TODO DOCUMENT ME! */
-    private static final String[] columnHeaders = 
+    /** Header names for the table */
+    private static final String[] COLUMNHEADERS = 
                                                   {
                                                       "Name",
                                                       "Dealer",
@@ -75,27 +76,33 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
                                                       "Unit",
                                                       "Price"
                                                   };
-    private static Object[]       tableData;
+
+    //~ Instance fields --------------------------------------------------------
+
+    /** Holds the ArticleDescription objects */
+    private Object[] tableData;
 
     //~ Constructors -----------------------------------------------------------
 
+    /**
+     * Creates a new ArticleDescriptionModel object.
+     */
     private ArticleDescriptionTableModel()
     {
         updateTableData();
         DataUpdateMediator.getInstance().addObserver(this);
-        
     }
 
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Returns the Singleton instance of this class.
      *
-     * @return DOCUMENT ME!
+     * @return The Singleton instance
      */
     public static ArticleDescriptionTableModel getInstance()
     {
-        return instance;
+        return INSTANCE;
     }
 
     /* (non-Javadoc)
@@ -103,7 +110,7 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
      */
     public Class getColumnClass(int columnIndex)
     {
-        return columnClasses[columnIndex];
+        return COLUMNCLASSES[columnIndex];
     }
 
     /* (non-Javadoc)
@@ -111,7 +118,7 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
      */
     public int getColumnCount()
     {
-        return columnHeaders.length;
+        return COLUMNHEADERS.length;
     }
 
     /* (non-Javadoc)
@@ -119,15 +126,15 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
      */
     public String getColumnName(int columnIndex)
     {
-        return columnHeaders[columnIndex];
+        return COLUMNHEADERS[columnIndex];
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Returns the ArticleDescription object at the given row.
      *
-     * @param row DOCUMENT ME!
+     * @param row Row of the object to be returned.
      *
-     * @return DOCUMENT ME!
+     * @return The object at te given row.
      */
     public ArticleDescription getObjectAtRow(int row)
     {
@@ -170,11 +177,6 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
                 return null;
         }
     }
-    
-    private void updateTableData()
-    {
-        tableData = StorageFactory.getCurrentStorage().getAllArticleDescriptions().toArray();
-    }
 
     /* (non-Javadoc)
      * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
@@ -183,5 +185,14 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
     {
         updateTableData();
         fireTableDataChanged();
+    }
+
+    /**
+     * Fetches the current list of Article Descriptions from the storage.
+     */
+    private void updateTableData()
+    {
+        tableData = StorageFactory.getCurrentStorage()
+                                  .getAllArticleDescriptions().toArray();
     }
 }

@@ -40,33 +40,36 @@ import javax.swing.JTextField;
 
 
 /**
- * DOCUMENT ME!
+ * Dialog for showing, modifying and adding ArticleDescriptions.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public final class ArticleDescriptionDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
     private ArticleDescription article;
-    private JButton buttonCancel;
-    private JButton buttonOK;
-    private JTextField nameField;
-    private JTextField priceField;
-    private JTextField quantityField;
-    private JTextField storeField;
-    private JTextField unitField;
+    private JButton            buttonCancel;
+    private JButton            buttonOK;
+    private JTextField         nameField;
+    private JTextField         priceField;
+    private JTextField         quantityField;
+    private JTextField         storeField;
+    private JTextField         unitField;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * DOCUMENT ME!
+     * Creates a new ArticleDescriptionDialog.
      */
     public ArticleDescriptionDialog()
     {
         super(MainFrame.INSTANCE, true);
 
-        initComponents();
+        initFields();
         buildLayout();
         pack();
         SwingUtils.centerOnComponent(this, getParent());
@@ -75,11 +78,13 @@ public final class ArticleDescriptionDialog extends JDialog
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Shows a dialog for entering a new Article Description. The new object is
+     * returned by this method.
      *
-     * @param title DOCUMENT ME!
+     * @param title Title of the dialog's window.
      *
-     * @return DOCUMENT ME!
+     * @return The new object if the user confirms his entry, null if he
+     *         aborts.
      */
     public ArticleDescription show(String title)
     {
@@ -90,33 +95,36 @@ public final class ArticleDescriptionDialog extends JDialog
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Shows a dialog for modifying an existing Article Description. The
+     * modified object is returned by this method.
      *
-     * @param title DOCUMENT ME!
-     * @param article DOCUMENT ME!
+     * @param title Title of the dialog's window.
+     * @param articleDescription Object that should be modified.
      *
-     * @return DOCUMENT ME!
+     * @return The modified object if the user confirms his entry, null if he
+     *         aborts.
      */
-    public ArticleDescription show(String title, ArticleDescription article)
+    public ArticleDescription show(String title,
+                                   ArticleDescription articleDescription)
     {
-        this.article = article;
         setTitle(title);
 
-        nameField.setText(article.getName());
-        storeField.setText(article.getStore());
-        priceField.setText("" + article.getPrice());
-        quantityField.setText("" + article.getQuantity());
-        unitField.setText(article.getQuantityUnit());
+        this.article = articleDescription;
+        nameField.setText(articleDescription.getName());
+        storeField.setText(articleDescription.getStore());
+        priceField.setText("" + articleDescription.getPrice());
+        quantityField.setText("" + articleDescription.getQuantity());
+        unitField.setText(articleDescription.getQuantityUnit());
 
         super.show();
 
-        return article;
+        return articleDescription;
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Builds the button bar.
      *
-     * @return DOCUMENT ME!
+     * @return The created button bar.
      */
     private Component buildButtonBar()
     {
@@ -124,12 +132,12 @@ public final class ArticleDescriptionDialog extends JDialog
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Builds the layout of the dialog.
      */
     private void buildLayout()
     {
-        FormLayout layout = new FormLayout("right:pref, 3dlu, 40dlu, 80dlu", // columns
-                                           "");
+        FormLayout         layout = new FormLayout("right:pref, 3dlu, 40dlu, 80dlu", // columns
+                                                   "");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 
         builder.setDefaultDialogBorder();
@@ -151,15 +159,15 @@ public final class ArticleDescriptionDialog extends JDialog
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Initializes this object's fields.
      */
-    private void initComponents()
+    private void initFields()
     {
-        nameField = new JTextField();
-        storeField = new JTextField();
-        priceField = new JTextField();
+        nameField     = new JTextField();
+        storeField    = new JTextField();
+        priceField    = new JTextField();
         quantityField = new JTextField();
-        unitField = new JTextField();
+        unitField     = new JTextField();
 
         buttonOK = new JButton("OK");
         buttonOK.addActionListener(new OKButtonActionListener());
@@ -181,6 +189,7 @@ public final class ArticleDescriptionDialog extends JDialog
             {
                 article = new ArticleDescription();
             }
+
 
             article.setName(nameField.getText());
             article.setStore(storeField.getText());

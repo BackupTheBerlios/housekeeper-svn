@@ -36,37 +36,36 @@ import javax.swing.ListSelectionModel;
 
 
 /**
- * DOCUMENT ME!
+ * Shows all Article Descriptions as a table and offers manipulation (Create,
+ * modify, delete) on them.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public final class ArticleDescriptionPanel extends JPanel
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance */
     private static final ArticleDescriptionPanel INSTANCE = new ArticleDescriptionPanel();
 
     //~ Instance fields --------------------------------------------------------
 
-    /** TODO DOCUMENT ME! */
-    private JPanel buttonPanel;
-
-    /** TODO DOCUMENT ME! */
+    private JPanel      buttonPanel;
     private JScrollPane scrollPane;
-
-    /** TODO DOCUMENT ME! */
-    private JTable table;
+    private JTable      table;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new ArticlePanel object.
+     * Creates a new ArticleDescriptionPanel object.
      */
     private ArticleDescriptionPanel()
     {
-        table = new JTable(ArticleDescriptionTableModel.getInstance());
-        scrollPane = new JScrollPane(table);
+        table       = new JTable(ArticleDescriptionTableModel.getInstance());
+        scrollPane  = new JScrollPane(table);
         buttonPanel = new JPanel();
 
         buttonPanel.add(new JButton(NewArticleDescriptionAction.INSTANCE));
@@ -82,9 +81,9 @@ public final class ArticleDescriptionPanel extends JPanel
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Returns the Singleton instance of this class.
      *
-     * @return DOCUMENT ME!
+     * @return The Singleton instance.
      */
     public static ArticleDescriptionPanel getInstance()
     {
@@ -92,9 +91,10 @@ public final class ArticleDescriptionPanel extends JPanel
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Returns the selected Article Description from the table.
      *
-     * @return DOCUMENT ME!
+     * @return The selected Article Description or null if no table row is
+     *         selected.
      */
     public ArticleDescription getSelectedArticle()
     {
@@ -110,15 +110,5 @@ public final class ArticleDescriptionPanel extends JPanel
         {
             return null;
         }
-    }
-
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    JTable getTable()
-    {
-        return table;
     }
 }
