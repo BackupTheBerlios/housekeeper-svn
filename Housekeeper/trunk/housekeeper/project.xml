@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+
+  <!-- the version of maven's project object model -->
+  <pomVersion>3</pomVersion>
+  
+  <!-- a unique name for this project -->
+  <id>housekeeper</id>
+  
+  <!-- a short but descriptive name for the project -->
+  <name>Housekeeper</name>
+  
+  <groupId>net.sourceforge.housekeeper</groupId>
+  
+  <!-- The version of the project under development, e.g.
+       1.1, 1.2, 2.0-SNAPSHOT -->
+  <currentVersion>0.1-SNAPSHOT</currentVersion>
+  
+  <!-- details about the organization that 'owns' the project -->
+  <organization>
+    <name>Housekeeper Project</name>
+    <url>http://housekeeper.sourceforge.net/</url>
+    <!-- <logo>http://maven.apache.org/images/jakarta-logo-blue.gif</logo> -->
+  </organization>
+  
+  <!-- the year the project started -->
+  <inceptionYear>2003</inceptionYear>
+  
+  <package>net.sourceforge.housekeeper</package>
+  <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
+  <description>
+    The first stage will introduce the program as a simple single-user database for 
+    victuals you bought. After you have used them in parts or as a whole you will be 
+    able to update the database to reflect the changes. Entering items together with 
+    their prices will enable the application to provide minimalistic budget planning 
+    features.
+    
+   	The second stage will introduce multi-user capability. This will enable to track 
+   	down who bought what for how much solving a general community problem: 
+   	money.
+   	
+   	The third stage will introduce the ability to compose meals from the 
+   	victuals. This will make usage easier as you only specify which meal you have 
+   	prepared and the ingredients will automatically be deducted.
+   	
+   	The fourth stage 
+   	will introduce a conversion to meet the J2EE specification. That's mainly for 
+   	educational reasons.
+   	
+   	The future might even be an integration of Web Services. 
+   	(Fetching menus from the Internet, fetching lists of victuals from the stores; providing electronic purchase notes for access via J2ME)
+  </description>
+  <!-- a short description of what the project does -->
+  <shortDescription>
+    A JAVA based application which helps you keeping track of your food items 
+    and total expenses for nutrition.
+  </shortDescription>
+
+  <!-- the project home page -->
+  <url>http://housekeeper.sourceforge.net</url>
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=91396</issueTrackingUrl>
+  <siteAddress>shell.sourceforge.net</siteAddress>
+  <siteDirectory>/home/groups/h/ho/housekeeper/htdocs</siteDirectory>
+
+  <!-- the version control repository and http url for online access
+       the connection element has the form:
+       scm:<system>:<system specific connection string> -->
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</connection>
+    <developerConnection>scm:cvs:ext:notizklotz@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</developerConnection>
+    <url>http://cvs.sourceforge.net/viewcvs.py/housekeeper</url>
+  </repository>
+
+  <!-- any mailing lists for the project -->
+  <mailingLists/>
+  
+  <!-- who the developers are for the project -->
+  <developers>
+  	<developer>
+  		<name>Adrian Gygax</name>
+  		<id>notizklotz</id>
+  		<email>notizklotz@gmx.net</email>
+  		<roles>
+  			<role>Project Manager</role>
+  		</roles>
+  		<timezone>+1</timezone>
+  	</developer>
+  </developers>
+  	
+  	<licences>
+  		<licence>
+  			<name>GNU General Public License (GPL)</name>
+  			<url>http://www.gnu.org/licenses/gpl.html</url>
+  			<distribution>manual</distribution>
+  		</licence>
+  	</licences>
+
+  <!-- jar files the project is dependent on -->
+  <dependencies/>
+  
+  <!-- build information for the project -->
+  <build>
+    <nagEmailAddress>notizklotz@gmx.net</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+
+    <resources>
+      <resource>
+        <directory>src/conf</directory>
+        <includes>
+          <include>*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+
+</project>
+
