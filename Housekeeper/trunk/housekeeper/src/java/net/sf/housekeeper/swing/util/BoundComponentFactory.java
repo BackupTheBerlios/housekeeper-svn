@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.swing.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -53,7 +55,8 @@ public final class BoundComponentFactory
     /**
      * Creates a JSpinner whose value is bound to the given ValueModel. This
      * means, that the value of the spinner and the value of the ValueModel are
-     * synchronized bidirectionally.
+     * synchronized bidirectionally. Additionally, the spinner uses
+     * the current locale's short format for displaying a date.
      * 
      * @param valueModel the model that provides the value. Must not be null and
      *            must provide {@link Date}objects.
@@ -70,6 +73,15 @@ public final class BoundComponentFactory
         model.setCalendarField(Calendar.DAY_OF_MONTH);
         
         final JSpinner spinner = new JSpinner(model);
+        
+        //Set the spinner's editor to use the current locale's short date
+        // format
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
+                .getDateInstance(DateFormat.SHORT);
+        final String formatPattern = dateFormat.toPattern();
+        spinner.setEditor(new JSpinner.DateEditor(spinner,
+                formatPattern));
+        
         return spinner;
     }
 

@@ -21,9 +21,6 @@
 
 package net.sf.housekeeper.swing;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javax.swing.JComponent;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -101,13 +98,5 @@ public class FoodItemEditorBuilder
                 .getBufferedModel(FoodItem.PROPERTYNAME_QUANTITY));
         dateSpinner = BoundComponentFactory.createDateSpinner(presentationModel
                 .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY));
-
-        //Set the spinner's editor to use the current locale's short date
-        // format
-        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
-                .getDateInstance(DateFormat.SHORT);
-        final String formatPattern = dateFormat.toPattern();
-        dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner,
-                formatPattern));
     }
 }
