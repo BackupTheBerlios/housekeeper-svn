@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -69,7 +69,18 @@ public final class ArticleDescriptionDialog extends JDialog
     {
         super(MainFrame.INSTANCE, true);
 
-        initFields();
+        nameField     = new JTextField();
+        storeField    = new JTextField();
+        priceField    = new JTextField();
+        quantityField = new JTextField();
+        unitField     = new JTextField();
+
+        buttonOK = new JButton("OK");
+        buttonOK.addActionListener(new OKButtonActionListener());
+
+        buttonCancel = new JButton(new DefaultCancelButtonActionListener(this));
+
+        
         buildLayout();
         pack();
         SwingUtils.centerOnComponent(this, getParent());
@@ -158,23 +169,6 @@ public final class ArticleDescriptionDialog extends JDialog
         setContentPane(builder.getPanel());
     }
 
-    /**
-     * Initializes this object's fields.
-     */
-    private void initFields()
-    {
-        nameField     = new JTextField();
-        storeField    = new JTextField();
-        priceField    = new JTextField();
-        quantityField = new JTextField();
-        unitField     = new JTextField();
-
-        buttonOK = new JButton("OK");
-        buttonOK.addActionListener(new OKButtonActionListener());
-
-        buttonCancel = new JButton("Cancel");
-        buttonCancel.addActionListener(new DefaultCancelButtonActionListener(this));
-    }
 
     //~ Inner Classes ----------------------------------------------------------
 

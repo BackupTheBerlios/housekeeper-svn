@@ -24,8 +24,8 @@ package net.sourceforge.housekeeper.swing.action;
 
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.JDialog;
 
 
@@ -38,7 +38,7 @@ import javax.swing.JDialog;
  *
  * @since 0.1
  */
-public final class DefaultCancelButtonActionListener implements ActionListener
+public final class DefaultCancelButtonActionListener extends AbstractAction
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -54,6 +54,7 @@ public final class DefaultCancelButtonActionListener implements ActionListener
      */
     public DefaultCancelButtonActionListener(JDialog dialog)
     {
+        super("Cancel");
         this.dialog = dialog;
     }
 
