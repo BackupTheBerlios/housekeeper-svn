@@ -22,24 +22,15 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import com.jgoodies.binding.adapter.SingleListSelectionAdapter;
 
 import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.domain.StockItem;
-import net.sf.housekeeper.swing.util.DateEditor;
-import net.sf.housekeeper.swing.util.StandardDialog;
-
-import com.odellengineeringltd.glazedlists.jtable.ListTable;
 
 /**
  * Lets the user manage the {@link net.sf.housekeeper.domain.StockItem}objects.
@@ -48,196 +39,29 @@ import com.odellengineeringltd.glazedlists.jtable.ListTable;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class StockPanel extends JPanel
+public final class StockPanel extends JPanel
 {
-
-    /** The table showing the items. */
-    private ListTable               table;
 
     /**
      * Creates a new StockPanel object.
      */
-    StockPanel()
+    public StockPanel()
     {
-        final JPanel buttonPanel = new JPanel();
-        buttonPanel.add(new JButton(new NewStockItemAction()));
-        buttonPanel.add(new JButton(new ModifyStockItemAction()));
-        buttonPanel.add(new JButton(new DuplicateStockItemAction()));
-        buttonPanel.add(new JButton(new DeleteStockItemAction()));
-
-        table = StockTableFactory.getStockTable();
+        final StockItemsModel model = new StockItemsModel(Household.instance());
 
         setLayout(new BorderLayout());
+
+        final JPanel buttonPanel = new JPanel();
+        buttonPanel.add(new JButton(model.getNewAction()));
+        buttonPanel.add(new JButton(model.getEditAction()));
+        buttonPanel.add(new JButton(model.getDeleteAction()));
         add(buttonPanel, BorderLayout.NORTH);
-        add(table.getTableScrollPane(), BorderLayout.CENTER);
+
+        final JTable table = new JTable();
+        table.setModel(new StockItemsTableModel(model.getItemSelection()));
+        table.setSelectionModel(new SingleListSelectionAdapter(model
+                .getItemSelection().getSelectionIndexHolder()));
+        add(new JScrollPane(table), BorderLayout.CENTER);
     }
 
-    /**
-     * Returns the selected item from the table.
-     * 
-     * @return The selected Article Description or null if no table row is
-     *         selected.
-     */
-    StockItem getSelectedItem()
-    {
-        return (StockItem) table.getSelected();
-    }
-
-    /**
-     * Deletes the currently selected item.
-     */
-    private class DeleteStockItemAction extends AbstractAction
-    {
-
-        private DeleteStockItemAction()
-        {
-            super("Delete");
-        }
-
-        public void actionPerformed(ActionEvent arg0)
-        {
-            final StockItem item = getSelectedItem();
-
-            if (item != null)
-            {
-                Household.instance().remove(item);
-            }
-        }
-    }
-
-    /**
-     * Shows a dialog for adding a new item.
-     */
-    private class NewStockItemAction extends AbstractAction
-    {
-
-        private NewStockItemAction()
-        {
-            super("Add item to stock");
-        }
-
-        public void actionPerformed(ActionEvent arg0)
-        {
-            final StandardDialog d = new StandardDialog("Add item to stock");
-            final int compWidth = 80;
-            final JTextField nameField = new JTextField();
-            d.addElement("Name", nameField, compWidth);
-
-            final JTextField quantityField = new JTextField();
-            d.addElement("Quantity", quantityField, compWidth);
-
-            /*
-             * The next few lines just create a Date object with the current
-             * date not the exact current time. This prevents the problem that
-             * the date in the spinner can't be set to today, once it has been
-             * modified.
-             */
-            final Calendar now = new GregorianCalendar();
-            now.setTime(new Date());
-            final Calendar todayCal = new GregorianCalendar(now
-                    .get(Calendar.YEAR), now.get(Calendar.MONTH), now
-                    .get(Calendar.DAY_OF_MONTH));
-            final Date today = todayCal.getTime();
-
-            final SpinnerDateModel spinnerModel = new SpinnerDateModel();
-            spinnerModel.setStart(today);
-            final JSpinner spinner = new JSpinner(spinnerModel);
-            spinner.setEditor(new DateEditor(spinner));
-            d.addElement("Best Before", spinner, compWidth);
-
-            final int dialogState = d.display();
-            if (dialogState == StandardDialog.APPROVE)
-            {
-                final StockItem item = new StockItem(nameField.getText(),
-                        quantityField.getText(), spinnerModel.getDate());
-                Household.instance().add(item);
-            }
-        }
-    }
-
-    /**
-     * Shows a dialog for modifying the currently selected item and updates it.
-     */
-    private class ModifyStockItemAction extends AbstractAction
-    {
-
-        private ModifyStockItemAction()
-        {
-            super("Modify");
-        }
-
-        public void actionPerformed(ActionEvent arg0)
-        {
-            final StockItem item = getSelectedItem();
-
-            if (item != null)
-            {
-                final StandardDialog d = new StandardDialog("Modify item");
-                final int compWidth = 80;
-                final JTextField nameField = new JTextField(item.getName());
-                d.addElement("Name", nameField, compWidth);
-
-                final JTextField quantityField = new JTextField(item
-                        .getQuantity());
-                d.addElement("Quantity", quantityField, compWidth);
-
-                /*
-                 * The next few lines just create a Date object with the current
-                 * date not the exact current time. This prevents the problem
-                 * that the date in the spinner can't be set to today, once it
-                 * has been modified.
-                 */
-                final Calendar now = new GregorianCalendar();
-                now.setTime(new Date());
-                final Calendar todayCal = new GregorianCalendar(now
-                        .get(Calendar.YEAR), now.get(Calendar.MONTH), now
-                        .get(Calendar.DAY_OF_MONTH));
-                final Date today = todayCal.getTime();
-
-                final SpinnerDateModel spinnerModel = new SpinnerDateModel();
-                spinnerModel.setStart(today);
-                spinnerModel.setValue(item.getExpiry());
-                final JSpinner spinner = new JSpinner(spinnerModel);
-                spinner.setEditor(new DateEditor(spinner));
-                d.addElement("Best Before", spinner, compWidth);
-
-                final int dialogState = d.display();
-                if (dialogState == StandardDialog.APPROVE)
-                {
-                    item.setName(nameField.getText());
-                    item.setQuantity(quantityField.getText());
-                    item.setExpiry(spinnerModel.getDate());
-
-                    Household.instance().update(item);
-                }
-            }
-        }
-
-    }
-
-    private class DuplicateStockItemAction extends AbstractAction
-    {
-
-        private DuplicateStockItemAction()
-        {
-            super("Duplicate");
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-         */
-        public void actionPerformed(ActionEvent e)
-        {
-            final StockItem item = getSelectedItem();
-
-            if (item != null)
-            {
-                Household.instance()
-                        .add((StockItem) item.clone());
-            }
-
-        }
-    }
 }

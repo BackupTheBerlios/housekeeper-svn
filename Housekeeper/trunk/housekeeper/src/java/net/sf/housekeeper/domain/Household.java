@@ -23,8 +23,9 @@ package net.sf.housekeeper.domain;
 
 import java.util.List;
 
-import com.odellengineeringltd.glazedlists.BasicEventList;
+import javax.swing.ListModel;
 
+import com.jgoodies.binding.list.ArrayListModel;
 
 /**
  * Represents a household.
@@ -34,15 +35,16 @@ import com.odellengineeringltd.glazedlists.BasicEventList;
  */
 public final class Household
 {
-    private List stockItems;
-    
+
+    private ArrayListModel   stockItems;
+
     private static Household INSTANCE = new Household();
-    
+
     public Household()
     {
-        stockItems = new BasicEventList();
+        stockItems = new ArrayListModel();
     }
-    
+
     public Household(final List stockItems)
     {
         stockItems.clear();
@@ -56,7 +58,7 @@ public final class Household
     {
         return INSTANCE;
     }
-    
+
     /**
      * @param instance The iNSTANCE to set.
      */
@@ -64,29 +66,28 @@ public final class Household
     {
         INSTANCE = instance;
     }
-    
+
     /**
      * @return Returns the stockItems.
      */
-    public List getStockItems()
+    public ListModel getStockItems()
     {
         return stockItems;
     }
-    
+
     public void add(final StockItem item)
     {
         stockItems.add(item);
     }
-    
+
     public void remove(final StockItem item)
     {
         stockItems.remove(item);
     }
-    
-    public void update(final StockItem item)
+
+    public void update(int index)
     {
-        stockItems.remove(item);
-        stockItems.add(item);
+        stockItems.fireContentsChanged(index);
     }
-    
+
 }

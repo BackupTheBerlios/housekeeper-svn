@@ -28,11 +28,9 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -43,12 +41,6 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public final class FormBuilder
 {
-
-    /** OK button of the button bar */
-    private JButton   okButton;
-
-    /** Cancel button of the button bar */
-    private JButton   cancelButton;
 
     private ArrayList elements;
 
@@ -81,21 +73,6 @@ public final class FormBuilder
     }
 
     /**
-     * Sets the buttons for the button bar at the end of the form.
-     * 
-     * @param okButton Button for approving the entries. Must not be null.
-     * @param cancelButton Buton for discarding the entries. Must not be null.
-     */
-    public void setButtons(final JButton okButton, final JButton cancelButton)
-    {
-        assert okButton != null : "Parameter okButton must not be null";
-        assert cancelButton != null : "Parameter okButton must not be null";
-
-        this.okButton = okButton;
-        this.cancelButton = cancelButton;
-    }
-
-    /**
      * Builds a standards conforming JPanel containing all the added components.
      * 
      * @return A fully initialized JPanel.
@@ -112,15 +89,6 @@ public final class FormBuilder
             final int span = ((Integer) map.get(new Integer(e.length)))
                     .intValue();
             builder.append(e.label, e.comp, span);
-        }
-
-        if (okButton != null && cancelButton != null)
-        {
-            final int fullSpan = map.size() + 2;
-            builder.appendSeparator();
-            builder.append(ButtonBarFactory.buildOKCancelBar(okButton,
-                                                             cancelButton),
-                           fullSpan);
         }
 
         return builder.getPanel();

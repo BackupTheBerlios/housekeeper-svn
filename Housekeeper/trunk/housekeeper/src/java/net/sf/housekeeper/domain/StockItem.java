@@ -23,27 +23,45 @@ package net.sf.housekeeper.domain;
 
 import java.util.Date;
 
+import com.jgoodies.binding.beans.Model;
+
 /**
- * A concrete item that has been purchased.
+ * A concrete item that has been purchased. Adheres to the JavaBean
+ * specifications.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class StockItem
+public final class StockItem extends Model
 {
 
+    /**
+     * Name of the Bound Bean Property "name".
+     */
+    public static final String PROPERTYNAME_NAME     = "name";
+
+    /**
+     * Name of the Bound Bean Property "quantity".
+     */
+    public static final String PROPERTYNAME_QUANTITY = "quantity";
+
+    /**
+     * Name of the Bound Bean Property "expiry".
+     */
+    public static final String PROPERTYNAME_EXPIRY   = "expiry";
+
     /** The name of this item. */
-    private String name;
+    private String             name;
 
     /** The date, before the item should have been consumed entirely. */
-    private Date   expiry;
+    private Date               expiry;
 
     /**
      * The quantity of one exemplar of this item. For example, a bottle of milk
      * which contains 1 litre would be one item an its quantity would be 1
      * litre.
      */
-    private String quantity;
+    private String             quantity;
 
     /**
      * Creates a new StockItem object with specified values.
@@ -73,11 +91,13 @@ public final class StockItem
     /**
      * Sets the corresponding attribute to a new value.
      * 
-     * @param bestBefore The new value.
+     * @param expiry The new value.
      */
-    public void setExpiry(final Date bestBefore)
+    public void setExpiry(final Date expiry)
     {
-        this.expiry = bestBefore;
+        Object oldValue = getExpiry();
+        this.expiry = expiry;
+        firePropertyChange(PROPERTYNAME_EXPIRY, oldValue, expiry);
     }
 
     /**
@@ -106,8 +126,9 @@ public final class StockItem
     public void setName(final String name)
     {
         assert name != null : "Parameter name must not be null";
-
+        Object oldValue = getExpiry();
         this.name = name;
+        firePropertyChange(PROPERTYNAME_NAME, oldValue, name);
     }
 
     /**
@@ -127,6 +148,7 @@ public final class StockItem
      */
     public void setQuantity(final String quantity)
     {
+        Object oldValue = getExpiry();
         if (quantity == null)
         {
             this.quantity = "";
@@ -134,6 +156,7 @@ public final class StockItem
         {
             this.quantity = quantity;
         }
+        firePropertyChange(PROPERTYNAME_QUANTITY, oldValue, quantity);
     }
 
     /*

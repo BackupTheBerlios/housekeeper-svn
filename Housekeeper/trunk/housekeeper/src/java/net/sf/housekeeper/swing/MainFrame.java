@@ -64,12 +64,12 @@ public final class MainFrame extends JFrame
     private MainFrame()
     {
         super();
-
+        setTitle("Housekeeper " + Housekeeper.VERSION);
+        
         initLookAndFeel();
         setJMenuBar(buildMenuBar());
         buildComponents();
 
-        setTitle("Housekeeper " + Housekeeper.VERSION);
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
