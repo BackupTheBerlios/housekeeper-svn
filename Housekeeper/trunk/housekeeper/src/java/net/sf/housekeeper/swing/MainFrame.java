@@ -34,7 +34,6 @@ import javax.swing.UIManager;
 
 import net.sf.housekeeper.Housekeeper;
 import net.sf.housekeeper.storage.StorageFactory;
-import net.sf.housekeeper.swing.stock.StockPanel;
 import net.sf.housekeeper.swing.util.ComponentCenterer;
 
 import com.jgoodies.plaf.Options;

@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.swing.stock;
+package net.sf.housekeeper.swing;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -51,7 +51,7 @@ import com.odellengineeringltd.glazedlists.jtable.TableComparatorChooser;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class StockPanel extends JPanel
+final class StockPanel extends JPanel
 {
 
     /** Singleton instance */
@@ -85,7 +85,7 @@ public final class StockPanel extends JPanel
      * 
      * @return The Singleton instance.
      */
-    public static StockPanel getInstance()
+    static StockPanel getInstance()
     {
         return INSTANCE;
     }
@@ -96,7 +96,7 @@ public final class StockPanel extends JPanel
      * @return The selected Article Description or null if no table row is
      *         selected.
      */
-    public StockItem getSelectedItem()
+    StockItem getSelectedItem()
     {
         return (StockItem) table.getSelected();
     }
