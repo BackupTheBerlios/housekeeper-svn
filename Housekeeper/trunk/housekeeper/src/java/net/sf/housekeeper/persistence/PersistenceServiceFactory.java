@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.persistence;
 
+import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
+
 /**
  * A Factory for centralized management of the persistence services. Objects
  * should call {@link #getCurrentService()}to receive a reference to the

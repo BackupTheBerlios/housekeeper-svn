@@ -19,13 +19,13 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.persistence;
+package net.sf.housekeeper.persistence.jdom;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import net.sf.housekeeper.persistence.jdom.DomainConverter;
+import net.sf.housekeeper.persistence.PersistenceService;
 
 import org.jdom.Document;
 import org.jdom.JDOMException;
@@ -40,7 +40,7 @@ import org.jdom.output.XMLOutputter;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class JDOMPersistence implements PersistenceService
+public final class JDOMPersistence implements PersistenceService
 {
 
     /**
