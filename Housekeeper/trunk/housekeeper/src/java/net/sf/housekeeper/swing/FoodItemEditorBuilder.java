@@ -21,11 +21,16 @@
 
 package net.sf.housekeeper.swing;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import net.sf.housekeeper.domain.FoodItem;
+import net.sf.housekeeper.swing.util.BoundComponentFactory;
+import net.sf.housekeeper.swing.util.DateEditor;
 import net.sf.housekeeper.swing.util.FormBuilder;
 
 import com.jgoodies.binding.PresentationModel;
@@ -41,12 +46,12 @@ public class FoodItemEditorBuilder
 {
 
     /**
-     * TextField for the item's date.
+     * Component for the item's expiry date.
      */
-    private JFormattedTextField     dateField;
+    private JSpinner     dateSpinner;
 
     /**
-     * TextField for the item's name.
+     * Component for the item's name.
      */
     private JTextField              nameField;
 
@@ -56,7 +61,7 @@ public class FoodItemEditorBuilder
     private final PresentationModel presentationModel;
 
     /**
-     * TextField for the item's quantity.
+     * Component for the item's quantity.
      */
     private JTextField              quantityField;
 
@@ -82,7 +87,7 @@ public class FoodItemEditorBuilder
         final FormBuilder formBuilder = new FormBuilder();
         formBuilder.append("Name", nameField, 80);
         formBuilder.append("Quantity", quantityField, 80);
-        formBuilder.append("Expiry", dateField, 80);
+        formBuilder.append("Expiry", dateSpinner, 80);
         return formBuilder.getPanel();
     }
 
@@ -95,7 +100,12 @@ public class FoodItemEditorBuilder
                 .getBufferedModel(FoodItem.PROPERTYNAME_NAME));
         quantityField = BasicComponentFactory.createTextField(presentationModel
                 .getBufferedModel(FoodItem.PROPERTYNAME_QUANTITY));
-        dateField = BasicComponentFactory.createDateField(presentationModel
+        dateSpinner = BoundComponentFactory.createDateSpinner(presentationModel
                 .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY));
+        //final SimpleDateFormat dateFormat = (SimpleDateFormat)SimpleDateFormat.getDateInstance();
+        //final String formatPattern = dateFormat.toPattern();
+        //dateSpinner.setEditor(new DateEditor(dateSpinner));
+        
+        System.out.println(((JSpinner.DateEditor)dateSpinner.getEditor()).getFormat().toPattern());
     }
 }

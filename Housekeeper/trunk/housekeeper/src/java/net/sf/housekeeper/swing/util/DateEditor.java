@@ -36,7 +36,7 @@ import javax.swing.text.DefaultFormatterFactory;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class DateEditor extends JSpinner.DefaultEditor
+public final class DateEditor extends JSpinner.DateEditor
 {
 
     /**
