@@ -99,11 +99,6 @@ public final class HousekeeperLifecycleAdvisor extends
         super.onCommandsCreated(window);
     }
     
-    public void onPostStartup()
-    {
-        super.onPostStartup();
-    }
-    
     /*
      * (non-Javadoc)
      * 
