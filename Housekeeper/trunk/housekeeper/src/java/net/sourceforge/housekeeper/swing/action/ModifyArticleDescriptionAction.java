@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -48,6 +48,9 @@ public final class ModifyArticleDescriptionAction extends AbstractAction
     /** Singleton instance of this object. */
     public static final ModifyArticleDescriptionAction INSTANCE = new ModifyArticleDescriptionAction();
 
+    /** Title to be shown in GUI */
+    private static final String TITLE = "Modify Article Description";
+
     //~ Constructors -----------------------------------------------------------
 
     /**
@@ -55,7 +58,7 @@ public final class ModifyArticleDescriptionAction extends AbstractAction
      */
     private ModifyArticleDescriptionAction()
     {
-        super("Modify Article");
+        super(TITLE);
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -71,7 +74,7 @@ public final class ModifyArticleDescriptionAction extends AbstractAction
         if (article != null)
         {
             ArticleDescriptionDialog d = new ArticleDescriptionDialog();
-            d.show("Modify Article", article);
+            d.show(TITLE, article);
 
             DataUpdateMediator.getInstance().update();
         }

@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -48,6 +48,9 @@ public final class NewArticleDescriptionAction extends AbstractAction
     /** Singleton instance of this object. */
     public static final NewArticleDescriptionAction INSTANCE = new NewArticleDescriptionAction();
 
+    /** Title to be shown in GUI */
+    private static final String TITLE = "New Article Description";
+
     //~ Constructors -----------------------------------------------------------
 
     /**
@@ -55,7 +58,7 @@ public final class NewArticleDescriptionAction extends AbstractAction
      */
     private NewArticleDescriptionAction()
     {
-        super("New Article");
+        super(TITLE);
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -66,7 +69,7 @@ public final class NewArticleDescriptionAction extends AbstractAction
     public void actionPerformed(ActionEvent e)
     {
         ArticleDescriptionDialog d       = new ArticleDescriptionDialog();
-        ArticleDescription       article = d.show("New Article");
+        ArticleDescription       article = d.show(TITLE);
 
         if (article != null)
         {
