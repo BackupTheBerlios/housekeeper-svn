@@ -1,5 +1,6 @@
 package net.sf.housekeeper.storage;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
 
 import net.sf.housekeeper.domain.StockItem;
@@ -18,7 +19,7 @@ public interface Storage
     
     void remove(StockItem item);
     
-    void loadData();
+    void loadData() throws FileNotFoundException;
     
-    void saveData();
+    void saveData() throws FileNotFoundException;
 }

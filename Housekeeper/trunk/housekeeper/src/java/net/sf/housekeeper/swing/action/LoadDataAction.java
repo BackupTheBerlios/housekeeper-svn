@@ -24,6 +24,7 @@ package net.sf.housekeeper.swing.action;
 
 
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 
 import javax.swing.AbstractAction;
 
@@ -63,7 +64,13 @@ public final class LoadDataAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        StorageFactory.getCurrentStorage().loadData();
-        DataUpdateMediator.getInstance().update();
+        try
+        {
+            StorageFactory.getCurrentStorage().loadData();
+            DataUpdateMediator.getInstance().update();
+        } catch (FileNotFoundException e1)
+        {
+            e1.printStackTrace();
+        }
     }
 }

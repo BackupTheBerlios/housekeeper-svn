@@ -41,39 +41,25 @@ final class XMLSerializationStorage implements Storage
 	/* (non-Javadoc)
      * @see net.sf.housekeeper.storage.DataMapper#saveData()
      */
-    public void saveData()
+    public void saveData() throws FileNotFoundException
 	{        
-        try
-        {
             XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILE)));
-
             xmlEncoder.writeObject(stockItems);
-
             xmlEncoder.close();
-        }
-        catch (FileNotFoundException e)
-        {
-            System.err.println("File not found");
-        }
 	}
 
 	/* (non-Javadoc)
      * @see net.sf.housekeeper.storage.DataMapper#loadData()
      */
-    public void loadData()
+    public void loadData() throws FileNotFoundException
 	{
-        try
-        {
+
             XMLDecoder xmlDecoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(FILE)));
             Collection stock = (Collection)xmlDecoder.readObject();
             xmlDecoder.close();
 
             stockItems = stock;           
-        }
-        catch (FileNotFoundException e)
-        {
-            System.err.println("File not found");
-        }
+
 	}
 
     /* (non-Javadoc)
