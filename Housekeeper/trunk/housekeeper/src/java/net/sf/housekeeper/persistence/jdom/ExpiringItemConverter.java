@@ -21,18 +21,14 @@
 
 package net.sf.housekeeper.persistence.jdom;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpiringItem;
 
 import org.jdom.Element;
-import org.springframework.richclient.application.Application;
 
 /**
  * Utility class for converting between JDOM Elements and
@@ -148,20 +144,17 @@ final class ExpiringItemConverter
     
     private static Category findCategory(Category cat, String id)
     {
-        if(cat.getId().equals(id))
+        final Object[] children = cat.getChildren().toArray();
+        
+        if (id.equals("convenienceFood"))
         {
-            return cat;
+            return (Category)children[0];
+        }
+        if (id.equals("misc"))
+        {
+            return (Category)children[1];
         }
         
-        final Iterator iter = cat.getChildrenIterator();
-        while(iter.hasNext())
-        {
-            Category c = (Category)iter.next();
-            if (c.getId().equals(id))
-            {
-                return c;
-            }
-        }
         return null;
     }
 

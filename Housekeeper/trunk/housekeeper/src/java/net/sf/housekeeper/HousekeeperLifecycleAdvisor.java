@@ -47,17 +47,6 @@ public final class HousekeeperLifecycleAdvisor extends
     private BeanFactory beanFactory;
 
     /**
-     * Loads data as soon as possible.
-     */
-    public void onCommandsCreated(ApplicationWindow window)
-    {
-        ActionCommand command = window.getCommandManager()
-                .getActionCommand("loadCommand");
-        command.execute();
-        super.onCommandsCreated(window);
-    }
-
-    /**
      * Ask if user wants to save before exiting.
      */
     public boolean onPreWindowClose(ApplicationWindow window)
@@ -95,12 +84,21 @@ public final class HousekeeperLifecycleAdvisor extends
      * 
      * @see org.springframework.richclient.application.config.ApplicationLifecycleAdvisor#onWindowOpened(org.springframework.richclient.application.ApplicationWindow)
      */
-    public void onWindowOpened(ApplicationWindow arg0)
+    public void onWindowOpened(ApplicationWindow window)
     {
-        arg0.getControl().toFront();
-        super.onWindowOpened(arg0);
+        window.getControl().toFront();
+        super.onWindowOpened(window);
     }
+    
 
+    public void onPostStartup()
+    {
+        ActionCommand command = getApplication().getActiveWindow().getCommandManager()
+        .getActionCommand("loadCommand");
+        command.execute();
+        super.onPostStartup();
+    }
+    
     /*
      * (non-Javadoc)
      * 

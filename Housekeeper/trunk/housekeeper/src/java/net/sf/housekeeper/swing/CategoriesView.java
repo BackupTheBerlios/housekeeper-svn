@@ -22,7 +22,6 @@
 package net.sf.housekeeper.swing;
 
 import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JTree;
@@ -35,7 +34,10 @@ import javax.swing.tree.DefaultTreeModel;
 
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
+import net.sf.housekeeper.domain.CategoryManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.application.support.AbstractView;
@@ -48,17 +50,19 @@ import org.springframework.richclient.tree.BeanTreeCellRenderer;
 public final class CategoriesView extends AbstractView implements
         ApplicationListener
 {
+    
+    private static final Log LOG = LogFactory.getLog(CategoriesView.class);
 
-    private List  categoryManager;
+    private CategoryManager categoryManager;
 
-    private JTree tree;
+    private JTree           tree;
 
     /**
      * Sets the category manager to be used.
      * 
      * @param manager the category manager to be used.
      */
-    public void setCategoryManager(List manager)
+    public void setCategoryManager(CategoryManager manager)
     {
         this.categoryManager = manager;
     }
@@ -105,8 +109,10 @@ public final class CategoriesView extends AbstractView implements
 
     private void refresh()
     {
-        final DefaultMutableTreeNode rootNode = createNode((Category) categoryManager
-                .get(0));
+        LOG.info("Refreshing view");
+        final Category root = (Category)categoryManager
+        .getCategories().get(0);
+        final DefaultMutableTreeNode rootNode = createNode(root);
         final DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
         tree.setModel(treeModel);
         tree.setSelectionRow(0);
@@ -146,6 +152,7 @@ public final class CategoriesView extends AbstractView implements
             final HousekeeperEvent le = (HousekeeperEvent) e;
             if (le.getEventType() == HousekeeperEvent.CATEGORIES_MODIFIED)
             {
+                LOG.info("Received CATEGORIES_MODIFIED event");
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run()

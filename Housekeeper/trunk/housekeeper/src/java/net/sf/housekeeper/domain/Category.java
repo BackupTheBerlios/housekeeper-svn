@@ -22,10 +22,10 @@
 package net.sf.housekeeper.domain;
 
 import java.rmi.server.UID;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.LinkedHashSet;
 
+import org.springframework.util.Assert;
 import org.springframework.util.ToStringCreator;
 
 /**
@@ -39,7 +39,7 @@ public final class Category
 
     private String                  name;
 
-    private HashSet                    children;
+    private LinkedHashSet                    children;
     
     /**
      * Creates a new object with no name and children.
@@ -48,18 +48,30 @@ public final class Category
     {
         this(new UID().toString(), "");
     }
+    
+    /**
+     * Creates a new object with no children.
+     * 
+     * @param name The Name for the category. Must not be null.
+     */
+    public Category(final String name)
+    {
+        this(new UID().toString(), name);
+    }
 
     /**
      * Creates a new object with a specified ID and name.
      * 
-     * @param id
-     * @param name
+     * @param id The ID. Must not be null.
+     * @param name The name. Must not be null.
      */
     public Category(String id, String name)
     {
+        Assert.notNull(id);
+        Assert.notNull(name);
         this.id = id;
         this.name = name;
-        this.children = new HashSet();
+        this.children = new LinkedHashSet();
     }
 
     /**
@@ -102,7 +114,7 @@ public final class Category
     /**
      * @return Returns the children.
      */
-    public Set getChildren()
+    public LinkedHashSet getChildren()
     {
         return children;
     }

@@ -175,7 +175,7 @@
 	</bean>
   
   <bean id="categoryManager"
-		class="java.util.ArrayList">
+		class="net.sf.housekeeper.domain.CategoryManager">
 	</bean>
   
   <bean id="itemManager"

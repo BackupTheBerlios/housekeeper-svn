@@ -21,9 +21,7 @@ import org.jdom.Element;
 final class ModelConverter
 {
 
-    private static final String ELEMENT_FOOD_ITEM         = "foodItem";
-
-    private static final String ELEMENT_ROOT              = "household";
+    private static final String ELEMENT_FOOD_ITEM = "foodItem";
 
     /**
      * Creates a new converter.
@@ -42,9 +40,10 @@ final class ModelConverter
     Household convertToDomain(final Element root)
     {
         final Household household = new Household();
-        final ArrayList items = getFoodItems((Category)household.getCategories().get(0), root);
-        
-        household.getFoodManager().replaceAll(items);
+        final ArrayList items = getFoodItems((Category) household
+                .getCategoryManager().getCategories().get(0), root);
+
+        household.getItemManager().replaceAll(items);
 
         return household;
     }
@@ -56,7 +55,7 @@ final class ModelConverter
      * @return null.
      */
     Element convertDomainToXML(final Household household)
-    {        
+    {
         return null;
     }
 
@@ -66,7 +65,8 @@ final class ModelConverter
      * @param foodElement The container with the food elements.
      * @return A list of {@link ExpiringItem}objects.
      */
-    private ArrayList getFoodItems(final Category categories, final Element foodElement)
+    private ArrayList getFoodItems(final Category categories,
+                                   final Element foodElement)
     {
         final ArrayList food = new ArrayList();
         final Iterator foodItemIterator = foodElement
@@ -74,7 +74,8 @@ final class ModelConverter
         while (foodItemIterator.hasNext())
         {
             final Element element = (Element) foodItemIterator.next();
-            final ExpiringItem item = ExpiringItemConverter.convert(categories, element);
+            final ExpiringItem item = ExpiringItemConverter.convert(categories,
+                                                                    element);
             food.add(item);
         }
         return food;

@@ -81,8 +81,8 @@ public final class DataGenerator
     public static Household createHousehold()
     {
         final Household household = new Household();
-        household.getFoodManager().add(createComplexItem());
-        household.getFoodManager().add(createSimpleItem());
+        household.getItemManager().add(createComplexItem());
+        household.getItemManager().add(createSimpleItem());
 
         return household;
     }

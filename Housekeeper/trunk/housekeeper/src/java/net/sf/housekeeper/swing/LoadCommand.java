@@ -27,6 +27,7 @@ import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.swing.util.ErrorDialog;
 
+import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 
 /**
@@ -82,6 +83,7 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
         try
         {
             persistenceController.replaceDomainWithSaved(household);
+            LogFactory.getLog(getClass()).info("Data sucessfully loaded");
         } catch (FileNotFoundException exception)
         {
             //If called during startup, the application window is not yet

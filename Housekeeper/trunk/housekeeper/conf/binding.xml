@@ -25,11 +25,15 @@
       item-type="net.sf.housekeeper.domain.ExpiringItem"/>
   </mapping>
   
-  <mapping name="household" class="net.sf.housekeeper.domain.Household">
-    <value style="attribute" name="version" field="version"/>
-    <structure field="foodManager"/>
+  <mapping name="categories" class="net.sf.housekeeper.domain.CategoryManager">
     <collection field="categories" 
       item-type="net.sf.housekeeper.domain.Category"/>
+  </mapping>
+  
+  <mapping name="household" class="net.sf.housekeeper.domain.Household">
+    <value style="attribute" name="version" field="version"/>
+    <structure field="itemManager"/>
+    <structure field="categoryManager"/>
   </mapping>
   
 </binding>

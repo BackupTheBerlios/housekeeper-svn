@@ -21,8 +21,6 @@
 
 package net.sf.housekeeper.domain;
 
-import java.util.ArrayList;
-
 import org.springframework.util.ToStringCreator;
 
 /**
@@ -34,40 +32,34 @@ import org.springframework.util.ToStringCreator;
 public final class Household
 {
 
-    private final ItemManager foodManager;
+    private final ItemManager itemManager;
     
-    private ArrayList categories;
+    private final CategoryManager categoryManager;
 
-    private int version = 4;
+    /**
+     * The version to be used in the XML file.
+     */
+    public final int version = 4;
 
     /**
      * Creates a new domain with no data.
      */
     public Household()
     {
-        this(new ItemManager(), new ArrayList());
+        this(new ItemManager(), new CategoryManager());
     }
 
     /**
      * Creates a new domain using an existing {@link ItemManager}.
      * 
-     * @param manager The manager for food objects. Must not
+     * @param itemManager The manager for food objects. Must not
      *            be null.
      */
-    public Household(final ItemManager manager, final ArrayList categories)
+    public Household(final ItemManager itemManager, final CategoryManager categoryManager)
     {
-        this.foodManager = manager;
-        this.categories = categories;
-        final Category rootCategory = new Category("food", "domain.food");
-        rootCategory.addChild(new Category("convenienceFood",
-                                             "domain.food.convenienceFoods"));
-        rootCategory.addChild(new Category("misc", "domain.food.misc"));
-        categories.add(rootCategory);
-    }
+        this.itemManager = itemManager;
+        this.categoryManager = categoryManager;
 
-    public ArrayList getCategories()
-    {
-        return categories;
     }
     
     /**
@@ -75,9 +67,9 @@ public final class Household
      * 
      * @return The manager. Is not null.
      */
-    public ItemManager getFoodManager()
+    public ItemManager getItemManager()
     {
-        return foodManager;
+        return itemManager;
     }
 
     /**
@@ -88,10 +80,14 @@ public final class Household
      */
     public void replaceAll(final Household domain)
     {
-        foodManager.replaceAll(domain.getFoodManager()
+        itemManager.replaceAll(domain.getItemManager()
                 .getAllItems());
-        categories.clear();
-        categories.addAll(domain.getCategories());
+        categoryManager.replaceAll(domain.getCategoryManager().getCategories());
+    }
+
+    public CategoryManager getCategoryManager()
+    {
+        return categoryManager;
     }
 
     /**
@@ -102,7 +98,7 @@ public final class Household
      */
     public boolean hasChanged()
     {
-        final boolean hasChanged = foodManager.hasChanged();
+        final boolean hasChanged = itemManager.hasChanged();
         return hasChanged;
     }
 
@@ -112,7 +108,7 @@ public final class Household
      */
     public void resetChangedStatus()
     {
-        foodManager.resetChangedStatus();
+        itemManager.resetChangedStatus();
     }
 
     /*
