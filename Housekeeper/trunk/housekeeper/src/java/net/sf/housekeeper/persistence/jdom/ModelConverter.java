@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import net.sf.housekeeper.domain.FoodItem;
+import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.domain.Household;
 
 import org.jdom.Element;
@@ -26,11 +27,20 @@ final class ModelConverter
      */
     private static final int CURRENT_FILE_VERSION = 1;
 
+    
+    /**
+     * Creates a new converter.
+     */
+    public ModelConverter()
+    {
+        
+    }
+    
     /**
      * Creates domain objects from XML objects.
      * 
-     * @return The converted Household object.
-     * @param root The root element of the XML object tree. Must not be null.
+     * @param root The root element of the DOM. Must not be null.
+     * @return The Household created from the DOM. Is not null.
      */
     Household convertToDomain(final Element root)
     {
@@ -43,23 +53,23 @@ final class ModelConverter
             final FoodItem item = FoodItemConverter.convert(element);
             foodItems.add(item);
         }
-
-        final Household household = new Household(foodItems);
+        final FoodItemManager foodManager = new FoodItemManager(foodItems);
+        final Household household = new Household(foodManager);
         return household;
     }
 
     /**
      * Creates an XML element hierarchy from the given domain objects.
      * 
-     * @param household The data to save.
-     * @return the element hierarchy.
+     * @param household The data to save. Must not be null.
+     * @return the DOM generated from the domain. Is not null.
      */
     Element convertDomainToXML(final Household household)
     {
         final Element root = new Element("household");
         root.setAttribute("version", "" + CURRENT_FILE_VERSION);
 
-        final Iterator iter = household.getFoodItems().iterator();
+        final Iterator iter = household.getFoodItemManager().getItemsIterator();
         while (iter.hasNext())
         {
             final FoodItem item = (FoodItem) iter.next();

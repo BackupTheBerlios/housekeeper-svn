@@ -23,16 +23,15 @@ package net.sf.housekeeper.persistence;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 
-import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
 import net.sf.housekeeper.util.ConfigurationManager;
 
 /**
- * Provides methods to replace or store the current domain objects using the
- * default {@link net.sf.housekeeper.persistence.PersistenceService}.
+ * Provides methods to replace or store domain objects in a
+ * {@link net.sf.housekeeper.domain.Household}using the default
+ * {@link net.sf.housekeeper.persistence.PersistenceService}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -46,7 +45,7 @@ public final class PersistenceController
     private static PersistenceController instance;
 
     /**
-     * Persistance using JDOM.
+     * Persistence using JDOM.
      */
     private final PersistenceService     jdomPersistence;
 
@@ -56,7 +55,7 @@ public final class PersistenceController
     private final File                   dataFile;
 
     /**
-     * Initializes the persistence service to use.
+     * Initializes the persistence service to use, which is currently fixed to {@link JDOMPersistence}.
      *  
      */
     private PersistenceController()
@@ -87,32 +86,35 @@ public final class PersistenceController
 
     /**
      * Loads the saved data using the default {@link PersistenceService}and
-     * replaces all domain objects with them.
+     * then replaces all domain objects in a {@link Household}.
      * 
+     * @param currentDomain The domain which shall be replaced with another.
      * @throws IOException If the data couldn't be retrieved.
      * @throws UnsupportedFileVersionException if the version or format of the
      *             data source is not supported.
      */
-    public void replaceDomainWithSaved() throws IOException,
-            UnsupportedFileVersionException
+    public void replaceDomainWithSaved(final Household currentDomain)
+            throws IOException, UnsupportedFileVersionException
     {
-        final Household household = jdomPersistence.loadData(dataFile);
-        FoodItemManager.instance().replaceAll(household.getFoodItems());
-        FoodItemManager.instance().resetChangedStatus();
+        final Household savedHousehold = jdomPersistence.loadData(dataFile);
+        currentDomain
+                .getFoodItemManager()
+                .replaceAll(savedHousehold.getFoodItemManager().getSupplyList());
+        currentDomain.getFoodItemManager().resetChangedStatus();
     }
 
     /**
      * Persistently saves the current domain objects using the default
      * {@link PersistenceService}.
      * 
+     * @param currentDomain The domain which shall be saved.
      * @throws IOException If the data couldn't be stored.
      */
-    public void saveDomainData() throws IOException
+    public void saveDomainData(final Household currentDomain)
+            throws IOException
     {
-        final Collection foodItems = FoodItemManager.instance().getSupplyList();
-        final Household household = new Household(foodItems);
-        jdomPersistence.saveData(household, dataFile);
-        FoodItemManager.instance().resetChangedStatus();
+        jdomPersistence.saveData(currentDomain, dataFile);
+        currentDomain.getFoodItemManager().resetChangedStatus();
     }
 
 }

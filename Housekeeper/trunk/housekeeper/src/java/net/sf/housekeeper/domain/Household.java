@@ -19,37 +19,46 @@
  * http://housekeeper.sourceforge.net
  */
 
-
 package net.sf.housekeeper.domain;
 
-import java.util.Collection;
-
-
 /**
- * A container for items in a household. Currently only used for saving and loading.
+ * A container for a Housekeeper domain. It consists of references to manager
+ * objects of domain objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class Household
+public final class Household
 {
-    private final Collection foodItems;
-    
-    
+
+    private final FoodItemManager foodItems;
+
     /**
-     *
-     * @param foodItems
+     * Creates a new domain with no data.
      */
-    public Household(final Collection foodItems)
+    public Household()
     {
-        this.foodItems = foodItems;
+        this(new FoodItemManager());
     }
-    
-    
+
     /**
-     * @return Returns the foodItems.
+     * Creates a new domain using an existing {@link FoodItemManager}.
+     * 
+     * @param foodManager The manager which holds the domain data. Must not be
+     *            null.
      */
-    public Collection getFoodItems()
+    public Household(final FoodItemManager foodManager)
+    {
+        this.foodItems = foodManager;
+    }
+
+    /**
+     * Returns the manager which allows access and manipulation of
+     * {@link FoodItem}s in this domain.
+     * 
+     * @return The objects which manages the items. Is not null.
+     */
+    public FoodItemManager getFoodItemManager()
     {
         return foodItems;
     }

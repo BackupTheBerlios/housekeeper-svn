@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.domain;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -41,49 +43,60 @@ public final class FoodItemManager
 {
 
     /**
-     * Singleton instance.
-     */
-    private static final FoodItemManager instance = new FoodItemManager();
-
-    /**
      * Log to be used for this class.
      */
-    private static final Log             LOG      = LogFactory
-                                                          .getLog(FoodItemManager.class);
-
-    /**
-     * Returns the Singleton instance of this class.
-     * 
-     * @return The Singleton instance.
-     */
-    public static FoodItemManager instance()
-    {
-        return instance;
-    }
+    private static final Log LOG = LogFactory.getLog(FoodItemManager.class);
 
     /**
      * Flag indicating if any data has been changed.
      */
-    private boolean         hasChanged;
+    private boolean          hasChanged;
 
     /**
      * Holds a list of all items on hand.
      */
-    private final EventList supply;
+    private final EventList  supply;
 
     /**
-     * Do not use this constructor, use the public Singleton instance instead.
-     * This one is only package private because of the unit tests.
+     * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
+     * returns <code>false</code>.
      */
-    FoodItemManager()
+    public FoodItemManager()
     {
-        supply = new BasicEventList();
+        this(new ArrayList());
+    }
+
+    /**
+     * Creates a new manager with a collection of items.Afterwards,
+     * {@link #hasChanged()}returns <code>false</code>.
+     * 
+     * @param items A collection of {@link FoodItem}s. The type of the elements
+     *            the collection are NOT checked by this method.
+     */
+    public FoodItemManager(final Collection items)
+    {
+
+        this(new ArrayList(items));
+    }
+
+    /**
+     * Creates a new manager with a list of items.Afterwards,
+     * {@link #hasChanged()}returns <code>false</code>.
+     * 
+     * @param items A list of {@link FoodItem}s. The type of the elements the
+     *            collection are NOT checked by this method.
+     */
+    public FoodItemManager(final List items)
+    {
+        //TODO Check if the elements of the list are all FoodItems.
+        supply = new BasicEventList(items);
         resetChangedStatus();
     }
 
     /**
      * Adds a FoodItem to the supply and notifies observers of the supply
-     * ListModel about the change.
+     * {@link javax.swing.ListModel}about the change. Afterwards,
+     * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to add to the supply.
      */
@@ -96,7 +109,8 @@ public final class FoodItemManager
     }
 
     /**
-     * Duplicates the provided item and adds it to the supply.
+     * Duplicates the provided item and adds it to the supply. Afterwards,
+     * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item The item to be duplicated.
      */
@@ -129,7 +143,8 @@ public final class FoodItemManager
     }
 
     /**
-     * Removes a FoodItem from the supply.
+     * Removes a FoodItem from the supply. Afterwards, {@link #hasChanged()}
+     * returns <code>true</code>.
      * 
      * @param item the item to remove from the supply.
      */
@@ -143,6 +158,7 @@ public final class FoodItemManager
 
     /**
      * Clears the list of all food items on hand and replaces it with a new one.
+     * Afterwards, {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param foodItems A collection of food items.
      */
@@ -156,7 +172,8 @@ public final class FoodItemManager
     }
 
     /**
-     * Updates an item in this manager.
+     * Updates an item in this manager. Afterwards, {@link #hasChanged()}
+     * returns <code>true</code>.
      * 
      * @param item The item which should be updated.
      */

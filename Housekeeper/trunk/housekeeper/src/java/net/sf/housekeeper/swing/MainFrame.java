@@ -42,7 +42,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
-import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 import net.sf.housekeeper.util.ConfigurationManager;
@@ -55,7 +55,7 @@ import org.apache.commons.logging.LogFactory;
 import com.jgoodies.plaf.plastic.PlasticXPLookAndFeel;
 
 /**
- * The main frame of the Housekeeper application.
+ * The main frame of the Housekeeper application GUI.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -74,11 +74,19 @@ public final class MainFrame
     private final JFrame     view;
 
     /**
-     * Initializes and packs a new main frame.
+     * The domain of this application.
      */
-    public MainFrame()
+    private final Household  household;
+
+    /**
+     * Initializes and packs a new main frame.
+     * 
+     * @param household The domain for this application.
+     */
+    public MainFrame(final Household household)
     {
         super();
+        this.household = household;
 
         view = new JFrame();
 
@@ -113,7 +121,7 @@ public final class MainFrame
         view.show();
         try
         {
-            PersistenceController.instance().replaceDomainWithSaved();
+            PersistenceController.instance().replaceDomainWithSaved(household);
         } catch (IOException e1)
         {
             //Nothing wrong about that
@@ -137,7 +145,8 @@ public final class MainFrame
         final JTabbedPane tabbedPane = new JTabbedPane();
         final String supplyTabName = LocalisationManager.INSTANCE
                 .getText("domain.supply");
-        tabbedPane.addTab(supplyTabName, new SupplyPanel(view));
+        tabbedPane.addTab(supplyTabName, new SupplyPanel(view, household
+                .getFoodItemManager()));
         return tabbedPane;
     }
 
@@ -213,18 +222,18 @@ public final class MainFrame
 
         //Only show dialog for saving before exiting if any data has been
         // changed
-        if (FoodItemManager.instance().hasChanged())
+        if (household.getFoodItemManager().hasChanged())
         {
             final String question = LocalisationManager.INSTANCE
                     .getText("gui.mainFrame.saveModificationsQuestion");
             final int option = JOptionPane.showConfirmDialog(view, question);
-            
+
             //If user choses yes try to save. If that fails do not exit.
             if (option == JOptionPane.YES_OPTION)
             {
                 try
                 {
-                    PersistenceController.instance().saveDomainData();
+                    PersistenceController.instance().saveDomainData(household);
                 } catch (IOException e)
                 {
                     exit = false;
@@ -292,7 +301,7 @@ public final class MainFrame
     {
         try
         {
-            PersistenceController.instance().saveDomainData();
+            PersistenceController.instance().saveDomainData(household);
         } catch (IOException e1)
         {
             e1.printStackTrace();
@@ -301,13 +310,13 @@ public final class MainFrame
     }
 
     /**
-     *  
+     * Replaces the current domain objects from the persistent storage.
      */
     private void loadDomainData()
     {
         try
         {
-            PersistenceController.instance().replaceDomainWithSaved();
+            PersistenceController.instance().replaceDomainWithSaved(household);
         } catch (FileNotFoundException exception)
         {
             LOG.error("Could not load domain data", exception);

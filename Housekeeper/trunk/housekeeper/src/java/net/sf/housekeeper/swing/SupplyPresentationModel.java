@@ -50,7 +50,7 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class SupplyPresentationModel
+final class SupplyPresentationModel
 {
 
     /**
@@ -93,13 +93,21 @@ public class SupplyPresentationModel
     private final JTable              supplyTable;
 
     /**
-     * Creates a new JTable for display of the current items on hand.
-     *  
+     * The manager for access to domain food objects.
      */
-    public SupplyPresentationModel()
+    private final FoodItemManager     itemManager;
+
+    /**
+     * Creates a new JTable for display of the current items on hand.
+     * 
+     * @param itemManager The domain to use.
+     */
+    public SupplyPresentationModel(final FoodItemManager itemManager)
     {
+        this.itemManager = itemManager;
+
         //Init table
-        final SortedList sortedList = new SortedList(FoodItemManager.instance()
+        final SortedList sortedList = new SortedList(itemManager
                 .getSupplyList(), null);
         final EventTableModel tableModel = new EventTableModel(sortedList,
                 ITEM_PROPERTIES, TABLE_HEADERS, PROPERTY_MODIFYABLE);
@@ -132,7 +140,7 @@ public class SupplyPresentationModel
      */
     public void deleteSelectedItem()
     {
-        FoodItemManager.instance().remove(getSelectedItem());
+        itemManager.remove(getSelectedItem());
     }
 
     /**
@@ -141,7 +149,7 @@ public class SupplyPresentationModel
     public void duplicateSelectedItem()
     {
         final FoodItem selectedItem = getSelectedItem();
-        FoodItemManager.instance().duplicate(selectedItem);
+        itemManager.duplicate(selectedItem);
     }
 
     /**

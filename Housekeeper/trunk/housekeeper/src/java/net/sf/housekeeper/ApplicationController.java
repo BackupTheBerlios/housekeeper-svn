@@ -24,6 +24,7 @@ package net.sf.housekeeper;
 import java.io.File;
 import java.io.IOException;
 
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.swing.MainFrame;
 import net.sf.housekeeper.util.ConfigurationManager;
 
@@ -58,14 +59,14 @@ public final class ApplicationController
     }
     
     /**
-     * Starts the application.
+     * Starts the application with an empty domain model.
      *
      */
     public void start()
     {
         logVersionInfo();
 
-        final MainFrame main = new MainFrame();
+        final MainFrame main = new MainFrame(new Household());
         main.show();
     }
         

@@ -79,22 +79,29 @@ final class SupplyPanel extends JPanel
     private final Frame                   parent;
 
     /**
+     * The manager for food objects.
+     */
+    private final FoodItemManager itemManager;
+    
+    /**
      * Creates a new SupplyPanel.
      * 
      * @param parentFrame The parent frame for this panel.
+     * @param itemManager The manager which holds the food items.
      */
-    SupplyPanel(final Frame parentFrame)
+    SupplyPanel(final Frame parentFrame, final FoodItemManager itemManager)
     {
         super();
-
+        
         this.parent = parentFrame;
+        this.itemManager = itemManager;
 
         //Field instanciations
         newItemAction = new NewAction();
         duplicateItemAction = new DuplicateAction();
         editItemAction = new EditAction();
         deleteItemAction = new DeleteAction();
-        supplyModel = new SupplyPresentationModel();
+        supplyModel = new SupplyPresentationModel(itemManager);
 
         supplyModel.addTableSelectionListener(new ListSelectionListener() {
 
@@ -119,7 +126,7 @@ final class SupplyPanel extends JPanel
         boolean canceled = openEditor(item);
         if (!canceled)
         {
-            FoodItemManager.instance().add(item);
+            itemManager.add(item);
         }
     }
 
@@ -159,7 +166,7 @@ final class SupplyPanel extends JPanel
         boolean canceled = openEditor(selected);
         if (!canceled)
         {
-            FoodItemManager.instance().update(selected);
+            itemManager.update(selected);
         }
     }
 
