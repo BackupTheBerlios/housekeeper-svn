@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<document>
+
+  <properties>
+    <title>Housekeeper</title>
+  </properties>
+
+  <body>
+    <section name="About Housekeeper">
+        <p> This project's goal is to provide an application for managing 
+            household issues. Currently, it is able to keep a list of food 
+            inlcuding their expiry dates so you always have an overview of what 
+            is going to seed soon.</p>
+        <p>Please see the <a href="roadmap.html">Roadmap</a> for planned 
+            features.</p>
+    </section>
+    <section name="Prerequisites">
+            <p>Housekeeper is compatible with every computer for which a 
+                <b>Java Runtime Environment (JRE)</b> is available. This 
+                includes computers running on <b>Windows 95/98/ME/2000/XP, 
+                Macintosh OS X, Linux or Solaris.</b> Housekeeper runs with any 
+                JRE of version 1.4 or greater.</p>
+            <p>You can download a JRE for free <a 
+                href="http://java.sun.com/j2se/1.5.0/download.jsp">here</a>. 
+                Please follow the installation instructions for the "J2SE 
+                Runtime Environment (JRE)" </p>
+            <p> If your operating system is Macintosh OS X or Linux you 
+                probably already have a JRE installed. Make sure your 
+                JRE's version is at least 1.4</p>
+    </section>
+    <section name="Download and installation">
+		<ol>
+            <li>Download Housekeeper <a 
+                href="http://sourceforge.net/project/showfiles.php?group_id=91396&amp;package_id=96438"> 
+                here!</a> Pick the <code>.zip</code> file for Windows or the 
+                <code>.tar.gz</code> file for any other platform.</li>
+            <li>Decompress the ZIP or GZ archive to the location you want 
+                Housekeeper to be installed. <p>If you are upgrading from an 
+                older version of Housekeeper please make sure to remove that 
+                version completely by deleting the folder before copying the 
+                new version to the same location. Your household data will not 
+                be deleted by this action because it is saved in the user's 
+                home directory, not in the application's directory.</p></li>
+            <li>Start Housekeeper by double-clicking on 
+                <code>housekeeper.bat</code> when running on Windows or use 
+                <code>housekeeper.sh</code> on any other platform</li>
+		</ol>
+    </section>
+  </body>
+</document>

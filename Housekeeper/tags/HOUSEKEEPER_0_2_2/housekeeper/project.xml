@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+  <!-- the version of maven's project object model -->
+  <pomVersion>3</pomVersion>
+  
+  <!-- a unique name for this project -->
+  <id>housekeeper</id>
+  
+  <!-- a short but descriptive name for the project -->
+  <name>Housekeeper</name>
+  
+  <groupId>net.sf.housekeeper</groupId>
+  
+  <!-- The version of the project under development, e.g.
+       1.1, 1.2, 2.0-SNAPSHOT -->
+  <currentVersion>0.2.2</currentVersion>
+  
+  <!-- details about the organization that 'owns' the project -->
+  <organization>
+    <name>The Housekeeper Project</name>
+    <url>http://sourceforge.net/projects/housekeeper</url>
+    <logo>http://sourceforge.net/sflogo.php?group_id=91396&amp;type=2</logo>
+  </organization>
+  
+  <!-- the year the project started -->
+  <inceptionYear>2003</inceptionYear>
+  
+  <package>net.sf.housekeeper</package>
+  
+  <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
+  <description>This project's goal is to provide an application for managing 
+        all your household issues. Currently, it is able to keep a list of food 
+        which is on hand. You can specify expiry dates and sort your food after 
+        them so you always have an overview of what is going to seed soon.
+  </description>
+  
+  <!-- a short description of what the project does -->
+  <shortDescription>
+    A tracker application for food.
+  </shortDescription>
+
+  <!-- the project home page -->
+  <url>http://housekeeper.sourceforge.net</url>
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=91396</issueTrackingUrl>
+  <siteAddress>shell.sourceforge.net</siteAddress>
+  <siteDirectory>/home/groups/h/ho/housekeeper/htdocs</siteDirectory>
+
+  <!-- the version control repository and http url for online access
+       the connection element has the form:
+       scm:<system>:<system specific connection string> -->
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/housekeeper:housekeeper</developerConnection>
+    <url>http://cvs.sourceforge.net/viewcvs.py/housekeeper</url>
+  </repository>
+  
+  <versions>
+    <version>
+        <id>0.2.2</id>
+        <name>0.2.2</name>
+        <tag>HOUSEKEEPER_0_2_2</tag>
+    </version>
+    <version>
+        <id>0.2.1</id>
+        <name>0.2.1</name>
+        <tag>HOUSEKEEPER_0_2_1</tag>
+    </version>
+    <version>
+        <id>0.2.0</id>
+        <name>0.2.0</name>
+        <tag>HOUSEKEEPER_0_2_0</tag>
+    </version>
+    <version>
+        <id>0.1.2a</id>
+        <name>0.1.2a</name>
+        <tag>HOUSEKEEPER_0_1_2A</tag>
+    </version>
+    <version>
+        <id>0.1.2</id>
+        <name>0.1.2</name>
+        <tag>HOUSEKEEPER_0_1_2</tag>
+    </version>
+    <version>
+        <id>0.1.1</id>
+        <name>0.1.1</name>
+        <tag>HOUSEKEEPER_0_1_1</tag>
+    </version>
+  </versions>
+    
+  <!-- any mailing lists for the project -->
+  <mailingLists>
+    <mailingList>
+        <name>housekeeper-devel</name>
+        <subscribe>
+            http://lists.sourceforge.net/lists/listinfo/housekeeper-devel
+        </subscribe>
+        <unsubscribe>
+            http://lists.sourceforge.net/lists/listinfo/housekeeper-devel
+        </unsubscribe>
+        <archive>
+            http://sourceforge.net/mailarchive/forum.php?forum=housekeeper-devel
+        </archive>
+    </mailingList>
+  </mailingLists>
+  
+  <!-- who the developers are for the project -->
+  <developers>
+  	<developer>
+  		<name>Adrian Gygax</name>
+  		<id>notizklotz</id>
+  		<email>Adrian.Gygax(at)gmx.net</email>
+  		<roles>
+  			<role>Project Manager</role>
+  		</roles>
+  		<timezone>+1</timezone>
+  	</developer>
+  </developers>
+  	
+  <licences>
+  	<licence>
+  		<name>GNU General Public License (GPL)</name>
+  		<url>http://www.gnu.org/licenses/gpl.html</url>
+  		<distribution>manual</distribution>
+  	</licence>
+  </licences>
+
+  <!-- jar files the project is dependent on -->
+  <dependencies>
+    <dependency>
+    	<groupId>jgoodies</groupId>
+    	<artifactId>forms</artifactId>
+    	<version>1.0.5</version>
+    	<url>http://www.jgoodies.com/downloads/libraries.html</url>
+         <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
+    	<groupId>jgoodies</groupId>
+    	<artifactId>looks</artifactId>
+    	<version>1.2.2</version>
+    	<url>http://www.jgoodies.com/downloads/libraries.html</url>
+        <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+        
+    <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.0</version>
+        <url>http://jakarta.apache.org/commons/lang/</url>
+        <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.0.4</version>
+        <url>http://jakarta.apache.org/commons/logging/</url>
+        <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
+        <groupId>commons-configuration</groupId>
+        <artifactId>commons-configuration</artifactId>
+        <version>1.0</version>
+        <url>http://jakarta.apache.org/commons/configuration/</url>
+        <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
+        <groupId>commons-configuration</groupId>
+        <artifactId>commons-collections-forconfig</artifactId>
+        <version>1.0</version>
+        <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+	<dependency>
+        <groupId>jdom</groupId>
+        <artifactId>jdom</artifactId>
+        <version>1.0</version>
+        <url>http://www.jdom.org</url>
+        <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
+        <groupId>glazedlists</groupId>
+        <artifactId>glazedlists</artifactId>
+        <version>0.9.4</version>
+        <url>http://publicobject.com/glazedlists/</url>
+        <properties>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
+        <groupId>xmlunit</groupId>
+        <artifactId>xmlunit</artifactId>
+        <version>1.0</version>
+        <url>http://xmlunit.sourceforge.net/</url>
+    </dependency>
+        
+    <dependency>
+        <groupId>statcvs</groupId>
+        <artifactId>maven-statcvs-plugin</artifactId>
+        <version>2.5</version>
+        <url>http://statcvs-xml.berlios.de/maven-plugin</url>
+        <type>plugin</type>
+    </dependency>
+    
+  </dependencies>
+  
+  <!-- build information for the project -->
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <resources>
+      <resource>
+        <directory>src/testresources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
+    </unitTest>
+
+    <resources>
+      <resource>
+        <directory>src/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+  
+  <reports>
+    <report>maven-faq-plugin</report>
+	<report>maven-changes-plugin</report>
+	<report>maven-license-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <!-- <report>maven-jdepend-plugin</report>-->
+    <report>maven-junit-report-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <!-- <report>maven-linkcheck-plugin</report>-->
+    <report>maven-simian-plugin</report>
+    <report>maven-statcvs-plugin</report>
+    <!-- <report>maven-checkstyle-plugin</report> -->
+  </reports>
+
+</project>
+

@@ -1,0 +1,57 @@
+<faqs title="Frequently Asked Questions">
+
+  <part id="user">
+    <title>General</title>
+   
+    <faq id="faq-exists">
+      <question>
+        Are there any FAQs?
+      </question>
+      <answer>
+        <p>Yes. But only very few answers yet.</p>
+      </answer>
+    </faq>
+
+  </part>
+  <part id="devel">
+    <title>Developer's corner</title>
+    <faq id="getting-started-devel">
+    <question><p>I'm a developer. How do I setup a development environment so I 
+        can start coding for Housekeeper? (UNDER CONSTRUCTION)</p>
+    </question>
+    <answer>
+    	<b>Install JDK</b>
+    	<b>Installation of Eclipse</b>
+        <ol>
+            <li><a 
+                href="http://www.eclipse.org/downloads/index.php">Download 
+                Eclipse 3.0.1</a> for your platform. You need the platform and 
+                the JDT.</li>
+            <li>Unzip both archives to the location you'd like Eclipse to be installed.</li>
+            <li>Start Eclipse. Click on OK if you are asked for selecting your workspace and close the welcome screen</li>
+            <li>Select from the menu: File -> New -> CVS -> Checkout Projects from CVS</li>
+            <li><p>Enter the following information into the dialog:
+            	<br>Host: cvs.sourceforge.net</br>
+				<br>Repository path: /cvsroot/housekeeper</br>
+				<br>User: (Your Sourceforge login)</br>
+				<br>Password: (Your Sourceforge password)</br>
+				<br>Connection type: extssh</br></p>
+				<p>It is recommended to tick "Save Password" so you don't have to enter your password on every CVS access.
+					<br>Click on the button "Next >"</br></p></li>
+			<li>In the text field after "Use specified module name:" enter: housekeeper</li>
+			<li>Click on "yes" in the appearing dialogs and "ok" on the last one to allow encrypted communication using SSH. (Which is mandatory)</li>
+        	<li>A dialog named "Check out As" appears. Just press on "Next >"</li>
+        	<li>Click on "Next >" in the following dialog about the workspace</li>
+        	<li>Select "HEAD" and click the "Finish" button</li>
+        </ol>
+        <b>Installation of Maven</b>
+        <ol>
+        	<li>Set the JAVA_HOME variable to the location of your JDK</li>
+            <li><a href="http://maven.apache.org/">Download Maven 
+                1.0.2</a> for your 
+                platform.</li>
+        </ol>
+    </answer>
+    </faq>
+  </part>
+</faqs>
