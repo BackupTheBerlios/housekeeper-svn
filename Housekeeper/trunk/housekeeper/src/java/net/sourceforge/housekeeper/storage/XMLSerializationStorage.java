@@ -37,6 +37,7 @@ import java.io.FileOutputStream;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -89,7 +90,7 @@ final class XMLSerializationStorage extends Storage
      */
     public Collection getArticles()
     {
-        return articleDescriptions;
+        return Collections.unmodifiableCollection(articleDescriptions);
     }
 
     /**
@@ -99,7 +100,7 @@ final class XMLSerializationStorage extends Storage
      */
     public Collection getPurchases()
     {
-        return purchases;
+        return Collections.unmodifiableCollection(purchases);
     }
 
     /**
