@@ -55,7 +55,7 @@ public final class FoodItemManager
     /**
      * Holds a list of all items on hand.
      */
-    private final EventList  supply;
+    private final EventList  convenienceFoods;
 
     /**
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
@@ -67,20 +67,7 @@ public final class FoodItemManager
     }
 
     /**
-     * Creates a new manager with a collection of items.Afterwards,
-     * {@link #hasChanged()}returns <code>false</code>.
-     * 
-     * @param items A collection of {@link FoodItem}s. The type of the elements
-     *            the collection are NOT checked by this method.
-     */
-    public FoodItemManager(final Collection items)
-    {
-
-        this(new ArrayList(items));
-    }
-
-    /**
-     * Creates a new manager with a list of items.Afterwards,
+     * Creates a new manager with a list of convenience foods. Afterwards,
      * {@link #hasChanged()}returns <code>false</code>.
      * 
      * @param items A list of {@link FoodItem}s. The type of the elements the
@@ -89,35 +76,36 @@ public final class FoodItemManager
     public FoodItemManager(final List items)
     {
         //TODO Check if the elements of the list are all FoodItems.
-        supply = new BasicEventList(items);
+        convenienceFoods = new BasicEventList(items);
         resetChangedStatus();
     }
 
     /**
-     * Adds a FoodItem to the supply and notifies observers of the supply
-     * {@link javax.swing.ListModel}about the change. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
+     * Adds a FoodItem to the list of convenience foods. supply and notifies
+     * observers of the supply {@link javax.swing.ListModel}about the change.
+     * Afterwards, {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to add to the supply.
      */
-    public void add(final FoodItem item)
+    public void addConvenienceFood(final FoodItem item)
     {
-        supply.add(item);
+        convenienceFoods.add(item);
         hasChanged = true;
 
-        LOG.debug("Added item: " + item);
+        LOG.debug("Added convenience food: " + item);
     }
 
     /**
-     * Duplicates the provided item and adds it to the supply. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
+     * Duplicates the provided item and adds it to the to the list of
+     * convenience foods. Afterwards, {@link #hasChanged()}returns
+     * <code>true</code>.
      * 
      * @param item The item to be duplicated.
      */
     public void duplicate(final FoodItem item)
     {
         final FoodItem clonedItem = new FoodItem(item);
-        add(clonedItem);
+        addConvenienceFood(clonedItem);
         hasChanged = true;
     }
 
@@ -128,7 +116,7 @@ public final class FoodItemManager
      */
     public Iterator getItemsIterator()
     {
-        return supply.iterator();
+        return convenienceFoods.iterator();
     }
 
     /**
@@ -139,7 +127,7 @@ public final class FoodItemManager
      */
     public EventList getSupplyList()
     {
-        return supply;
+        return convenienceFoods;
     }
 
     /**
@@ -150,7 +138,7 @@ public final class FoodItemManager
      */
     public void remove(final FoodItem item)
     {
-        supply.remove(item);
+        convenienceFoods.remove(item);
         hasChanged = true;
 
         LOG.debug("Removed item: " + item);
@@ -164,8 +152,8 @@ public final class FoodItemManager
      */
     public void replaceAll(final Collection foodItems)
     {
-        supply.clear();
-        supply.addAll(foodItems);
+        convenienceFoods.clear();
+        convenienceFoods.addAll(foodItems);
         hasChanged = true;
 
         LOG.debug("Replaced all items");
@@ -179,8 +167,8 @@ public final class FoodItemManager
      */
     public void update(final FoodItem item)
     {
-        final int index = supply.indexOf(item);
-        supply.set(index, item);
+        final int index = convenienceFoods.indexOf(item);
+        convenienceFoods.set(index, item);
         hasChanged = true;
 
         LOG.debug("Updated item: " + item);
@@ -206,33 +194,40 @@ public final class FoodItemManager
         return hasChanged;
     }
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
             return true;
         }
-        if (o == null) {
+        if (o == null)
+        {
             return false;
         }
-        if (o.getClass() != getClass()) {
+        if (o.getClass() != getClass())
+        {
             return false;
         }
         FoodItemManager castedObj = (FoodItemManager) o;
-        return this.supply == null
-            ? castedObj.supply == null
-            : this.supply.equals(castedObj.supply);
+        return this.convenienceFoods == null ? castedObj.convenienceFoods == null
+                : this.convenienceFoods.equals(castedObj.convenienceFoods);
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
-    public int hashCode() {
+    public int hashCode()
+    {
         int hashCode = 1;
-        hashCode = 31 * hashCode + (supply == null ? 0 : supply.hashCode());
+        hashCode = 31 * hashCode
+                + (convenienceFoods == null ? 0 : convenienceFoods.hashCode());
         return hashCode;
     }
 }

@@ -1,8 +1,8 @@
 package net.sf.housekeeper.persistence.jdom;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import net.sf.housekeeper.domain.FoodItem;
 import net.sf.housekeeper.domain.FoodItemManager;
@@ -44,7 +44,7 @@ final class ModelConverter
      */
     Household convertToDomain(final Element root)
     {
-        final Collection foodItems = new LinkedList();
+        final List foodItems = new LinkedList();
         final Iterator foodItemIterator = root.getChildren("foodItem")
                 .iterator();
         while (foodItemIterator.hasNext())

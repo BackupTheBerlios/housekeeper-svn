@@ -144,7 +144,7 @@ public final class MainFrame
     {
         final JTabbedPane tabbedPane = new JTabbedPane();
         final String supplyTabName = LocalisationManager.INSTANCE
-                .getText("domain.supply");
+                .getText("domain.food");
         tabbedPane.addTab(supplyTabName, new SupplyPanel(view, household
                 .getFoodItemManager()));
         return tabbedPane;
