@@ -27,6 +27,7 @@ import java.util.Collection;
 
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
 import net.sf.housekeeper.util.ConfigurationManager;
 
 /**
@@ -39,6 +40,8 @@ import net.sf.housekeeper.util.ConfigurationManager;
 public final class PersistenceController
 {
 
+    private static final PersistenceService jdomPersistence = new JDOMPersistence();
+    
     /**
      * File used for loading and saving
      */
@@ -69,8 +72,7 @@ public final class PersistenceController
     public static void replaceDomainWithSaved() throws IOException,
             UnsupportedFileVersionException
     {
-        final Household household = PersistenceServiceFactory
-                .getCurrentService().loadData(dataFile);
+        final Household household = jdomPersistence.loadData(dataFile);
         FoodItemManager.instance().replaceAll(household.getFoodItems());
     }
 
@@ -84,7 +86,7 @@ public final class PersistenceController
     {
         final Collection foodItems = FoodItemManager.instance().getSupplyList();
         final Household household = new Household(foodItems);
-        PersistenceServiceFactory.getCurrentService().saveData(household,
+        jdomPersistence.saveData(household,
                                                                dataFile);
     }
 
