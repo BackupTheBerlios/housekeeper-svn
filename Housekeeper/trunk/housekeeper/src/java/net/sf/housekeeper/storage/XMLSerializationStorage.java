@@ -21,15 +21,19 @@ import net.sf.housekeeper.domain.StockItem;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class XMLSerializationStorage implements Storage
+final class XMLSerializationStorage implements Storage
 {
     /** The path to the file that is used for data storage */
-    private static final File FILE = new File(System.getProperty("user.home"),
+    private static final File FILE = new File(System.getProperty("user.dir"),
                                               "housekeeper_ser.xml");
 
+    /** All items that are on stock */
     private Collection stockItems;
 
-    public XMLSerializationStorage()
+    /**
+     * Initializes a XMLSerializationStorage.
+     */
+    XMLSerializationStorage()
     {
         stockItems = new ArrayList();
     }
