@@ -82,6 +82,11 @@ public final class XMLStorage extends Storage
         return articles;
     }
 
+    public Article getArticle(int i)
+    {
+        return (Article)articles.get(i);
+    }
+    
     /**
      * TODO DOCUMENT ME!
      *

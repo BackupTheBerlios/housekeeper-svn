@@ -45,6 +45,8 @@ public abstract class Storage extends Observable
      */
     public abstract List getArticles();
 
+    public abstract Article getArticle(int i);
+    
     /**
      * TODO DOCUMENT ME!
      *
