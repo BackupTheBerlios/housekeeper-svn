@@ -120,7 +120,7 @@ public final class MainFrame extends JFrame
         menuArticles = new JMenu("Articles");
         menuBar.add(menuArticles);
 
-        menuArticles.add(new JMenuItem(NewArticleAction.INSTANCE));
+        menuArticles.add(new JMenuItem(NewArticleDescriptionAction.INSTANCE));
     }
 
     /**

@@ -23,13 +23,14 @@
 package net.sourceforge.housekeeper.swing.action;
 
 
+import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.swing.ArticleDialog;
+import net.sourceforge.housekeeper.swing.ArticlePanel;
+import net.sourceforge.housekeeper.swing.DataUpdateMediator;
+
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-
-import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.storage.StorageFactory;
-import net.sourceforge.housekeeper.swing.ArticleDialog;
 
 
 /**
@@ -37,24 +38,22 @@ import net.sourceforge.housekeeper.swing.ArticleDialog;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-public final class NewArticleAction extends AbstractAction
+public class ModifyArticleDescriptionAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    public static final NewArticleAction INSTANCE = new NewArticleAction();
+    public static final ModifyArticleDescriptionAction INSTANCE = new ModifyArticleDescriptionAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a new ModifyArticle object.
      */
-    private NewArticleAction()
+    private ModifyArticleDescriptionAction()
     {
-        super("New Article");
+        super("Modify Article");
     }
-
 
     //~ Methods ----------------------------------------------------------------
 
@@ -63,12 +62,14 @@ public final class NewArticleAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDialog d = new ArticleDialog();
-        ArticleDescription article = d.show("New Article");
+        ArticleDescription article = ArticlePanel.getInstance().getSelectedArticle();
 
         if (article != null)
         {
-            StorageFactory.getCurrentStorage().add(article);
+            ArticleDialog d = new ArticleDialog();
+            d.show("Modify Article", article);
+
+            DataUpdateMediator.getInstance().update();
         }
     }
 }

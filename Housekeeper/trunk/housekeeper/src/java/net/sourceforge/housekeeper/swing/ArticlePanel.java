@@ -69,8 +69,8 @@ public final class ArticlePanel extends JPanel
         scrollPane = new JScrollPane(table);
         buttonPanel = new JPanel();
 
-        buttonPanel.add(new JButton(NewArticleAction.INSTANCE));
-        buttonPanel.add(new JButton(ModifyArticleAction.INSTANCE));
+        buttonPanel.add(new JButton(NewArticleDescriptionAction.INSTANCE));
+        buttonPanel.add(new JButton(ModifyArticleDescriptionAction.INSTANCE));
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
