@@ -1,41 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <household version="4">
-    <expiringItem name="Rösti">
-      <description>250g</description>
-      <category>convenienceFood</category>
+  <supply>
+    <expiringItem>
+      <item>
+        <name>Rösti</name>
+        <description>250g</description>
+        <category>convenienceFood</category>
+      </item>
     </expiringItem>
-    <expiringItem name="Pizza 4 formaggi">
-      <expiry day="19" month="1" year="2005" />
-      <category>convenienceFood</category>
+    <expiringItem>
+      <item>
+        <name>Pizza 4 formaggi</name>
+        <category>convenienceFood</category>
+      </item>
+      <expiry>2005-01-18T23:00:00</expiry>
     </expiringItem>
-    <expiringItem name="Risotto ai funghi porcini">
-      <category>convenienceFood</category>
+    <expiringItem>
+      <item>
+        <name>Risotto ai funghi porcini</name>
+        <category>convenienceFood</category>
+      </item>
     </expiringItem>
-    <expiringItem name="Risotto alla Milanese">
-      <description>250g</description>
-      <expiry day="8" month="2" year="2005" />
-      <category>convenienceFood</category>
+    <expiringItem>
+      <item>
+        <name>Risotto alla Milanese</name>
+        <description>250g</description>
+        <category>convenienceFood</category>
+      </item>
+      <expiry>2005-02-07T23:00:00</expiry>
     </expiringItem>
-    <expiringItem name="Milch">
-      <expiry day="22" month="1" year="2005" />
-      <category>misc</category>
+    <expiringItem>
+      <item>
+        <name>Milch</name>
+        <category>misc</category>
+      </item>
+      <expiry>2005-01-21T23:00:00</expiry>
     </expiringItem>
-    <expiringItem name="Älplermakronen">
-      <expiry day="30" month="1" year="2005" />
-      <category>convenienceFood</category>
+    <expiringItem>
+      <item>
+        <name>Älplermakronen</name>
+        <category>convenienceFood</category>
+      </item>
+      <expiry>2005-01-29T23:00:00</expiry>
     </expiringItem>
-    <expiringItem name="Fiori Lorraine">
-      <expiry day="22" month="1" year="2005" />
-      <category>convenienceFood</category>
+    <expiringItem>
+      <item>
+        <name>Fiori Lorraine</name>
+        <category>convenienceFood</category>
+      </item>
+      <expiry>2005-01-21T23:00:00</expiry>
     </expiringItem>
+  </supply>
   <category id="food">
-    <name>Food</name>
+    <name>domain.food</name>
     <category id="convenienceFood">
-      <name>Convenience Food</name>
+      <name>domain.food.convenienceFoods</name>
     </category>
     <category id="misc">
-      <name>Misc</name>
+      <name>domain.food.misc</name>
     </category>
   </category>
 </household>
-
