@@ -1,5 +1,6 @@
 package net.sf.housekeeper.persistence;
 
+import net.sf.housekeeper.util.LocalisationManager;
 
 /**
  * Signals that the format version of a data source is not supported.
@@ -14,12 +15,7 @@ public final class UnsupportedFileVersionException extends Exception
      * The unsupported version.
      */
     private final int version;
-    
-    /**
-     * Constant if no version at all has been specified.
-     */
-    public static final int UNSPECIFIED_VERSION = -1;
-    
+
     /**
      * Constructs an exception using a default error message.
      * 
@@ -27,22 +23,11 @@ public final class UnsupportedFileVersionException extends Exception
      */
     public UnsupportedFileVersionException(final int version)
     {
-        super("File version " + version + " is not supported.");
+        super("File version is not supported: " + version);
+
         this.version = version;
     }
 
-    /**
-     * Constructs an exception with the given message and
-     * an unspecified unsupported version.
-     * 
-     * @param message The detail message for this exception.
-     */
-    public UnsupportedFileVersionException(String message)
-    {
-        super(message);
-        version = UNSPECIFIED_VERSION;
-    }
-    
     /**
      * Returns the unsupported version.
      * 
@@ -51,6 +36,18 @@ public final class UnsupportedFileVersionException extends Exception
     public int getVersion()
     {
         return version;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Throwable#getLocalizedMessage()
+     */
+    public String getLocalizedMessage()
+    {
+        final String text = LocalisationManager.INSTANCE
+                .getText("persistence.unsupportedVersion");
+        return text;
     }
 
 }

@@ -46,9 +46,11 @@ public interface PersistenceService
      * @throws IOException If the data couldn't be retrieved.
      * @throws UnsupportedFileVersionException if the version or format of the
      *             data source is not supported.
+     * @throws IllegalArgumentException if the given file is not a valid
+     *             Housekeeper file.
      */
     Household loadData(final File location) throws IOException,
-            UnsupportedFileVersionException;
+            UnsupportedFileVersionException, IllegalArgumentException;
 
     /**
      * Saves all domain objects of the given household persistently.

@@ -43,6 +43,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import net.sf.housekeeper.persistence.PersistenceController;
+import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 import net.sf.housekeeper.util.ConfigurationManager;
 import net.sf.housekeeper.util.LocalisationManager;
 
@@ -109,6 +110,20 @@ public final class MainFrame
     public void show()
     {
         view.show();
+        try
+        {
+            PersistenceController.instance().replaceDomainWithSaved();
+        } catch (IOException e1)
+        {
+            //Nothing wrong about that
+        } catch (UnsupportedFileVersionException e1)
+        {
+            LOG.error("Unsupported file format: " + e1.getVersion(), e1);
+            final String error = LocalisationManager.INSTANCE
+                    .getText("gui.error");
+            JOptionPane.showMessageDialog(view, e1.getLocalizedMessage(),
+                                          error, JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -287,19 +302,21 @@ public final class MainFrame
             PersistenceController.instance().replaceDomainWithSaved();
         } catch (FileNotFoundException exception)
         {
+            LOG.error("Could not load domain data", exception);
             final String error = LocalisationManager.INSTANCE
                     .getText("gui.error");
             final String nodata = LocalisationManager.INSTANCE
-                    .getText("gui.mainframe.nodata");
+                    .getText("gui.mainFrame.nodata");
             JOptionPane.showMessageDialog(view, nodata, error,
                                           JOptionPane.ERROR_MESSAGE);
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            LOG.error("Could not load domain data", exception);
             final String error = LocalisationManager.INSTANCE
                     .getText("gui.error");
-            JOptionPane.showMessageDialog(view, exception.getMessage(), error,
-                                          JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view,
+                                          exception.getLocalizedMessage(),
+                                          error, JOptionPane.ERROR_MESSAGE);
         }
     }
 

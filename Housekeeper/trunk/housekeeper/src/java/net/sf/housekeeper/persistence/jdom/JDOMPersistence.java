@@ -50,6 +50,11 @@ public final class JDOMPersistence implements PersistenceService
      * Name of the attribute wich specifies the file format version.
      */
     private static final String  FILE_VERSION_ATTRIBUTE = "version";
+    
+    /**
+     * Name of the root element.
+     */
+    private static final String ROOT_ELEMENT = "household";
 
     /**
      * Object used for converting between DOM and domain model.
@@ -58,7 +63,7 @@ public final class JDOMPersistence implements PersistenceService
 
     /**
      * Initializes a JDOM persistence service.
-     *
+     *  
      */
     public JDOMPersistence()
     {
@@ -71,7 +76,7 @@ public final class JDOMPersistence implements PersistenceService
      * @see net.sf.housekeeper.persistence.PersistenceService#loadData(java.io.File)
      */
     public Household loadData(final File location) throws IOException,
-            UnsupportedFileVersionException
+            UnsupportedFileVersionException, IllegalArgumentException
     {
         final SAXBuilder builder = new SAXBuilder();
         LogFactory.getLog(getClass()).debug("Trying to load file: " + location);
@@ -116,15 +121,22 @@ public final class JDOMPersistence implements PersistenceService
      * @return The converted domain model.
      * @throws UnsupportedFileVersionException if the file version of the data
      *             cannot be detected or is not supported.
+     * @throws IllegalArgumentException if the given element is not a valid root
+     *             element.
      */
     private Household convertToDomain(final Element root)
-            throws UnsupportedFileVersionException
+            throws UnsupportedFileVersionException, IllegalArgumentException
     {
+        if (!root.getName().equals(ROOT_ELEMENT))
+        {
+            throw new IllegalArgumentException(
+                    "This is no Housekeeper root element: " + root.getName());
+        }
         //Extract version number
         final int version = getFileVersionFor(root);
         LogFactory.getLog(getClass())
-        .debug("Detected file version: " + version);
-        
+                .debug("Detected file version: " + version);
+
         //Check if version is supported
         if (!isVersionSupported(version))
         {
@@ -141,18 +153,11 @@ public final class JDOMPersistence implements PersistenceService
      * 
      * @param root The root element of the saved data.
      * @return The version of the data structure.
-     * @throws UnsupportedFileVersionException if the version cannot be detected.
      */
     private int getFileVersionFor(Element root)
-            throws UnsupportedFileVersionException
     {
         final String versionString = root
                 .getAttributeValue(FILE_VERSION_ATTRIBUTE);
-        if (versionString == null)
-        {
-            throw new UnsupportedFileVersionException(
-                    "Could not detect version of the file structure.");
-        }
         final int version = Integer.parseInt(versionString);
         return version;
     }
