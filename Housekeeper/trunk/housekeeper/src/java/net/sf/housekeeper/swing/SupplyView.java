@@ -26,6 +26,7 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -42,12 +43,12 @@ final class SupplyView extends JPanel
     private final JPanel contentPanel;
 
     private final JPanel buttonPanel;
-    
-    private Frame parentFrame;
+
+    private Frame        parentFrame;
 
     /**
      * Creates a new view.
-     * 
+     *  
      */
     public SupplyView()
     {
@@ -61,15 +62,17 @@ final class SupplyView extends JPanel
     }
 
     /**
-     * Adds a new panel to the right of the existing panels.
+     * Adds a new panel to the right of the existing panels, creating a titled
+     * border with the panel's name around it.
      * 
      * @param panel The panel to add.
      */
     void addPanel(JPanel panel)
     {
+        panel.setBorder(BorderFactory.createTitledBorder(panel.getName()));
         contentPanel.add(panel);
     }
-    
+
     /**
      * Adds a button to the right of the existing buttons.
      * 
@@ -79,7 +82,7 @@ final class SupplyView extends JPanel
     {
         buttonPanel.add(new JButton(action));
     }
-    
+
     /**
      * Sets the parent frame for this panel. Used for dialog display.
      * 
@@ -89,7 +92,7 @@ final class SupplyView extends JPanel
     {
         this.parentFrame = parent;
     }
-    
+
     Frame getParentFrame()
     {
         return parentFrame;

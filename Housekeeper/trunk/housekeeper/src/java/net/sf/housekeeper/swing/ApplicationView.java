@@ -21,7 +21,6 @@
 
 package net.sf.housekeeper.swing;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +33,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 
 import net.sf.housekeeper.util.LocalisationManager;
 
@@ -81,7 +79,8 @@ final class ApplicationView extends JFrame
                                  aboutAction));
 
         supplyView.setParentFrame(this);
-        getContentPane().add(buildComponents(supplyView));
+        
+        getContentPane().add(supplyView);
 
         pack();
         setLocationRelativeTo(null);
@@ -143,22 +142,6 @@ final class ApplicationView extends JFrame
         final String error = LocalisationManager.INSTANCE.getText("gui.error");
         JOptionPane.showMessageDialog(this, message, error,
                                       JOptionPane.ERROR_MESSAGE);
-    }
-
-    /**
-     * Builds the components of the frame and adds them to the content pane.
-     * 
-     * @param supplyView The view for the supply.
-     * @return The created components. Is not null.
-     */
-    private Component buildComponents(final SupplyView supplyView)
-    {
-        final JTabbedPane tabbedPane = new JTabbedPane();
-        final String supplyTabName = LocalisationManager.INSTANCE
-                .getText("domain.food");
-
-        tabbedPane.addTab(supplyTabName, supplyView);
-        return tabbedPane;
     }
 
     private JMenuBar buildMenuBar(final Action loadDataAction,

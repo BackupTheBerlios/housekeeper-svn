@@ -95,8 +95,16 @@ final class SupplyPresenter
                 itemManager.getSupplyList(), "convenienceFood");
         final FoodListPresenter miscPresenter = new FoodListPresenter(
                 itemManager.getSupplyList(), "misc");
-        
+
+        convPresenter.getView()
+                .setName(
+                         LocalisationManager.INSTANCE
+                                 .getText("domain.food.convenienceFoods"));
         view.addPanel(convPresenter.getView());
+
+        miscPresenter.getView().setName(
+                                        LocalisationManager.INSTANCE
+                                                .getText("domain.food.misc"));
         view.addPanel(miscPresenter.getView());
 
         updateActionEnablement();
@@ -123,7 +131,7 @@ final class SupplyPresenter
     {
         return view;
     }
-    
+
     /**
      * Opens a dialog for adding a new item.
      * 
@@ -179,8 +187,10 @@ final class SupplyPresenter
      */
     private boolean openEditor(Food item)
     {
-        final FoodEditorView editorView = new FoodEditorView(view.getParentFrame());
-        final FoodEditorPresenter editor = new FoodEditorPresenter(editorView, item);
+        final FoodEditorView editorView = new FoodEditorView(view
+                .getParentFrame());
+        final FoodEditorPresenter editor = new FoodEditorPresenter(editorView,
+                item);
 
         return editor.show();
     }
@@ -210,7 +220,7 @@ final class SupplyPresenter
             activePresenter = presenter;
         }
     }
-    
+
     /**
      * Deletes the currently selected item.
      */
@@ -223,7 +233,8 @@ final class SupplyPresenter
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.supply.delete");
             putValue(Action.NAME, name);
-            putValue(Action.SMALL_ICON, IconGenerator.getIcon("delete_edit.gif"));
+            putValue(Action.SMALL_ICON, IconGenerator
+                    .getIcon("delete_edit.gif"));
         }
 
         public void actionPerformed(ActionEvent arg0)
