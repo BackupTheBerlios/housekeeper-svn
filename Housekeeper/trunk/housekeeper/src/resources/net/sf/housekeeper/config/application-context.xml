@@ -22,7 +22,7 @@
 			<value>net/sf/housekeeper/config/commands-context.xml</value>
 		</property>
     <property name="startingPageId">
-      <value>supplyView</value>
+      <value>initialPageLayout</value>
     </property>
   </bean>
   
@@ -108,6 +108,36 @@
 	</bean>
   
 
+  <bean id="initialPageLayout" class="net.sf.housekeeper.swing.page.BorderLayoutPageDescriptor"> 
+    <property name="id"><value>initialPageLayout</value></property> 
+    <property name="views"> 
+      <list>
+        <ref bean="categoryViewLocationDescriptor"/>
+ 		    <ref bean="itemViewLocationDescriptor"/>
+      </list> 
+    </property> 
+  </bean> 
+ 
+  <bean id="categoryViewLocationDescriptor" class="net.sf.housekeeper.swing.page.ViewLocationDescriptor"> 
+		<property name="viewDescriptorID">
+			<value>categoryView</value>
+		</property>
+    <property name="location">
+			<value>West</value>
+		</property>
+  </bean>
+  
+  <bean id="itemViewLocationDescriptor" class="net.sf.housekeeper.swing.page.ViewLocationDescriptor"> 
+		<property name="viewDescriptorID">
+			<value>supplyView</value>
+		</property>
+    <property name="location">
+			<value>Center</value>
+		</property>
+  </bean>
+  
+  <bean id="applicationWindowPrototype" class="net.sf.housekeeper.swing.page.BorderLayoutApplicationWindow" singleton="false"/> 
+ 
   <!-- Housekeeper beans -->
   
 	<bean id="supplyView"
@@ -121,6 +151,13 @@
           <ref local="foodManager"/>
         </entry>
       </map>
+		</property>
+	</bean>
+  
+  <bean id="categoryView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+		<property name="viewClass">
+			<value>net.sf.housekeeper.swing.CategoriesView</value>
 		</property>
 	</bean>
     
