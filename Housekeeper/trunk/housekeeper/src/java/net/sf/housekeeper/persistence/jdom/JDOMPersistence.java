@@ -64,8 +64,7 @@ public final class JDOMPersistence implements PersistenceService
      * 
      * @see net.sf.housekeeper.persistence.PersistenceService#loadData()
      */
-    public void loadData() throws IOException, IllegalArgumentException,
-            UnsupportedFileVersionException
+    public void loadData() throws IOException, UnsupportedFileVersionException
     {
         final SAXBuilder builder = new SAXBuilder();
         try

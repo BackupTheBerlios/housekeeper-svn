@@ -24,11 +24,6 @@ final class DomainConverterProxy implements DomainConverter
     private static final String               FILE_VERSION_ATTRIBUTE = "version";
 
     /**
-     * Name of the root node.
-     */
-    private static final String               ROOT_ELEMENT_NAME      = "housekeeper";
-
-    /**
      * Singleton instance.
      */
     private static final DomainConverterProxy INSTANCE               = new DomainConverterProxy();
@@ -57,18 +52,8 @@ final class DomainConverterProxy implements DomainConverter
      * 
      * @see net.sf.housekeeper.persistence.jdom.DomainConverter#replaceDomain(org.jdom.Element)
      */
-    public void replaceDomain(Element root) throws IllegalArgumentException,
-            UnsupportedFileVersionException
+    public void replaceDomain(Element root) throws UnsupportedFileVersionException
     {
-        //Check if element is really a root element
-        if (!root.getName().equals(ROOT_ELEMENT_NAME))
-        {
-            throw new IllegalArgumentException(
-                    "The specified element is named " + root.getName()
-                            + " but the root element's name should be "
-                            + ROOT_ELEMENT_NAME);
-        }
-
         //Get the file version
         final String versionString = root
                 .getAttributeValue(FILE_VERSION_ATTRIBUTE);
@@ -83,7 +68,7 @@ final class DomainConverterProxy implements DomainConverter
         LogFactory.getLog(DomainConverter1.class).debug(
                                                         "Detected file version: "
                                                                 + version);
-        if (version != 1)
+        if (!isVersionSupported(version))
         {
             throw new UnsupportedFileVersionException(version);
         }

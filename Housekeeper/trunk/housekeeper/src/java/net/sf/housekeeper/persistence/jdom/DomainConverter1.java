@@ -53,7 +53,6 @@ final class DomainConverter1 implements DomainConverter
      * @see net.sf.housekeeper.persistence.jdom.DomainConverter#replaceDomain(org.jdom.Element)
      */
     public void replaceDomain(final Element root)
-            throws IllegalArgumentException
     {
 
         //Replace food items

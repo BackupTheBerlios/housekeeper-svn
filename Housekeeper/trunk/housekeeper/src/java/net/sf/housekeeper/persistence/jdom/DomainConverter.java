@@ -24,10 +24,8 @@ interface DomainConverter
      *             element.
      * @throws UnsupportedFileVersionException if the version of the element
      *             structure is not supported by this converter.
-     * @throws IllegalArgumentException if \"root\" is not a root element.
      */
-    void replaceDomain(final Element root) throws IllegalArgumentException,
-            UnsupportedFileVersionException;
+    void replaceDomain(final Element root) throws UnsupportedFileVersionException;
 
     /**
      * Creates an XML element hierarchy with all in-memory domain objects.

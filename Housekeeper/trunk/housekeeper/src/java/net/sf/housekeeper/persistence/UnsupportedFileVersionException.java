@@ -2,7 +2,7 @@ package net.sf.housekeeper.persistence;
 
 
 /**
- * Signals the the version or format of a data source is not supported.
+ * Signals that the format version of a data source is not supported.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
