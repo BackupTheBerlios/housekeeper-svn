@@ -40,7 +40,7 @@
   
   <goal name="package-create-archives">
     <ant:zip zipfile="${maven.build.dir}/${maven.final.name}.zip">
-      <ant:zipfileset dir="${outputPath}"/>
+      <ant:zipfileset dir="${outputPath}" prefix="Housekeeper"/>
     </ant:zip>
     
     <ant:tar longfile="gnu" compression="bzip2" tarfile="${maven.build.dir}/${maven.final.name}.tar.bz2">
