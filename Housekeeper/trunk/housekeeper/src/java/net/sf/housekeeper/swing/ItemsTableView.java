@@ -117,7 +117,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     protected void registerLocalCommandExecutors(PageComponentContext context)
     {
         context.register(GlobalCommandIds.DELETE, deleteExecutor);
-        context.register("editCommand", editExecutor);
+        context.register(GlobalCommandIds.PROPERTIES, editExecutor);
         context.register("duplicateCommand", duplicateExecutor);
         context.register("newCommand",
                          newItemExecutor);

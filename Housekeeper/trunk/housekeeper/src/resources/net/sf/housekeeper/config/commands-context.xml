@@ -9,7 +9,7 @@
 			<list>
         <value>newCommand</value>
         <value>duplicateCommand</value>
-        <value>editCommand</value>
+        <value>propertiesCommand</value>
 				<value>deleteCommand</value>
 			</list>
 		</property>
@@ -33,7 +33,7 @@
 			<list>
         <value>newCommand</value>
         <value>duplicateCommand</value>
-        <value>editCommand</value>
+        <value>propertiesCommand</value>
 				<value>deleteCommand</value>
 			</list>
 		</property>
