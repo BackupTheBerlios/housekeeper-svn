@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -44,6 +45,7 @@ import javax.swing.UIManager;
 import net.sf.housekeeper.ApplicationController;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.util.ConfigurationManager;
+import net.sf.housekeeper.util.LocalisationManager;
 
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
@@ -101,7 +103,7 @@ public final class MainFrame
             }
         });
     }
-    
+
     /**
      * Displays this main frame.
      */
@@ -116,7 +118,9 @@ public final class MainFrame
     private Component buildComponents()
     {
         final JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Supply", new SupplyPanel(view));
+        final String supplyTabName = LocalisationManager.INSTANCE
+                .getText("domain.supply");
+        tabbedPane.addTab(supplyTabName, new SupplyPanel(view));
         return tabbedPane;
     }
 
@@ -128,7 +132,9 @@ public final class MainFrame
         final JMenuBar menuBar = new JMenuBar();
 
         //File Menu
-        final JMenu menuFile = new JMenu("File");
+        final String fileMenuLabel = LocalisationManager.INSTANCE
+                .getText("gui.menu.file");
+        final JMenu menuFile = new JMenu(fileMenuLabel);
         menuBar.add(menuFile);
 
         menuFile.add(new JMenuItem(new LoadDataAction()));
@@ -137,7 +143,9 @@ public final class MainFrame
         menuFile.add(new JMenuItem(new ExitAction()));
 
         //Help Menu
-        final JMenu menuHelp = new JMenu("Help");
+        final String helpMenuString = LocalisationManager.INSTANCE
+                .getText("gui.menu.help");
+        final JMenu menuHelp = new JMenu(helpMenuString);
         menuBar.add(Box.createHorizontalGlue());
         menuBar.add(menuHelp);
 
@@ -184,8 +192,9 @@ public final class MainFrame
     {
         boolean exit = true;
 
-        final int option = JOptionPane
-                .showConfirmDialog(view, "Save modifications before exiting?");
+        final String question = LocalisationManager.INSTANCE
+                .getText("gui.mainFrame.saveModificationsQuestion");
+        final int option = JOptionPane.showConfirmDialog(view, question);
         if (option == JOptionPane.YES_OPTION)
         {
             try
@@ -214,12 +223,11 @@ public final class MainFrame
      */
     private void showSavingErrorDialog()
     {
-        JOptionPane
-                .showMessageDialog(
-                                   view,
-                                   "There was a problem saving the data.\n"
-                                           + "Your modifications have NOT been saved.",
-                                   "Error", JOptionPane.ERROR_MESSAGE);
+        final String message = LocalisationManager.INSTANCE
+                .getText("gui.mainFrame.saveError");
+        final String error = LocalisationManager.INSTANCE.getText("gui.error");
+        JOptionPane.showMessageDialog(view, message, error,
+                                      JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -239,8 +247,7 @@ public final class MainFrame
             } catch (IOException ex)
             {
                 LogFactory.getLog(MainFrame.AboutDialogAction.class)
-                        .error("Attempted to read a bad URL: " + helpURL,
-                               ex);
+                        .error("Attempted to read a bad URL: " + helpURL, ex);
             }
         } else
         {
@@ -268,6 +275,26 @@ public final class MainFrame
     }
 
     /**
+     *  
+     */
+    private void loadDomainData()
+    {
+        try
+        {
+            PersistenceController.replaceDomainWithSaved();
+        } catch (FileNotFoundException exception)
+        {
+            JOptionPane.showMessageDialog(view, "No data has been saved yet.",
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception exception)
+        {
+            exception.printStackTrace();
+            JOptionPane.showMessageDialog(view, exception.getMessage(),
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * Action for exiting the application.
      */
     private class ExitAction extends AbstractAction
@@ -275,7 +302,10 @@ public final class MainFrame
 
         private ExitAction()
         {
-            super("Exit");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.mainFrame.exit");
+            putValue(Action.NAME, name);
         }
 
         public void actionPerformed(ActionEvent e)
@@ -292,7 +322,10 @@ public final class MainFrame
 
         private LoadDataAction()
         {
-            super("Load Data");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.mainFrame.load");
+            putValue(Action.NAME, name);
         }
 
         public void actionPerformed(ActionEvent e)
@@ -300,28 +333,6 @@ public final class MainFrame
             loadDomainData();
         }
 
-        /**
-         * 
-         */
-        private void loadDomainData()
-        {
-            try
-            {
-                PersistenceController.replaceDomainWithSaved();
-            } catch (FileNotFoundException exception)
-            {
-                JOptionPane.showMessageDialog(view,
-                                              "No data has been saved yet.",
-                                              "Error",
-                                              JOptionPane.ERROR_MESSAGE);
-            } catch (Exception exception)
-            {
-                exception.printStackTrace();
-                JOptionPane.showMessageDialog(view, exception.getMessage(),
-                                              "Error",
-                                              JOptionPane.ERROR_MESSAGE);
-            }
-        }
     }
 
     /**
@@ -332,7 +343,10 @@ public final class MainFrame
 
         private SaveDataAction()
         {
-            super("Save Data");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.mainFrame.save");
+            putValue(Action.NAME, name);
         }
 
         public void actionPerformed(ActionEvent e)
@@ -346,7 +360,10 @@ public final class MainFrame
 
         private AboutDialogAction()
         {
-            super("About");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.mainFrame.about");
+            putValue(Action.NAME, name);
         }
 
         /*

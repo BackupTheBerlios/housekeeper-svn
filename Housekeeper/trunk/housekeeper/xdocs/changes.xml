@@ -3,6 +3,11 @@
     <title>Change history</title>
   </properties>
   <body>
+    <release version="0.2.1" date="not yet released">
+        <action dev="notizklotz" type="add">German translations.</action>
+        <action dev="notizklotz" type="add" issue="960802">Support for 
+            multiple languages.</action>
+    </release>
     <release version="0.2.0" date="2004-12-05">
         <action dev="notizklotz" type="add" issue="1054868">Added support for 
             handling different file format versions. Future Housekeeper 

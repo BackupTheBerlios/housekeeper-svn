@@ -36,6 +36,7 @@ import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.domain.FoodItem;
 import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.util.LocalisationManager;
 
 /**
  * A panel for display and manipulation of the items on hand. It consists of a
@@ -197,7 +198,10 @@ final class SupplyPanel extends JPanel
 
         private DeleteAction()
         {
-            super("Delete");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.supply.delete");
+            putValue(Action.NAME, name);
         }
 
         public void actionPerformed(ActionEvent arg0)
@@ -214,7 +218,10 @@ final class SupplyPanel extends JPanel
 
         private DuplicateAction()
         {
-            super("Duplicate");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.supply.duplicate");
+            putValue(Action.NAME, name);
         }
 
         /*
@@ -237,7 +244,10 @@ final class SupplyPanel extends JPanel
 
         private EditAction()
         {
-            super("Edit");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.supply.edit");
+            putValue(Action.NAME, name);
         }
 
         public void actionPerformed(ActionEvent arg0)
@@ -254,7 +264,10 @@ final class SupplyPanel extends JPanel
 
         private NewAction()
         {
-            super("Add item to supply");
+            super();
+            final String name = LocalisationManager.INSTANCE
+                    .getText("gui.supply.new");
+            putValue(Action.NAME, name);
         }
 
         public void actionPerformed(ActionEvent arg0)

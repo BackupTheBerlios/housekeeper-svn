@@ -34,6 +34,7 @@ import javax.swing.table.TableCellRenderer;
 import net.sf.housekeeper.domain.FoodItem;
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.swing.util.DateCellRenderer;
+import net.sf.housekeeper.util.LocalisationManager;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.SortedList;
 import ca.odell.glazedlists.swing.EventSelectionModel;
@@ -66,11 +67,20 @@ public class SupplyPresentationModel
     private static final boolean[]    PROPERTY_MODIFYABLE = { false, false,
             false                                        };
 
+    private static final String       NAME_HEADER         = LocalisationManager.INSTANCE
+                                                                  .getText("domain.foodItem.name");
+
+    private static final String       QUANTITY_HEADER     = LocalisationManager.INSTANCE
+                                                                  .getText("domain.foodItem.quantity");
+
+    private static final String       EXPIRY_HEADER       = LocalisationManager.INSTANCE
+                                                                  .getText("domain.foodItem.expiry");
+
     /**
      * The labels for the table headers.
      */
-    private static final String[]     TABLE_HEADERS       = { "Name",
-            "Quantity", "Expiry"                         };
+    private static final String[]     TABLE_HEADERS       = { NAME_HEADER,
+            QUANTITY_HEADER, EXPIRY_HEADER               };
 
     /**
      * Holds information about the row selections of the table.
@@ -227,7 +237,7 @@ public class SupplyPresentationModel
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
         final TableCellRenderer dateRenderer = new DateCellRenderer(dateFormat);
-        table.getColumn("Expiry").setCellRenderer(dateRenderer);
+        table.getColumn(EXPIRY_HEADER).setCellRenderer(dateRenderer);
     }
 
     /**

@@ -37,6 +37,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
+import net.sf.housekeeper.util.LocalisationManager;
+
 import org.apache.commons.lang.time.DateUtils;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -82,16 +84,23 @@ class FoodItemEditorView
      */
     FoodItemEditorView(final Frame owner)
     {
-        dialog = new JDialog(owner, "Item Editor", true);
+        final String dialogTitle = LocalisationManager.INSTANCE
+                .getText("gui.foodItemEditor.dialogTitle");
+        dialog = new JDialog(owner, dialogTitle, true);
 
         nameField = new JTextField(20);
         quantityField = new JTextField(10);
         dateSpinner = createDateSpinner();
         checkbox = createExpiryEnabledCheckbox();
 
-        okButton = new JButton("OK");
+        final String okButtonText = LocalisationManager.INSTANCE
+                .getText("gui.okButton");
+        okButton = new JButton(okButtonText);
         okButton.setActionCommand("OK");
-        cancelButton = new JButton("Cancel");
+
+        final String cancelButtonText = LocalisationManager.INSTANCE
+                .getText("gui.cancelButton");
+        cancelButton = new JButton(cancelButtonText);
         cancelButton.setActionCommand("Cancel");
 
         initDialog();
@@ -263,8 +272,9 @@ class FoodItemEditorView
     private JCheckBox createExpiryEnabledCheckbox()
     {
         final JCheckBox checkBox = new JCheckBox();
-        checkBox.setToolTipText("Check to enable the setting "
-                + "of an expiry date. Uncheck to disable it");
+        final String toolTip = LocalisationManager.INSTANCE
+                .getText("gui.foodItemEditor.expiryCheckBoxToolTip");
+        checkBox.setToolTipText(toolTip);
 
         return checkBox;
     }
@@ -307,11 +317,22 @@ class FoodItemEditorView
         builder.setDefaultDialogBorder();
         builder.setRowGroupingEnabled(true);
 
-        builder.append("Name:", nameField);
+        final String nameLabel = LocalisationManager.INSTANCE
+                .getText("domain.foodItem.name")
+                + ":";
+        builder.append(nameLabel, nameField);
         builder.nextLine();
-        builder.append("Quantity:", quantityField);
+
+        final String quantityLabel = LocalisationManager.INSTANCE
+                .getText("domain.foodItem.quantity")
+                + ":";
+        builder.append(quantityLabel, quantityField);
         builder.nextLine();
-        builder.append("Expiry:", dateSpinner, checkbox);
+
+        final String expiryLabel = LocalisationManager.INSTANCE
+                .getText("domain.foodItem.expiry")
+                + ":";
+        builder.append(expiryLabel, dateSpinner, checkbox);
 
         return builder.getPanel();
     }
