@@ -60,8 +60,10 @@
                 be deleted by this action because it is saved in the user's 
                 home directory, not in the application's directory.</p></li>
             <li>Start Housekeeper by double-clicking on 
+              <code>housekeeper-0.2.2.jar</code>.</li>
+            <li>If that doesn't work start Housekeeper by double-clicking on 
                 <code>housekeeper.bat</code> when running on Windows or use 
-                <code>housekeeper.sh</code> on any other platform</li>
+                <code>housekeeper.sh</code> on any other platform.</li>
 		</ol>
     </section>
   </body>
