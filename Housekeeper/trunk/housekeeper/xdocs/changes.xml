@@ -7,8 +7,6 @@
     <release version="0.1.2" date="in CVS">
         <action dev="notizklotz" type="add" issue="1037939"> Added 
             logging component for display of messages in the console.</action>
-    </release>
-    <release version="0.1.2" date="in CVS">
         <action dev="notizklotz" type="add" issue="960660"> Implemented robust 
             persistence layer using JDOM for reading and writing XML. </action>
     </release>
