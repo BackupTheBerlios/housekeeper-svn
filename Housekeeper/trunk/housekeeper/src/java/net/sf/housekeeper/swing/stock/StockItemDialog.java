@@ -15,7 +15,8 @@
  * Housekeeper; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
- * Copyright 2003-2004, Adrian Gygax http://housekeeper.sourceforge.net
+ * Copyright 2003-2004, The Housekeeper Project
+ * http://housekeeper.sourceforge.net
  */
 
 package net.sf.housekeeper.swing.stock;
