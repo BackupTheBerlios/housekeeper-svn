@@ -39,7 +39,7 @@ import java.util.Iterator;
  * @see PurchasedArticle
  * @since 0.1
  */
-public class Purchase
+public class Purchase extends DomainObject
 {
     //~ Instance fields --------------------------------------------------------
 

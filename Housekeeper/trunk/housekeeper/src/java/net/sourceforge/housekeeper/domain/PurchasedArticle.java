@@ -37,7 +37,7 @@ import java.util.Date;
  *
  * @since 0.1
  */
-public class PurchasedArticle
+public class PurchasedArticle extends DomainObject
 {
     //~ Instance fields --------------------------------------------------------
 

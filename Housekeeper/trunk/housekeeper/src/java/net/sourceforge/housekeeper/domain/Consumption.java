@@ -35,7 +35,7 @@ import java.util.Date;
  *
  * @since 0.1
  */
-public class Consumption
+public class Consumption extends DomainObject
 {
     //~ Instance fields --------------------------------------------------------
 

@@ -33,7 +33,7 @@ package net.sourceforge.housekeeper.domain;
  *
  * @since 0.1
  */
-public class ArticleDescription
+public class ArticleDescription extends DomainObject
 {
     //~ Instance fields --------------------------------------------------------
 
