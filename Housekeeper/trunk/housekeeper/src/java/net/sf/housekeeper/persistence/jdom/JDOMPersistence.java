@@ -46,7 +46,16 @@ public final class JDOMPersistence implements PersistenceService
     /**
      * File used for loading and saving
      */
-    private static final File DATAFILE = new File("HK_data.xml");
+    private final File dataFile;
+    
+    public JDOMPersistence()
+    {
+        final String homeDirString = System.getProperty("user.home");
+        final File hkDir = new File(homeDirString, ".housekeeper");
+        hkDir.mkdir();
+        
+        dataFile = new File(hkDir, "data.xml");
+    }
     
     /* (non-Javadoc)
      * @see net.sf.housekeeper.persistence.PersistenceService#loadData()
@@ -56,7 +65,7 @@ public final class JDOMPersistence implements PersistenceService
         final SAXBuilder builder = new SAXBuilder();
         try
         {
-            final Document document = builder.build(DATAFILE);
+            final Document document = builder.build(dataFile);
             DomainConverter.replaceDomain(document);
         } catch (JDOMException e)
         {
@@ -74,7 +83,7 @@ public final class JDOMPersistence implements PersistenceService
         
         final Format format = Format.getPrettyFormat();
         final XMLOutputter serializer = new XMLOutputter(format);
-        final FileWriter fileWriter = new FileWriter(DATAFILE);
+        final FileWriter fileWriter = new FileWriter(dataFile);
         serializer.output(document, fileWriter);
         fileWriter.close();
     }
