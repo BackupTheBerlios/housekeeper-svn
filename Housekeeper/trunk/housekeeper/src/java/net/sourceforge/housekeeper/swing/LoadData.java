@@ -62,5 +62,6 @@ final class LoadData extends AbstractAction
     {
         StorageFactory.getCurrentStorage()
                       .loadData();
+        DataUpdateMediator.getInstance().update();
     }
 }

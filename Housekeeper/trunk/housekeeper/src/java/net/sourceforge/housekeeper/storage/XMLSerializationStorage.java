@@ -58,7 +58,7 @@ import java.util.List;
  *
  * @since 0.1
  */
-final class XMLSerializationStorage extends Storage
+final class XMLSerializationStorage implements Storage
 {
     //~ Static fields/initializers ---------------------------------------------
 
@@ -111,7 +111,6 @@ final class XMLSerializationStorage extends Storage
     public void add(ArticleDescription article)
     {
         articleDescriptions.add(article);
-        update();
     }
 
     /**
@@ -122,7 +121,6 @@ final class XMLSerializationStorage extends Storage
     public void add(Purchase purchase)
     {
         purchases.add(purchase);
-        update();
     }
 
     /**
@@ -139,7 +137,6 @@ final class XMLSerializationStorage extends Storage
             xmlDecoder.close();
 
             articleDescriptions = (List)result;
-            update();
         }
         catch (FileNotFoundException e)
         {
@@ -155,7 +152,6 @@ final class XMLSerializationStorage extends Storage
     public void remove(ArticleDescription article)
     {
         articleDescriptions.remove(article);
-        update();
     }
 
     /**
@@ -175,14 +171,5 @@ final class XMLSerializationStorage extends Storage
         {
             System.out.println("File not found");
         }
-    }
-
-    /**
-     * TODO DOCUMENT ME!
-     */
-    public void update()
-    {
-        setChanged();
-        notifyObservers();
     }
 }

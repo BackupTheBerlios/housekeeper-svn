@@ -82,7 +82,7 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
     private ArticleDescriptionTableModel()
     {
         updateTableData();
-        StorageFactory.getCurrentStorage().addObserver(this);
+        DataUpdateMediator.getInstance().addObserver(this);
         
     }
 

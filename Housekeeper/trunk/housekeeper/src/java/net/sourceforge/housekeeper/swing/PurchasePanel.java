@@ -112,7 +112,7 @@ final class PurchasePanel extends JPanel
         private PurchasesTableModel()
         {
             update();
-            StorageFactory.getCurrentStorage().addObserver(this);
+            DataUpdateMediator.getInstance().addObserver(this);
         }
 
         /* (non-Javadoc)
