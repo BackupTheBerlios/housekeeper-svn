@@ -23,26 +23,23 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import com.jgoodies.plaf.Options;
-import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
 
 import net.sourceforge.housekeeper.Housekeeper;
 import net.sourceforge.housekeeper.swing.action.ExitAction;
 import net.sourceforge.housekeeper.swing.action.LoadDataAction;
 import net.sourceforge.housekeeper.swing.action.SaveDataAction;
 import net.sourceforge.housekeeper.swing.assortimentItem.AssortimentItemPanel;
+import net.sourceforge.housekeeper.swing.assortimentItem.NewAssortimentItemAction;
 import net.sourceforge.housekeeper.swing.stock.StockPanel;
 
-import java.awt.FlowLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
+import com.jgoodies.plaf.Options;
+import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
 
 /**
@@ -62,8 +59,10 @@ public final class MainFrame extends JFrame
 
     //~ Instance fields --------------------------------------------------------
 
-    private JMenu    menuFile;
-    private JMenuBar menuBar;
+    private JMenu       menuAssortiment;
+    private JMenu       menuFile;
+    private JMenuBar    menuBar;
+    private JTabbedPane tabbedPane;
 
     //~ Constructors -----------------------------------------------------------
 
@@ -91,20 +90,11 @@ public final class MainFrame extends JFrame
      */
     private void buildComponents()
     {
-        getContentPane().setLayout(new FlowLayout());
-
-        JPanel       p;
-        TitledBorder b;
-
-        p = AssortimentItemPanel.getInstance();
-        b = BorderFactory.createTitledBorder("Assortiment");
-        p.setBorder(b);
-        getContentPane().add(p);
-        
-        p = StockPanel.getInstance();
-        b = BorderFactory.createTitledBorder("Stock");
-        p.setBorder(b);
-        getContentPane().add(p);
+        tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Stock", StockPanel.getInstance());
+        tabbedPane.addTab("Assortiment", AssortimentItemPanel.getInstance());
+        //tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
+        getContentPane().add(tabbedPane);
     }
 
     /**
@@ -124,6 +114,12 @@ public final class MainFrame extends JFrame
         menuFile.add(new JMenuItem(SaveDataAction.INSTANCE));
         menuFile.addSeparator();
         menuFile.add(new JMenuItem(ExitAction.INSTANCE));
+
+        //Articles menu
+        menuAssortiment = new JMenu("Assortiment");
+        menuBar.add(menuAssortiment);
+
+        menuAssortiment.add(new JMenuItem(NewAssortimentItemAction.INSTANCE));
     }
 
     /**
