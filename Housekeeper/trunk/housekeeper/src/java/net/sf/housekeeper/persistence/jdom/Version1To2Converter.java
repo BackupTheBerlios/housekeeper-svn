@@ -42,7 +42,7 @@ final class Version1To2Converter implements DocumentVersionConverter
         newRoot.setAttribute("version", "2");
 
         //Copy foodItem elements
-        final Collection foodItems = oldRoot.getChildren(ExpiringItemConverter.ELEMENT_FOODITEM);
+        final Collection foodItems = oldRoot.getChildren(ExpiringItemConverter.ELEMENT_ITEM);
 
         //Set category of all elements to a default value
         final Iterator iter = foodItems.iterator();

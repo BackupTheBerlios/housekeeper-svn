@@ -60,7 +60,7 @@ public class Item
     /**
      * The category.
      */
-    private String             category;
+    private Category             category;
 
     /**
      * Creates a new item with an empty name and description.
@@ -71,19 +71,16 @@ public class Item
     }
 
     /**
-     * Creates a new item as a deep copy of an existing item.
+     * Creates a new item as a deep copy of an existing item. Note that the
+     * "category" property is not deep copied.
      * 
      * @param original The item to be cloned.
      */
     public Item(final Item original)
     {
-        final String clonedName = original.getName() == null ? null
-                : new String(original.getName());
-        final String clonedDescription = original.getDescription() == null ? null
-                : new String(original.getDescription());
-
-        setName(clonedName);
-        setDescription(clonedDescription);
+        setName(original.getName());
+        setDescription(original.getDescription());
+        setCategory(original.getCategory());
     }
 
     /**
@@ -101,7 +98,7 @@ public class Item
     /**
      * @return Returns the category.
      */
-    public String getCategory()
+    public Category getCategory()
     {
         return category;
     }
@@ -109,7 +106,7 @@ public class Item
     /**
      * @param category The category to set.
      */
-    public void setCategory(String category)
+    public void setCategory(Category category)
     {
         this.category = category;
     }

@@ -28,8 +28,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.HousekeeperEvent;
+import net.sf.housekeeper.domain.Category;
 
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.list.BeanPropertyValueListRenderer;
 
 /**
  * @author
@@ -47,10 +49,11 @@ public final class CategoriesView extends AbstractView
      */
     protected JComponent createControl()
     {
-        final Object[] listItems = { "convenienceFood", "misc" };
+        final Category[] listItems = { Category.CONVENIENCE, Category.MISC };
         list = new JList(listItems);
         list.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setCellRenderer(new BeanPropertyValueListRenderer("name"));
 
         list.addListSelectionListener(new ListSelectionListener() {
 
@@ -67,4 +70,5 @@ public final class CategoriesView extends AbstractView
         list.setSelectedIndex(0);
         return list;
     }
+
 }

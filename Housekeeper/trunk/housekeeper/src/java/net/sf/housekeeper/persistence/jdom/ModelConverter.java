@@ -20,7 +20,7 @@ import org.jdom.Element;
 final class ModelConverter
 {
 
-    private static final String ELEMENT_FOOD_ITEM         = "foodItem";
+    private static final String ELEMENT_ITEM         = "item";
 
     private static final String ELEMENT_ROOT              = "household";
 
@@ -41,7 +41,7 @@ final class ModelConverter
     Household convertToDomain(final Element root)
     {
         final Household household = new Household();
-        final ArrayList items = getFoodItems(root);
+        final ArrayList items = getItems(root);
         
         household.getFoodManager().replaceAll(items);
 
@@ -70,16 +70,16 @@ final class ModelConverter
     }
 
     /**
-     * Creates {@link ExpiringItem}objects from a food container.
+     * Creates {@link ExpiringItem}objects from an item container.
      * 
-     * @param foodElement The container with the food elements.
+     * @param itemElement The container with the item elements.
      * @return A list of {@link ExpiringItem}objects.
      */
-    private ArrayList getFoodItems(final Element foodElement)
+    private ArrayList getItems(final Element itemElement)
     {
         final ArrayList food = new ArrayList();
-        final Iterator foodItemIterator = foodElement
-                .getChildren(ELEMENT_FOOD_ITEM).iterator();
+        final Iterator foodItemIterator = itemElement
+                .getChildren(ELEMENT_ITEM).iterator();
         while (foodItemIterator.hasNext())
         {
             final Element element = (Element) foodItemIterator.next();

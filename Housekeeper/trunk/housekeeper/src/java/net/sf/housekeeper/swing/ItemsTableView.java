@@ -42,6 +42,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.HousekeeperEvent;
+import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpiringItem;
 import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.swing.util.CustomTableUtils;
@@ -87,7 +88,7 @@ public final class ItemsTableView extends AbstractView implements
 
     private ItemManager                    itemManager;
 
-    private String                         category;
+    private Category                         category;
 
     /**
      * Creates a new view showing a list of items.
@@ -166,7 +167,7 @@ public final class ItemsTableView extends AbstractView implements
         deleteExecutor.setEnabled(hasSelection);
     }
 
-    private void setCategory(String category)
+    private void setCategory(Category category)
     {
         this.category = category;
         refresh();
@@ -183,9 +184,9 @@ public final class ItemsTableView extends AbstractView implements
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
             if (le.getEventType() == HousekeeperEvent.SELECTED
-                    && le.objectIs(String.class))
+                    && le.objectIs(Category.class))
             {
-                final String cat = (String) le.getObject();
+                final Category cat = (Category) le.getObject();
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run()

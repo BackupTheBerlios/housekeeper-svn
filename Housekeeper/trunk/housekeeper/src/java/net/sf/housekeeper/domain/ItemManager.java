@@ -145,7 +145,7 @@ public final class ItemManager
      * @param category The category of the items.
      * @return The items which match the category.
      */
-    public List getItemsForCategory(final String category)
+    public List getItemsForCategory(final Category category)
     {
         if (category == null)
         {

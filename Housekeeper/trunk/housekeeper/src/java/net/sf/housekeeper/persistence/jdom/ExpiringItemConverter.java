@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpiringItem;
 
 import org.jdom.Element;
@@ -65,7 +66,7 @@ final class ExpiringItemConverter
 
     /**
      * The name of the attribute "name" of the element
-     * {@link ExpiringItemConverter#ELEMENT_FOODITEM}.
+     * {@link ExpiringItemConverter#ELEMENT_ITEM}.
      */
     public static final String ATTRIBUTE_NAME           = "name";
 
@@ -82,7 +83,7 @@ final class ExpiringItemConverter
     /**
      * The name of the root element.
      */
-    public static final String ELEMENT_FOODITEM         = "foodItem";
+    public static final String ELEMENT_ITEM         = "item";
 
     /**
      * The name of the quantity element.
@@ -92,29 +93,29 @@ final class ExpiringItemConverter
     /**
      * Converts a JDOM Element object into a {@link ExpiringItem}.
      * 
-     * @param foodElement The element to convert. It is not checked if this
+     * @param itemElement The element to convert. It is not checked if this
      *            Element actually can be converted to a ExpiringItem.
      * @return The ExpiringItem object build from the given Element.
      */
-    static ExpiringItem convert(final Element foodElement)
+    static ExpiringItem convert(final Element itemElement)
     {
-        final ExpiringItem food = new ExpiringItem();
+        final ExpiringItem item = new ExpiringItem();
 
         //Name
-        final String itemName = foodElement.getAttributeValue(ATTRIBUTE_NAME);
-        food.setName(itemName);
+        final String itemName = itemElement.getAttributeValue(ATTRIBUTE_NAME);
+        item.setName(itemName);
 
         //Description
-        final Element quantityElement = foodElement.getChild(ELEMENT_DESCRIPTION);
-        if (quantityElement != null)
+        final Element descriptionElement = itemElement.getChild(ELEMENT_DESCRIPTION);
+        if (descriptionElement != null)
         {
-            String desc = quantityElement
+            String desc = descriptionElement
                     .getValue();
-            food.setDescription(desc);
+            item.setDescription(desc);
         }
 
         //Expiry
-        final Element expiryElement = foodElement.getChild(ELEMENT_EXPIRY);
+        final Element expiryElement = itemElement.getChild(ELEMENT_EXPIRY);
         if (expiryElement != null)
         {
             final int day = Integer.parseInt(expiryElement
@@ -126,18 +127,23 @@ final class ExpiringItemConverter
             final Calendar expiryCalendar = new GregorianCalendar(year,
                     month - 1, day);
             Date expiryDate = expiryCalendar.getTime();
-            food.setExpiry(expiryDate);
+            item.setExpiry(expiryDate);
         }
 
         //Category
-        final Element categoryElement = foodElement.getChild(ELEMENT_CATEGORY);
+        final Element categoryElement = itemElement.getChild(ELEMENT_CATEGORY);
         if (categoryElement != null)
         {
-            String category = categoryElement.getAttributeValue(ATTRIBUTE_CATEGORY_NAME);
-            food.setCategory(category);
+            String categoryID = categoryElement.getValue();
+            if (categoryID.equals("convenienceFood"))
+            {
+                item.setCategory(Category.CONVENIENCE);
+            } else {
+                item.setCategory(Category.MISC);
+            }
         }
 
-        return food;
+        return item;
     }
 
     /**
@@ -148,7 +154,7 @@ final class ExpiringItemConverter
      */
     static Element convert(final ExpiringItem item)
     {
-        final Element xmlElement = new Element(ELEMENT_FOODITEM);
+        final Element xmlElement = new Element(ELEMENT_ITEM);
 
         //Name
         xmlElement.setAttribute(ATTRIBUTE_NAME, item.getName());
@@ -180,9 +186,9 @@ final class ExpiringItemConverter
         //Category
         if (item.getCategory() != null)
         {
-            String category = item.getCategory();
+            Category category = item.getCategory();
             Element categoryElement = new Element(ELEMENT_CATEGORY);
-            categoryElement.setAttribute(ATTRIBUTE_CATEGORY_NAME, category);
+            categoryElement.setText(category.getId());
             xmlElement.addContent(categoryElement);
         }
 

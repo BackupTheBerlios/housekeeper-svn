@@ -63,14 +63,12 @@ public final class ExpiringItem extends Item
     private Date               expiry;
 
     /**
-     * Creates a new ExpiringItem object with default values. Name, quantity and the
-     * expiry date remain unset.
+     * Creates a new ExpiringItem object with default values. All properties
+     * are not set.
      */
     public ExpiringItem()
     {
         super();
-        setExpiry(null);
-        setCategory(CATEGORY_DEFAULT);
     }
 
     /**
@@ -92,7 +90,7 @@ public final class ExpiringItem extends Item
     }
 
     /**
-     * Creates a new ExpiringItem object with specified values.
+     * Creates a new ExpiringItem object with specified values and no category.
      * 
      * @param name The name of the item. Must not be null.
      * @param quantity The quantity which one exemplar of this item contains.
@@ -102,7 +100,6 @@ public final class ExpiringItem extends Item
     {
         super(name, quantity);
         setExpiry(expiry);
-        setCategory(CATEGORY_DEFAULT);
     }
 
     /**
