@@ -1,0 +1,51 @@
+<project
+  xmlns:ant="jelly:ant"
+  xmlns:core="jelly:core"
+  xmlns:deploy="deploy">
+  
+  <goal name="package">
+
+  	<core:set 
+        var="outputPath" 
+        value="${maven.build.dir}/release"/>
+        
+	<attainGoal name="package-copy-misc" />
+	<attainGoal name="package-copy-jars" />
+    <attainGoal name="package-create-archives" />
+  </goal>
+  
+  <goal name="package-copy-misc">
+  	<ant:copy todir="${outputPath}">
+      <ant:fileset dir="${basedir}">
+        <ant:include name="GPL.txt"/>
+      </ant:fileset>
+    </ant:copy>
+    <ant:copy todir="${outputPath}">
+      <ant:fileset dir="${basedir}/src/scripts">
+        <ant:include name="*"/>
+      </ant:fileset>
+    </ant:copy>
+    <ant:chmod file="${outputPath}/housekeeper.sh" perm="+x"/>
+  </goal>
+  
+  <goal name="package-copy-jars">
+    <attainGoal name="jar" />
+    <ant:copy todir="${outputPath}/lib">
+      <ant:fileset dir="${maven.build.dir}">
+        <ant:include name="${maven.final.name}.jar"/>
+      </ant:fileset>
+    </ant:copy>
+    <deploy:copy-deps todir="${outputPath}/lib" excludes="maven-statcvs-plugin"/>
+  </goal>
+  
+  <goal name="package-create-archives">
+    <ant:zip zipfile="${maven.build.dir}/${maven.final.name}.zip">
+      <ant:zipfileset dir="${outputPath}"/>
+    </ant:zip>
+    
+    <ant:tar longfile="gnu" compression="bzip2" tarfile="${maven.build.dir}/${maven.final.name}.tar.bz2">
+      <ant:tarfileset dir="${outputPath}" excludes="housekeeper.sh" prefix="housekeeper"/>
+      <ant:tarfileset dir="${outputPath}" includes="housekeeper.sh" prefix="housekeeper" mode="755"/>
+    </ant:tar>
+  </goal>
+</project>
