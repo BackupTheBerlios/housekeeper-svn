@@ -23,12 +23,17 @@ package net.sf.housekeeper.swing.stock;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 
 import net.sf.housekeeper.domain.StockItem;
 import net.sf.housekeeper.swing.DefaultCancelButtonAction;
@@ -48,6 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public final class StockItemDialog extends JDialog
 {
+
     /** The item to be processed. */
     private StockItem        item;
 
@@ -66,7 +72,8 @@ public final class StockItemDialog extends JDialog
 
         spinnerModel = new SpinnerDateModel();
         JSpinner spinner = new JSpinner(spinnerModel);
-        spinner.setEditor(new JSpinner.DateEditor(spinner, "dd.MM.yyyy"));
+        spinner
+                .setEditor(new DateEditor(spinner, DateFormat.getDateInstance()));
 
         JButton buttonOK = new JButton("OK");
         buttonOK.addActionListener(new OKButtonActionListener());
@@ -148,6 +155,78 @@ public final class StockItemDialog extends JDialog
             item.setBestBeforeEnd(spinnerModel.getDate());
 
             dispose();
+        }
+    }
+
+    private class DateEditor extends JSpinner.DefaultEditor
+    {
+
+        private DateEditor(JSpinner spinner, DateFormat format)
+        {
+            super(spinner);
+            if (!(spinner.getModel() instanceof SpinnerDateModel)) { throw new IllegalArgumentException(
+                    "model not a SpinnerDateModel"); }
+
+            SpinnerDateModel model = (SpinnerDateModel) spinner.getModel();
+            DateFormatter formatter = new DateEditorFormatter(model, format);
+            DefaultFormatterFactory factory = new DefaultFormatterFactory(
+                    formatter);
+            JFormattedTextField ftf = getTextField();
+            ftf.setEditable(true);
+            ftf.setFormatterFactory(factory);
+
+            /*
+             * TBD - initializing the column width of the text field is
+             * imprecise and doing it here is tricky because the developer may
+             * configure the formatter later.
+             */
+            try
+            {
+                String maxString = formatter.valueToString(model.getStart());
+                String minString = formatter.valueToString(model.getEnd());
+                ftf
+                        .setColumns(Math.max(maxString.length(), minString
+                                .length()));
+            } catch (ParseException e)
+            {
+                // PENDING: hmuller
+            }
+        }
+    }
+
+    /**
+     * This subclass of javax.swing.DateFormatter maps the minimum/maximum
+     * properties to te start/end properties of a SpinnerDateModel.
+     */
+    private static class DateEditorFormatter extends DateFormatter
+    {
+
+        private final SpinnerDateModel model;
+
+        DateEditorFormatter(SpinnerDateModel model, DateFormat format)
+        {
+            super(format);
+            this.model = model;
+        }
+
+        public void setMinimum(Comparable min)
+        {
+            model.setStart(min);
+        }
+
+        public Comparable getMinimum()
+        {
+            return model.getStart();
+        }
+
+        public void setMaximum(Comparable max)
+        {
+            model.setEnd(max);
+        }
+
+        public Comparable getMaximum()
+        {
+            return model.getEnd();
         }
     }
 }
