@@ -22,6 +22,8 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -94,6 +96,20 @@ public final class FoodTableView extends AbstractView
     {
         this.selectionListeners = new LinkedList();
         table = new JTable();
+
+        //Change selection to the entry the mouse pointer points at before
+        //popup menu is shown. See bug #003496
+        table.addMouseListener(new MouseAdapter() {
+
+            public void mousePressed(MouseEvent e)
+            {
+                if (e.isPopupTrigger())
+                {
+                    final int row = table.rowAtPoint(e.getPoint());
+                    table.getSelectionModel().setSelectionInterval(row, row);
+                }
+            }
+        });
 
         setFoodList(new BasicEventList());
     }
