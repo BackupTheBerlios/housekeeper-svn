@@ -9,29 +9,29 @@
     <constructor-arg index="0">
 			<ref bean="applicationDescriptor"/>
 		</constructor-arg>
-		<constructor-arg index="0">
+		<constructor-arg index="1">
 			<ref bean="lifecycleAdvisor"/>
 		</constructor-arg>
 	</bean>
 	
-   <bean id="applicationDescriptor" 
+	<bean id="applicationDescriptor" 
 		class="org.springframework.richclient.application.ApplicationDescriptor">
 		<property name="version">
-			<value>0.2.2</value>
+			<value>0.3.0</value>
 		</property>
 	</bean>
   
   <bean id="lifecycleAdvisor" 
     class="net.sf.housekeeper.HousekeeperLifecycleAdvisor">
     <property name="startingPageId">
-      <value>mainView</value>
+      <value>supplyView</value>
     </property>
     <property name="windowCommandBarDefinitions">
 			<value>net/sf/housekeeper/commands-context.xml</value>
 		</property>
   </bean>
 	
-	<bean id="mainView"
+	<bean id="supplyView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 		<property name="viewClass">
 			<value>net.sf.housekeeper.swing.SupplyPresenter</value>
