@@ -40,7 +40,9 @@
   
   <goal name="package-create-installer">
   	<ant:copy file="${basedir}/conf/installer_config.xml" todir="${maven.build.dir}"/>
-  	<ant:copy file="${basedir}/conf/packsLang.xml_deu" todir="${outputPath}"/>
+  	<ant:copy file="${basedir}/conf/packsLang_deu.xml" todir="${outputPath}"/>
+  	<ant:copy file="${basedir}/conf/readme.html" todir="${outputPath}"/>
+  	<ant:copy file="${basedir}/conf/readme_deu.html" todir="${outputPath}"/>
 	<ant:replace file="${maven.build.dir}/installer_config.xml" token="@@APP_VERSION@@" value="${pom.currentVersion}"/>
     <ant:replace file="${maven.build.dir}/installer_config.xml" token="@@HOUSEKEEPER_JAR@@" value="${maven.final.name}.jar"/>
   	

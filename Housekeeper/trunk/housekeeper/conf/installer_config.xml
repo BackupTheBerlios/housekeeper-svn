@@ -44,8 +44,9 @@
     -->
     <resources>
         <res id="LicencePanel.licence" src="LICENSE.txt"/>
-        <res id="InfoPanel.info" src="README.txt"/>
-        <res id="packsLang.xml_deu" src="packsLang.xml_deu"/>
+        <res id="HTMLInfoPanel.info" src="readme.html"/>
+        <res id="HTMLInfoPanel.info_deu" src="readme_deu.html"/>
+        <res id="packsLang.xml_deu" src="packsLang_deu.xml"/>
     </resources>
     
     <!-- 
@@ -54,11 +55,11 @@
     -->
     <panels>
         <panel classname="HelloPanel"/>
-        <panel classname="InfoPanel"/>
         <panel classname="LicencePanel"/>
         <panel classname="TargetPanel"/> 
         <panel classname="PacksPanel"/>
         <panel classname="InstallPanel"/>
+        <panel classname="HTMLInfoPanel"/>
         <panel classname="SimpleFinishPanel"/>
     </panels>
     
