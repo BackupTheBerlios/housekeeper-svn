@@ -205,7 +205,7 @@
     <dependency>
         <groupId>spring</groupId>
         <artifactId>spring-richclient</artifactId>
-        <version>20050131</version>
+        <version>20050226</version>
         <url>http://www.springframework.org/spring-rcp.html</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
