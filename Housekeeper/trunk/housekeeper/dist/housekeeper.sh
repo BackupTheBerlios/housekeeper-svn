@@ -55,6 +55,6 @@ for FILE in *.jar; do CLASSPATH="${CLASSPATH}:${FILE}"; done
 for FILE in lib/*.jar; do CLASSPATH="${CLASSPATH}:${FILE}"; done
 
 
-echo "${JAVA_PROGRAM_DIR}java -cp ${CLASSPATH} net.sf.housekeeper.Housekeeper '$@'"
-${JAVA_PROGRAM_DIR}java -cp ${CLASSPATH} net.sf.housekeeper.Housekeeper "$@"
+echo "${JAVA_PROGRAM_DIR}java -cp ${CLASSPATH} net.sf.housekeeper.ApplicationController '$@'"
+${JAVA_PROGRAM_DIR}java -cp ${CLASSPATH} net.sf.housekeeper.ApplicationController "$@"
 #${JAVA_PROGRAM_DIR}java -ea -Djava.util.logging.config.file=etc/logging.properties -cp ${CLASSPATH} net.sf.housekeeper.Housekeeper "$@"

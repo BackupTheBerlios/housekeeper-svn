@@ -42,15 +42,16 @@ final class SupplyPanel extends JPanel
 
     private final Action              deleteItemAction;
 
-    private final String[]            TABLE_HEADERS   = { "Name", "Quantity",
-            "Expiry"                                 };
+    private final String[]            TABLE_HEADERS       = { "Name",
+            "Quantity", "Expiry"                         };
 
-    private final String[]            ITEM_PROPERTIES = {
+    private final String[]            ITEM_PROPERTIES     = {
             FoodItem.PROPERTYNAME_NAME, FoodItem.PROPERTYNAME_QUANTITY,
-            FoodItem.PROPERTYNAME_EXPIRY             };
+            FoodItem.PROPERTYNAME_EXPIRY                 };
 
-    private final boolean[] PROPERTY_MODIFYABLE = { false, false, false };
-    
+    private final boolean[]           PROPERTY_MODIFYABLE = { false, false,
+            false                                        };
+
     SupplyPanel()
     {
         super();
@@ -60,7 +61,7 @@ final class SupplyPanel extends JPanel
         final SortedList sortedList = new SortedList(FoodItemManager.INSTANCE
                 .getSupplyList(), null);
         final EventTableModel tableModel = new EventTableModel(sortedList,
-                TABLE_HEADERS, ITEM_PROPERTIES, PROPERTY_MODIFYABLE);
+                ITEM_PROPERTIES, TABLE_HEADERS, PROPERTY_MODIFYABLE);
         final JTable table = new JTable(tableModel);
 
         //Add sorting functionality to headers

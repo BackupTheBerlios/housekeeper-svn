@@ -39,8 +39,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
-import net.sf.housekeeper.ConfigurationManager;
+import net.sf.housekeeper.ApplicationController;
 import net.sf.housekeeper.persistence.PersistenceServiceFactory;
+import net.sf.housekeeper.util.ConfigurationManager;
 
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
@@ -165,7 +166,7 @@ public final class MainFrame extends JFrame
 
         public void actionPerformed(ActionEvent e)
         {
-            System.exit(0);
+            ApplicationController.instance().exit();
         }
     }
 

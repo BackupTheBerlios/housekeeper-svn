@@ -25,9 +25,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import net.sf.housekeeper.ConfigurationManager;
 import net.sf.housekeeper.persistence.PersistenceService;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
+import net.sf.housekeeper.util.ConfigurationManager;
 
 import org.apache.commons.logging.LogFactory;
 import org.jdom.Document;

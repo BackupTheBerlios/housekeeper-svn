@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 
 import net.sf.housekeeper.swing.MainFrame;
+import net.sf.housekeeper.util.ConfigurationManager;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang.SystemUtils;
@@ -36,27 +37,55 @@ import org.apache.commons.logging.LogFactory;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class Housekeeper
+public final class ApplicationController
 {
 
+    /**
+     * The singleton instance.
+     */
+    private static ApplicationController instance;
+    
     /**
      * Prevents instances of this class.
      * 
      * @throws IOException
      * @throws ConfigurationException
      */
-    private Housekeeper(String[] args) throws ConfigurationException,
+    private ApplicationController(String[] args) throws ConfigurationException,
             IOException
     {
-        initializeConfigurationManager();
-        
-        final String version = ConfigurationManager.INSTANCE.getConfiguration()
-                .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
-        LogFactory.getLog(Housekeeper.class).info(
-                                                  "Starting Housekeeper "
-                                                          + version);
+        initializeConfigurationManager(); 
+    }
+    
+    /**
+     * Starts the application.
+     *
+     */
+    public void start()
+    {
+        logVersionInfo();
 
         MainFrame.INSTANCE.show();
+    }
+    
+    /**
+     * Exits the application.
+     *
+     */
+    public void exit()
+    {
+        LogFactory.getLog(ApplicationController.class).info("Exiting Housekeeper...");
+        System.exit(0);
+    }
+    
+    /**
+     * Returns the application controller Singleton.
+     * 
+     * @return The application controller instance.
+     */
+    public static ApplicationController instance()
+    {
+        return instance;
     }
 
     /**
@@ -76,6 +105,19 @@ public final class Housekeeper
     }
 
     /**
+     * Prints an application starting message including a version information.
+     *  
+     */
+    private void logVersionInfo()
+    {
+        final String version = ConfigurationManager.INSTANCE.getConfiguration()
+                .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
+        LogFactory.getLog(ApplicationController.class).info(
+                                                  "Starting Housekeeper "
+                                                          + version);
+    }
+
+    /**
      * Starts the Housekeeper application with a Swing GUI.
      * 
      * @param args
@@ -87,11 +129,12 @@ public final class Housekeeper
     {
         if (!SystemUtils.isJavaVersionAtLeast(140))
         {
-            LogFactory.getLog(Housekeeper.class)
+            LogFactory.getLog(ApplicationController.class)
                     .fatal("You need at least JRE 1.4 to run Housekeeper!");
             System.exit(1);
         }
-        new Housekeeper(args);
+        instance = new ApplicationController(args);
+        instance.start();
     }
 
 }

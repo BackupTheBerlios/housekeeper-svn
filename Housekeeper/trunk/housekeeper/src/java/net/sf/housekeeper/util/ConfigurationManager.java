@@ -1,4 +1,4 @@
-package net.sf.housekeeper;
+package net.sf.housekeeper.util;
 
 import java.io.File;
 import java.io.IOException;
