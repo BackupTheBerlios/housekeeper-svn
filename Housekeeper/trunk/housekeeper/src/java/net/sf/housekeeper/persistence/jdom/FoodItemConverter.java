@@ -25,13 +25,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import net.sf.housekeeper.domain.FoodItem;
+import net.sf.housekeeper.domain.Food;
 
 import org.jdom.Element;
 
 /**
  * Utility class for converting between JDOM Elements and
- * {@link net.sf.housekeeper.domain.FoodItem}objects.
+ * {@link net.sf.housekeeper.domain.Food}objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -47,30 +47,30 @@ final class FoodItemConverter
     }
 
     /**
-     * Converts a JDOM Element object into a {@link FoodItem}.
+     * Converts a JDOM Element object into a {@link Food}.
      * 
-     * @param foodItemElement The element to convert. It is not checked if this
-     *            Element actually can be converted to a FoodItem.
-     * @return The FoodItem object build from the given Element.
+     * @param foodElement The element to convert. It is not checked if this
+     *            Element actually can be converted to a Food.
+     * @return The Food object build from the given Element.
      */
-    static FoodItem convert(final Element foodItemElement)
+    static Food convert(final Element foodElement)
     {
-        final FoodItem foodItem = new FoodItem();
+        final Food food = new Food();
 
         //Name
-        final String itemName = foodItemElement.getAttributeValue("name");
-        foodItem.setName(itemName);
+        final String itemName = foodElement.getAttributeValue("name");
+        food.setName(itemName);
 
         //Quantity
-        final Element quantityElement = foodItemElement.getChild("quantity");
+        final Element quantityElement = foodElement.getChild("quantity");
         if (quantityElement != null)
         {
             String quantity = quantityElement.getAttributeValue("value");
-            foodItem.setQuantity(quantity);
+            food.setQuantity(quantity);
         }
 
         //Expiry
-        final Element expiryElement = foodItemElement.getChild("expiry");
+        final Element expiryElement = foodElement.getChild("expiry");
         if (expiryElement != null)
         {
             final int day = Integer.parseInt(expiryElement
@@ -82,19 +82,19 @@ final class FoodItemConverter
             final Calendar expiryCalendar = new GregorianCalendar(year,
                     month - 1, day);
             Date expiryDate = expiryCalendar.getTime();
-            foodItem.setExpiry(expiryDate);
+            food.setExpiry(expiryDate);
         }
 
-        return foodItem;
+        return food;
     }
 
     /**
-     * Converts a {@link FoodItem}object into a JDOM Element.
+     * Converts a {@link Food}object into a JDOM Element.
      * 
      * @param item The item to be converted.
-     * @return The JDOM element representing the given FoodItem.
+     * @return The JDOM element representing the given Food.
      */
-    static Element convert(final FoodItem item)
+    static Element convert(final Food item)
     {
         final Element xmlElement = new Element("foodItem");
 

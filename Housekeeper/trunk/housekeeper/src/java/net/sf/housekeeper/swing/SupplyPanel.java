@@ -34,8 +34,8 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import net.sf.housekeeper.domain.FoodItem;
-import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.domain.Food;
+import net.sf.housekeeper.domain.FoodManager;
 import net.sf.housekeeper.util.LocalisationManager;
 
 /**
@@ -81,7 +81,7 @@ final class SupplyPanel extends JPanel
     /**
      * The manager for food objects.
      */
-    private final FoodItemManager itemManager;
+    private final FoodManager itemManager;
     
     /**
      * Creates a new SupplyPanel.
@@ -89,7 +89,7 @@ final class SupplyPanel extends JPanel
      * @param parentFrame The parent frame for this panel.
      * @param itemManager The manager which holds the food items.
      */
-    SupplyPanel(final Frame parentFrame, final FoodItemManager itemManager)
+    SupplyPanel(final Frame parentFrame, final FoodManager itemManager)
     {
         super();
         
@@ -122,7 +122,7 @@ final class SupplyPanel extends JPanel
      */
     private void addNewItem()
     {
-        final FoodItem item = new FoodItem();
+        final Food item = new Food();
         boolean canceled = openEditor(item);
         if (!canceled)
         {
@@ -162,7 +162,7 @@ final class SupplyPanel extends JPanel
      */
     private void editSelectedItem()
     {
-        final FoodItem selected = supplyModel.getSelectedItem();
+        final Food selected = supplyModel.getSelectedItem();
         boolean canceled = openEditor(selected);
         if (!canceled)
         {
@@ -176,7 +176,7 @@ final class SupplyPanel extends JPanel
      * @param item The item to be edited.
      * @return True if the dialog has been canceled, false otherwise.
      */
-    private boolean openEditor(FoodItem item)
+    private boolean openEditor(Food item)
     {
         final FoodItemEditorView view = new FoodItemEditorView(parent);
         final FoodItemEditorPresenter editor = new FoodItemEditorPresenter(

@@ -29,7 +29,7 @@ public final class FoodItemTest extends TestCase
         final int year = 2004;
         itemDate.set(year, month, day, 15, 22);
 
-        final FoodItem item = new FoodItem(itemName, itemQuantity, itemDate
+        final Food item = new Food(itemName, itemQuantity, itemDate
                 .getTime());
 
         final Calendar returnedItemDate = Calendar.getInstance();
@@ -51,7 +51,7 @@ public final class FoodItemTest extends TestCase
      */
     public void testSetExpiry()
     {
-        final FoodItem item = new FoodItem();
+        final Food item = new Food();
         final Calendar nowCal = Calendar.getInstance();
 
         item.setExpiry(nowCal.getTime());
@@ -70,7 +70,7 @@ public final class FoodItemTest extends TestCase
      */
     public void testUnsetExpiry()
     {
-        final FoodItem item = new FoodItem();
+        final Food item = new Food();
         item.setExpiry(new Date());
         item.setExpiry(null);
         assertNull(item.getExpiry());
@@ -82,7 +82,7 @@ public final class FoodItemTest extends TestCase
     public void testSetNormalName()
     {
         //Test normal
-        final FoodItem item = new FoodItem();
+        final Food item = new Food();
         final String name = "aname";
         item.setName(name);
         assertEquals(name, item.getName());
@@ -95,7 +95,7 @@ public final class FoodItemTest extends TestCase
     {
         try
         {
-            final FoodItem item = new FoodItem();
+            final Food item = new Food();
             item.setName(null);
             fail("Item.setName(String) must not allow null as parameter");
         } catch (IllegalArgumentException e)
@@ -109,7 +109,7 @@ public final class FoodItemTest extends TestCase
      */
     public void testSetQuantity()
     {
-        final FoodItem item = new FoodItem();
+        final Food item = new Food();
         final String quantity = "quant";
         item.setQuantity(quantity);
         assertEquals(quantity, item.getQuantity());
@@ -120,7 +120,7 @@ public final class FoodItemTest extends TestCase
      */
     public void testUnsetQuantity()
     {
-        final FoodItem item = new FoodItem();
+        final Food item = new Food();
         item.setQuantity("");
         assertNull(item.getQuantity());
     }
@@ -130,8 +130,8 @@ public final class FoodItemTest extends TestCase
      */
     public void testEquality()
     {
-        final FoodItem item = DataGenerator.createComplexItem();
-        final FoodItem item2 = DataGenerator.createComplexItem();
+        final Food item = DataGenerator.createComplexItem();
+        final Food item2 = DataGenerator.createComplexItem();
         
         final boolean itemEqualsItem2 = item.equals(item2);
         final boolean item2EqualsItem = item2.equals(item);
@@ -146,19 +146,19 @@ public final class FoodItemTest extends TestCase
      */
     public void testInequality()
     {
-        final FoodItem item = DataGenerator.createComplexItem();
+        final Food item = DataGenerator.createComplexItem();
         
-        final FoodItem differentName = DataGenerator.createComplexItem();
+        final Food differentName = DataGenerator.createComplexItem();
         differentName.setName("OtherName");
         final boolean isEqualName = item.equals(differentName);
         assertFalse(isEqualName);
         
-        final FoodItem differentQuantity = DataGenerator.createComplexItem();
+        final Food differentQuantity = DataGenerator.createComplexItem();
         differentQuantity.setQuantity("OtherQuantity");
         final boolean isEqualQuantity = item.equals(differentQuantity);
         assertFalse(isEqualQuantity);
         
-        final FoodItem differentExpiry = DataGenerator.createComplexItem();
+        final Food differentExpiry = DataGenerator.createComplexItem();
         differentExpiry.setExpiry(new Date(2));
         final boolean isEqualDifExpiry = item.equals(differentExpiry);
         assertFalse(isEqualDifExpiry);
@@ -173,8 +173,8 @@ public final class FoodItemTest extends TestCase
      */
     public void testClone()
     {
-        final FoodItem originalItem = DataGenerator.createComplexItem();
-        final FoodItem clonedItem = new FoodItem(originalItem);
+        final Food originalItem = DataGenerator.createComplexItem();
+        final Food clonedItem = new Food(originalItem);
         assertEquals(clonedItem, originalItem);
     }
 

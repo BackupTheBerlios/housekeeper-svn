@@ -23,7 +23,7 @@ package net.sf.housekeeper.testutils;
 
 import java.util.Calendar;
 
-import net.sf.housekeeper.domain.FoodItem;
+import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.Household;
 
 /**
@@ -43,26 +43,26 @@ public class DataGenerator
 
     /**
      * Creates a {@link Household}object which is populated with a complex and
-     * a simple {@link FoodItem}.
+     * a simple {@link Food}.
      * 
      * @return Not null.
      */
     public static Household createHousehold()
     {
         final Household household = new Household();
-        household.getFoodItemManager().addConvenienceFood(createComplexItem());
-        household.getFoodItemManager().addConvenienceFood(createSimpleItem());
+        household.getFoodManager().addConvenienceFood(createComplexItem());
+        household.getFoodManager().addConvenienceFood(createSimpleItem());
 
         return household;
     }
 
     /**
-     * Creates a {@link FoodItem}object which has all attributes set to a
+     * Creates a {@link Food}object which has all attributes set to a
      * value.
      * 
      * @return Not null.
      */
-    public static FoodItem createComplexItem()
+    public static Food createComplexItem()
     {
         final String itemName = "aName";
         final String itemQuantity = "aQuantity";
@@ -73,22 +73,22 @@ public class DataGenerator
         final int year = 2004;
         itemDate.set(year, month, day, 15, 22);
 
-        final FoodItem item = new FoodItem(itemName, itemQuantity, itemDate
+        final Food item = new Food(itemName, itemQuantity, itemDate
                 .getTime());
 
         return item;
     }
 
     /**
-     * Creates a {@link FoodItem}object which has only its name set.
+     * Creates a {@link Food}object which has only its name set.
      * 
      * @return Not null.
      */
-    public static FoodItem createSimpleItem()
+    public static Food createSimpleItem()
     {
         final String itemName = "aName";
 
-        final FoodItem item = new FoodItem(itemName, null, null);
+        final Food item = new Food(itemName, null, null);
 
         return item;
     }

@@ -146,7 +146,7 @@ public final class MainFrame
         final String supplyTabName = LocalisationManager.INSTANCE
                 .getText("domain.food");
         tabbedPane.addTab(supplyTabName, new SupplyPanel(view, household
-                .getFoodItemManager()));
+                .getFoodManager()));
         return tabbedPane;
     }
 

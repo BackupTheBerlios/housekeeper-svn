@@ -32,7 +32,7 @@ import org.apache.commons.lang.time.DateUtils;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class FoodItem extends Item
+public final class Food extends Item
 {
 
     /**
@@ -46,21 +46,21 @@ public final class FoodItem extends Item
     private Date               expiry;
 
     /**
-     * Creates a new FoodItem object with default values. Name, quantity and the
+     * Creates a new Food object with default values. Name, quantity and the
      * expiry date remain unset.
      */
-    public FoodItem()
+    public Food()
     {
         super();
         setExpiry(null);
     }
 
     /**
-     * Creates a new item as a deep copy of an existing item.
+     * Creates a new item as a deep copy of an existing Food object.
      * 
      * @param original The item to be cloned.
      */
-    public FoodItem(final FoodItem original)
+    public Food(final Food original)
     {
         super(original);
 
@@ -71,13 +71,13 @@ public final class FoodItem extends Item
     }
 
     /**
-     * Creates a new FoodItem object with specified values.
+     * Creates a new Food object with specified values.
      * 
      * @param name The name of the item. Must not be null.
      * @param quantity The quantity which one exemplar of this item contains.
      * @param expiry The date until this item should be consumed.
      */
-    public FoodItem(final String name, final String quantity, final Date expiry)
+    public Food(final String name, final String quantity, final Date expiry)
     {
         super(name, quantity);
         setExpiry(expiry);
@@ -108,7 +108,7 @@ public final class FoodItem extends Item
     }
 
     /**
-     * Gets the expiry date of this item.
+     * Gets the expiry date of this food.
      * 
      * @return Returns the expiry date or null if none has been set.
      */
@@ -140,7 +140,7 @@ public final class FoodItem extends Item
         {
             return false;
         }
-        FoodItem castedObj = (FoodItem) o;
+        Food castedObj = (Food) o;
         return ((this.expiry == null ? castedObj.expiry == null : this.expiry
                 .equals(castedObj.expiry)));
     }
@@ -165,7 +165,7 @@ public final class FoodItem extends Item
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("[FoodItem:");
+        buffer.append("[Food:");
         buffer.append(" expiry: ");
         buffer.append(expiry);
         buffer.append(super.toString());

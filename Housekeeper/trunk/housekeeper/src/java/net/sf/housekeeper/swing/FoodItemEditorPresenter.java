@@ -24,10 +24,10 @@ package net.sf.housekeeper.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import net.sf.housekeeper.domain.FoodItem;
+import net.sf.housekeeper.domain.Food;
 
 /**
- * Shows an editor for {@link net.sf.housekeeper.domain.FoodItem}objects. This
+ * Shows an editor for {@link net.sf.housekeeper.domain.Food}objects. This
  * class plays the <code>Presentation</code> role in the
  * <code>Model-View-Presenter</code> Pattern.
  * 
@@ -48,7 +48,7 @@ final class FoodItemEditorPresenter
     /**
      * The model to present.
      */
-    private final FoodItem           model;
+    private final Food           model;
 
     /**
      * The view to synchronsize with the model.
@@ -56,13 +56,13 @@ final class FoodItemEditorPresenter
     private final FoodItemEditorView view;
 
     /**
-     * Creates and initializes a new editor for a {@link FoodItem}.
+     * Creates and initializes a new editor for a {@link Food}.
      * 
      * @param view The View to be used for presenting the model.
      * @param model The Model to present.
      */
     public FoodItemEditorPresenter(final FoodItemEditorView view,
-            final FoodItem model)
+            final Food model)
     {
         this.view = view;
         this.model = model;

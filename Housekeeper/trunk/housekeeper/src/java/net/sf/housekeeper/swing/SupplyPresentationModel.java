@@ -31,8 +31,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
-import net.sf.housekeeper.domain.FoodItem;
-import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.domain.Food;
+import net.sf.housekeeper.domain.FoodManager;
 import net.sf.housekeeper.swing.util.DateCellRenderer;
 import net.sf.housekeeper.util.LocalisationManager;
 import ca.odell.glazedlists.EventList;
@@ -42,7 +42,7 @@ import ca.odell.glazedlists.swing.EventTableModel;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
 
 /**
- * Crates and manages a JTable displaying the current FoodItem objects. It makes
+ * Crates and manages a JTable displaying the current Food objects. It makes
  * the table sortable by clicking the table's headers and registers appropriate
  * cell renderers. It provides several methods to operate on the currently
  * selected item.
@@ -54,12 +54,12 @@ final class SupplyPresentationModel
 {
 
     /**
-     * The JavaBean properties of FoodItem which shall be used as values for the
+     * The JavaBean properties of Food which shall be used as values for the
      * columns of an entry.
      */
     private static final String[]     ITEM_PROPERTIES     = {
-            FoodItem.PROPERTYNAME_NAME, FoodItem.PROPERTYNAME_QUANTITY,
-            FoodItem.PROPERTYNAME_EXPIRY                 };
+            Food.PROPERTYNAME_NAME, Food.PROPERTYNAME_QUANTITY,
+            Food.PROPERTYNAME_EXPIRY                 };
 
     /**
      * Defines which columns should be editable directly in the table.
@@ -68,13 +68,13 @@ final class SupplyPresentationModel
             false                                        };
 
     private static final String       NAME_HEADER         = LocalisationManager.INSTANCE
-                                                                  .getText("domain.foodItem.name");
+                                                                  .getText("domain.food.name");
 
     private static final String       QUANTITY_HEADER     = LocalisationManager.INSTANCE
-                                                                  .getText("domain.foodItem.quantity");
+                                                                  .getText("domain.food.quantity");
 
     private static final String       EXPIRY_HEADER       = LocalisationManager.INSTANCE
-                                                                  .getText("domain.foodItem.expiry");
+                                                                  .getText("domain.food.expiry");
 
     /**
      * The labels for the table headers.
@@ -95,14 +95,14 @@ final class SupplyPresentationModel
     /**
      * The manager for access to domain food objects.
      */
-    private final FoodItemManager     itemManager;
+    private final FoodManager     itemManager;
 
     /**
      * Creates a new JTable for display of the current items on hand.
      * 
      * @param itemManager The domain to use.
      */
-    public SupplyPresentationModel(final FoodItemManager itemManager)
+    public SupplyPresentationModel(final FoodManager itemManager)
     {
         this.itemManager = itemManager;
 
@@ -148,7 +148,7 @@ final class SupplyPresentationModel
      */
     public void duplicateSelectedItem()
     {
-        final FoodItem selectedItem = getSelectedItem();
+        final Food selectedItem = getSelectedItem();
         itemManager.duplicate(selectedItem);
     }
 
@@ -157,7 +157,7 @@ final class SupplyPresentationModel
      * 
      * @return The selected item or null if none has been selected.
      */
-    public FoodItem getSelectedItem()
+    public Food getSelectedItem()
     {
         if (!hasSelection())
         {
@@ -165,7 +165,7 @@ final class SupplyPresentationModel
         }
 
         final EventList selectionList = selectionModel.getEventList();
-        return (FoodItem) selectionList.get(0);
+        return (Food) selectionList.get(0);
     }
 
     /**
@@ -209,8 +209,8 @@ final class SupplyPresentationModel
 
             public int compare(Object o1, Object o2)
             {
-                final Date date1 = ((FoodItem) o1).getExpiry();
-                final Date date2 = ((FoodItem) o2).getExpiry();
+                final Date date1 = ((Food) o1).getExpiry();
+                final Date date2 = ((Food) o2).getExpiry();
 
                 //Null is treated as being greater as any non-null expiry date.
                 //This has the effect of displaying items without an expiry

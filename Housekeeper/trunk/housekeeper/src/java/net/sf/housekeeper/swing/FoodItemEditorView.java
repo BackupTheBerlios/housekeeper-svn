@@ -47,7 +47,7 @@ import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Displays the attributes of a {@link net.sf.housekeeper.domain.FoodItem}and
+ * Displays the attributes of a {@link net.sf.housekeeper.domain.Food}and
  * allows modifications to them. This class plays the <code>View</code> role
  * in the <code>Model-View-Presenter</code> Pattern. You should not use this
  * View directly. Please use
@@ -85,7 +85,7 @@ final class FoodItemEditorView
     FoodItemEditorView(final Frame owner)
     {
         final String dialogTitle = LocalisationManager.INSTANCE
-                .getText("gui.foodItemEditor.dialogTitle");
+                .getText("gui.foodEditor.dialogTitle");
         dialog = new JDialog(owner, dialogTitle, true);
 
         nameField = new JTextField(20);
@@ -273,7 +273,7 @@ final class FoodItemEditorView
     {
         final JCheckBox checkBox = new JCheckBox();
         final String toolTip = LocalisationManager.INSTANCE
-                .getText("gui.foodItemEditor.expiryCheckBoxToolTip");
+                .getText("gui.foodEditor.expiryCheckBoxToolTip");
         checkBox.setToolTipText(toolTip);
 
         return checkBox;
@@ -320,19 +320,19 @@ final class FoodItemEditorView
         builder.setRowGroupingEnabled(true);
 
         final String nameLabel = LocalisationManager.INSTANCE
-                .getText("domain.foodItem.name")
+                .getText("domain.food.name")
                 + ":";
         builder.append(nameLabel, nameField);
         builder.nextLine();
 
         final String quantityLabel = LocalisationManager.INSTANCE
-                .getText("domain.foodItem.quantity")
+                .getText("domain.food.quantity")
                 + ":";
         builder.append(quantityLabel, quantityField);
         builder.nextLine();
 
         final String expiryLabel = LocalisationManager.INSTANCE
-                .getText("domain.foodItem.expiry")
+                .getText("domain.food.expiry")
                 + ":";
         builder.append(expiryLabel, dateSpinner, checkbox);
 

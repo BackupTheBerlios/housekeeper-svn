@@ -31,36 +31,36 @@ package net.sf.housekeeper.domain;
 public final class Household
 {
 
-    private final FoodItemManager foodItems;
+    private final FoodManager food;
 
     /**
      * Creates a new domain with no data.
      */
     public Household()
     {
-        this(new FoodItemManager());
+        this(new FoodManager());
     }
 
     /**
-     * Creates a new domain using an existing {@link FoodItemManager}.
+     * Creates a new domain using an existing {@link FoodManager}.
      * 
      * @param foodManager The manager which holds the domain data. Must not be
      *            null.
      */
-    public Household(final FoodItemManager foodManager)
+    public Household(final FoodManager foodManager)
     {
-        this.foodItems = foodManager;
+        this.food = foodManager;
     }
 
     /**
      * Returns the manager which allows access and manipulation of
-     * {@link FoodItem}s in this domain.
+     * {@link Food} objects in this domain.
      * 
-     * @return The objects which manages the items. Is not null.
+     * @return The manager. Is not null.
      */
-    public FoodItemManager getFoodItemManager()
+    public FoodManager getFoodManager()
     {
-        return foodItems;
+        return food;
     }
 
     /**
@@ -71,7 +71,7 @@ public final class Household
      */
     public void replaceAll(final Household domain)
     {
-        foodItems.replaceAll(domain.getFoodItemManager().getSupplyList());
+        food.replaceAll(domain.getFoodManager().getSupplyList());
     }
     
     /**
@@ -82,7 +82,7 @@ public final class Household
      */
     public boolean hasChanged()
     {
-        return foodItems.hasChanged();
+        return food.hasChanged();
     }
     
     /**
@@ -91,7 +91,7 @@ public final class Household
      */
     public void resetChangedStatus()
     {
-        foodItems.resetChangedStatus();
+        food.resetChangedStatus();
     }
     
     /* (non-Javadoc)
@@ -108,9 +108,9 @@ public final class Household
             return false;
         }
         Household castedObj = (Household) o;
-        return ((this.foodItems == null
-            ? castedObj.foodItems == null
-            : this.foodItems.equals(castedObj.foodItems)));
+        return ((this.food == null
+            ? castedObj.food == null
+            : this.food.equals(castedObj.food)));
     }
     
     
@@ -121,7 +121,7 @@ public final class Household
         int hashCode = 1;
         hashCode = 31
             * hashCode
-            + (foodItems == null ? 0 : foodItems.hashCode());
+            + (food == null ? 0 : food.hashCode());
         return hashCode;
     }
     
@@ -132,8 +132,8 @@ public final class Household
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[Household:");
-        buffer.append(" foodItems: ");
-        buffer.append(foodItems);
+        buffer.append(" food: ");
+        buffer.append(food);
         buffer.append("]");
         return buffer.toString();
     }

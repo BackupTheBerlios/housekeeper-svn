@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.sf.housekeeper.domain.FoodItem;
-import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.domain.Food;
+import net.sf.housekeeper.domain.FoodManager;
 import net.sf.housekeeper.domain.Household;
 
 import org.jdom.Element;
@@ -44,16 +44,16 @@ final class ModelConverter
      */
     Household convertToDomain(final Element root)
     {
-        final List foodItems = new LinkedList();
+        final List food = new LinkedList();
         final Iterator foodItemIterator = root.getChildren("foodItem")
                 .iterator();
         while (foodItemIterator.hasNext())
         {
             final Element element = (Element) foodItemIterator.next();
-            final FoodItem item = FoodItemConverter.convert(element);
-            foodItems.add(item);
+            final Food item = FoodItemConverter.convert(element);
+            food.add(item);
         }
-        final FoodItemManager foodManager = new FoodItemManager(foodItems);
+        final FoodManager foodManager = new FoodManager(food);
         final Household household = new Household(foodManager);
         return household;
     }
@@ -69,10 +69,10 @@ final class ModelConverter
         final Element root = new Element("household");
         root.setAttribute("version", "" + CURRENT_FILE_VERSION);
 
-        final Iterator iter = household.getFoodItemManager().getItemsIterator();
+        final Iterator iter = household.getFoodManager().getItemsIterator();
         while (iter.hasNext())
         {
-            final FoodItem item = (FoodItem) iter.next();
+            final Food item = (Food) iter.next();
             root.addContent(FoodItemConverter.convert(item));
         }
 
