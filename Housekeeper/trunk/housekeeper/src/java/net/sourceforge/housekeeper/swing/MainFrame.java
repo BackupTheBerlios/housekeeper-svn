@@ -56,8 +56,6 @@ public final class MainFrame extends JFrame
     //~ Instance fields
     // --------------------------------------------------------
 
-    private JMenu menuAssortiment;
-
     private JMenu menuFile;
 
     private JMenuBar menuBar;

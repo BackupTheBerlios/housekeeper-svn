@@ -20,6 +20,8 @@
 
 package net.sourceforge.housekeeper.domain;
 
+import java.util.Date;
+
 /**
  * A concrete article, that has been purchased. There can be multiple objects of
  * this class for every {@link AssortimentItem}.
@@ -39,13 +41,13 @@ public class StockItem extends DomainObject
     private String name;
 
     /** The date, before the article should be consumed entirely */
-    private String bestBeforeEnd;
+    private Date bestBeforeEnd;
 
     //~ Constructors
     // -----------------------------------------------------------
 
   
-    public StockItem(String name, String bestBeforeEnd)
+    public StockItem(String name, Date bestBeforeEnd)
     {
         this.name = name;
         this.bestBeforeEnd = bestBeforeEnd;
@@ -57,7 +59,7 @@ public class StockItem extends DomainObject
      */
     public StockItem()
     {
-        this("", "");
+        this("", new Date());
     }
 
     //~ Methods
@@ -69,7 +71,7 @@ public class StockItem extends DomainObject
      * @param bestBeforeEnd
      *            The new value.
      */
-    public void setBestBeforeEnd(String bestBeforeEnd)
+    public void setBestBeforeEnd(Date bestBeforeEnd)
     {
         this.bestBeforeEnd = bestBeforeEnd;
     }
@@ -79,7 +81,7 @@ public class StockItem extends DomainObject
      * 
      * @return The corresponding attribute.
      */
-    public String getBestBeforeEnd()
+    public Date getBestBeforeEnd()
     {
         return bestBeforeEnd;
     }

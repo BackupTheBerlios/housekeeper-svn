@@ -23,10 +23,14 @@ package net.sourceforge.housekeeper.swing.stock;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 
 import net.sourceforge.housekeeper.domain.StockItem;
 import net.sourceforge.housekeeper.swing.MainFrame;
@@ -59,7 +63,9 @@ public final class StockItemDialog extends JDialog
 
     private JTextField nameField;
 
-    private JTextField bfeField;
+    private JSpinner spinner;
+
+    private SpinnerDateModel spinnerModel;
 
     //~ Constructors
     // -----------------------------------------------------------
@@ -72,8 +78,14 @@ public final class StockItemDialog extends JDialog
         super(MainFrame.INSTANCE, true);
 
         nameField = new JTextField();
-        bfeField = new JTextField();
-
+        
+        spinnerModel = new SpinnerDateModel(new Date(),
+                                             null,
+                                             null,
+                                             Calendar.DAY_OF_MONTH);
+        spinner = new JSpinner(spinnerModel);
+        spinner.setEditor(new JSpinner.DateEditor(spinner, "dd.MM.yyyy"));
+        
         buttonOK = new JButton("OK");
         buttonOK.addActionListener(new OKButtonActionListener());
 
@@ -122,7 +134,6 @@ public final class StockItemDialog extends JDialog
 
         this.item = stockItem;
         nameField.setText(stockItem.getName());
-        bfeField.setText(stockItem.getName());
 
         super.show();
 
@@ -144,18 +155,18 @@ public final class StockItemDialog extends JDialog
      */
     private void buildLayout()
     {
-        FormLayout layout = new FormLayout("right:pref, 3dlu, 40dlu, 80dlu", // columns
+        FormLayout layout = new FormLayout("right:pref, 3dlu, 80dlu", // columns
                 "");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 
         builder.setDefaultDialogBorder();
 
-        builder.append("Name", nameField, 2);
-        builder.append("Best before end", bfeField, 2);
+        builder.append("Name", nameField);
+        builder.append("Best Before End", spinner);
 
         builder.appendSeparator();
 
-        builder.append(buildButtonBar(), 4);
+        builder.append(buildButtonBar(), 3);
 
         setContentPane(builder.getPanel());
     }
@@ -178,8 +189,8 @@ public final class StockItemDialog extends JDialog
                 item = new StockItem();
             }
 
-            item.setName(nameField.getText());
-            item.setBestBeforeEnd(bfeField.getText());
+            item.setName(nameField.getText());  
+            item.setBestBeforeEnd(spinnerModel.getDate());
 
             dispose();
         }
