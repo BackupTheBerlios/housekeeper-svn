@@ -33,13 +33,17 @@ public final class XMLStorage extends Storage
 	public void add(Article article)
 	{
 		articles.add(article);
-		setChanged();
-		notifyObservers();
+		update();
 	}
 	
 	public void remove(Article article)
 	{
 		articles.remove(article);
+		update();
+	}
+	
+	public void update()
+	{
 		setChanged();
 		notifyObservers();
 	}
@@ -75,12 +79,10 @@ public final class XMLStorage extends Storage
 						new FileInputStream(FILENAME)));
 			Object result = xmlDecoder.readObject();
 			
-			articles = (List) result;
-			
-			setChanged();
-			notifyObservers();
-			
 			xmlDecoder.close();
+			
+			articles = (List) result;
+			update();
 		}
 		catch (FileNotFoundException e)
 		{

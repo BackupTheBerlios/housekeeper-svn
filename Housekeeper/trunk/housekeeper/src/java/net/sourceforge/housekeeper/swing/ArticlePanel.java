@@ -1,9 +1,11 @@
 package net.sourceforge.housekeeper.swing;
 
+import java.awt.BorderLayout;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,15 +19,29 @@ import net.sourceforge.housekeeper.storage.StorageFactory;
  */
 final class ArticlePanel extends JPanel
 {
+	private JPanel buttonPanel;
 	private JTable table;
 	private JScrollPane scrollPane;
+	
+	public static final ArticlePanel INSTANCE = new ArticlePanel();
 
-	public ArticlePanel()
+	private ArticlePanel()
 	{
 		table = new JTable(new ArticleModel());
 		scrollPane = new JScrollPane(table);
-
-		add(scrollPane);
+		buttonPanel = new JPanel();
+		
+		buttonPanel.add(new JButton(NewArticle.INSTANCE));
+		buttonPanel.add(new JButton(ModifyArticle.INSTANCE));
+		
+		setLayout(new BorderLayout());
+		add(buttonPanel, BorderLayout.NORTH);
+		add(scrollPane, BorderLayout.CENTER);
+	}
+	
+	JTable getTable()
+	{
+		return table;
 	}
 
 	private class ArticleModel extends AbstractTableModel implements Observer

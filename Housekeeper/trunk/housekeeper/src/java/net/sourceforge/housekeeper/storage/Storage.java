@@ -12,6 +12,7 @@ public abstract class Storage extends Observable
 {
 	public abstract void add(Article article);
 	public abstract void remove(Article article);
+	public abstract void update();
 	public abstract List getArticles();
 	public abstract void saveData();
 	public abstract void loadData();
