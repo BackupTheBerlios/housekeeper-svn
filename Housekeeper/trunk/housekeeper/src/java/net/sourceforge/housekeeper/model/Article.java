@@ -107,7 +107,7 @@ public class Article
     /**
      * Sets the corresponding attribute to a new value.
      *
-     * @param name The new value of the to be set attribute.
+     * @param name The new value.
      */
     public void setName(String name)
     {
@@ -117,7 +117,7 @@ public class Article
     /**
      * Gets the corresponding attribute.
      *
-     * @return The corresponding attribute
+     * @return The corresponding attribute.
      */
     public String getName()
     {
@@ -127,7 +127,7 @@ public class Article
     /**
      * Sets the corresponding attribute to a new value.
      *
-     * @param price The new value of the to be set attribute.
+     * @param price The new value.
      */
     public void setPrice(double price)
     {
@@ -137,7 +137,7 @@ public class Article
     /**
      * Gets the corresponding attribute.
      *
-     * @return The corresponding attribute
+     * @return The corresponding attribute.
      */
     public double getPrice()
     {
@@ -145,10 +145,10 @@ public class Article
     }
 
     /**
-     * Sets the corresponding attribute to a new value.
-     *
-     * @param quantity The new value of the to be set attribute.
-     */
+    * Sets the corresponding attribute to a new value.
+    *
+    * @param quantity The new value.
+    */
     public void setQuantity(int quantity)
     {
         this.quantity = quantity;
@@ -157,7 +157,7 @@ public class Article
     /**
      * Gets the corresponding attribute.
      *
-     * @return The corresponding attribute
+     * @return The corresponding attribute.
      */
     public int getQuantity()
     {
@@ -167,7 +167,7 @@ public class Article
     /**
      * Sets the corresponding attribute to a new value.
      *
-     * @param quantityUnit The new value of the to be set attribute.
+     * @param quantityUnit The new value.
      */
     public void setQuantityUnit(String quantityUnit)
     {
@@ -177,7 +177,7 @@ public class Article
     /**
      * Gets the corresponding attribute.
      *
-     * @return The corresponding attribute
+     * @return The corresponding attribute.
      */
     public String getQuantityUnit()
     {
@@ -187,7 +187,7 @@ public class Article
     /**
      * Sets the corresponding attribute to a new value.
      *
-     * @param store The new value of the to be set attribute.
+     * @param store The new value.
      */
     public void setStore(String store)
     {
@@ -195,9 +195,9 @@ public class Article
     }
 
     /**
-     * Gets the current value corresponding attribute.
+     * Gets the corresponding attribute.
      *
-     * @return The corresponding attribute
+     * @return The corresponding attribute.
      */
     public String getStore()
     {
