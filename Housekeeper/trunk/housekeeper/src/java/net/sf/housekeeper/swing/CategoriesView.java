@@ -44,7 +44,9 @@ import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.tree.BeanTreeCellRenderer;
 
 /**
- * @author
+ * Shows a tree of categories.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class CategoriesView extends AbstractView implements
@@ -109,7 +111,7 @@ public final class CategoriesView extends AbstractView implements
 
     private void refresh()
     {
-        LOG.info("Refreshing view");
+        LOG.debug("Refreshing view");
         final Category root = (Category)categoryManager
         .getCategories().get(0);
         final DefaultMutableTreeNode rootNode = createNode(root);
@@ -152,7 +154,7 @@ public final class CategoriesView extends AbstractView implements
             final HousekeeperEvent le = (HousekeeperEvent) e;
             if (le.getEventType() == HousekeeperEvent.CATEGORIES_MODIFIED)
             {
-                LOG.info("Received CATEGORIES_MODIFIED event");
+                LOG.debug("Received CATEGORIES_MODIFIED event");
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run()
