@@ -74,9 +74,9 @@ final class SupplyPanel extends JPanel
 
             public int compare(Object o1, Object o2)
             {
-                final Date date1 = ((FoodItem)o1).getExpiry();
-                final Date date2 = ((FoodItem)o2).getExpiry();
-                
+                final Date date1 = ((FoodItem) o1).getExpiry();
+                final Date date2 = ((FoodItem) o2).getExpiry();
+
                 //Null is treated as being greater as any non-null expiry date.
                 //This has the effect of displaying items without an expiry
                 //At the end of a least-expiry-first table of items.
@@ -92,7 +92,7 @@ final class SupplyPanel extends JPanel
                 {
                     return -1;
                 }
-                
+
                 return date1.compareTo(date2);
             }
         });
@@ -141,20 +141,27 @@ final class SupplyPanel extends JPanel
         updateActionEnablement();
     }
 
+    /**
+     * Returns the selected item in the table or null if none is selected.
+     * 
+     * @return The selected item or null if none has been selected.
+     */
     private FoodItem getSelectedItem()
     {
-        EventList selectionList = selectionModel.getEventList();
-
-        int numSelected = selectionList.size();
-        Object firstSelected = null;
-        if (numSelected >= 1)
+        if (!hasSelection())
         {
-            firstSelected = selectionList.get(0);
+            return null;
         }
 
-        return (FoodItem) firstSelected;
+        final EventList selectionList = selectionModel.getEventList();
+        return (FoodItem) selectionList.get(0);
     }
 
+    /**
+     * Returns if a row in the table is currently selected.
+     * 
+     * @return True if a row has been selected, false otherwise.
+     */
     private boolean hasSelection()
     {
         EventList selectionList = selectionModel.getEventList();
