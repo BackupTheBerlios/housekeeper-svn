@@ -29,22 +29,24 @@ import javax.swing.AbstractAction;
 
 
 /**
- * DOCUMENT ME!
+ * Action for exiting the application.
  *
- * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public final class ExitAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance of this object. */
     public static final ExitAction INSTANCE = new ExitAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new Exit object.
-    
+     * Creates a new ExitAction object.
      */
     private ExitAction()
     {

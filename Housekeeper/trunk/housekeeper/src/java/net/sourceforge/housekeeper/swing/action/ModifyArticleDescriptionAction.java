@@ -34,21 +34,24 @@ import javax.swing.AbstractAction;
 
 
 /**
- * DOCUMENT ME!
+ * Action to cause the display of a dialog for modifying an ArticleDescription.
  *
- * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
-public class ModifyArticleDescriptionAction extends AbstractAction
+public final class ModifyArticleDescriptionAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance of this object. */
     public static final ModifyArticleDescriptionAction INSTANCE = new ModifyArticleDescriptionAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new ModifyArticle object.
+     * Creates a new ModifyArticleDescription object.
      */
     private ModifyArticleDescriptionAction()
     {
@@ -62,7 +65,8 @@ public class ModifyArticleDescriptionAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescription article = ArticleDescriptionPanel.getInstance().getSelectedArticle();
+        ArticleDescription article = ArticleDescriptionPanel.getInstance()
+                                                            .getSelectedArticle();
 
         if (article != null)
         {

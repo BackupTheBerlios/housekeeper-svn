@@ -23,39 +23,40 @@
 package net.sourceforge.housekeeper.swing.action;
 
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-
 import net.sourceforge.housekeeper.domain.ArticleDescription;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 import net.sourceforge.housekeeper.swing.ArticleDescriptionDialog;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+
 
 /**
- * DOCUMENT ME!
+ * Action to cause the display of a dialog for adding an ArticleDescription.
  *
- * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public final class NewArticleDescriptionAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance of this object. */
     public static final NewArticleDescriptionAction INSTANCE = new NewArticleDescriptionAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a new NewArticleDescription object.
      */
     private NewArticleDescriptionAction()
     {
         super("New Article");
     }
-
 
     //~ Methods ----------------------------------------------------------------
 
@@ -64,8 +65,8 @@ public final class NewArticleDescriptionAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescriptionDialog d = new ArticleDescriptionDialog();
-        ArticleDescription article = d.show("New Article");
+        ArticleDescriptionDialog d       = new ArticleDescriptionDialog();
+        ArticleDescription       article = d.show("New Article");
 
         if (article != null)
         {

@@ -31,22 +31,24 @@ import javax.swing.AbstractAction;
 
 
 /**
- * DOCUMENT ME!
+ * Action to cause saving of the data to disk.
  *
- * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public final class SaveDataAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance of this object. */
     public static final SaveDataAction INSTANCE = new SaveDataAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
      * Creates a new SaveData object.
-    
      */
     private SaveDataAction()
     {
@@ -60,7 +62,6 @@ public final class SaveDataAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        StorageFactory.getCurrentStorage()
-                      .saveData();
+        StorageFactory.getCurrentStorage().saveData();
     }
 }

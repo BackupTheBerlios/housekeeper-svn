@@ -32,22 +32,24 @@ import javax.swing.AbstractAction;
 
 
 /**
- * DOCUMENT ME!
+ * Action to cause the data to be loaded.
  *
- * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public final class LoadDataAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance of this object. */
     public static final LoadDataAction INSTANCE = new LoadDataAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a LoadDataAction object.
      */
     private LoadDataAction()
     {
@@ -61,8 +63,7 @@ public final class LoadDataAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        StorageFactory.getCurrentStorage()
-                      .loadData();
+        StorageFactory.getCurrentStorage().loadData();
         DataUpdateMediator.getInstance().update();
     }
 }
