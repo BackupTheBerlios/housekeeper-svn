@@ -54,7 +54,7 @@ final class ArticlePanel extends JPanel
     //~ Instance fields --------------------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    private JPanel      buttonPanel;
+    private JPanel buttonPanel;
 
     /** TODO DOCUMENT ME! */
     private JScrollPane scrollPane;
@@ -66,12 +66,11 @@ final class ArticlePanel extends JPanel
 
     /**
      * Creates a new ArticlePanel object.
-    
      */
     private ArticlePanel()
     {
-        table       = new JTable(new ArticleModel());
-        scrollPane  = new JScrollPane(table);
+        table = new JTable(new ArticleModel());
+        scrollPane = new JScrollPane(table);
         buttonPanel = new JPanel();
 
         buttonPanel.add(new JButton(NewArticle.INSTANCE));
@@ -89,50 +88,59 @@ final class ArticlePanel extends JPanel
      *
      * @return DOCUMENT ME!
      */
-    JTable getTable()
-    {
-        return table;
-    }
-    
     Article getSelectedArticle()
     {
         int selectedRow = table.getSelectedRow();
         ArticleModel tableModel = (ArticleModel)table.getModel();
+
         return tableModel.getObjectAtRow(selectedRow);
+    }
+
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
+    JTable getTable()
+    {
+        return table;
     }
 
     //~ Inner Classes ----------------------------------------------------------
 
     private class ArticleModel extends AbstractTableModel implements Observer
     {
+        private final Class doubleClass = new Double(0).getClass();
+        private final Class integerClass = new Integer(0).getClass();
+        private final Class stringClass = new String().getClass();
+        private final Class[] columnClasses = 
+                                              {
+                                                  stringClass,
+                                                  stringClass,
+                                                  integerClass,
+                                                  stringClass,
+                                                  doubleClass
+                                              };
+        private final String[] columnHeaders = 
+                                               {
+                                                   "Name",
+                                                   "Dealer",
+                                                   "Quantity",
+                                                   "Unit",
+                                                   "Price"
+                                               };
+
         private ArticleModel()
         {
-            StorageFactory.getCurrentStorage()
-                          .addObserver(this);
+            StorageFactory.getCurrentStorage().addObserver(this);
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getColumnClass(int)
+         */
         public Class getColumnClass(int columnIndex)
         {
-            switch (columnIndex)
-            {
-                case 0:
-                    return new String().getClass();
-
-                case 1:
-                    return new String().getClass();
-
-                case 2:
-                    return new Integer(0).getClass();
-
-                case 3:
-                    return new String().getClass();
-
-                case 4:
-                    return new Double(0).getClass();
-
-                default:
-                    return null;
-            }
+            return columnClasses[columnIndex];
         }
 
         /* (non-Javadoc)
@@ -140,31 +148,20 @@ final class ArticlePanel extends JPanel
          */
         public int getColumnCount()
         {
-            return 5;
+            return columnHeaders.length;
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getColumnName(int)
+         */
         public String getColumnName(int columnIndex)
         {
-            switch (columnIndex)
-            {
-                case 0:
-                    return "Name";
+            return columnHeaders[columnIndex];
+        }
 
-                case 1:
-                    return "Vendor";
-
-                case 2:
-                    return "Quantity";
-
-                case 3:
-                    return "Unit";
-
-                case 4:
-                    return "Price";
-
-                default:
-                    return null;
-            }
+        public Article getObjectAtRow(int row)
+        {
+            return StorageFactory.getCurrentStorage().getArticle(row);
         }
 
         /* (non-Javadoc)
@@ -172,19 +169,15 @@ final class ArticlePanel extends JPanel
          */
         public int getRowCount()
         {
-            return StorageFactory.getCurrentStorage()
-                                 .getArticles()
-                                 .size();
+            return StorageFactory.getCurrentStorage().getArticles().size();
         }
 
         /* (non-Javadoc)
          * @see javax.swing.table.TableModel#getValueAt(int, int)
          */
-        public Object getValueAt(int rowIndex,
-                                 int columnIndex)
+        public Object getValueAt(int rowIndex, int columnIndex)
         {
-            List    articles = StorageFactory.getCurrentStorage()
-                                             .getArticles();
+            List articles = StorageFactory.getCurrentStorage().getArticles();
             Article article = (Article)articles.get(rowIndex);
 
             switch (columnIndex)
@@ -212,15 +205,9 @@ final class ArticlePanel extends JPanel
         /* (non-Javadoc)
          * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
          */
-        public void update(Observable o,
-                           Object     arg)
+        public void update(Observable o, Object arg)
         {
             fireTableDataChanged();
-        }
-        
-        public Article getObjectAtRow(int row)
-        {
-            return StorageFactory.getCurrentStorage().getArticle(row);
         }
     }
 }
