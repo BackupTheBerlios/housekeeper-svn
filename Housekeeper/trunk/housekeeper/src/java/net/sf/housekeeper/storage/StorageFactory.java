@@ -22,34 +22,28 @@
 
 package net.sf.housekeeper.storage;
 
-
-
 /**
- * A Factory for centralized management of Storage objects. Objects should call this class' getCurrentStorage() to receive a reference to the currently used storage technique.
+ * A Factory for centralized management of Storage techniques. Objects should
+ * call {@link #getCurrentStorage()} to receive a reference to the currently
+ * used storage technique.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- *
  * @since 0.1
  */
 public final class StorageFactory
 {
-    //~ Static fields/initializers ---------------------------------------------
 
-    /** An instance of the currently used storage technique */
+    /** An instance of the currently used storage technique. */
     private static Storage currentStorage = new XMLSerializationStorage();
 
-    //~ Constructors -----------------------------------------------------------
-
     /**
-     * Creates a new StorageFactory object.
+     * Prevents object instanciation.
      */
     private StorageFactory()
     {
-        
-    }
 
-    //~ Methods ----------------------------------------------------------------
+    }
 
     /**
      * Returns a reference to the currently used storage technique.

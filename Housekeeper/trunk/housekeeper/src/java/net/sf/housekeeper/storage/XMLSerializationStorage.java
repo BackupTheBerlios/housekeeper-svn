@@ -16,22 +16,24 @@ import com.odellengineeringltd.glazedlists.BasicEventList;
 import com.odellengineeringltd.glazedlists.EventList;
 
 /**
- * 
- * 
+ * Storage technique using simple XML serialization. Should only be used for
+ * quick testing purposes. If a class gets modified, previously saved files
+ * cannot be read anymore.
+ *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 final class XMLSerializationStorage implements Storage
 {
-    /** The path to the file that is used for data storage */
+    /** The path to the file that is used for data storage. */
     private static final File FILE =
         new File(System.getProperty("user.dir"), "housekeeper_ser.xml");
 
-    /** All items that are on stock */
+    /** All items that are on stock. */
     private EventList stockItems;
 
     /**
-     * Initializes a XMLSerializationStorage.
+     * Initializes an XMLSerializationStorage.
      */
     XMLSerializationStorage()
     {

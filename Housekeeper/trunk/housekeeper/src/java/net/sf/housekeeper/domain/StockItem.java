@@ -23,19 +23,14 @@ package net.sf.housekeeper.domain;
 import java.util.Date;
 
 /**
- * A concrete article, that has been purchased. There can be multiple objects of
- * this class for every {@link AssortimentItem}.
- * 
+ * A concrete article, that has been purchased.
+ *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * 
  * @since 0.1
  */
-public class StockItem
+public final class StockItem
 {
-
-    //~ Instance fields
-    // --------------------------------------------------------
 
     /** The name of this stock item */
     private String name;
@@ -43,11 +38,14 @@ public class StockItem
     /** The date, before the article should be consumed entirely */
     private Date bestBeforeEnd;
 
-    //~ Constructors
-    // -----------------------------------------------------------
-
   
-    public StockItem(String name, Date bestBeforeEnd)
+    /**
+     * Creates a new StockItem object with specified values.
+     * 
+     * @param name Name of the item.
+     * @param bestBeforeEnd Date until this item should be consumed.
+     */
+    public StockItem(final String name, final Date bestBeforeEnd)
     {
         this.name = name;
         this.bestBeforeEnd = bestBeforeEnd;
@@ -62,23 +60,21 @@ public class StockItem
         this("", new Date());
     }
 
-    //~ Methods
-    // ----------------------------------------------------------------
 
     /**
      * Sets the corresponding attribute to a new value.
-     * 
+     *
      * @param bestBeforeEnd
      *            The new value.
      */
-    public void setBestBeforeEnd(Date bestBeforeEnd)
+    public void setBestBeforeEnd(final Date bestBeforeEnd)
     {
         this.bestBeforeEnd = bestBeforeEnd;
     }
 
     /**
      * Gets the corresponding attribute.
-     * 
+     *
      * @return The corresponding attribute.
      */
     public Date getBestBeforeEnd()
@@ -87,6 +83,8 @@ public class StockItem
     }
 
     /**
+     * Returns the name.
+     * 
      * @return Returns the name.
      */
     public String getName()
@@ -98,7 +96,7 @@ public class StockItem
      * @param name
      *            The name to set.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
