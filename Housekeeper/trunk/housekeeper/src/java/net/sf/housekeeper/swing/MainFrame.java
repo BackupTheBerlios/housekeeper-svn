@@ -24,6 +24,7 @@ package net.sf.housekeeper.swing;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
@@ -71,7 +72,7 @@ public final class MainFrame extends JFrame
     {
         super();
         setTitle("Housekeeper " + Housekeeper.VERSION);
-        
+
         initLookAndFeel();
         setJMenuBar(buildMenuBar());
         buildComponents();
@@ -116,7 +117,7 @@ public final class MainFrame extends JFrame
 
         return menuBar;
     }
-    
+
     /**
      * Creates a panel with table showing the items on hand and buttons for
      * manipulation.
@@ -139,7 +140,7 @@ public final class MainFrame extends JFrame
         table.setSelectionModel(new SingleListSelectionAdapter(model
                 .getItemSelection().getSelectionIndexHolder()));
         supplyPanel.add(new JScrollPane(table), BorderLayout.CENTER);
-        
+
         return supplyPanel;
     }
 
@@ -179,7 +180,7 @@ public final class MainFrame extends JFrame
     }
 
     /**
-     * Action to cause the permanent saving of the data.
+     * Action to load the data.
      */
     private static class LoadDataAction extends AbstractAction
     {
@@ -194,15 +195,26 @@ public final class MainFrame extends JFrame
             try
             {
                 PersistenceServiceFactory.getCurrentService().loadData();
-            } catch (IOException e1)
+            } catch (FileNotFoundException exception)
             {
-                e1.printStackTrace();
+                JOptionPane.showMessageDialog(MainFrame.INSTANCE,
+                                              "No data has been saved yet.",
+                                              "Error",
+                                              JOptionPane.ERROR_MESSAGE);
+            } catch (IOException exception)
+            {
+                exception.printStackTrace();
+                JOptionPane
+                        .showMessageDialog(
+                                           MainFrame.INSTANCE,
+                                           "There was a problem loading the data.",
+                                           "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     /**
-     * Action to cause the permanent saving of the data.
+     * Action to persistently save the data.
      */
     private static class SaveDataAction extends AbstractAction
     {
@@ -220,6 +232,11 @@ public final class MainFrame extends JFrame
             } catch (IOException e1)
             {
                 e1.printStackTrace();
+                JOptionPane
+                        .showMessageDialog(
+                                           MainFrame.INSTANCE,
+                                           "There was a problem saving the data.\nYour modifications have NOT been saved.",
+                                           "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -242,8 +259,7 @@ public final class MainFrame extends JFrame
 
             final JEditorPane editorPane = new JEditorPane();
             editorPane.setEditable(false);
-            final URL helpURL = MainFrame.class
-                    .getResource("about.html");
+            final URL helpURL = MainFrame.class.getResource("about.html");
             if (helpURL != null)
             {
                 try
