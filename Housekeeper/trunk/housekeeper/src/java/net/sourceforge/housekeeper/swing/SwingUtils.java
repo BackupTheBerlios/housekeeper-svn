@@ -25,6 +25,7 @@ package net.sourceforge.housekeeper.swing;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Point;
 
 
 /**
@@ -70,4 +71,45 @@ final class SwingUtils
 
         comp.setLocation(xLocation, yLocation);
     }
+    
+    static void centerOnComponent(Component centerComponent, Component onComponent)
+       {
+           final Point     parentFrameLocation = onComponent.getLocation();
+           final Dimension parentFrameSize = onComponent.getSize();
+           final Dimension thisDialogSize = centerComponent.getSize();
+
+           // Calculate locations
+           int xLocation = (parentFrameLocation.x + (parentFrameSize.width / 2)) -
+                           (thisDialogSize.width / 2);
+           int yLocation = (parentFrameLocation.y + (parentFrameSize.height / 2)) -
+                           (thisDialogSize.height / 2);
+
+           // Do not set location outside of screen
+           if (xLocation < 0)
+           {
+               xLocation = 15;
+           }
+
+
+           if (yLocation < 0)
+           {
+               yLocation = 15;
+           }
+
+
+           // Do not cover parent frame
+           if (xLocation <= (parentFrameLocation.x + 15))
+           {
+               xLocation = parentFrameLocation.x + 15;
+           }
+
+
+           if (yLocation <= (parentFrameLocation.y + 15))
+           {
+               yLocation = parentFrameLocation.y + 15;
+           }
+
+
+           centerComponent.setLocation(xLocation, yLocation);
+       }
 }

@@ -81,7 +81,7 @@ final class PurchaseDialog extends ExtendedDialog
         initComponents();
         buildLayout();
         pack();
-        center();
+        SwingUtils.centerOnComponent(this, getParent());
     }
 
     //~ Methods ----------------------------------------------------------------

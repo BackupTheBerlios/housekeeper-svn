@@ -67,7 +67,7 @@ class ArticleDialog extends ExtendedDialog
         initComponents();
         buildLayout();
         pack();
-        center();
+        SwingUtils.centerOnComponent(this, getParent());
     }
 
     //~ Methods ----------------------------------------------------------------
