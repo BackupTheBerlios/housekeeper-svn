@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.IOException;
 
 import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.swing.MainFrame;
+import net.sf.housekeeper.swing.ApplicationPresenter;
 import net.sf.housekeeper.util.ConfigurationManager;
 
 import org.apache.commons.configuration.ConfigurationException;
@@ -66,7 +66,7 @@ public final class ApplicationController
     {
         logVersionInfo();
 
-        final MainFrame main = new MainFrame(new Household());
+        final ApplicationPresenter main = new ApplicationPresenter(new Household());
         main.show();
     }
         

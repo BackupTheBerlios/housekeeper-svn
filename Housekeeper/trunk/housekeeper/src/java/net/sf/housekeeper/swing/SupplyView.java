@@ -22,6 +22,7 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
 
 import javax.swing.Action;
@@ -41,6 +42,8 @@ final class SupplyView extends JPanel
     private final JPanel contentPanel;
 
     private final JPanel buttonPanel;
+    
+    private Frame parentFrame;
 
     /**
      * Creates a new view.
@@ -75,6 +78,21 @@ final class SupplyView extends JPanel
     void addButton(final Action action)
     {
         buttonPanel.add(new JButton(action));
+    }
+    
+    /**
+     * Sets the parent frame for this panel. Used for dialog display.
+     * 
+     * @param parent The parent frame for this panel.
+     */
+    public void setParentFrame(Frame parent)
+    {
+        this.parentFrame = parent;
+    }
+    
+    Frame getParentFrame()
+    {
+        return parentFrame;
     }
 
 }

@@ -21,7 +21,6 @@
 
 package net.sf.housekeeper.swing;
 
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.util.EventObject;
 
@@ -57,22 +56,17 @@ final class SupplyPresenter
 
     private final FoodManager itemManager;
 
-    private final Frame       parent;
-
     private final SupplyView  view;
 
     /**
      * Creates a new SupplyPanel.
      * 
-     * @param parentFrame The parent frame for this panel.
      * @param itemManager The manager which holds the food items.
      */
-    public SupplyPresenter(final Frame parentFrame,
-            final FoodManager itemManager)
+    public SupplyPresenter(final FoodManager itemManager)
     {
         super();
 
-        this.parent = parentFrame;
         this.itemManager = itemManager;
 
         //init actions
@@ -129,7 +123,7 @@ final class SupplyPresenter
     {
         return view;
     }
-
+    
     /**
      * Opens a dialog for adding a new item.
      * 
@@ -185,8 +179,8 @@ final class SupplyPresenter
      */
     private boolean openEditor(Food item)
     {
-        final FoodEditorView view = new FoodEditorView(parent);
-        final FoodEditorPresenter editor = new FoodEditorPresenter(view, item);
+        final FoodEditorView editorView = new FoodEditorView(view.getParentFrame());
+        final FoodEditorPresenter editor = new FoodEditorPresenter(editorView, item);
 
         return editor.show();
     }
