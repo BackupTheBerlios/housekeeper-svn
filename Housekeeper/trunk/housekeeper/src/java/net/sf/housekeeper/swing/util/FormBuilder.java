@@ -103,6 +103,7 @@ public final class FormBuilder
     public JPanel getPanel()
     {
         final DefaultFormBuilder builder = new DefaultFormBuilder(buildLayout());
+        builder.setDefaultDialogBorder();
         final HashMap map = generateMap();
         final Iterator iter = elements.iterator();
         while (iter.hasNext())
