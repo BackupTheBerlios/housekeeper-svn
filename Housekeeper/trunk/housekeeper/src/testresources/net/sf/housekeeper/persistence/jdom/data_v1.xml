@@ -8,6 +8,7 @@
   </foodItem>
   <foodItem name="Risotto ai funghi porcini" />
   <foodItem name="Risotto alla Milanese">
+    <quantity value="250g" />
     <expiry day="8" month="2" year="2005" />
   </foodItem>
   <foodItem name="Milch">
