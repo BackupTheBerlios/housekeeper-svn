@@ -5,24 +5,28 @@
    
     <faq id="faq-exists">
       <question>
-        Is there a FAQ?
+        Are there any FAQs?
       </question>
       <answer>
-        <p>No there isn't one at the moment.</p>
+        <p>Yes. But only very few answers yet.</p>
       </answer>
     </faq>
 
   </part>
   <part id="devel">
+    <title>Developer's corner</title>
+    <faq id="getting-started-devel">
     <question><p>I'm a developer. How do I setup a development environment so I 
         can start coding for Housekeeper?</p>
     </question>
     <answer>
-    	<h2>Install JDK</h2>
-    	<h2>Installation of Eclipse</h2>
+    	<b>Install JDK</b>
+    	<b>Installation of Eclipse</b>
         <ol>
-            <li>Download Eclipse 3.0.1 for your platform at 
-                <a href="http://www.eclipse.org/downloads/index.php"/>. You need the platform and the JDT.</li>
+            <li><a 
+                href="http://www.eclipse.org/downloads/index.php">Download 
+                Eclipse 3.0.1</a> for your platform. You need the platform and 
+                the JDT.</li>
             <li>Unzip both archives to the location you'd like Eclipse to be installed.</li>
             <li>Start Eclipse. Click on OK if you are asked for selecting your workspace and close the welcome screen</li>
             <li>Select from the menu: File -> New -> CVS -> Checkout Projects from CVS</li>
@@ -40,11 +44,14 @@
         	<li>Click on "Next >" in the following dialog about the workspace</li>
         	<li>Select "HEAD" and click the "Finish" button</li>
         </ol>
-        <h2>Installation of Maven</h2>
+        <b>Installation of Maven</b>
         <ol>
         	<li>Set the JAVA_HOME variable to the location of your JDK</li>
-        	<li>Go to <a href=http://maven.apache.org/"/> and download Maven 1.0.2 for your platform.</li>
-        	
+            <li><a href="http://maven.apache.org/">Download Maven 
+                1.0.2</a> for your 
+                platform.</li>
+        </ol>
     </answer>
+    </faq>
   </part>
 </faqs>
