@@ -23,13 +23,21 @@ package net.sf.housekeeper.swing.stock;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 
 import net.sf.housekeeper.domain.StockItem;
 import net.sf.housekeeper.storage.StorageFactory;
+import net.sf.housekeeper.swing.util.DateEditor;
+import net.sf.housekeeper.swing.util.StandardDialog;
 
 import com.odellengineeringltd.glazedlists.EventList;
 import com.odellengineeringltd.glazedlists.SortedList;
@@ -128,11 +136,33 @@ public final class StockPanel extends JPanel
 
         public void actionPerformed(ActionEvent arg0)
         {
-            final StockItemDialog d = new StockItemDialog("Add item to stock");
-            final StockItem item = d.display();
+            final StandardDialog d = new StandardDialog("Add item to stock");
+            final int compWidth = 80;
+            final JTextField nameField = new JTextField();
+            d.addElement("Name", nameField, compWidth);
 
-            if (item != null)
+            /*
+             * The next few lines just create a Date object with the current date
+             * not the exact current time. This prevents the problem that the date
+             * in the spinner can't be set to today, once it has been modified.
+             */
+            final Calendar now = new GregorianCalendar();
+            now.setTime(new Date());
+            final Calendar todayCal = new GregorianCalendar(now.get(Calendar.YEAR),
+                    now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            final Date today = todayCal.getTime();
+            
+            final SpinnerDateModel spinnerModel = new SpinnerDateModel();
+            spinnerModel.setStart(today);
+            final JSpinner spinner = new JSpinner(spinnerModel);
+            spinner.setEditor(new DateEditor(spinner));
+            d.addElement("Best Before End", spinner, compWidth);
+
+            
+            final int dialogState = d.display();
+            if (dialogState == StandardDialog.APPROVE)
             {
+                final StockItem item = new StockItem(nameField.getText(), spinnerModel.getDate());
                 StorageFactory.getCurrentStorage().add(item);
             }
         }
