@@ -21,8 +21,12 @@
 
 package net.sf.housekeeper;
 
+import java.io.File;
+import java.io.IOException;
+
 import net.sf.housekeeper.swing.MainFrame;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,29 +39,56 @@ import org.apache.commons.logging.LogFactory;
 public final class Housekeeper
 {
 
-    /** The version of the last release. */
-    public static final String VERSION = "0.1.2a";
-
     /**
      * Prevents instances of this class.
+     * 
+     * @throws IOException
+     * @throws ConfigurationException
      */
-    private Housekeeper(String[] args)
-    {        
-        LogFactory.getLog(Housekeeper.class).info("Starting Housekeeper " + VERSION);
+    private Housekeeper(String[] args) throws ConfigurationException,
+            IOException
+    {
+        initializeConfigurationManager();
         
+        final String version = ConfigurationManager.INSTANCE.getConfiguration()
+                .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
+        LogFactory.getLog(Housekeeper.class).info(
+                                                  "Starting Housekeeper "
+                                                          + version);
+
         MainFrame.INSTANCE.show();
+    }
+
+    /**
+     * Initializes the {@link ConfigurationManager}.
+     * 
+     * @throws ConfigurationException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    private void initializeConfigurationManager()
+            throws ConfigurationException, IllegalStateException, IOException
+    {
+        final String homeDirString = System.getProperty("user.home");
+        final File hkDir = new File(homeDirString, ".housekeeper");
+        hkDir.mkdir();
+        ConfigurationManager.INSTANCE.init(hkDir);
     }
 
     /**
      * Starts the Housekeeper application with a Swing GUI.
      * 
-     * @param args "--debug" enables debugging messages.
+     * @param args
+     * @throws IOException
+     * @throws ConfigurationException
      */
-    public static void main(final String[] args)
+    public static void main(final String[] args) throws ConfigurationException,
+            IOException
     {
-        if(!SystemUtils.isJavaVersionAtLeast(140))
+        if (!SystemUtils.isJavaVersionAtLeast(140))
         {
-            LogFactory.getLog(Housekeeper.class).fatal("You need at least JRE 1.4 to run Housekeeper!");
+            LogFactory.getLog(Housekeeper.class)
+                    .fatal("You need at least JRE 1.4 to run Housekeeper!");
             System.exit(1);
         }
         new Housekeeper(args);

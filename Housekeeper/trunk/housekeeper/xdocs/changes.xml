@@ -6,6 +6,8 @@
     <release version="0.2.0" date="not yet released">
       <action dev="notizklotz" type="fix" issue="1053909">Food items are not 
             forced to have an expiry date anymore.</action>
+        <action dev="notizklotz" type="add" issue="1037966">Added 
+            component for managing application configurations.</action>
       <action dev="notizklotz" type="add" issue="1054868">Added support for 
             handling different file format versions.</action>
     </release>

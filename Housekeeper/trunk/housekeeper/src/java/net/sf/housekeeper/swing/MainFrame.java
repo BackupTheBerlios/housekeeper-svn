@@ -43,7 +43,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 
-import net.sf.housekeeper.Housekeeper;
+import net.sf.housekeeper.ConfigurationManager;
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.persistence.PersistenceServiceFactory;
 import net.sf.housekeeper.swing.util.TableSorter;
@@ -80,7 +80,9 @@ public final class MainFrame extends JFrame
     private MainFrame()
     {
         super();
-        setTitle("Housekeeper " + Housekeeper.VERSION);
+        final String version = ConfigurationManager.INSTANCE.getConfiguration()
+                .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
+        setTitle("Housekeeper " + version);
 
         initLookAndFeel();
         setJMenuBar(buildMenuBar());
@@ -184,7 +186,7 @@ public final class MainFrame extends JFrame
                 //Do nothing if setting the Look and Feel fails.
             }
         }
-        
+
         LOG.debug("Using Look and Feel: "
                 + UIManager.getLookAndFeel().getName());
     }
@@ -231,10 +233,8 @@ public final class MainFrame extends JFrame
             } catch (Exception exception)
             {
                 exception.printStackTrace();
-                JOptionPane
-                        .showMessageDialog(
-                                           MainFrame.INSTANCE, exception.getMessage(),
-                                           "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(MainFrame.INSTANCE, exception
+                        .getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

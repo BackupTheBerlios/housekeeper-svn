@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import net.sf.housekeeper.ConfigurationManager;
 import net.sf.housekeeper.persistence.PersistenceService;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 
@@ -52,11 +53,10 @@ public final class JDOMPersistence implements PersistenceService
 
     public JDOMPersistence()
     {
-        final String homeDirString = System.getProperty("user.home");
-        final File hkDir = new File(homeDirString, ".housekeeper");
-        hkDir.mkdir();
+        final File dataDir = (File)ConfigurationManager.INSTANCE
+                .getConfiguration().getProperty(ConfigurationManager.DATA_DIRECTORY);
 
-        dataFile = new File(hkDir, "data.xml");
+        dataFile = new File(dataDir, "data.xml");
     }
 
     /*
