@@ -63,74 +63,82 @@ import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
-
 /**
  * @author
  * @version $Revision$, $Date$
  */
-public final class ItemsTableView extends AbstractView implements ApplicationListener
+public final class ItemsTableView extends AbstractView implements
+        ApplicationListener
 {
-    private JTable itemsTable;
-    
-    private ItemsTableModel tableModel;
-    
-    private final EditCommandExecutor      editExecutor               = new EditCommandExecutor();
 
-    private final NewCommandExecutor       newItemExecutor = new NewCommandExecutor();
+    private JTable                         itemsTable;
 
-    private final DuplicateCommandExecutor duplicateExecutor          = new DuplicateCommandExecutor();
+    private ItemsTableModel                tableModel;
 
-    private final DeleteCommandExecutor    deleteExecutor             = new DeleteCommandExecutor();
+    private final EditCommandExecutor      editExecutor      = new EditCommandExecutor();
 
-    private FoodManager foodManager;
-    
-    private String category;
-        
+    private final NewCommandExecutor       newItemExecutor   = new NewCommandExecutor();
+
+    private final DuplicateCommandExecutor duplicateExecutor = new DuplicateCommandExecutor();
+
+    private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
+
+    private FoodManager                    foodManager;
+
+    private String                         category;
+
     /**
      * Creates a new view showing a list of items.
-     *
+     *  
      */
     public ItemsTableView()
     {
         newItemExecutor.setEnabled(true);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.factory.AbstractControlFactory#createControl()
      */
     protected JComponent createControl()
     {
-        tableModel = new ItemsTableModel(new ArrayList(), getApplicationContext());
+        tableModel = new ItemsTableModel(new ArrayList(),
+                getApplicationContext());
         itemsTable = createTable(tableModel);
-           
+
         final JPanel panel = new JPanel();
         //Without that, the tables won't grow and shrink with the window's
         // size.
         panel.setLayout(new GridLayout());
         panel.add(new JScrollPane(itemsTable));
-        
+
         refresh();
-        
+
         return panel;
     }
-    
-    private JTable createTable(ItemsTableModel model) {
-            final JTable table = CustomTableUtils.createStandardSortableTable(model);
-            
-            final SortableTableModel sortableModel = (SortableTableModel)table.getModel();
-            sortableModel.setComparator(2, new ExpiryDateComparator());
-            
-            //Sort expiry dates by default
-            sortableModel.sortByColumn(new ColumnToSort(0, 2));
-            
-            table.getSelectionModel().addListSelectionListener(new TableSelectionListener());
-            table.addMouseListener(new PopupMenuMouseListener(createContextMenu()));
-            table.addMouseListener(new DoubleClickListener());
-            assignDateColumnRenderer(table, 2);
-            table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);            
-            return table;
+
+    private JTable createTable(ItemsTableModel model)
+    {
+        final JTable table = CustomTableUtils
+                .createStandardSortableTable(model);
+
+        final SortableTableModel sortableModel = (SortableTableModel) table
+                .getModel();
+        sortableModel.setComparator(2, new ExpiryDateComparator());
+
+        //Sort expiry dates by default
+        sortableModel.sortByColumn(new ColumnToSort(0, 2));
+
+        table.getSelectionModel()
+                .addListSelectionListener(new TableSelectionListener());
+        table.addMouseListener(new PopupMenuMouseListener(createContextMenu()));
+        table.addMouseListener(new DoubleClickListener());
+        assignDateColumnRenderer(table, 2);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        return table;
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -141,10 +149,9 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
         context.register(GlobalCommandIds.DELETE, deleteExecutor);
         context.register(GlobalCommandIds.PROPERTIES, editExecutor);
         context.register("duplicateCommand", duplicateExecutor);
-        context.register("newCommand",
-                         newItemExecutor);
+        context.register("newCommand", newItemExecutor);
     }
-    
+
     /**
      * Enables and disables Actions (and thus the buttons) depending on the
      * current selection state.
@@ -156,23 +163,27 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
         editExecutor.setEnabled(hasSelection);
         deleteExecutor.setEnabled(hasSelection);
     }
-    
+
     private void setCategory(String category)
     {
         this.category = category;
         refresh();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
      */
     public void onApplicationEvent(ApplicationEvent e)
     {
-        if (e instanceof HousekeeperEvent) {
-            final HousekeeperEvent le = (HousekeeperEvent)e;
-            if (le.getEventType() == HousekeeperEvent.SELECTED && le.objectIs(String.class))
+        if (e instanceof HousekeeperEvent)
+        {
+            final HousekeeperEvent le = (HousekeeperEvent) e;
+            if (le.getEventType() == HousekeeperEvent.SELECTED
+                    && le.objectIs(String.class))
             {
-                final String cat = (String)le.getObject();
+                final String cat = (String) le.getObject();
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run()
@@ -180,7 +191,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
                         setCategory(cat);
                     }
                 });
-            }  else if (le.getEventType() == HousekeeperEvent.DATA_CHANGED)
+            } else if (le.getEventType() == HousekeeperEvent.DATA_CHANGED)
             {
                 SwingUtilities.invokeLater(new Runnable() {
 
@@ -192,35 +203,39 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
             }
         }
     }
-    
+
     private boolean hasSelection()
     {
         return itemsTable.getSelectedRow() != -1;
     }
-    
+
     private JPopupMenu createContextMenu()
     {
         CommandGroup convCommandGroup = getWindowCommandManager()
-        .createCommandGroup(
-                            "tablePopupCommandGroup",
-                            new Object[] { "newCommand",
-                                    "duplicateCommand",
-                                    GlobalCommandIds.PROPERTIES, GlobalCommandIds.DELETE });
+                .createCommandGroup(
+                                    "tablePopupCommandGroup",
+                                    new Object[] { "newCommand",
+                                            "duplicateCommand",
+                                            GlobalCommandIds.PROPERTIES,
+                                            GlobalCommandIds.DELETE });
         return convCommandGroup.createPopupMenu();
     }
-    
-    private Food getSelected() {
+
+    private Food getSelected()
+    {
         if (hasSelection())
         {
             final int selectedRow = itemsTable.getSelectedRow();
-            final SortableTableModel sortModel = (SortableTableModel)itemsTable.getModel();
-            final int convertedRow = sortModel.convertSortedIndexToDataIndex(selectedRow);
-            return (Food)tableModel.getRow(convertedRow);
+            final SortableTableModel sortModel = (SortableTableModel) itemsTable
+                    .getModel();
+            final int convertedRow = sortModel
+                    .convertSortedIndexToDataIndex(selectedRow);
+            return (Food) tableModel.getRow(convertedRow);
         }
-        
+
         return null;
     }
-        
+
     private void assignDateColumnRenderer(JTable table, int column)
     {
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
@@ -229,7 +244,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
                 dateFormat);
         table.getColumnModel().getColumn(column).setCellRenderer(dateRenderer);
     }
-    
+
     /**
      * Sets the manager which holds the data to display.
      * 
@@ -239,23 +254,31 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
     {
         this.foodManager = manager;
     }
-    
+
     private void refresh()
     {
         tableModel.clear();
         tableModel.addRows(foodManager.getItemsForCategory(category));
     }
-    
-    private final class DoubleClickListener extends MouseAdapter {
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
-                getWindowCommandManager().getActionCommand("propertiesCommand").execute();
+
+    private final class DoubleClickListener extends MouseAdapter
+    {
+
+        public void mouseClicked(MouseEvent e)
+        {
+            if (e.getClickCount() == 2)
+            {
+                getWindowCommandManager().getActionCommand("propertiesCommand")
+                        .execute();
             }
         }
     }
-    
-    private final class TableSelectionListener implements ListSelectionListener {
-        public void valueChanged(ListSelectionEvent e) {
+
+    private final class TableSelectionListener implements ListSelectionListener
+    {
+
+        public void valueChanged(ListSelectionEvent e)
+        {
             if (!e.getValueIsAdjusting())
             {
                 updateActionEnablement();
@@ -263,24 +286,28 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
 
         }
     }
-    
-    private final class ItemsTableModel extends BeanTableModel {
-        
+
+    private final class ItemsTableModel extends BeanTableModel
+    {
+
         private ItemsTableModel(List rows, MessageSource messages)
         {
             super(Food.class, rows, messages);
             setRowNumbers(false);
         }
-        
-        protected String[] createColumnPropertyNames() {
+
+        protected String[] createColumnPropertyNames()
+        {
             return new String[] { "name", "description", "expiry" };
         }
-        
-        protected boolean isCellEditableInternal(Object row, int columnIndex) {
+
+        protected boolean isCellEditableInternal(Object row, int columnIndex)
+        {
             return false;
         }
-        
-        protected Class[] createColumnClasses() {
+
+        protected Class[] createColumnClasses()
+        {
             return new Class[] { String.class, String.class, Date.class };
         }
 
@@ -311,7 +338,6 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
             refresh();
         }
     }
-    
 
     /**
      * Shows a dialog for modifying the currently selected item and updates it.
@@ -322,16 +348,20 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
         public void execute()
         {
             final Food foodObject = getSelected();
-            final FormModel formModel = SwingFormModel.createFormModel(foodObject);
+            final FormModel formModel = SwingFormModel
+                    .createFormModel(foodObject);
             final FoodPropertiesForm form = new FoodPropertiesForm(formModel);
 
-            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(form, getWindowControl()) {
-                
-                protected void onAboutToShow() {
+            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
+                    form, getWindowControl()) {
+
+                protected void onAboutToShow()
+                {
                     setEnabled(true);
                 }
 
-                protected boolean onFinish() {
+                protected boolean onFinish()
+                {
                     formModel.commit();
                     foodManager.update(foodObject);
                     refresh();
@@ -352,16 +382,20 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
         {
             final Food foodObject = new Food();
             foodObject.setCategory(category);
-            final FormModel formModel = SwingFormModel.createFormModel(foodObject);
+            final FormModel formModel = SwingFormModel
+                    .createFormModel(foodObject);
             final FoodPropertiesForm form = new FoodPropertiesForm(formModel);
 
-            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(form, getWindowControl()) {
-                
-                protected void onAboutToShow() {
+            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
+                    form, getWindowControl()) {
+
+                protected void onAboutToShow()
+                {
                     setEnabled(true);
                 }
 
-                protected boolean onFinish() {
+                protected boolean onFinish()
+                {
                     formModel.commit();
                     foodManager.add(foodObject);
                     refresh();
@@ -371,33 +405,33 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
             dialog.showDialog();
         }
     }
-    
+
     private static class ExpiryDateComparator implements Comparator
     {
-        
-            public int compare(Object o1, Object o2)
-            {                
-                if (o1 == null && o2 == null)
-                {
-                    return 0;
-                }
-                
-                //Null is treated as being greater as any non-null expiry date.
-                //This has the effect of displaying items without an expiry
-                //At the end of a least-expiry-first table of items.
-                if (o1 == null)
-                {
-                    return 1;
-                }
-                if (o2 == null)
-                {
-                    return -1;
-                }
 
-                final Date date1 = (Date)o1;
-                final Date date2 = (Date)o2;
-                return date1.compareTo(date2);
+        public int compare(Object o1, Object o2)
+        {
+            if (o1 == null && o2 == null)
+            {
+                return 0;
             }
+
+            //Null is treated as being greater as any non-null expiry date.
+            //This has the effect of displaying items without an expiry
+            //At the end of a least-expiry-first table of items.
+            if (o1 == null)
+            {
+                return 1;
+            }
+            if (o2 == null)
+            {
+                return -1;
+            }
+
+            final Date date1 = (Date) o1;
+            final Date date2 = (Date) o2;
+            return date1.compareTo(date2);
+        }
     }
 
 }
