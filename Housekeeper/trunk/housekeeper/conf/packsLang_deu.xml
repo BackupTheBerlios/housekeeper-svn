@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
-<langpack>
-	<str id="pack_core" txt="Kernkomponenten"/>
-	<str id="pack_core.description" txt="Kernkomponenten von Housekeeper, welche zur Ausführung unbedingt benötigt werden."/>
-</langpack>
