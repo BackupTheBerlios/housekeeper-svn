@@ -40,25 +40,49 @@ import net.sf.housekeeper.util.ConfigurationManager;
 public final class PersistenceController
 {
 
-    private static final PersistenceService jdomPersistence = new JDOMPersistence();
+    /**
+     * Singleton instance.
+     */
+    private static PersistenceController instance;
+    
+    /**
+     * Persistance using JDOM.
+     */
+    private final PersistenceService jdomPersistence;
     
     /**
      * File used for loading and saving
      */
-    private static final File dataFile;
+    private final File dataFile;
 
-    static
-    {
-        final File dataDir = (File) ConfigurationManager.INSTANCE
-                .getConfiguration()
-                .getProperty(ConfigurationManager.DATA_DIRECTORY);
-
-        dataFile = new File(dataDir, "data.xml");
-    }
-
+    /**
+     * Initializes the persistence service to use.
+     *
+     */
     private PersistenceController()
     {
+        final File dataDir = (File) ConfigurationManager.INSTANCE
+        .getConfiguration()
+        .getProperty(ConfigurationManager.DATA_DIRECTORY);
 
+        dataFile = new File(dataDir, "data.xml");
+
+        jdomPersistence = new JDOMPersistence();
+    }
+    
+    /**
+     * Returns the Singleton instance.
+     * 
+     * @return the Singleton instance.
+     */
+    public static PersistenceController instance()
+    {
+        if (instance == null)
+        {
+            instance = new PersistenceController();
+        }
+        
+        return instance;
     }
 
     /**
@@ -69,7 +93,7 @@ public final class PersistenceController
      * @throws UnsupportedFileVersionException if the version or format of the
      *             data source is not supported.
      */
-    public static void replaceDomainWithSaved() throws IOException,
+    public void replaceDomainWithSaved() throws IOException,
             UnsupportedFileVersionException
     {
         final Household household = jdomPersistence.loadData(dataFile);
@@ -82,7 +106,7 @@ public final class PersistenceController
      * 
      * @throws IOException If the data couldn't be stored.
      */
-    public static void saveDomainData() throws IOException
+    public void saveDomainData() throws IOException
     {
         final Collection foodItems = FoodItemManager.instance().getSupplyList();
         final Household household = new Household(foodItems);

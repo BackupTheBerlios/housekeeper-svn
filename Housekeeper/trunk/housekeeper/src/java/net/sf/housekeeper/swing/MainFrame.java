@@ -199,7 +199,7 @@ public final class MainFrame
         {
             try
             {
-                PersistenceController.saveDomainData();
+                PersistenceController.instance().saveDomainData();
             } catch (IOException e)
             {
                 exit = false;
@@ -266,7 +266,7 @@ public final class MainFrame
     {
         try
         {
-            PersistenceController.saveDomainData();
+            PersistenceController.instance().saveDomainData();
         } catch (IOException e1)
         {
             e1.printStackTrace();
@@ -281,7 +281,7 @@ public final class MainFrame
     {
         try
         {
-            PersistenceController.replaceDomainWithSaved();
+            PersistenceController.instance().replaceDomainWithSaved();
         } catch (FileNotFoundException exception)
         {
             JOptionPane.showMessageDialog(view, "No data has been saved yet.",
@@ -315,7 +315,7 @@ public final class MainFrame
     }
 
     /**
-     * Action to load the data.
+     * Action for loading the data.
      */
     private class LoadDataAction extends AbstractAction
     {
@@ -336,7 +336,7 @@ public final class MainFrame
     }
 
     /**
-     * Action to persistently save the data.
+     * Action for persistently saving the data.
      */
     private class SaveDataAction extends AbstractAction
     {
@@ -355,6 +355,9 @@ public final class MainFrame
         }
     }
 
+    /**
+     * Action for displaying the about dialog.
+     */
     private class AboutDialogAction extends AbstractAction
     {
 
