@@ -29,7 +29,7 @@ import javax.swing.AbstractAction;
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
 import net.sourceforge.housekeeper.storage.StorageFactory;
-import net.sourceforge.housekeeper.swing.ArticleDialog;
+import net.sourceforge.housekeeper.swing.ArticleDescriptionDialog;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 
@@ -64,7 +64,7 @@ public final class NewArticleDescriptionAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDialog d = new ArticleDialog();
+        ArticleDescriptionDialog d = new ArticleDescriptionDialog();
         ArticleDescription article = d.show("New Article");
 
         if (article != null)

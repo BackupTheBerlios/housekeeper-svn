@@ -40,12 +40,12 @@ import javax.swing.ListSelectionModel;
  *
  * @author Adrian Gygax
  */
-public final class ArticlePanel extends JPanel
+public final class ArticleDescriptionPanel extends JPanel
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    private static final ArticlePanel INSTANCE = new ArticlePanel();
+    private static final ArticleDescriptionPanel INSTANCE = new ArticleDescriptionPanel();
 
     //~ Instance fields --------------------------------------------------------
 
@@ -63,7 +63,7 @@ public final class ArticlePanel extends JPanel
     /**
      * Creates a new ArticlePanel object.
      */
-    private ArticlePanel()
+    private ArticleDescriptionPanel()
     {
         table = new JTable(ArticleDescriptionTableModel.getInstance());
         scrollPane = new JScrollPane(table);
@@ -86,7 +86,7 @@ public final class ArticlePanel extends JPanel
      *
      * @return DOCUMENT ME!
      */
-    public static ArticlePanel getInstance()
+    public static ArticleDescriptionPanel getInstance()
     {
         return INSTANCE;
     }

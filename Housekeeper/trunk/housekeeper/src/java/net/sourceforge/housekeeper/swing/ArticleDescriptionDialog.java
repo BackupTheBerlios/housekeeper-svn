@@ -44,7 +44,7 @@ import javax.swing.JTextField;
  *
  * @author Adrian Gygax
  */
-public final class ArticleDialog extends JDialog
+public final class ArticleDescriptionDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -62,7 +62,7 @@ public final class ArticleDialog extends JDialog
     /**
      * DOCUMENT ME!
      */
-    public ArticleDialog()
+    public ArticleDescriptionDialog()
     {
         super(MainFrame.INSTANCE, true);
 

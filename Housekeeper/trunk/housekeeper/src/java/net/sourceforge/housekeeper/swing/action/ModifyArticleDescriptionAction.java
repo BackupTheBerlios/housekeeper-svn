@@ -24,8 +24,8 @@ package net.sourceforge.housekeeper.swing.action;
 
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.swing.ArticleDialog;
-import net.sourceforge.housekeeper.swing.ArticlePanel;
+import net.sourceforge.housekeeper.swing.ArticleDescriptionDialog;
+import net.sourceforge.housekeeper.swing.ArticleDescriptionPanel;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 import java.awt.event.ActionEvent;
@@ -62,11 +62,11 @@ public class ModifyArticleDescriptionAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescription article = ArticlePanel.getInstance().getSelectedArticle();
+        ArticleDescription article = ArticleDescriptionPanel.getInstance().getSelectedArticle();
 
         if (article != null)
         {
-            ArticleDialog d = new ArticleDialog();
+            ArticleDescriptionDialog d = new ArticleDescriptionDialog();
             d.show("Modify Article", article);
 
             DataUpdateMediator.getInstance().update();
