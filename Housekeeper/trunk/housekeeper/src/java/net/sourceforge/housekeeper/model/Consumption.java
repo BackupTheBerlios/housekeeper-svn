@@ -58,8 +58,8 @@ public class Consumption
     }
 
     /**
-     * Creates an article with given attributes. If a parameter is null, the
-     * according attribute is set to a default value.
+     * Creates a <code>Consumption</code> object with given attributes. If a
+     * parameter is null, the according attribute is set to a default value.
      *
      * @param date The date of the consumption
      * @param quantity How much that has been consumed
