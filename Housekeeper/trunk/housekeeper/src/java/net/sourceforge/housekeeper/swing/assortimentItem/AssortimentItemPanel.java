@@ -122,6 +122,6 @@ public final class AssortimentItemPanel extends JPanel implements Observer
 
 	public void update(Observable arg0, Object arg1)
 	{
-		model.setTableData(StorageFactory.getCurrentStorage().getAllAssortimentItems());
+		model.setTableData(StorageFactory.getCurrentStorage().getAssortimentItemMapper().getAll());
 	}
 }

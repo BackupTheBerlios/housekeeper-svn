@@ -22,6 +22,8 @@
 
 package net.sourceforge.housekeeper.storage;
 
+import net.sourceforge.housekeeper.storage.xmlser.XMLSerializationFactory;
+
 
 /**
  * A Factory for centralized management of Storage objects. Objects should call this class' getCurrentStorage() to receive a reference to the currently used storage technique.
@@ -36,7 +38,7 @@ public final class StorageFactory
     //~ Static fields/initializers ---------------------------------------------
 
     /** An instance of the currently used storage technique */
-    private static Storage currentStorage;
+    private static DataMapperFactory currentStorage;
 
     //~ Constructors -----------------------------------------------------------
 
@@ -54,11 +56,11 @@ public final class StorageFactory
      *
      * @return Currently used storage technique.
      */
-    public static Storage getCurrentStorage()
+    public static DataMapperFactory getCurrentStorage()
     {
         if (currentStorage == null)
         {
-            currentStorage = new XMLSerializationStorage();
+            currentStorage = new XMLSerializationFactory();
         }
 
 

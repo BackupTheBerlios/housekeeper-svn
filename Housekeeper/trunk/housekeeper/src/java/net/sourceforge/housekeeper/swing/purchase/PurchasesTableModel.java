@@ -108,8 +108,8 @@ class PurchasesTableModel extends AbstractTableModel
 
     private void update()
     {
-        Collection purchasesCollection = StorageFactory.getCurrentStorage()
-                                                       .getAllPurchases();
-        purchasesList = new ArrayList(purchasesCollection);
+        //TODO
+        //Collection purchasesCollection = StorageFactory.getCurrentStorage().getAllPurchases();
+        //purchasesList = new ArrayList(purchasesCollection);
     }
 }

@@ -72,7 +72,7 @@ public final class NewAssortimentItemAction extends AbstractAction
 
         if (article != null)
         {
-            StorageFactory.getCurrentStorage().add(article);
+            StorageFactory.getCurrentStorage().getAssortimentItemMapper().add(article);
             DataUpdateMediator.getInstance().update();
         }
     }

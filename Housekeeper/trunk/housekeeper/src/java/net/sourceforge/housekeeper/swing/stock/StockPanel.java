@@ -93,7 +93,7 @@ public final class StockPanel extends JPanel implements Observer
 
     public void update(Observable arg0, Object arg1)
     {
-        model.setTableData(StorageFactory.getCurrentStorage().getAllStockItems());
+        model.setTableData(StorageFactory.getCurrentStorage().getStockItemMapper().getAll());
     }
 
 }

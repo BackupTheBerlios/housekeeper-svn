@@ -90,7 +90,7 @@ public final class MainFrame extends JFrame
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Assortiment", AssortimentItemPanel.getInstance());
 
-        tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
+        //tabbedPane.addTab("Purchases", PurchasePanel.getInstance());
         getContentPane().add(tabbedPane);
     }
 
