@@ -168,7 +168,7 @@ final class ArticleDescriptionTableModel extends AbstractTableModel
                 return new Integer(article.getQuantity());
 
             case 3:
-                return article.getQuantityUnit();
+                return article.getUnit();
 
             case 4:
                 return new Double(article.getPrice());

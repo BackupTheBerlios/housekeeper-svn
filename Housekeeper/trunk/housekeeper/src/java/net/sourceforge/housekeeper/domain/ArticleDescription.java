@@ -166,7 +166,7 @@ public class ArticleDescription extends DomainObject
      *
      * @param quantityUnit The new value.
      */
-    public void setQuantityUnit(String quantityUnit)
+    public void setUnit(String quantityUnit)
     {
         this.unit = quantityUnit;
     }
@@ -176,7 +176,7 @@ public class ArticleDescription extends DomainObject
      *
      * @return The corresponding attribute.
      */
-    public String getQuantityUnit()
+    public String getUnit()
     {
         return unit;
     }

@@ -114,7 +114,7 @@ public final class ArticleDescriptionDialog extends JDialog
         storeField.setText(articleDescription.getStore());
         priceField.setText("" + articleDescription.getPrice());
         quantityField.setText("" + articleDescription.getQuantity());
-        unitField.setText(articleDescription.getQuantityUnit());
+        unitField.setText(articleDescription.getUnit());
 
         super.show();
 
@@ -195,7 +195,7 @@ public final class ArticleDescriptionDialog extends JDialog
             article.setStore(storeField.getText());
             article.setPrice(Double.parseDouble(priceField.getText()));
             article.setQuantity(Integer.parseInt(quantityField.getText()));
-            article.setQuantityUnit(unitField.getText());
+            article.setUnit(unitField.getText());
 
             dispose();
         }
