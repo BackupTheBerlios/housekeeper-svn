@@ -95,8 +95,12 @@ final class SupplyPresenter
                 itemManager.getSupplyList(), "misc");
         miscPresenter.addTableSelectionListener(selectionListener);
 
-        view = new SupplyView(newItemAction, duplicateItemAction,
-                editItemAction, deleteItemAction);
+        view = new SupplyView();
+        view.addButton(newItemAction);
+        view.addButton(duplicateItemAction);
+        view.addButton(editItemAction);
+        view.addButton(deleteItemAction);
+
         view.addPanel(convPresenter.getView());
         view.addPanel(miscPresenter.getView());
 

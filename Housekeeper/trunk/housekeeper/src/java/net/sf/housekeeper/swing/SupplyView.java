@@ -45,23 +45,13 @@ final class SupplyView extends JPanel
     /**
      * Creates a new view.
      * 
-     * @param newItemAction The action for adding a new item.
-     * @param duplicateItemAction The action for duplicating an item.
-     * @param editItemAction The action for editing an item.
-     * @param deleteItemAction The action for deleting an item.
      */
-    public SupplyView(Action newItemAction, Action duplicateItemAction,
-            Action editItemAction, Action deleteItemAction)
+    public SupplyView()
     {
         setLayout(new BorderLayout());
 
         contentPanel = new JPanel(new GridLayout(1, 0));
-
         buttonPanel = new JPanel();
-        buttonPanel.add(new JButton(newItemAction));
-        buttonPanel.add(new JButton(duplicateItemAction));
-        buttonPanel.add(new JButton(editItemAction));
-        buttonPanel.add(new JButton(deleteItemAction));
 
         add(contentPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.NORTH);
@@ -75,6 +65,16 @@ final class SupplyView extends JPanel
     void addPanel(JPanel panel)
     {
         contentPanel.add(panel);
+    }
+    
+    /**
+     * Adds a button to the right of the existing buttons.
+     * 
+     * @param action The action to assign to the button.
+     */
+    void addButton(final Action action)
+    {
+        buttonPanel.add(new JButton(action));
     }
 
 }
