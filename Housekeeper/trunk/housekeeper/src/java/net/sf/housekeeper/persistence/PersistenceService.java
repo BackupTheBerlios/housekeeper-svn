@@ -24,26 +24,27 @@ package net.sf.housekeeper.persistence;
 import java.io.IOException;
 
 /**
- * Specifies the interface of persistence layer. Examples for such a layer
- * are an XML-file or a database backend. Note that all changes are stored
- * persistently only after {@link #saveData()} has been called.
- *
+ * Specifies the interface of persistence service. Examples for such a service
+ * are mapping objects to an XML-file or a database backend. Note that all
+ * changes are stored persistently only after {@link #saveData()}has been
+ * called.
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public interface PersistenceLayer
+public interface PersistenceService
 {
-    
+
     /**
      * Loads data from the default storage place into memory.
-     *
+     * 
      * @throws IOException If the data couldn't be retrieved.
      */
     void loadData() throws IOException;
-    
+
     /**
      * Saves data to the default storage place.
-     *
+     * 
      * @throws IOException If the data couldn't be stored.
      */
     void saveData() throws IOException;

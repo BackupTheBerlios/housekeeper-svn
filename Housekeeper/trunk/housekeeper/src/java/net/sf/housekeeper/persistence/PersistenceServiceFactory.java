@@ -22,37 +22,37 @@
 package net.sf.housekeeper.persistence;
 
 /**
- * A Factory for centralized management of of the persistence layer. Objects
- * should call {@link #getCurrentLayer()}to receive a reference to the
- * currently used persistence layer implementation.
+ * A Factory for centralized management of the persistence services. Objects
+ * should call {@link #getCurrentService()}to receive a reference to the
+ * currently used persistence service implementation.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class PersistenceLayerFactory
+public final class PersistenceServiceFactory
 {
 
     /**
-     * An instance of the currently used persistence layer implementation.
+     * An instance of the currently used persistence service implementation.
      */
-    private static PersistenceLayer currentLayer = new CastorXMLMapping();
+    private static PersistenceService currentService = new CastorXMLMapping();
 
     /**
-     * Prevents object instanciation.
+     * Prevents instanciation.
      */
-    private PersistenceLayerFactory()
+    private PersistenceServiceFactory()
     {
 
     }
 
     /**
-     * Returns a reference to the currently used persistence layer
+     * Returns a reference to the currently used persistence service
      * implementation.
      * 
-     * @return The currently used persistence layer implementation.
+     * @return The currently used persistence service implementation.
      */
-    public static PersistenceLayer getCurrentLayer()
+    public static PersistenceService getCurrentService()
     {
-        return currentLayer;
+        return currentService;
     }
 }

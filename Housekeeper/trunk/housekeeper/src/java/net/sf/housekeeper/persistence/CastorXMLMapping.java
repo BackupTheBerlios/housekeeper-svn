@@ -43,13 +43,22 @@ import org.exolab.castor.xml.ValidationException;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class CastorXMLMapping implements PersistenceLayer
+final class CastorXMLMapping implements PersistenceService
 {
     
+    /**
+     * File used for loading and saving
+     */
     private static final File DATAFILE = new File("HK_castor.xml");
     
+    /**
+     * Castor mapping object for XML mapping.
+     */
     private final Mapping mapping;
 
+    /**
+     * Creates a new Castor mapping service.
+     */
     CastorXMLMapping()
     {
         mapping = new Mapping();

@@ -40,7 +40,7 @@ import net.sf.housekeeper.domain.Household;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class XMLSerialization implements PersistenceLayer
+final class XMLSerialization implements PersistenceService
 {
 
     /** The path to the file that is used for data storage. */
