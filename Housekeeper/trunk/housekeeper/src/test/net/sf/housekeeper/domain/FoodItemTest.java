@@ -166,5 +166,16 @@ public final class FoodItemTest extends TestCase
         final boolean equalsNull = item.equals(null);
         assertFalse(equalsNull);
     }
+    
+    /**
+     * Tests if an item gets cloned properly.
+     *
+     */
+    public void testClone()
+    {
+        final FoodItem originalItem = DataGenerator.createComplexItem();
+        final FoodItem clonedItem = (FoodItem)originalItem.clone();
+        assertEquals(clonedItem, originalItem);
+    }
 
 }

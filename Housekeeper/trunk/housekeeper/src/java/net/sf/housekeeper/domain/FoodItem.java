@@ -27,23 +27,13 @@ import java.util.Date;
 import org.apache.commons.lang.time.DateUtils;
 
 /**
- * A concrete item that has been purchased.
+ * A concrete food item that has been purchased.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class FoodItem
+public final class FoodItem extends Item
 {
-
-    /**
-     * Name of the Bound Bean Property "name".
-     */
-    public static final String PROPERTYNAME_NAME     = "name";
-
-    /**
-     * Name of the Bound Bean Property "quantity".
-     */
-    public static final String PROPERTYNAME_QUANTITY = "quantity";
 
     /**
      * Name of the Bound Bean Property "expiry".
@@ -51,19 +41,9 @@ public final class FoodItem
     public static final String PROPERTYNAME_EXPIRY   = "expiry";
 
     /**
-     * The name of this item.
-     */
-    private String             name;
-
-    /**
      * The date before the item should have been consumed entirely.
      */
     private Date               expiry;
-
-    /**
-     * The quantity of one exemplar of this item.
-     */
-    private String             quantity;
 
     /**
      * Creates a new FoodItem object with specified values.
@@ -122,132 +102,61 @@ public final class FoodItem
         return expiry;
     }
 
-    /**
-     * Returns the name.
-     * 
-     * @return Returns the name.
-     */
-    public String getName()
-    {
-        return name;
-    }
-
-    /**
-     * Sets the name of this item.
-     * 
-     * @param name The name to set. Must not be null.
-     * @throws IllegalArgumentException if name is null.
-     */
-    public void setName(final String name)
-    {
-        if (name == null)
-        {
-            throw new IllegalArgumentException(
-                    "Parameter 'name' must not be null.");
-        }
-
-        this.name = name;
-    }
-
-    /**
-     * @return Returns the quantity.
-     */
-    public String getQuantity()
-    {
-        return quantity;
-    }
-
-    /**
-     * Sets the quantity of one exemplar of this item. For example, a bottle of
-     * milk which contains 1 litre would be one item and its quantity would be 1
-     * litre.
-     * 
-     * @param quantity The quantity to set. If this is an empty string the
-     *            quantity becomes unset.
-     */
-    public void setQuantity(final String quantity)
-    {
-        if (quantity == null || quantity.equals(""))
-        {
-            this.quantity = null;
-        } else
-        {
-            this.quantity = quantity;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode()
-    {
-        int hashCode = super.hashCode();
-        hashCode = 31 * hashCode + (name == null ? 0 : name.hashCode());
-        hashCode = 31 * hashCode + (expiry == null ? 0 : expiry.hashCode());
-        hashCode = 31 * hashCode + (quantity == null ? 0 : quantity.hashCode());
-        return hashCode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
-    {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("[FoodItem:");
-        buffer.append(" name: ");
-        buffer.append(name);
-        buffer.append(" quantity: ");
-        buffer.append(quantity);
-        buffer.append(" expiry: ");
-        buffer.append(expiry);
-        buffer.append("]");
-        return buffer.toString();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
+    
+    /* (non-Javadoc)
      * @see java.lang.Object#clone()
      */
-    public Object clone()
-    {
+    public Object clone() {
         FoodItem inst = new FoodItem();
-        inst.name = this.name == null ? null : new String(this.name);
+        
+        final String thisName = getName();
+        inst.setName(getName() == null ? null : new String(getName()));
+        inst.setQuantity(getQuantity() == null ? null : new String(getQuantity()));
         inst.expiry = this.expiry == null ? null : (Date) this.expiry.clone();
-        inst.quantity = this.quantity == null ? null
-                : new String(this.quantity);
         return inst;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
+    
+    /* (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (o == null)
-        {
+        if (!super.equals(o)) {
             return false;
         }
-        if (o.getClass() != getClass())
-        {
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != getClass()) {
             return false;
         }
         FoodItem castedObj = (FoodItem) o;
-        return ((this.name == null ? castedObj.name == null : this.name
-                .equals(castedObj.name))
-                && (this.expiry == null ? castedObj.expiry == null
-                        : this.expiry.equals(castedObj.expiry)) && (this.quantity == null ? castedObj.quantity == null
-                : this.quantity.equals(castedObj.quantity)));
+        return ((this.expiry == null ? castedObj.expiry == null : this.expiry
+            .equals(castedObj.expiry)));
+    }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode() {
+        int hashCode = super.hashCode();
+        hashCode = 31 * hashCode + (expiry == null ? 0 : expiry.hashCode());
+        return hashCode;
+    }
+    
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("[FoodItem:");
+        buffer.append(" expiry: ");
+        buffer.append(expiry);
+        buffer.append(super.toString());
+        buffer.append("]");
+        return buffer.toString();
     }
 }
