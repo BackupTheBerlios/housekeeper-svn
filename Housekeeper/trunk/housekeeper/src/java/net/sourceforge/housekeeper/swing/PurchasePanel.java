@@ -25,6 +25,7 @@ package net.sourceforge.housekeeper.swing;
 
 import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.action.*;
 
 import java.awt.BorderLayout;
 

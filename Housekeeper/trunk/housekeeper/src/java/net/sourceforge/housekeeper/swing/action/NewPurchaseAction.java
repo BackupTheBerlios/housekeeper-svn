@@ -16,32 +16,43 @@
  *	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.action;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JDialog;
+import javax.swing.AbstractAction;
+
+import net.sourceforge.housekeeper.domain.Purchase;
+import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.PurchaseDialog;
 
 /**
  * 
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @since 0.1
+ * @see
+ * @since
  */
-final class DefaultCancelButtonActionListener implements ActionListener
+public final class NewPurchaseAction extends AbstractAction
 {
-    private final JDialog dialog;
-
-    DefaultCancelButtonActionListener(JDialog dialog)
+    public static final NewPurchaseAction INSTANCE = new NewPurchaseAction();
+    
+    private NewPurchaseAction()
     {
-        this.dialog = dialog;
+        super("New Purchase");
     }
     
     public void actionPerformed(ActionEvent e)
     {
-        dialog.dispose();
+        PurchaseDialog dialog = new PurchaseDialog();
+        Purchase purchase = dialog.show("New Purchase");
+
+        if (purchase != null)
+        {
+            StorageFactory.getCurrentStorage().add(purchase);
+        }
+
     }
 
 }

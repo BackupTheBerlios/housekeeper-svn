@@ -20,8 +20,11 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.action;
 
+
+import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 import java.awt.event.ActionEvent;
 
@@ -33,22 +36,22 @@ import javax.swing.AbstractAction;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-final class ExitAction extends AbstractAction
+public final class LoadDataAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    static final ExitAction INSTANCE = new ExitAction();
+    public static final LoadDataAction INSTANCE = new LoadDataAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new Exit object.
-    
+     *
+     *
      */
-    private ExitAction()
+    private LoadDataAction()
     {
-        super("Exit");
+        super("Load Data");
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -58,6 +61,8 @@ final class ExitAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        System.exit(0);
+        StorageFactory.getCurrentStorage()
+                      .loadData();
+        DataUpdateMediator.getInstance().update();
     }
 }

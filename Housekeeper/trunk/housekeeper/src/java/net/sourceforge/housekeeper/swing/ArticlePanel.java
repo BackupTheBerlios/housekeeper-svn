@@ -24,6 +24,7 @@ package net.sourceforge.housekeeper.swing;
 
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.swing.action.*;
 
 import java.awt.BorderLayout;
 
@@ -39,7 +40,7 @@ import javax.swing.ListSelectionModel;
  *
  * @author Adrian Gygax
  */
-final class ArticlePanel extends JPanel
+public final class ArticlePanel extends JPanel
 {
     //~ Static fields/initializers ---------------------------------------------
 
@@ -95,7 +96,7 @@ final class ArticlePanel extends JPanel
      *
      * @return DOCUMENT ME!
      */
-    ArticleDescription getSelectedArticle()
+    public ArticleDescription getSelectedArticle()
     {
         int selectedRow = table.getSelectedRow();
 

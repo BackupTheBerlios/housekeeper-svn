@@ -20,14 +20,16 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.action;
 
-
-import net.sourceforge.housekeeper.domain.ArticleDescription;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+
+import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.ArticleDialog;
 
 
 /**
@@ -35,22 +37,24 @@ import javax.swing.AbstractAction;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-public class ModifyArticleAction extends AbstractAction
+public final class NewArticleAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    public static final ModifyArticleAction INSTANCE = new ModifyArticleAction();
+    public static final NewArticleAction INSTANCE = new NewArticleAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new ModifyArticle object.
+     *
+     *
      */
-    private ModifyArticleAction()
+    private NewArticleAction()
     {
-        super("Modify Article");
+        super("New Article");
     }
+
 
     //~ Methods ----------------------------------------------------------------
 
@@ -59,14 +63,12 @@ public class ModifyArticleAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescription article = ArticlePanel.getInstance().getSelectedArticle();
+        ArticleDialog d = new ArticleDialog();
+        ArticleDescription article = d.show("New Article");
 
         if (article != null)
         {
-            ArticleDialog d = new ArticleDialog();
-            d.show("Modify Article", article);
-
-            DataUpdateMediator.getInstance().update();
+            StorageFactory.getCurrentStorage().add(article);
         }
     }
 }

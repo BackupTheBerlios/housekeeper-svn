@@ -28,6 +28,7 @@ import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.swing.action.*;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,7 @@ import javax.swing.JTextField;
  *
  * @author Adrian Gygax
  */
-class ArticleDialog extends JDialog
+public final class ArticleDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -61,7 +62,7 @@ class ArticleDialog extends JDialog
     /**
      * DOCUMENT ME!
      */
-    ArticleDialog()
+    public ArticleDialog()
     {
         super(MainFrame.INSTANCE, true);
 
@@ -80,7 +81,7 @@ class ArticleDialog extends JDialog
      *
      * @return DOCUMENT ME!
      */
-    ArticleDescription show(String title)
+    public ArticleDescription show(String title)
     {
         setTitle(title);
         super.show();
@@ -96,7 +97,7 @@ class ArticleDialog extends JDialog
      *
      * @return DOCUMENT ME!
      */
-    ArticleDescription show(String title, ArticleDescription article)
+    public ArticleDescription show(String title, ArticleDescription article)
     {
         this.article = article;
         setTitle(title);

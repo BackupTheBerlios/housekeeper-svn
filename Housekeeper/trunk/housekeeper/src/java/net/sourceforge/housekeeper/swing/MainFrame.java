@@ -33,6 +33,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import net.sourceforge.housekeeper.swing.action.*;
+
 
 /**
  * DOCUMENT ME!

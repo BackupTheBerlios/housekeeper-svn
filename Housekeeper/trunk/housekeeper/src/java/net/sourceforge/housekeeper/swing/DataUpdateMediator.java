@@ -28,7 +28,7 @@ import java.util.Observable;
  * @see
  * @since
  */
-final class DataUpdateMediator extends Observable
+public final class DataUpdateMediator extends Observable
 {
     private static final DataUpdateMediator INSTANCE = new DataUpdateMediator();
     
@@ -37,12 +37,12 @@ final class DataUpdateMediator extends Observable
         
     }
     
-    static DataUpdateMediator getInstance()
+    public static DataUpdateMediator getInstance()
     {
         return INSTANCE;
     }
     
-    void update()
+    public void update()
     {
         setChanged();
         notifyObservers();

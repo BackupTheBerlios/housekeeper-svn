@@ -30,6 +30,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import net.sourceforge.housekeeper.domain.ArticleDescription;
 import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.domain.PurchasedArticle;
+import net.sourceforge.housekeeper.swing.action.*;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -57,7 +58,7 @@ import javax.swing.JTextField;
  * @see
  * @since
  */
-final class PurchaseDialog extends JDialog
+public final class PurchaseDialog extends JDialog
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -75,7 +76,7 @@ final class PurchaseDialog extends JDialog
     /**
      * Creates a new PurchaseDialog object.
      */
-    PurchaseDialog()
+    public PurchaseDialog()
     {
         super(MainFrame.INSTANCE, true);
 
@@ -94,7 +95,7 @@ final class PurchaseDialog extends JDialog
      *
      * @return DOCUMENT ME!
      */
-    Purchase show(String title)
+    public Purchase show(String title)
     {
         setTitle(title);
         super.show();

@@ -20,15 +20,12 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.action;
 
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-
-import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.storage.StorageFactory;
 
 
 /**
@@ -36,24 +33,23 @@ import net.sourceforge.housekeeper.storage.StorageFactory;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-final class NewArticleAction extends AbstractAction
+public final class ExitAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    static final NewArticleAction INSTANCE = new NewArticleAction();
+    public static final ExitAction INSTANCE = new ExitAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a new Exit object.
+    
      */
-    private NewArticleAction()
+    private ExitAction()
     {
-        super("New Article");
+        super("Exit");
     }
-
 
     //~ Methods ----------------------------------------------------------------
 
@@ -62,12 +58,6 @@ final class NewArticleAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDialog d = new ArticleDialog();
-        ArticleDescription article = d.show("New Article");
-
-        if (article != null)
-        {
-            StorageFactory.getCurrentStorage().add(article);
-        }
+        System.exit(0);
     }
 }

@@ -20,7 +20,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.action;
 
 
 import net.sourceforge.housekeeper.storage.StorageFactory;
@@ -35,22 +35,22 @@ import javax.swing.AbstractAction;
  *
  * @author <a href="notizklotz@gmx.net">Adrian Gygax</a>
  */
-final class LoadDataAction extends AbstractAction
+public final class SaveDataAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    static final LoadDataAction INSTANCE = new LoadDataAction();
+    public static final SaveDataAction INSTANCE = new SaveDataAction();
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a new SaveData object.
+    
      */
-    private LoadDataAction()
+    private SaveDataAction()
     {
-        super("Load Data");
+        super("Save Data");
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -61,7 +61,6 @@ final class LoadDataAction extends AbstractAction
     public void actionPerformed(ActionEvent e)
     {
         StorageFactory.getCurrentStorage()
-                      .loadData();
-        DataUpdateMediator.getInstance().update();
+                      .saveData();
     }
 }
