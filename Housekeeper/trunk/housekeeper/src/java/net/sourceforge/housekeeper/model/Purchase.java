@@ -104,9 +104,9 @@ public class Purchase
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Calculates the total amount of all purchased articles' prices.
      *
-     * @return DOCUMENT ME!
+     * @return The total amount
      */
     public double getTotalAmount()
     {
