@@ -22,28 +22,26 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
 
-import net.sf.housekeeper.util.DateUtils;
 import net.sf.housekeeper.util.LocalisationManager;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
+import com.toedter.calendar.JDateChooser;
 
 /**
  * Displays the attributes of a {@link net.sf.housekeeper.domain.Food}and
@@ -67,7 +65,7 @@ final class FoodEditorView
 
     private final JTextField quantityField;
 
-    private final JSpinner   dateSpinner;
+    private final JDateChooser   dateSpinner;
 
     private final JCheckBox  checkbox;
 
@@ -150,9 +148,13 @@ final class FoodEditorView
      * 
      * @param expiry The date to set.
      */
-    public void setExpiryDate(final Date expiry)
+    public void setExpiryDate(Date expiry)
     {
-        dateSpinner.setValue(expiry);
+        if (expiry == null)
+        {
+            expiry = new Date();
+        }
+        dateSpinner.setDate(expiry);
     }
 
     /**
@@ -162,7 +164,7 @@ final class FoodEditorView
      */
     public Date getExpiryDate()
     {
-        return (Date) dateSpinner.getValue();
+        return dateSpinner.getDate();
     }
 
     /**
@@ -175,6 +177,11 @@ final class FoodEditorView
     {
         checkbox.setSelected(enabled);
         dateSpinner.setEnabled(enabled);
+        final Component[] comps = dateSpinner.getComponents();
+        for (int i = 0; i < comps.length; i++)
+        {
+            comps[i].setEnabled(enabled);
+        }
     }
 
     /**
@@ -284,24 +291,17 @@ final class FoodEditorView
      * 
      * @return The created spinner.
      */
-    private JSpinner createDateSpinner()
+    private JDateChooser createDateSpinner()
     {
-        final SpinnerDateModel model = new SpinnerDateModel();
-
-        //Need to truncate the current date for correct spinner operation
-        model.setStart(DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH));
-        model.setCalendarField(Calendar.DAY_OF_MONTH);
-
-        final JSpinner spinner = new JSpinner(model);
-
         //Set the spinner's editor to use the current locale's short date
         // format
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
         final String formatPattern = dateFormat.toPattern();
-        spinner.setEditor(new JSpinner.DateEditor(spinner, formatPattern));
+        final JDateChooser dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString(formatPattern);
 
-        return spinner;
+        return dateChooser;
     }
 
     /**

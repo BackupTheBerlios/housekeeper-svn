@@ -17,5 +17,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-sandbox-20050131.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/xmlunit/jars/xmlunit-1.0.jar"/>
 	<classpathentry kind="src" path="/spring-richclient"/>
+	<classpathentry kind="lib" path="/data1/transfer/jcalendar/lib/jcalendar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

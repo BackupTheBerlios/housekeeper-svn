@@ -43,7 +43,7 @@ final class FoodEditorPresenter
     /**
      * Canceled state of the action.
      */
-    private boolean                  canceled;
+    private boolean              canceled;
 
     /**
      * The model to present.
@@ -61,8 +61,7 @@ final class FoodEditorPresenter
      * @param view The View to be used for presenting the model.
      * @param model The Model to present.
      */
-    public FoodEditorPresenter(final FoodEditorView view,
-            final Food model)
+    public FoodEditorPresenter(final FoodEditorView view, final Food model)
     {
         this.view = view;
         this.model = model;
@@ -144,15 +143,8 @@ final class FoodEditorPresenter
     {
         view.setNameText(model.getName());
         view.setDescriptionText(model.getDescription());
-        if (model.getExpiry() != null)
-        {
-            view.setExpiryDate(model.getExpiry());
-            view.setExpiryEnabled(true);
-        } else
-        {
-            view.setExpiryEnabled(false);
-        }
-
+        view.setExpiryDate(model.getExpiry());
+        view.setExpiryEnabled(model.getExpiry() != null);
     }
 
 }

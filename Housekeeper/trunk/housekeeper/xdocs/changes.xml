@@ -4,9 +4,11 @@
     </properties>
     <body>
       <release version="0.3.0" date="February 2005">
-        <action dev="notizklotz" type="add"> The tables now have 
+        <action dev="notizklotz" type="add" issue="3441">The expiry date can 
+          now be selected using a calendar.</action>
+        <action dev="notizklotz" type="add">The tables now have 
           a context menu for manipulating entries. </action>
-        <action dev="notizklotz" type="add"> Double-clicking an 
+        <action dev="notizklotz" type="add">Double-clicking an 
           entry in a table opens the editor for it. </action>
         <action dev="notizklotz" type="add">Added a menu with the same actions 
           as the toolbar.</action>
