@@ -97,7 +97,11 @@ public final class ApplicationController
         
         initializeConfigurationManager();
         logVersionInfo();
-        new ApplicationLauncher("/net/sf/housekeeper/application-context.xml");
+        
+        String rootContextDirectoryClassPath = "/net/sf/housekeeper/";
+        String startupContextPath = rootContextDirectoryClassPath + "startup-context.xml";
+        String applicationContextPath = rootContextDirectoryClassPath + "application-context.xml";
+        new ApplicationLauncher(startupContextPath, applicationContextPath);
     }
 
 }
