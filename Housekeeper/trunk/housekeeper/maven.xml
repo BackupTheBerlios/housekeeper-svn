@@ -8,11 +8,13 @@
   	<core:set 
         var="outputPath" 
         value="${maven.build.dir}/release"/>
-        
+    
+    <attainGoal name="clean" />
 	<attainGoal name="package-copy-misc" />
 	<attainGoal name="package-setup-scripts" />
 	<attainGoal name="package-copy-jars" />
     <attainGoal name="package-create-archives" />
+    <attainGoal name="package-create-installer" />
   </goal>
   
   <goal name="package-copy-misc">
@@ -34,6 +36,20 @@
   <goal name="package-setup-scripts">
     <attainGoal name="package-copy-misc" />
     <ant:replace dir="${outputPath}" includes="housekeeper.bat,housekeeper.sh" token="@@HOUSEKEEPER_JAR@@" value="${maven.final.name}.jar"/>
+  </goal>
+  
+  <goal name="package-create-installer">
+  	<ant:copy file="${basedir}/conf/installer_config.xml" todir="${maven.build.dir}"/>
+  	<ant:copy file="${basedir}/conf/packsLang.xml_deu" todir="${outputPath}"/>
+	<ant:replace file="${maven.build.dir}/installer_config.xml" token="@@APP_VERSION@@" value="${pom.currentVersion}"/>
+    <ant:replace file="${maven.build.dir}/installer_config.xml" token="@@HOUSEKEEPER_JAR@@" value="${maven.final.name}.jar"/>
+  	
+  	<taskdef name="izpack" classpath="${basedir}/lib/izpack-standalone-compiler.jar"
+         classname="com.izforge.izpack.ant.IzPackTask"/>
+    <izpack input="${maven.build.dir}/installer_config.xml"
+        output="${maven.build.dir}/Housekeeper-install.jar"
+        installerType="standard"
+        basedir="${outputPath}"/>
   </goal>
   
   <goal name="package-create-archives">

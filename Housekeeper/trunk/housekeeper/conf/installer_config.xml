@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<installation version="1.0">
+
+    <!-- 
+        The info section.
+        The meaning of the tags should be natural ...
+    -->
+    <info>
+        <appname>Housekeeper</appname>
+        <appversion>@@APP_VERSION@@</appversion>
+        <appsubpath>housekeeper</appsubpath>
+        <authors>
+            <author name="Adrian Gygax" 
+                email="notizklotz@sourceforge.net"/>
+        </authors>
+        <uninstaller write="yes"/>
+        <javaversion>1.4</javaversion>
+        <url>http://housekeeper.sourceforge.net</url>
+    </info>
+    
+    <!-- 
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+    <guiprefs width="640" height="480" resizable="yes">
+    	    <!--<laf name="looks">
+        	<os family="windows" />
+            <os family="unix" />
+        	<param name="variant" value="plasticXP" />
+    	</laf>    -->
+    </guiprefs>
+    <!-- 
+        The locale section.
+        Asks here to include the English and French langpacks.
+    -->
+    <locale>
+        <langpack iso3="eng"/>
+        <langpack iso3="deu"/>
+    </locale>
+    
+    <!-- 
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+    <resources>
+        <res id="LicencePanel.licence" src="LICENSE.txt"/>
+        <res id="InfoPanel.info" src="README.txt"/>
+        <res id="packsLang.xml_deu" src="packsLang.xml_deu"/>
+    </resources>
+    
+    <!-- 
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/> 
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+    
+    <!-- 
+        The packs section.
+        We specify here our packs.
+    -->
+    <packs>
+        <pack name="Core" id="pack_core" required="yes">
+            <description>Core components of Housekeeper.</description>
+			<file src="LICENSE.txt" targetdir="$INSTALL_PATH"/>
+            <file src="README.txt" targetdir="$INSTALL_PATH"/>
+            <file src="@@HOUSEKEEPER_JAR@@" targetdir="$INSTALL_PATH"/>
+			<file src="housekeeper.bat" targetdir="$INSTALL_PATH">
+               <os family="windows"/>
+            </file>
+            <file src="housekeeper.sh" targetdir="$INSTALL_PATH">
+               <os family="unix"/>
+               <os family="mac"/>
+            </file>
+            <file src="etc" targetdir="$INSTALL_PATH"/>
+            <file src="lib" targetdir="$INSTALL_PATH"/>
+            
+            <executable targetfile="$INSTALL_PATH/housekeeper.sh" stage="never" 
+                keep="true">
+                <os family="unix"/>
+            </executable>
+        </pack>
+    </packs>
+    
+</installation>
