@@ -27,36 +27,42 @@ import java.util.Date;
 
 
 /**
- * DOCUMENT ME!
+ * Represents a consumption of a {@link PurchasedArticle}. It holds the date
+ * and the quantity consumed.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public class Consumption
 {
     //~ Instance fields --------------------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** The date of the consumption */
     private Date date;
 
-    /** TODO DOCUMENT ME! */
+    /** How much that has been consumed */
     private int quantity;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Initializes the attributes with default values. The date is set to
+     * today, Quantity is set to zero.
      */
     public Consumption()
     {
+        date     = new Date();
+        quantity = 0;
     }
 
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Sets the corresponding attribute to a new value.
      *
-     * @param date DOCUMENT ME!
+     * @param store The new value.
      */
     public void setDate(Date date)
     {
@@ -64,9 +70,9 @@ public class Consumption
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Gets the corresponding attribute.
      *
-     * @return DOCUMENT ME!
+     * @return The corresponding attribute.
      */
     public Date getDate()
     {
@@ -74,9 +80,9 @@ public class Consumption
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Sets the corresponding attribute to a new value.
      *
-     * @param quantity DOCUMENT ME!
+     * @param store The new value.
      */
     public void setQuantity(int quantity)
     {
@@ -84,9 +90,9 @@ public class Consumption
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Gets the corresponding attribute.
      *
-     * @return DOCUMENT ME!
+     * @return The corresponding attribute.
      */
     public int getQuantity()
     {
