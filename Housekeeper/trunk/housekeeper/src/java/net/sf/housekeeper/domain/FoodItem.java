@@ -218,4 +218,17 @@ public final class FoodItem extends Model
         buffer.append("]");
         return buffer.toString();
     }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
+    public Object clone() {
+        FoodItem inst = new FoodItem();
+        inst.name = this.name == null ? null : new String(this.name);
+        inst.expiry = this.expiry == null ? null : (Date) inst.expiry.clone();
+        inst.quantity = this.quantity == null
+            ? null
+            : new String(this.quantity);
+        return inst;
+    }
 }

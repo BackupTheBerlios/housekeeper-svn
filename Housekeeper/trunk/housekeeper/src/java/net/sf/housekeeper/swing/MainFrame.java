@@ -140,6 +140,7 @@ public final class MainFrame extends JFrame
 
         final JPanel buttonPanel = new JPanel();
         buttonPanel.add(new JButton(model.getNewAction()));
+        buttonPanel.add(new JButton(model.getDuplicateAction()));
         buttonPanel.add(new JButton(model.getEditAction()));
         buttonPanel.add(new JButton(model.getDeleteAction()));
         supplyPanel.add(buttonPanel, BorderLayout.NORTH);

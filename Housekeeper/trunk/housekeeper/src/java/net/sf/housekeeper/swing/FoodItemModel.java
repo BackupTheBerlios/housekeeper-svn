@@ -34,11 +34,9 @@ import net.sf.housekeeper.domain.FoodItem;
 import com.jgoodies.binding.list.SelectionInList;
 
 /**
- * Provides the models and Actions for managing and editing StockItems. Works
- * with an underlying Household that provides a ListModel for the Items and
- * operations to add, remove, and change a Book. In other words, this class
- * turns the raw data and operations form the Household into a form usable in a
- * user interface.
+ * This is the UI model managing and editing StockItems. In other words, this
+ * class turns the raw data and operations form the Household into a form usable
+ * in a user interface.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -49,27 +47,32 @@ public final class FoodItemModel
     /**
      * Action for deleting the selected Item.
      */
-    private Action          deleteAction;
+    private final Action          deleteAction;
 
     /**
      * Action for editing the selected Item.
      */
-    private Action          editAction;
+    private final Action          editAction;
 
     /**
-     * Household managing the StockItems in the domain.
+     * Action for duplicating the selected Item.
      */
-    private final FoodItemManager household;
+    private final Action          duplicateAction;
+
+    /**
+     * Manager for the items in the domain.
+     */
+    private final FoodItemManager itemManager;
 
     /**
      * Holds the items list plus the seletion information.
      */
-    private SelectionInList itemSelection;
+    private final SelectionInList itemSelection;
 
     /**
      * Action for adding a new Item.
      */
-    private Action          newAction;
+    private final Action          newAction;
 
     /**
      * Creates a new model with the underlying household.
@@ -78,18 +81,19 @@ public final class FoodItemModel
      */
     public FoodItemModel(final FoodItemManager household)
     {
-        this.household = household;
+        this.itemManager = household;
         itemSelection = new SelectionInList(household.getSupplyListModel());
-        
+
         newAction = new NewAction();
         editAction = new EditAction();
         deleteAction = new DeleteAction();
+        duplicateAction = new DuplicateAction();
         updateActionEnablement();
-        
+
         itemSelection
-        .addPropertyChangeListener(
-                                   SelectionInList.PROPERTYNAME_SELECTION_EMPTY,
-                                   new SelectionHandler());
+                .addPropertyChangeListener(
+                                           SelectionInList.PROPERTYNAME_SELECTION_EMPTY,
+                                           new SelectionHandler());
     }
 
     /**
@@ -113,8 +117,8 @@ public final class FoodItemModel
     }
 
     /**
-     * Returns the list of Items with the current selection.
-     * Useful to display the managed Items in a JList or JTable.
+     * Returns the list of Items with the current selection. Useful to display
+     * the managed Items in a JList or JTable.
      * 
      * @return the List of Items with selection
      */
@@ -131,6 +135,16 @@ public final class FoodItemModel
     public Action getNewAction()
     {
         return newAction;
+    }
+
+    /**
+     * Returns the Action for duplicating an Item.
+     * 
+     * @return Returns the dublicateAction.
+     */
+    public Action getDuplicateAction()
+    {
+        return duplicateAction;
     }
 
     /**
@@ -167,12 +181,13 @@ public final class FoodItemModel
     }
 
     /**
-     * Enables and disables Actions (and thus the buttons) depending
-     * on the current selection state.
+     * Enables and disables Actions (and thus the buttons) depending on the
+     * current selection state.
      */
     private void updateActionEnablement()
     {
         boolean hasSelection = getItemSelection().hasSelection();
+        getDuplicateAction().setEnabled(hasSelection);
         getEditAction().setEnabled(hasSelection);
         getDeleteAction().setEnabled(hasSelection);
     }
@@ -190,7 +205,7 @@ public final class FoodItemModel
 
         public void actionPerformed(ActionEvent arg0)
         {
-            household.remove(getSelectedItem());
+            itemManager.remove(getSelectedItem());
         }
     }
 
@@ -210,7 +225,7 @@ public final class FoodItemModel
             boolean canceled = openEditor(getSelectedItem());
             if (!canceled)
             {
-                household.markItemChanged(getSelectedIndex());
+                itemManager.markItemChanged(getSelectedIndex());
             }
         }
     }
@@ -232,9 +247,34 @@ public final class FoodItemModel
             boolean canceled = openEditor(item);
             if (!canceled)
             {
-                household.add(item);
+                itemManager.add(item);
             }
         }
+    }
+
+    /**
+     * Duplicates the selected item.
+     */
+    private class DuplicateAction extends AbstractAction
+    {
+
+        private DuplicateAction()
+        {
+            super("Duplicate");
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed(ActionEvent e)
+        {
+            final FoodItem selectedItem = getSelectedItem();
+            final FoodItem newItem = (FoodItem) selectedItem.clone();
+            itemManager.add(newItem);
+        }
+
     }
 
     /**
@@ -244,7 +284,9 @@ public final class FoodItemModel
     private class SelectionHandler implements PropertyChangeListener
     {
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
          */
         public void propertyChange(PropertyChangeEvent evt)
