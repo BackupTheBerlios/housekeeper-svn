@@ -33,10 +33,12 @@ import ca.odell.glazedlists.swing.EventTableModel;
 import ca.odell.glazedlists.swing.TextFilterList;
 
 /**
- * @author
+ * 
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class FoodListPresenter
+final class FoodListPresenter
 {
 
     /**
@@ -73,7 +75,13 @@ public class FoodListPresenter
 
     private EventSelectionModel    selectionModel;
 
-    public FoodListPresenter(FoodManager model, String filterText)
+    /**
+     * 
+     * 
+     * @param model
+     * @param filterText
+     */
+    public FoodListPresenter(final FoodManager model, final String filterText)
     {
         this.model = model;
 
@@ -98,11 +106,19 @@ public class FoodListPresenter
                 EXPIRY_HEADER);
     }
 
+    /**
+     * 
+     * @param listener
+     */
     public void addTableSelectionListener(ListSelectionListener listener)
     {
         selectionModel.addListSelectionListener(listener);
     }
     
+    /**
+     * 
+     * @return The selected object.
+     */
     public Food getSelected()
     {
         if (!hasSelection())
@@ -141,6 +157,11 @@ public class FoodListPresenter
         return !selectionModel.isSelectionEmpty();
     }
 
+    /**
+     * Returns the view of this Presenter.
+     * 
+     * @return the view of this Presenter.
+     */
     public FoodListView getView()
     {
         return view;
