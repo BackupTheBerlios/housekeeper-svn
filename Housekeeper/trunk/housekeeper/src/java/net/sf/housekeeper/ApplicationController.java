@@ -65,7 +65,8 @@ public final class ApplicationController
     {
         logVersionInfo();
 
-        MainFrame.INSTANCE.show();
+        final MainFrame main = new MainFrame();
+        main.show();
     }
     
     /**

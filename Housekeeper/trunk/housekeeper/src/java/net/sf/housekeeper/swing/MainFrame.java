@@ -60,18 +60,15 @@ import com.jgoodies.plaf.plastic.PlasticXPLookAndFeel;
 public final class MainFrame extends JFrame
 {
 
-    /** Singleton instance. */
-    public static final MainFrame INSTANCE = new MainFrame();
-
     /**
      * Log to be used for this class.
      */
-    private final Log             LOG      = LogFactory.getLog(MainFrame.class);
+    private static final Log             LOG      = LogFactory.getLog(MainFrame.class);
 
     /**
-     * Creates a new MainFrame object.
+     * Initializes and packs a new main frame.
      */
-    private MainFrame()
+    public MainFrame()
     {
         super();
         initLookAndFeel();
@@ -102,7 +99,7 @@ public final class MainFrame extends JFrame
     private Component buildComponents()
     {
         final JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Supply", new SupplyPanel());
+        tabbedPane.addTab("Supply", new SupplyPanel(this));
         return tabbedPane;
     }
 
@@ -201,7 +198,7 @@ public final class MainFrame extends JFrame
     {
         JOptionPane
         .showMessageDialog(
-                           MainFrame.INSTANCE,
+                           this,
                            "There was a problem saving the data.\n" +
                            "Your modifications have NOT been saved.",
                            "Error", JOptionPane.ERROR_MESSAGE);
@@ -242,14 +239,14 @@ public final class MainFrame extends JFrame
                 PersistenceController.replaceDomainWithSaved();
             } catch (FileNotFoundException exception)
             {
-                JOptionPane.showMessageDialog(MainFrame.INSTANCE,
+                JOptionPane.showMessageDialog(MainFrame.this,
                                               "No data has been saved yet.",
                                               "Error",
                                               JOptionPane.ERROR_MESSAGE);
             } catch (Exception exception)
             {
                 exception.printStackTrace();
-                JOptionPane.showMessageDialog(MainFrame.INSTANCE, exception
+                JOptionPane.showMessageDialog(MainFrame.this, exception
                         .getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -279,7 +276,7 @@ public final class MainFrame extends JFrame
         }
     }
 
-    private static class AboutDialogAction extends AbstractAction
+    private class AboutDialogAction extends AbstractAction
     {
 
         private AboutDialogAction()
@@ -317,7 +314,7 @@ public final class MainFrame extends JFrame
             }
 
             editorPane.setPreferredSize(new Dimension(400, 200));
-            JOptionPane.showMessageDialog(MainFrame.INSTANCE, editorPane);
+            JOptionPane.showMessageDialog(MainFrame.this, editorPane);
 
         }
     }

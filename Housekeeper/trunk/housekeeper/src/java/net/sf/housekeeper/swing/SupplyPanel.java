@@ -22,6 +22,7 @@
 package net.sf.housekeeper.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -72,12 +73,20 @@ final class SupplyPanel extends JPanel
     private final SupplyPresentationModel supplyModel;
 
     /**
-     * Creates a new SupplyPanel.
-     *  
+     * The parent Frame of this panel.
      */
-    SupplyPanel()
+    private final Frame                   parent;
+
+    /**
+     * Creates a new SupplyPanel.
+     * 
+     * @param parentFrame The parent frame for this panel.
+     */
+    SupplyPanel(final Frame parentFrame)
     {
         super();
+
+        this.parent = parentFrame;
 
         //Field instanciations
         newItemAction = new NewAction();
@@ -161,9 +170,10 @@ final class SupplyPanel extends JPanel
      */
     private boolean openEditor(FoodItem item)
     {
-        final FoodItemEditorView view = new FoodItemEditorView(MainFrame.INSTANCE);
-        final FoodItemEditorPresenter editor = new FoodItemEditorPresenter(view, item);
-        
+        final FoodItemEditorView view = new FoodItemEditorView(parent);
+        final FoodItemEditorPresenter editor = new FoodItemEditorPresenter(
+                view, item);
+
         return editor.show();
     }
 
