@@ -21,14 +21,21 @@
 
 package net.sf.housekeeper.swing;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.AbstractAction;
+import javax.swing.Box;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
@@ -51,10 +58,6 @@ public final class MainFrame extends JFrame
     /** Singleton instance. */
     public static final MainFrame INSTANCE = new MainFrame();
 
-    private JMenu                 menuFile;
-
-    private JMenuBar              menuBar;
-
     private JTabbedPane           tabbedPane;
 
     /**
@@ -65,7 +68,7 @@ public final class MainFrame extends JFrame
         super();
 
         initLookAndFeel();
-        buildMenus();
+        setJMenuBar(buildMenuBar());
         buildComponents();
 
         setTitle("Housekeeper " + Housekeeper.VERSION);
@@ -87,14 +90,12 @@ public final class MainFrame extends JFrame
     /**
      * Builds the menus.
      */
-    private void buildMenus()
+    private JMenuBar buildMenuBar()
     {
-        //Menubar
-        menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
+        final JMenuBar menuBar = new JMenuBar();
 
         //File Menu
-        menuFile = new JMenu("File");
+        final JMenu menuFile = new JMenu("File");
         menuBar.add(menuFile);
 
         menuFile.add(new JMenuItem(new LoadDataAction()));
@@ -102,6 +103,14 @@ public final class MainFrame extends JFrame
         menuFile.addSeparator();
         menuFile.add(new JMenuItem(new ExitAction()));
 
+        //Help Menu
+        final JMenu menuHelp = new JMenu("Help");
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(menuHelp);
+
+        menuHelp.add(new JMenuItem(new AboutDialogAction()));
+
+        return menuBar;
     }
 
     /**
@@ -164,7 +173,7 @@ public final class MainFrame extends JFrame
     /**
      * Action to cause the permanent saving of the data.
      */
-    public final class SaveDataAction extends AbstractAction
+    private static class SaveDataAction extends AbstractAction
     {
 
         private SaveDataAction()
@@ -184,4 +193,46 @@ public final class MainFrame extends JFrame
         }
     }
 
+    private static class AboutDialogAction extends AbstractAction
+    {
+
+        private AboutDialogAction()
+        {
+            super("About");
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed(ActionEvent e)
+        {
+
+            final JEditorPane editorPane = new JEditorPane();
+            editorPane.setEditable(false);
+            final URL helpURL = MainFrame.class
+                    .getResource("about.html");
+            if (helpURL != null)
+            {
+                try
+                {
+                    editorPane.setPage(helpURL);
+                } catch (IOException ex)
+                {
+                    System.err.println("Attempted to read a bad URL: "
+                            + helpURL);
+                }
+            } else
+            {
+                System.err.println("Couldn't find file: about.html");
+            }
+
+            editorPane.setPreferredSize(new Dimension(450, 500));
+            final JScrollPane scroll = new JScrollPane(editorPane);
+
+            JOptionPane.showMessageDialog(MainFrame.INSTANCE, scroll);
+
+        }
+    }
 }
