@@ -41,6 +41,11 @@ public class Item
     public static final String PROPERTYNAME_QUANTITY = "quantity";
 
     /**
+     * Name of the Bound Bean Property "category".
+     */
+    public static final String PROPERTYNAME_CATEGORY = "category";
+    
+    /**
      * The name of this item.
      */
     private String             name;
@@ -49,6 +54,11 @@ public class Item
      * The quantity of one exemplar of this item.
      */
     private String             quantity;
+    
+    /**
+     * The category.
+     */
+    private String category;
 
     /**
      * Creates a new item with an empty name and an unset quantity.
@@ -86,6 +96,23 @@ public class Item
         setQuantity(quantity);
     }
 
+
+    /**
+     * @return Returns the category.
+     */
+    public String getCategory()
+    {
+        return category;
+    }
+
+    /**
+     * @param category The category to set.
+     */
+    public void setCategory(String category)
+    {
+        this.category = category;
+    }
+    
     /**
      * Returns the name.
      * 
@@ -160,9 +187,14 @@ public class Item
             return false;
         }
         Item castedObj = (Item) o;
-        return ((this.name == null ? castedObj.name == null : this.name
-                .equals(castedObj.name)) && (this.quantity == null ? castedObj.quantity == null
-                : this.quantity.equals(castedObj.quantity)));
+        
+        final boolean equalName = this.name == null ? castedObj.name == null : this.name
+                .equals(castedObj.name);
+        final boolean equalQuantity = this.quantity == null ? castedObj.quantity == null
+                : this.quantity.equals(castedObj.quantity);
+        final boolean equalCategory = this.category == null ? castedObj.category == null
+                : this.category.equals(castedObj.category);
+        return equalName && equalQuantity && equalCategory;
     }
 
     /*
@@ -175,6 +207,7 @@ public class Item
         int hashCode = 1;
         hashCode = 31 * hashCode + (name == null ? 0 : name.hashCode());
         hashCode = 31 * hashCode + (quantity == null ? 0 : quantity.hashCode());
+        hashCode = 31 * hashCode + (category == null ? 0 : category.hashCode());
         return hashCode;
     }
 
@@ -191,7 +224,10 @@ public class Item
         buffer.append(name);
         buffer.append(" quantity: ");
         buffer.append(quantity);
+        buffer.append(" category: ");
+        buffer.append(category);
         buffer.append("]");
         return buffer.toString();
     }
+
 }
