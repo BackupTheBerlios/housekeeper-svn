@@ -3,12 +3,24 @@
   <part id="user">
     <title>General</title>
    
-    <faq id="faq-exists">
+    <faq id="notify-news">
       <question>
-        Are there any FAQs?
+        How can I automatically get notified of any news?
       </question>
       <answer>
-        <p>Yes. But only very few answers yet.</p>
+        <p>You can subscribe to a number of <a 
+          href="http://sourceforge.net/export/rss2_project.php?group_id=91396">RSS 
+          feeds</a></p>
+      </answer>
+    </faq>
+    
+    <faq id="notify-releases">
+      <question> How can I automatically get informed of any new 
+        file releases? </question>
+      <answer>
+        <p>If you have a Sourceforge account (it's free) you can monitor any 
+          releases by clicking <a 
+          href="http://sourceforge.net/project/filemodule_monitor.php?filemodule_id=96438">here</a></p>
       </answer>
     </faq>
 
