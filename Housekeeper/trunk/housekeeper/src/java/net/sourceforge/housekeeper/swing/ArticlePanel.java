@@ -15,7 +15,7 @@ import net.sourceforge.housekeeper.storage.StorageFactory;
 /**
  * @author Adrian Gygax
  */
-public class ArticlePanel extends JPanel
+final class ArticlePanel extends JPanel
 {
 	private JTable table;
 	private JScrollPane scrollPane;
@@ -42,6 +42,54 @@ public class ArticlePanel extends JPanel
 		public int getColumnCount()
 		{
 			return 5;
+		}
+		
+		public Class getColumnClass(int columnIndex)
+		{
+			switch (columnIndex)
+			{
+				case 0 :
+					return new String().getClass();
+				
+				case 1 :
+					return new String().getClass();
+				
+				case 2:
+					return new Integer(0).getClass();
+				
+				case 3:
+					return new String().getClass();
+					
+				case 4:
+					return new Double(0).getClass();
+
+				default :
+					return null;
+			}
+		}
+		
+		public String getColumnName(int columnIndex)
+		{
+			switch (columnIndex)
+			{
+				case 0 :
+					return "Name";
+				
+				case 1 :
+					return "Vendor";
+				
+				case 2:
+					return "Quantity";
+				
+				case 3:
+					return "Unit";
+					
+				case 4:
+					return "Price";
+
+				default :
+					return null;
+			}
 		}
 
 		/* (non-Javadoc)
@@ -78,10 +126,8 @@ public class ArticlePanel extends JPanel
 					return new Double(article.getPrice());
 
 				default :
-					break;
+					return null;
 			}
-			System.err.println("Null");
-			return null;
 		}
 
 		/* (non-Javadoc)
@@ -91,6 +137,5 @@ public class ArticlePanel extends JPanel
 		{
 			fireTableDataChanged();
 		}
-
 	}
 }

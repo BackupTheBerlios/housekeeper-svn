@@ -36,8 +36,9 @@ public final class MainFrame extends ExtendedFrame
 		buildMenus();
 		buildComponents();
 		
-		setSize(400, 400);
+		//setSize(400, 400);
 		setTitle("Housekeeper");
+		pack();
 		center();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
