@@ -7,10 +7,13 @@
       <item name="Sourceforge Project Site"  href="http://sourceforge.net/projects/housekeeper" />
     </links>
     <menu name="Overview">
-      <item href="/index.html" name="Home" />
-      <item href="/changes-report.html" name="Changelog" />
-      <item href="/roadmap.html" name="Current Roadmap" />
-      <!--<item href="/faq.html" name="FAQ" />-->
+        <item href="/index.html" name="Home" />
+        <item 
+            href="http://sourceforge.net/project/screenshots.php?group_id=91396" 
+            name="Screenshots"/>
+        <item href="/changes-report.html" name="Changelog" />
+        <item href="/roadmap.html" name="Current Roadmap" />
+        <!--<item href="/faq.html" name="FAQ" />-->
     </menu>
     <!--<search/>-->
   </body>
