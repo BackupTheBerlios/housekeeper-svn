@@ -129,6 +129,7 @@
          <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
     
@@ -140,6 +141,7 @@
         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
         
@@ -151,6 +153,7 @@
         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
     
@@ -162,6 +165,7 @@
         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
     
@@ -173,6 +177,7 @@
         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
     
@@ -183,6 +188,7 @@
         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
     
@@ -194,6 +200,7 @@
         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
     
@@ -205,6 +212,7 @@
         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
         
