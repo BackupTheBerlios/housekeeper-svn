@@ -1,23 +1,27 @@
 /*
  * This file is part of Housekeeper.
  *
- *	Housekeeper is free software; you can redistribute it and/or modify
+ * Housekeeper is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation; either version 2 of the License, or
- *	(at your option) any later version.
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *	Housekeeper is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
+ * Housekeeper is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *	You should have received a copy of the GNU General Public License
- *	along with Housekeeper; if not, write to the Free Software
- *	Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * You should have received a copy of the GNU General Public License
+ * along with Housekeeper; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
+ *
+ * Copyright 2003, Adrian Gygax
+ * http://housekeeper.sourceforge.net
  */
 
 package net.sourceforge.housekeeper.model;
+
 
 /**
  * An article like banana or a bottle of milk which can be bought. Notice, that
@@ -26,73 +30,88 @@ package net.sourceforge.housekeeper.model;
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
+ *
  * @since 0.1
  */
 public class Article
 {
+    //~ Instance fields --------------------------------------------------------
+
     /** A describing name for the article. For example &quote;Banana&quote;. */
     private String name;
 
     /** The store where the article can be bought. */
     private String store;
 
-    /**
-     * The price of one specimen of this article. If this article would be a box
-     * of six eggs, the price is for the whole box not for just one egg .
-     */
-    private double price;
-
     /** The unit this article is measured in, like pieces or litres. */
     private String unit;
 
     /**
-     * How many or how much of the unit a specimen of this article has.
-     * If this article would be a box of six eggs, the quantity would be six.
+     * The price of one specimen of this article. If this article would be a
+     * box of six eggs, the price is for the whole box not for just one egg .
+     */
+    private double price;
+
+    /**
+     * How many or how much of the unit a specimen of this article has. If this
+     * article would be a box of six eggs, the quantity would be six.
      */
     private int quantity;
 
+    //~ Constructors -----------------------------------------------------------
+
     /**
-     * Creates an article with default attributes. Name, store and unit are
-     * set to an empty String. Price and quantity are set to zero.
+     * Creates an article with default attributes. Name, store and unit are set
+     * to an empty String. Price and quantity are set to zero.
      */
     public Article()
     {
-        name = "";
-        store = "";
-        price = 0;
+        name     = "";
+        store    = "";
+        price    = 0;
         quantity = 0;
-        unit = "";
+        unit     = "";
     }
 
     /**
-     * Creates an article with given attributes. If a parameter is null,
-     * the according attribute is set to a default value.
+     * Creates an article with given attributes. If a parameter is null, the
+     * according attribute is set to a default value.
      *
      * @param name A describing name for the article. For example Banana.
      * @param store The store where the article can be bought.
      * @param price The price of one specimen of this article. If this article
-     *                        would be a box of six eggs, the price is for the
-     *                        whole box not for just one egg.
+     *        would be a box of six eggs, the price is for the whole box not
+     *        for just one egg.
      * @param quantity How many or how much of the unit a specimen of this
-     *                             article has. If this article would be a box
-     *                             of six eggs, the quantity would be six.
-     *
+     *        article has. If this article would be a box of six eggs, the
+     *        quantity would be six.
      * @param unit The unit this article is measured in, like pieces or litres.
      */
-    public Article(
-        String name,
-        String store,
-        double price,
-        int quantity,
-        String unit)
+    public Article(String name,
+                   String store,
+                   double price,
+                   int    quantity,
+                   String unit)
     {
         this(); //Assures that no attribute is null
 
-        this.name = name;
-        this.store = store;
-        this.price = price;
-        this.unit = unit;
+        this.name     = name;
+        this.store    = store;
+        this.price    = price;
+        this.unit     = unit;
         this.quantity = quantity;
+    }
+
+    //~ Methods ----------------------------------------------------------------
+
+    /**
+     * Sets the corresponding attribute to a new value.
+     *
+     * @param name The new value of the to be set attribute.
+     */
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     /**
@@ -103,41 +122,6 @@ public class Article
     public String getName()
     {
         return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    /**
-     * Gets the current value corresponding attribute.
-     *
-     * @return The corresponding attribute
-     */
-    public String getStore()
-    {
-        return store;
-    }
-
-    /**
-     * Sets the corresponding attribute to a new value.
-     *
-     * @param store The new value of the to be set attribute.
-     */
-    public void setStore(String store)
-    {
-        this.store = store;
-    }
-
-    /**
-     * Gets the corresponding attribute.
-     *
-     * @return The corresponding attribute
-     */
-    public double getPrice()
-    {
-        return price;
     }
 
     /**
@@ -155,9 +139,29 @@ public class Article
      *
      * @return The corresponding attribute
      */
-    public String getQuantityUnit()
+    public double getPrice()
     {
-        return unit;
+        return price;
+    }
+
+    /**
+     * Sets the corresponding attribute to a new value.
+     *
+     * @param quantity The new value of the to be set attribute.
+     */
+    public void setQuantity(int quantity)
+    {
+        this.quantity = quantity;
+    }
+
+    /**
+     * Gets the corresponding attribute.
+     *
+     * @return The corresponding attribute
+     */
+    public int getQuantity()
+    {
+        return quantity;
     }
 
     /**
@@ -175,19 +179,29 @@ public class Article
      *
      * @return The corresponding attribute
      */
-    public int getQuantity()
+    public String getQuantityUnit()
     {
-        return quantity;
+        return unit;
     }
 
     /**
      * Sets the corresponding attribute to a new value.
      *
-     * @param quantity The new value of the to be set attribute.
+     * @param store The new value of the to be set attribute.
      */
-    public void setQuantity(int quantity)
+    public void setStore(String store)
     {
-        this.quantity = quantity;
+        this.store = store;
+    }
+
+    /**
+     * Gets the current value corresponding attribute.
+     *
+     * @return The corresponding attribute
+     */
+    public String getStore()
+    {
+        return store;
     }
 
     /* (non-Javadoc)
@@ -197,5 +211,4 @@ public class Article
     {
         return name + " " + store + " " + price + " " + quantity + unit;
     }
-
 }
