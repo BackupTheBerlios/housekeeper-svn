@@ -70,8 +70,8 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>org.springframework.richclient.application.messages</value>
         <value>net.sf.housekeeper.translations</value>
+				<value>org.springframework.richclient.application.messages</value>
 			</list>
 		</property>
 	</bean>
