@@ -38,6 +38,7 @@ import net.sf.housekeeper.util.LocalisationManager;
 
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 
@@ -149,12 +150,16 @@ public final class SupplyView extends AbstractView
         };
         convPresenter.addTableSelectionListener(selectionListener);
         miscPresenter.addTableSelectionListener(selectionListener);
-        
+
         final MouseListener doubleClickListener = new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
+
+            public void mouseClicked(MouseEvent e)
+            {
                 if (e.getClickCount() == 2
-                        && e.getButton() == MouseEvent.BUTTON1) {
-                    if (editExecutor.isEnabled()) {
+                        && e.getButton() == MouseEvent.BUTTON1)
+                {
+                    if (editExecutor.isEnabled())
+                    {
                         editExecutor.execute();
                     }
                 }
@@ -163,11 +168,27 @@ public final class SupplyView extends AbstractView
         convPresenter.addTableMouseListener(doubleClickListener);
         miscPresenter.addTableMouseListener(doubleClickListener);
 
+        CommandGroup convCommandGroup = getWindowCommandManager()
+                .createCommandGroup(
+                                    "convPopupCommandGroup",
+                                    new Object[] { "newConvenienceFoodCommand",
+                                            "separator", "duplicateCommand",
+                                            "editCommand", "deleteCommand" });
+        convPresenter.setPopupMenuCommandGroup(convCommandGroup);
+
+        CommandGroup miscCommandGroup = getWindowCommandManager()
+                .createCommandGroup(
+                                    "miscPopupCommandGroup",
+                                    new Object[] { "newMiscFoodCommand",
+                                            "separator", "duplicateCommand",
+                                            "editCommand", "deleteCommand" });
+        miscPresenter.setPopupMenuCommandGroup(miscCommandGroup);
+
         updateActionEnablement();
 
         return view;
     }
-    
+
     /**
      * Opens a dialog for adding a new item.
      * 

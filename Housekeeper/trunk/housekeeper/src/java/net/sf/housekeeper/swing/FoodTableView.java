@@ -34,6 +34,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -46,7 +47,9 @@ import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.util.LocalisationManager;
 
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
+import org.springframework.richclient.util.PopupMenuMouseListener;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -104,7 +107,7 @@ public final class FoodTableView extends AbstractView
     {
         selectionListeners.add(listener);
     }
-    
+
     /**
      * Adds a MouseListener to the table.
      * 
@@ -158,6 +161,18 @@ public final class FoodTableView extends AbstractView
     public boolean hasSelection()
     {
         return !selectionModel.isSelectionEmpty();
+    }
+
+    /**
+     * Sets a group of commands which are available in the context menu of the
+     * table.
+     * 
+     * @param commands A group of commands.
+     */
+    public void setPopupMenuCommandGroup(CommandGroup commands)
+    {
+        final JPopupMenu popupMenu = commands.createPopupMenu();
+        table.addMouseListener(new PopupMenuMouseListener(popupMenu));
     }
 
     /**
