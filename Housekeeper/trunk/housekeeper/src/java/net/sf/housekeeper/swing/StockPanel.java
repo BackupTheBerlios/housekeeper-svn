@@ -24,7 +24,6 @@ package net.sf.housekeeper.swing;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -40,10 +39,7 @@ import net.sf.housekeeper.storage.StorageFactory;
 import net.sf.housekeeper.swing.util.DateEditor;
 import net.sf.housekeeper.swing.util.StandardDialog;
 
-import com.odellengineeringltd.glazedlists.EventList;
-import com.odellengineeringltd.glazedlists.SortedList;
 import com.odellengineeringltd.glazedlists.jtable.ListTable;
-import com.odellengineeringltd.glazedlists.jtable.TableComparatorChooser;
 
 /**
  * Lets the user manage the {@link net.sf.housekeeper.domain.StockItem}objects.
@@ -70,16 +66,7 @@ final class StockPanel extends JPanel
         buttonPanel.add(new JButton(new NewStockItemAction()));
         buttonPanel.add(new JButton(new DeleteStockItemAction()));
 
-        final EventList items = StorageFactory.getCurrentStorage()
-                .getAllStockItems();
-        final SortedList sortedList = new SortedList(items,
-                new StockDescriptionComparator());
-        table = new ListTable(sortedList, new StockTableFormat());
-        final TableComparatorChooser chooser = new TableComparatorChooser(
-                table, sortedList, false);
-        chooser.getComparatorsForColumn(0).clear();
-        chooser.getComparatorsForColumn(0)
-                .add(new StockDescriptionComparator());
+        table = StockTableFactory.getStockTable();
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
@@ -179,28 +166,5 @@ final class StockPanel extends JPanel
         }
     }
 
-    private static class StockDescriptionComparator implements Comparator
-    {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-         */
-        public int compare(Object o1, Object o2)
-        {
-            final StockItem item1 = (StockItem) o1;
-            final StockItem item2 = (StockItem) o2;
-
-            int returnValue = item1.getName()
-                    .compareToIgnoreCase(item2.getName());
-            if (returnValue == 0)
-            {
-                returnValue = item1.getQuantity()
-                        .compareToIgnoreCase(item2.getQuantity());
-            }
-            return returnValue;
-        }
-
-    }
+    
 }
