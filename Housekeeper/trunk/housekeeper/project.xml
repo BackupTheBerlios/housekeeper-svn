@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.2.0-SNAPSHOT</currentVersion>
+  <currentVersion>0.1.2a</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -34,10 +34,8 @@
   </description>
   
   <!-- a short description of what the project does -->
-  <shortDescription>
-    A JAVA based application which helps you keeping track of your food items 
-    and total expenses for nutrition.
-  </shortDescription>
+    <shortDescription> A JAVA based application which helps you keeping track 
+        of your food items on hand.</shortDescription>
 
   <!-- the project home page -->
   <url>http://housekeeper.sourceforge.net</url>
