@@ -23,8 +23,6 @@ package net.sourceforge.housekeeper.swing.stock;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -79,10 +77,7 @@ public final class StockItemDialog extends JDialog
 
         nameField = new JTextField();
         
-        spinnerModel = new SpinnerDateModel(new Date(),
-                                             null,
-                                             null,
-                                             Calendar.DAY_OF_MONTH);
+        spinnerModel = new SpinnerDateModel();
         spinner = new JSpinner(spinnerModel);
         spinner.setEditor(new JSpinner.DateEditor(spinner, "dd.MM.yyyy"));
         
