@@ -29,13 +29,15 @@
   <package>net.sf.housekeeper</package>
   
   <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
-  <description>
-    This project's goal is to provide a platform for managing all your household issues. You will be able to keep overview of how much you paid for food, what you have in stock, store your favourite recipes in a central place and get alarmed about nutritional values you are short of.
-  </description>
+    <description>This project's goal is to provide an application for managing 
+        all your household issues. Currently, it is able to keep a list of food 
+        which is on hand. You can specify expiry dates and sort your food after 
+        them so you always have an overview of what is going to seed soon.
+        </description>
   
   <!-- a short description of what the project does -->
-    <shortDescription> A JAVA based application which helps you keeping track 
-        of your food items on hand.</shortDescription>
+    <shortDescription>An application for keeping track 
+        of food in a household.</shortDescription>
 
   <!-- the project home page -->
   <url>http://housekeeper.sourceforge.net</url>
