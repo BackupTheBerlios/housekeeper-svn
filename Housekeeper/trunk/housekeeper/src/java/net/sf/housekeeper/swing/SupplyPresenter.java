@@ -31,6 +31,7 @@ import javax.swing.Action;
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
 import net.sf.housekeeper.swing.util.EventObjectListener;
+import net.sf.housekeeper.swing.util.IconGenerator;
 import net.sf.housekeeper.util.LocalisationManager;
 
 /**
@@ -215,7 +216,7 @@ final class SupplyPresenter
             activePresenter = presenter;
         }
     }
-
+    
     /**
      * Deletes the currently selected item.
      */
@@ -228,6 +229,7 @@ final class SupplyPresenter
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.supply.delete");
             putValue(Action.NAME, name);
+            putValue(Action.SMALL_ICON, IconGenerator.getIcon("delete_edit.gif"));
         }
 
         public void actionPerformed(ActionEvent arg0)
@@ -248,6 +250,7 @@ final class SupplyPresenter
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.supply.duplicate");
             putValue(Action.NAME, name);
+            putValue(Action.SMALL_ICON, IconGenerator.getIcon("copy_edit.gif"));
         }
 
         /*
@@ -274,6 +277,7 @@ final class SupplyPresenter
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.supply.edit");
             putValue(Action.NAME, name);
+            putValue(Action.SMALL_ICON, IconGenerator.getIcon("text_edit.gif"));
         }
 
         public void actionPerformed(ActionEvent arg0)
@@ -296,6 +300,7 @@ final class SupplyPresenter
             this.category = category;
 
             putValue(Action.NAME, name);
+            putValue(Action.SMALL_ICON, IconGenerator.getIcon("add_obj.gif"));
         }
 
         public void actionPerformed(ActionEvent arg0)

@@ -45,6 +45,7 @@ import javax.swing.UIManager;
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
+import net.sf.housekeeper.swing.util.IconGenerator;
 import net.sf.housekeeper.util.ConfigurationManager;
 import net.sf.housekeeper.util.LocalisationManager;
 
@@ -350,6 +351,7 @@ public final class MainFrame
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.mainFrame.exit");
             putValue(Action.NAME, name);
+            putValue(Action.SMALL_ICON, IconGenerator.getIcon("fileexit.png"));
         }
 
         public void actionPerformed(ActionEvent e)
@@ -370,6 +372,7 @@ public final class MainFrame
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.mainFrame.load");
             putValue(Action.NAME, name);
+            putValue(Action.SMALL_ICON, IconGenerator.getIcon("fileopen.png"));
         }
 
         public void actionPerformed(ActionEvent e)
@@ -391,6 +394,7 @@ public final class MainFrame
             final String name = LocalisationManager.INSTANCE
                     .getText("gui.mainFrame.save");
             putValue(Action.NAME, name);
+            putValue(Action.SMALL_ICON, IconGenerator.getIcon("filesave.png"));
         }
 
         public void actionPerformed(ActionEvent e)
