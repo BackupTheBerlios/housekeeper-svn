@@ -50,7 +50,7 @@ final class ArticlePanel extends JPanel
     //~ Static fields/initializers ---------------------------------------------
 
     /** TODO DOCUMENT ME! */
-    public static final ArticlePanel INSTANCE = new ArticlePanel();
+    private static final ArticlePanel INSTANCE = new ArticlePanel();
 
     //~ Instance fields --------------------------------------------------------
 
@@ -114,6 +114,11 @@ final class ArticlePanel extends JPanel
     JTable getTable()
     {
         return table;
+    }
+
+    public static ArticlePanel getInstance()
+    {
+        return INSTANCE;
     }
 
     //~ Inner Classes ----------------------------------------------------------

@@ -60,7 +60,7 @@ public class ModifyArticle extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescription article = ArticlePanel.INSTANCE.getSelectedArticle();
+        ArticleDescription article = ArticlePanel.getInstance().getSelectedArticle();
 
         if (article != null)
         {

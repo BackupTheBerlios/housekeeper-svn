@@ -88,7 +88,7 @@ public final class MainFrame extends ExtendedFrame
     private void buildComponents()
     {
         tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Articles", ArticlePanel.INSTANCE);
+        tabbedPane.addTab("Articles", ArticlePanel.getInstance());
 
         getContentPane()
             .add(tabbedPane);
