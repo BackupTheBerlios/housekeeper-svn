@@ -4,6 +4,11 @@
     <author email="adrian.gygax(at)gmx.net">Adrian Gygax</author>
   </properties>
   <body>
+    <release version="0.2.0" date="not yet">
+        <action dev="notizklotz" type="fix">Modified start 
+            script for Unix derivaties to enable application start from a file 
+            manager. </action>
+    </release>
     <release version="0.1.2" date="2004-10-26">
         <action dev="notizklotz" type="add" issue="1037939"> Added 
             logging component for display of messages in the console.</action>
