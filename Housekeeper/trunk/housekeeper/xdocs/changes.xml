@@ -1,85 +1,9 @@
 <document>
   <properties>
-    <title>Roadmap</title>
+    <title>Change history</title>
     <author email="notizklotz(at)gmx.net">Adrian Gygax</author>
   </properties>
   <body>
 
-    <release version="0.2" description="A simple single-user application to keep track of your current food items you have.">
-      <action type="add">
-         Basic management of food items. (CRUD)
-      </action> 
-      <action type="add">
-         Provide support for easy entry of recurring items.
-      </action>
-      <action type="add">
-         Notify user if an item is near to exceed its "best before end" date.
-      </action>
-      <action type="add">
-         Data can be loaded and saved persistently.
-      </action>                   
-    </release>
-    <release version="0.4" description="A more sophisticated single-user application.">
-      <action type="add">
-         Management of ongoing food usage. (So you know exactly how much of each item you have got).
-      </action>
-      <action type="add">
-         Basic budget functionality.
-      </action>                 
-    </release>
-    <release version="0.6" description="Introducing multi-user support.">
-      <action type="add">
-         Management of "who has bought what and who has to pay for what".
-      </action>
-      <action type="add">
-         Persistent saving to arbitrary FTP server (Multi-computer support).
-      </action>                 
-    </release>
-    <release version="0.8" description="An application that manages the issues arrising in households with multiple persons. (especially communities)">
-      <action type="add">
-         Management of household jobs (toilet cleaning, shopping).
-      </action>                 
-    </release>
-    <release version="1.0" description="Improved usability and stability.">
-      <action type="add">
-         Management of meals (Recurring combined usage of items).
-      </action>
-      <action type="add">
-         Database support.
-      </action>
-    </release>
-    <release version="1.2" description="Comprehensive household management software.">
-      <action type="add">
-         Management of meals (Recurring combined usage of items).
-      </action>
-    </release>
-    <release version="2.0" description="J2EE application.">
-      <action type="add">
-         Convert to a J2EE application.
-      </action>
-      <action type="add">
-         Web user interface.
-      </action>
-      <action type="add">
-         Provide mulitiple household support (this would enable a student's portal website to offer housekeeper as a service).
-      </action>
-    </release>
-    <release version="Future" description="Include Webservices support.">
-      <action type="add">
-         Fetch meals from the Internet.
-      </action>
-      <action type="add">
-         Fetch lists of food items from the stores.
-      </action>
-      <action type="add">
-         Electronic shopping lists for cell phones.
-      </action>
-      <action type="add">
-         Use cell phone's camera for capturing barcodes for automatic item management.
-      </action>
-      <action type="add">
-         Cell phone based access application.
-      </action>
-    </release>
   </body>
 </document>
