@@ -62,4 +62,20 @@ public interface PersistenceService
      */
     void saveData(final Household household, final OutputStream dataStream)
             throws IOException;
+
+    /**
+     * Specifies the lowest document version which is supported.
+     * 
+     * @return Documents of at least this version can be processed by this
+     *         service.
+     */
+    int minVersion();
+    
+    /**
+     * Specifies the highest document version which is supported.
+     * 
+     * @return Documents of at most this version can be processed by this
+     *         service.
+     */
+    int maxVersion();
 }

@@ -29,6 +29,7 @@ import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceService;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -49,12 +50,19 @@ public final class JDOMPersistence implements PersistenceService
     /**
      * Name of the attribute wich specifies the file format version.
      */
-    private static final String  FILE_VERSION_ATTRIBUTE = "version";
+    public static final String  FILE_VERSION_ATTRIBUTE = "version";
 
     /**
      * Name of the root element.
      */
-    private static final String  ROOT_ELEMENT           = "household";
+    public static final String  ROOT_ELEMENT           = "household";
+
+    /**
+     * The logger for this class.
+     */
+    private static final Log     LOG                    = LogFactory
+                                                                .getLog(JDOMPersistence.class);
+    
 
     /**
      * Object used for converting between DOM and domain model.
@@ -79,7 +87,7 @@ public final class JDOMPersistence implements PersistenceService
             UnsupportedFileVersionException, IllegalArgumentException
     {
         final SAXBuilder builder = new SAXBuilder();
-        LogFactory.getLog(getClass()).debug("Trying to load file: " + location);
+
         try
         {
             final Document document = builder.build(location);
@@ -89,15 +97,17 @@ public final class JDOMPersistence implements PersistenceService
             return household;
         } catch (JDOMException e)
         {
-            e.printStackTrace();
-            throw new IOException(
-                    "There was an error parsing the XML document: " + location);
+            final String message = "The data stream is not a valid Housekeeper XML document.";
+            LOG.error(message, e);
+            throw new IllegalArgumentException(message);
         }
     }
 
-
-    /* (non-Javadoc)
-     * @see net.sf.housekeeper.persistence.PersistenceService#saveData(net.sf.housekeeper.domain.Household, java.io.OutputStream)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see net.sf.housekeeper.persistence.PersistenceService#saveData(net.sf.housekeeper.domain.Household,
+     *      java.io.OutputStream)
      */
     public void saveData(final Household household, final OutputStream location)
             throws IOException
@@ -111,8 +121,24 @@ public final class JDOMPersistence implements PersistenceService
         serializer.output(document, location);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.persistence.PersistenceService#maxVersion()
+     */
+    public int maxVersion()
+    {
+        return 1;
+    }
+    
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.persistence.PersistenceService#minVersion()
+     */
+    public int minVersion()
+    {
+        return 1;
+    }
+    
     /**
-     * Converts a DOM into a domain model.
+     * Converts a DOM into a domain model. Package private for Unit Testing.
      * 
      * @param root The root element of the data structure.
      * @return The converted domain model.
@@ -121,7 +147,7 @@ public final class JDOMPersistence implements PersistenceService
      * @throws IllegalArgumentException if the given element is not a valid root
      *             element.
      */
-    private Household convertToDomain(final Element root)
+    Household convertToDomain(final Element root)
             throws UnsupportedFileVersionException, IllegalArgumentException
     {
         if (!root.getName().equals(ROOT_ELEMENT))
@@ -161,7 +187,7 @@ public final class JDOMPersistence implements PersistenceService
 
     private boolean isVersionSupported(int version)
     {
-        return version == 1;
+        return version >= minVersion() && version <= maxVersion();
     }
 
 }

@@ -32,8 +32,10 @@ import java.io.OutputStream;
 import java.io.Reader;
 
 import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 
 import org.custommonkey.xmlunit.XMLTestCase;
+import org.jdom.Element;
 
 /**
  * Tests if XML files are not changed semantically on load/save.
@@ -44,7 +46,22 @@ import org.custommonkey.xmlunit.XMLTestCase;
 public final class JDOMPersistenceTest extends XMLTestCase
 {
 
-    private static final String VERSION1_DATA = "data_v1.xml";
+    private static final String VERSION1_DATA   = "data_v1.xml";
+
+    private static final String NOT_AN_XML_FILE = "notAnXmlFile.xml";
+
+    private JDOMPersistence     jdomPersistence;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see junit.framework.TestCase#setUp()
+     */
+    protected void setUp() throws Exception
+    {
+        super.setUp();
+        jdomPersistence = new JDOMPersistence();
+    }
 
     /**
      * Loads an XML file which contains data in the current file format version
@@ -55,18 +72,16 @@ public final class JDOMPersistenceTest extends XMLTestCase
      */
     public void testLoadSaveXML() throws Exception
     {
-        final JDOMPersistence pers = new JDOMPersistence();
-
         //Read data from resources and parse it
         final InputStream dataStream = getClass()
                 .getResourceAsStream(VERSION1_DATA);
-        final Household household = pers.loadData(dataStream);
+        final Household household = jdomPersistence.loadData(dataStream);
 
         //Save data to a temporary file
         final File tempFile = createTempFile();
         final OutputStream outputStream = new BufferedOutputStream(
                 new FileOutputStream(tempFile));
-        pers.saveData(household, outputStream);
+        jdomPersistence.saveData(household, outputStream);
         outputStream.flush();
         outputStream.close();
 
@@ -79,6 +94,76 @@ public final class JDOMPersistenceTest extends XMLTestCase
 
         originalReader.close();
         savedReader.close();
+    }
+
+    /**
+     * Tests if an {@link IllegalArgumentException}is thrown if it is tried to
+     * parse a stream which is not a valid Housekeeper document.
+     * 
+     * @throws IOException
+     * @throws UnsupportedFileVersionException
+     */
+    public void testLoadNotAnXmlFile() throws IOException,
+            UnsupportedFileVersionException
+    {
+        //Read data from resources and parse it
+        final InputStream dataStream = getClass()
+                .getResourceAsStream(NOT_AN_XML_FILE);
+
+        try
+        {
+            final Household household = jdomPersistence.loadData(dataStream);
+        } catch (IllegalArgumentException e)
+        {
+            //Expected behaviour
+            return;
+        }
+        fail("Loading a file which is not even an XML file"
+                + "must throw an IllegalArgumentException");
+    }
+
+    /**
+     * Tests correct handling of a too low document version.
+     */
+    public void testVersionTooLow()
+    {
+        final int tooLow = jdomPersistence.minVersion() - 1;
+        checkUnsupportedVersion(tooLow);
+    }
+
+    /**
+     * Tests correct handling of a too high document version.
+     */
+    public void testVersionTooHigh()
+    {
+        final int tooHigh = jdomPersistence.maxVersion() + 1;
+        checkUnsupportedVersion(tooHigh);
+    }
+
+    /**
+     * Creates an empty document root Element including version information.
+     * Then it tests for correct Exception handling.
+     * 
+     * @param version Version which is not supported by the persistence service.
+     */
+    private void checkUnsupportedVersion(final int version)
+    {
+        final Element root1 = new Element(JDOMPersistence.ROOT_ELEMENT);
+        root1
+                .setAttribute(JDOMPersistence.FILE_VERSION_ATTRIBUTE, ""
+                        + version);
+        final Element root = root1;
+
+        try
+        {
+            jdomPersistence.convertToDomain(root);
+        } catch (UnsupportedFileVersionException e)
+        {
+            assertEquals(version, e.getVersion());
+            return;
+        }
+        fail("Must throw UnsupportedFileVersionException if version "
+                + "is not supported.");
     }
 
     /**
