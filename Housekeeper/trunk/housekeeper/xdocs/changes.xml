@@ -4,6 +4,11 @@
     <author email="notizklotz(at)gmx.net">Adrian Gygax</author>
   </properties>
   <body>
+    <release version="0.1.2" date="in CVS">
+      <action dev="notizklotz" type="add" issue="960660">
+        Implemented new persistence layer using Castor XML mapping.
+      </action>
+    </release>
     <release version="0.1.1" date="2004-07-07">
       <action dev="notizklotz" type="add">
         Added basic item management functionality. (Add, Delete, Modify, Duplicate)
@@ -18,7 +23,6 @@
       <action dev="notizklotz" type="add">
         Basic about dialog with information about the libraries which are used.
       </action>
-            
     </release>
   </body>
 </document>
