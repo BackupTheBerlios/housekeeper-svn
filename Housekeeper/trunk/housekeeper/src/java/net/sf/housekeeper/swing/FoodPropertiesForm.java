@@ -35,27 +35,43 @@ import org.springframework.richclient.forms.JGoodiesBeanFormBuilder;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-
 /**
- * @author
+ * A Form for editing the properties of a {@link net.sf.housekeeper.domain.Food}
+ * object.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class FoodPropertiesForm extends AbstractForm
+public final class FoodPropertiesForm extends AbstractForm
 {
 
-    public FoodPropertiesForm(FormModel formModel) {
+    /**
+     * Creates a new Form using the given model.
+     * 
+     * @param formModel The model to use. Must not be null.
+     */
+    public FoodPropertiesForm(final FormModel formModel)
+    {
         super(formModel, "foodPropertiesForm");
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
-        .getDateInstance(DateFormat.SHORT);
+                .getDateInstance(DateFormat.SHORT);
         final String formatPattern = dateFormat.toPattern();
 
-        getFormModel().registerCustomEditor("expiry", 
-                                       new CalendarDateChooserEditor(formatPattern));
+        getFormModel().registerCustomEditor(
+                                            "expiry",
+                                            new CalendarDateChooserEditor(
+                                                    formatPattern));
     }
 
-    protected JComponent createFormControl() {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.richclient.forms.AbstractForm#createFormControl()
+     */
+    protected JComponent createFormControl()
+    {
         final FormLayout layout = new FormLayout(
-        "right:pref, 3dlu, fill:default:grow");
+                "right:pref, 3dlu, fill:default:grow");
         BeanFormBuilder formBuilder = new JGoodiesBeanFormBuilder(
                 getFormModel(), layout);
         formBuilder.add("name");

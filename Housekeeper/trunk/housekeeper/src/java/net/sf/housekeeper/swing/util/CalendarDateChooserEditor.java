@@ -29,43 +29,80 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-
-import com.toedter.calendar.JDateChooser;
-
+import org.springframework.util.Assert;
 
 /**
- * @author
+ * Uses a {@link net.sf.housekeeper.swing.util.DisableableJDateChooser}for
+ * editing dates.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class CalendarDateChooserEditor extends CustomDateEditor
+public final class CalendarDateChooserEditor extends CustomDateEditor
 {
-    private SimpleDateFormat dateFormat;
-    private JDateChooser dateChooser = new JDateChooser();
 
-    public CalendarDateChooserEditor(String format) {
+    private DisableableJDateChooser dateChooser = new DisableableJDateChooser();
+
+    /**
+     * Creates a new editor with a specific date format.
+     * 
+     * @param format The format for the date.
+     */
+    public CalendarDateChooserEditor(String format)
+    {
         super(new SimpleDateFormat(format), true);
         dateChooser.setDateFormatString(format);
-        dateChooser.getSpinner().addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
+        dateChooser.addChangeListener(new ChangeListener() {
+
+            public void stateChanged(ChangeEvent e)
+            {
                 firePropertyChange();
             }
         });
     }
 
-    public boolean supportsCustomEditor() {
+    /**
+     * Returns true
+     */
+    public boolean supportsCustomEditor()
+    {
         return true;
     }
 
-    public Component getCustomEditor() {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.beans.PropertyEditor#getCustomEditor()
+     */
+    public Component getCustomEditor()
+    {
         return dateChooser;
     }
 
-    public void setValue(Object value) {
+    /**
+     * Sets the value for the chooser.
+     * 
+     * @param value A {@link Date}or null.
+     */
+    public void setValue(Object value)
+    {
+        if (value != null)
+        {
+            Assert.isInstanceOf(Date.class, value,
+                                "Parameter must be a Date or null");
+        }
+
         super.setValue(value);
         dateChooser.setDate((Date) value);
     }
-    
-    public Object getValue() {
+
+    /**
+     * Returns the date from the editor.
+     * 
+     * @return A date or null.
+     */
+    public Object getValue()
+    {
         return dateChooser.getDate();
     }
 }
