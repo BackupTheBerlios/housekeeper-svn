@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.util.LocalisationManager;
 
@@ -42,14 +43,17 @@ public final class SaveCommand extends ApplicationWindowAwareCommand
 
     private static final String ID = "saveCommand";
 
-
+    private final Household household;
+    
     /**
      * Creates a new Command for saving.
-     *
+     * 
+     * @param household
      */
-    private SaveCommand()
+    public SaveCommand(final Household household)
     {
         super(ID);
+        this.household = household;
     }
     
     
@@ -60,7 +64,7 @@ public final class SaveCommand extends ApplicationWindowAwareCommand
     {
         try
         {
-            PersistenceController.instance().saveDomainData(SupplyPresenter.household);
+            PersistenceController.instance().saveDomainData(household);
         } catch (IOException e)
         {
             e.printStackTrace();

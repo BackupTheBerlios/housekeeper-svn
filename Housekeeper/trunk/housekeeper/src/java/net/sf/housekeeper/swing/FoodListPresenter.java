@@ -32,6 +32,7 @@ import javax.swing.event.ListSelectionListener;
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.util.LocalisationManager;
+import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.SortedList;
 import ca.odell.glazedlists.swing.EventSelectionModel;
@@ -77,34 +78,55 @@ final class FoodListPresenter
     private static final String[]     TABLE_HEADERS       = { NAME_HEADER,
             QUANTITY_HEADER, EXPIRY_HEADER               };
 
-    private final String              category;
+    private String              category;
 
-    private final List                selectionListeners;
+    private List                selectionListeners;
 
-    private final EventSelectionModel selectionModel;
+    private EventSelectionModel selectionModel;
 
     private final FoodListView        view;
 
+    private TextFilterList textFiltered;
+
+    
     /**
      * Creates a new Presenter with a default view.
      * 
-     * @param model A list of {@link Food}items.
-     * @param category The {@link Food}category this presenter shall filter
-     *            after.
      */
-    public FoodListPresenter(final EventList model, final String category)
+    public FoodListPresenter()
     {
-        this.category = category;
         this.selectionListeners = new LinkedList();
 
-        //Make sorted list
-        final SortedList sortedList = new SortedList(model, null);
-
-        //Make filtered list
-        final TextFilterList textFiltered = new TextFilterList(sortedList,
-                new String[] { Food.PROPERTYNAME_CATEGORY });
+        view = new FoodListView(EXPIRY_HEADER);
+        
+        setFoodList(new BasicEventList());
+    }
+    
+    /**
+     * Sets the category to filter the view after.
+     * 
+     * @param category
+     */
+    public void setCategory(final String category)
+    {
+        this.category = category;
         textFiltered.getFilterEdit().setText(category);
-
+    }
+    
+    /**
+     * Changes the table to show an other list of Food objects.
+     * 
+     * @param list
+     */
+    public void setFoodList(final EventList list)
+    {
+        //Make sorted list
+        final SortedList sortedList = new SortedList(list, null);
+        
+        textFiltered = new TextFilterList(sortedList,
+                                          new String[] { Food.PROPERTYNAME_CATEGORY });
+        setCategory(category);
+        
         //Make selection model
         selectionModel = new EventSelectionModel(textFiltered);
         selectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -114,15 +136,14 @@ final class FoodListPresenter
                 notifyListeners();
             }
         });
-
+        
         //Make table model
         final EventTableModel tableModel = new EventTableModel(textFiltered,
                 ITEM_PROPERTIES, TABLE_HEADERS, PROPERTY_MODIFYABLE);
 
-        view = new FoodListView(sortedList, tableModel, selectionModel,
-                EXPIRY_HEADER);
+        view.setDataSource(sortedList, tableModel, selectionModel);
     }
-
+    
     /**
      * Add a listener which gets informed if the selection changes.
      * 

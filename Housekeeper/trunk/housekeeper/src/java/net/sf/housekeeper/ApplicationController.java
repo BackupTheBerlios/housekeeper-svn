@@ -24,14 +24,11 @@ package net.sf.housekeeper;
 import java.io.File;
 import java.io.IOException;
 
-import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.swing.ApplicationPresenter;
 import net.sf.housekeeper.util.ConfigurationManager;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.richclient.application.ApplicationLauncher;
 
 /**
@@ -43,43 +40,13 @@ import org.springframework.richclient.application.ApplicationLauncher;
 public final class ApplicationController
 {
 
-    /**
-     * The singleton instance.
-     */
-    private static ApplicationController instance;
     
     /**
      * Prevents instances of this class.
-     * 
-     * @throws IOException
-     * @throws ConfigurationException
      */
-    private ApplicationController() throws ConfigurationException,
-            IOException
+    private ApplicationController()
     {
-        initializeConfigurationManager(); 
-    }
-    
-    /**
-     * Starts the application with an empty domain model.
-     *
-     */
-    public void start()
-    {
-        logVersionInfo();
-
-        final ApplicationPresenter main = new ApplicationPresenter(new Household());
-        main.show();
-    }
-        
-    /**
-     * Returns the application controller Singleton.
-     * 
-     * @return The application controller instance.
-     */
-    public static ApplicationController instance()
-    {
-        return instance;
+ 
     }
 
     /**
@@ -102,7 +69,7 @@ public final class ApplicationController
      * Prints an application starting message including a version information.
      *  
      */
-    private void logVersionInfo()
+    private static void logVersionInfo()
     {
         final String version = ConfigurationManager.INSTANCE.getConfiguration()
                 .getString(ConfigurationManager.HOUSEKEEPER_VERSION);
@@ -129,10 +96,8 @@ public final class ApplicationController
         }
         
         initializeConfigurationManager();
+        logVersionInfo();
         new ApplicationLauncher("/net/sf/housekeeper/application-context.xml");
-        
-        //instance = new ApplicationController();
-        //instance.start();
     }
 
 }

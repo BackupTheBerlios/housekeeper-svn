@@ -36,6 +36,22 @@
 		<property name="viewClass">
 			<value>net.sf.housekeeper.swing.SupplyPresenter</value>
 		</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="foodManager">
+          <ref local="foodManager"/>
+        </entry>
+      </map>
+		</property>
+	</bean>
+    
+  <bean id="household"
+		class="net.sf.housekeeper.domain.Household">
+    <constructor-arg><ref local="foodManager"/></constructor-arg>
+	</bean>
+  
+  <bean id="foodManager"
+		class="net.sf.housekeeper.domain.FoodManager">
 	</bean>
   
 	<bean id="applicationObjectConfigurer"

@@ -49,40 +49,51 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 final class FoodListView extends JPanel
 {
 
+    private final JTable supplyTable;
+
+    private final String expiryHeaderName;
     /**
      * Creates a new view. All objects passed as parameters must fit to each
      * other.
      * 
+
+     * @param expiryHeaderName The header name of the expiry column.
+     */
+    public FoodListView(final String expiryHeaderName)
+    {
+        this.expiryHeaderName = expiryHeaderName;
+        supplyTable = new JTable();
+
+        //Without that, the tables won't grow and shrink with the window's size.
+        setLayout(new GridLayout());
+        
+        add(new JScrollPane(supplyTable));
+    }
+    
+    /**
+     * 
      * @param sortedList A list with {@link Food}objects.
      * @param tableModel The TableModel for the table.
      * @param selectionModel The SelectionModel for the table.
-     * @param expiryHeaderName The header name of the expiry column.
      */
-    public FoodListView(final SortedList sortedList,
+    void setDataSource(final SortedList sortedList,
             final EventTableModel tableModel,
-            final EventSelectionModel selectionModel,
-            final String expiryHeaderName)
+            final EventSelectionModel selectionModel)
     {
-        //Init table
-        final JTable supplyTable = new JTable(tableModel);
-
+        supplyTable.setModel(tableModel);
+        
         //Adds the sorting functionality to the table
         addSorting(supplyTable, sortedList);
 
         supplyTable.setSelectionModel(selectionModel);
         supplyTable.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         //Register renderer for the expiry date
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
         final TableCellRenderer dateRenderer = new DateCellRenderer(dateFormat);
         supplyTable.getColumn(expiryHeaderName).setCellRenderer(dateRenderer);
-
-        //Without that, the tables won't grow and shrink with the window's size.
-        setLayout(new GridLayout());
-        
-        add(new JScrollPane(supplyTable));
     }
 
     /**

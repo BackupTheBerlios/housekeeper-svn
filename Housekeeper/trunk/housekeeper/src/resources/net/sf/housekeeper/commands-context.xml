@@ -23,9 +23,13 @@
 		<property name="members">
       <list>
         <bean 
-          class="net.sf.housekeeper.swing.LoadCommand"/>
+          class="net.sf.housekeeper.swing.LoadCommand">
+              <constructor-arg><ref bean="household"/></constructor-arg>
+          </bean>
         <bean 
-          class="net.sf.housekeeper.swing.SaveCommand"/>
+          class="net.sf.housekeeper.swing.SaveCommand">
+          <constructor-arg><ref bean="household"/></constructor-arg>
+          </bean>
         <value>separator</value>
         <bean 
           class="org.springframework.richclient.command.support.ExitCommand"/>

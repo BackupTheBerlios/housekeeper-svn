@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 
 import javax.swing.JOptionPane;
 
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.util.LocalisationManager;
 
@@ -40,10 +41,18 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
 {
 
     private static final String ID = "loadCommand";
+    
+    private final Household household;
 
-    private LoadCommand()
+    /**
+     * Creates a new LoadCommand.
+     * 
+     * @param household
+     */
+    public LoadCommand(final Household household)
     {
         super(ID);
+        this.household = household;
     }
 
     /*
@@ -56,7 +65,7 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
         try
         {
             PersistenceController.instance()
-                    .replaceDomainWithSaved(SupplyPresenter.household);
+                    .replaceDomainWithSaved(household);
         } catch (FileNotFoundException exception)
         {
             final String nodata = LocalisationManager.INSTANCE

@@ -30,10 +30,11 @@ import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
-import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.swing.util.EventObjectListener;
 import net.sf.housekeeper.swing.util.IconGenerator;
 import net.sf.housekeeper.util.LocalisationManager;
+
+import org.springframework.richclient.application.support.AbstractView;
 
 /**
  * Presenter for an overview of a supply.
@@ -41,7 +42,7 @@ import net.sf.housekeeper.util.LocalisationManager;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class SupplyPresenter extends org.springframework.richclient.application.support.AbstractView
+final class SupplyPresenter extends AbstractView
 {
 
     private FoodListPresenter activePresenter;
@@ -55,12 +56,14 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
     private final Action      newConvenienceFoodAction;
 
     private final Action      newMiscFoodAction;
-
-    public static final Household household = new Household();
     
-    private final FoodManager itemManager;
+    private FoodManager foodManager;
 
     private final SupplyView  view;
+
+    private FoodListPresenter convPresenter;
+
+    private FoodListPresenter miscPresenter;
     
     
     /**
@@ -69,8 +72,6 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
     public SupplyPresenter()
     {
         super();
-
-        this.itemManager = household.getFoodManager();
 
         //init actions
         final String newConvName = LocalisationManager.INSTANCE
@@ -93,12 +94,12 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
         view.addButton(editItemAction);
         view.addButton(deleteItemAction);
 
-        //Init tables
-        final FoodListPresenter convPresenter = new FoodListPresenter(
-                itemManager.getSupplyList(), "convenienceFood");
-        final FoodListPresenter miscPresenter = new FoodListPresenter(
-                itemManager.getSupplyList(), "misc");
-
+        convPresenter = new FoodListPresenter();
+        convPresenter.setCategory("convenienceFood");
+        
+        miscPresenter = new FoodListPresenter();
+        miscPresenter.setCategory("misc");
+        
         convPresenter.getView()
                 .setName(
                          LocalisationManager.INSTANCE
@@ -124,7 +125,19 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
         convPresenter.addTableSelectionListener(selectionListener);
         miscPresenter.addTableSelectionListener(selectionListener);
     }
-
+    
+    /**
+     * Sets the manager which holds the data to display.
+     * 
+     * @param manager
+     */
+    public void setFoodManager(final FoodManager manager)
+    {
+        this.foodManager = manager;
+        convPresenter.setFoodList(manager.getSupplyList());
+        miscPresenter.setFoodList(manager.getSupplyList());
+    }
+    
     /**
      * Returns the view of this Presenter.
      * 
@@ -147,7 +160,7 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
         if (!canceled)
         {
             item.setCategory(category);
-            itemManager.add(item);
+            foodManager.add(item);
         }
     }
 
@@ -157,7 +170,7 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
     private void deleteSelectedItem()
     {
         final Food selectedItem = activePresenter.getSelected();
-        itemManager.remove(selectedItem);
+        foodManager.remove(selectedItem);
     }
 
     /**
@@ -166,7 +179,7 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
     private void duplicateSelectedItem()
     {
         final Food selectedItem = activePresenter.getSelected();
-        itemManager.duplicate(selectedItem);
+        foodManager.duplicate(selectedItem);
     }
 
     /**
@@ -178,7 +191,7 @@ final class SupplyPresenter extends org.springframework.richclient.application.s
         boolean canceled = openEditor(selected);
         if (!canceled)
         {
-            itemManager.update(selected);
+            foodManager.update(selected);
         }
     }
 
