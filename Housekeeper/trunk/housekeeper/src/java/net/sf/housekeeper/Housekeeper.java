@@ -25,6 +25,8 @@ import javax.swing.JFrame;
 
 import net.sf.housekeeper.swing.MainFrame;
 
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Class containing the <code>main</code> method.
  * 
@@ -51,6 +53,8 @@ public final class Housekeeper
      */
     public static void main(final String[] args)
     {
+        LogFactory.getLog(Housekeeper.class).info("Starting Housekeeper " + VERSION);
+
         JFrame mainFrame = MainFrame.INSTANCE;
         mainFrame.show();
     }

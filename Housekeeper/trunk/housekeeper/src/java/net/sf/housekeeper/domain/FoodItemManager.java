@@ -27,6 +27,9 @@ import java.util.List;
 
 import javax.swing.ListModel;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.jgoodies.binding.list.ArrayListModel;
 
 /**
@@ -42,8 +45,13 @@ public final class FoodItemManager
     /**
      * Singleton instance.
      */
-    public static FoodItemManager INSTANCE = new FoodItemManager();
+    public static final FoodItemManager INSTANCE = new FoodItemManager();
 
+    /**
+     * Log to be used for this class.
+     */
+    private static final Log LOG = LogFactory.getLog(FoodItemManager.class);
+    
     /**
      * Holds a list of all items on hand.
      */
@@ -67,6 +75,11 @@ public final class FoodItemManager
     public void add(final FoodItem item)
     {
         supply.add(item);
+        
+        if (LOG.isDebugEnabled())
+        {
+            LOG.debug("Added item: " + item);
+        }
     }
 
     /**
@@ -98,6 +111,11 @@ public final class FoodItemManager
     {
         supply.clear();
         supply.addAll(foodItems);
+        
+        if (LOG.isDebugEnabled())
+        {
+            LOG.debug("Replaced all items: " + supply.toString());
+        }
     }
 
     /**
@@ -130,6 +148,11 @@ public final class FoodItemManager
     public void remove(final FoodItem item)
     {
         supply.remove(item);
+        
+        if (LOG.isDebugEnabled())
+        {
+            LOG.debug("Removed item: " + item);
+        }
     }
 
 }

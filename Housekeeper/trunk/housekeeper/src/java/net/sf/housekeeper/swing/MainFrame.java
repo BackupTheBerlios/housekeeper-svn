@@ -159,7 +159,6 @@ public final class MainFrame extends JFrame
                 //Do nothing if setting the Look and Feel fails.
             }
         }
-        System.out.println(System.getProperty("os.name"));
     }
 
     /**
