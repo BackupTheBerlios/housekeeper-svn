@@ -65,6 +65,7 @@ final class StockPanel extends JPanel
         final JPanel buttonPanel = new JPanel();
         buttonPanel.add(new JButton(new NewStockItemAction()));
         buttonPanel.add(new JButton(new DeleteStockItemAction()));
+        buttonPanel.add(new JButton(new ModifyStockItemAction()));
 
         table = StockTableFactory.getStockTable();
 
@@ -166,5 +167,64 @@ final class StockPanel extends JPanel
         }
     }
 
-    
+    /**
+     * Shows a dialog for modifying the currently selected item and updates it.
+     */
+    private class ModifyStockItemAction extends AbstractAction
+    {
+
+        private ModifyStockItemAction()
+        {
+            super("Modify item");
+        }
+
+        public void actionPerformed(ActionEvent arg0)
+        {
+            final StockItem item = getSelectedItem();
+
+            if (item != null)
+            {
+                final StandardDialog d = new StandardDialog("Modify item");
+                final int compWidth = 80;
+                final JTextField nameField = new JTextField(item.getName());
+                d.addElement("Name", nameField, compWidth);
+
+                final JTextField quantityField = new JTextField(item
+                        .getQuantity());
+                d.addElement("Quantity", quantityField, compWidth);
+
+                /*
+                 * The next few lines just create a Date object with the current
+                 * date not the exact current time. This prevents the problem
+                 * that the date in the spinner can't be set to today, once it
+                 * has been modified.
+                 */
+                final Calendar now = new GregorianCalendar();
+                now.setTime(new Date());
+                final Calendar todayCal = new GregorianCalendar(now
+                        .get(Calendar.YEAR), now.get(Calendar.MONTH), now
+                        .get(Calendar.DAY_OF_MONTH));
+                final Date today = todayCal.getTime();
+
+                final SpinnerDateModel spinnerModel = new SpinnerDateModel();
+                spinnerModel.setStart(today);
+                spinnerModel.setValue(item.getBestBeforeEnd());
+                final JSpinner spinner = new JSpinner(spinnerModel);
+                spinner.setEditor(new DateEditor(spinner));
+                d.addElement("Best Before End", spinner, compWidth);
+
+                final int dialogState = d.display();
+                if (dialogState == StandardDialog.APPROVE)
+                {
+                    item.setName(nameField.getText());
+                    item.setQuantity(quantityField.getText());
+                    item.setBestBeforeEnd(spinnerModel.getDate());
+
+                    StorageFactory.getCurrentStorage().update(item);
+                }
+            }
+        }
+
+    }
+
 }

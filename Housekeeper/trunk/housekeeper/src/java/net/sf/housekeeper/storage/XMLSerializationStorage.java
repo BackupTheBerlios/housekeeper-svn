@@ -128,4 +128,13 @@ final class XMLSerializationStorage implements Storage
         stockItems.remove(item);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.storage.Storage#update(net.sf.housekeeper.domain.StockItem)
+     */
+    public void update(StockItem item)
+    {
+       stockItems.remove(item);
+       stockItems.add(item);
+    }
+
 }

@@ -59,6 +59,13 @@ public interface Storage
     void remove(final StockItem item);
     
     /**
+     * Updates a {@link StockItem}.
+     * 
+     * @param item The item to be updated. Must not be null.
+     */
+    void update(final StockItem item);
+    
+    /**
      * Loads data from the default storage place into memory.
      *
      * @throws FileNotFoundException If the data couldn't be retrieved.
