@@ -45,7 +45,6 @@ import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @since 0.1
  */
 public final class MainFrame extends JFrame
 {

@@ -24,19 +24,18 @@ package net.sf.housekeeper.domain;
 import java.util.Date;
 
 /**
- * A concrete article, that has been purchased.
+ * A concrete item that has been purchased.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @since 0.1
  */
 public final class StockItem
 {
 
-    /** The name of this stock item. */
+    /** The name of this item. */
     private String name;
 
-    /** The date, before the article should be consumed entirely. */
+    /** The date, before the item should have been consumed entirely. */
     private Date   bestBeforeEnd;
 
     /**

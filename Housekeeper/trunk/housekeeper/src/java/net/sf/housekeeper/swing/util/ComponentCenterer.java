@@ -30,7 +30,6 @@ import java.awt.Point;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @since 0.1
  */
 public final class ComponentCenterer
 {

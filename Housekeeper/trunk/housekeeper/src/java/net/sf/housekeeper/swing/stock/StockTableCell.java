@@ -35,7 +35,7 @@ import com.odellengineeringltd.glazedlists.jtable.TableFormat;
 
 /**
  * Backend for a {@link com.odellengineeringltd.glazedlists.jtable.ListTable}
- * for displaying {@link net.sf.housekeeper.domain.StockItem}objects.
+ * for displaying {@link net.sf.housekeeper.domain.StockItem} objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$

@@ -28,7 +28,6 @@ package net.sf.housekeeper.storage;
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * @since 0.1
  */
 public final class StorageFactory
 {
