@@ -62,9 +62,12 @@ public class ModifyArticle extends AbstractAction
     {
         Article article = ArticlePanel.INSTANCE.getSelectedArticle();
 
-        ArticleDialog d = new ArticleDialog();
-        d.show("Modify Article", article);
+        if (article != null)
+        {
+            ArticleDialog d = new ArticleDialog();
+            d.show("Modify Article", article);
 
-        StorageFactory.getCurrentStorage().update();
+            StorageFactory.getCurrentStorage().update();
+        }
     }
 }

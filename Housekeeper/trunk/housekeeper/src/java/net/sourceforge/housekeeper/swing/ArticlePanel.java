@@ -94,9 +94,16 @@ final class ArticlePanel extends JPanel
     Article getSelectedArticle()
     {
         int selectedRow = table.getSelectedRow();
-        ArticleModel tableModel = (ArticleModel)table.getModel();
-
-        return tableModel.getObjectAtRow(selectedRow);
+        
+        if (selectedRow > -1)
+        {
+            ArticleModel tableModel = (ArticleModel)table.getModel();
+            return tableModel.getObjectAtRow(selectedRow);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
