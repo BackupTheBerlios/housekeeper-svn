@@ -74,7 +74,7 @@ public final class FoodTableView extends AbstractView
      * columns of an entry.
      */
     private static final String[] ITEM_PROPERTIES = { Food.PROPERTYNAME_NAME,
-            Food.PROPERTYNAME_QUANTITY, Food.PROPERTYNAME_EXPIRY };
+            Food.PROPERTYNAME_DESCRIPTION, Food.PROPERTYNAME_EXPIRY };
 
     private String                category;
 
@@ -221,11 +221,6 @@ public final class FoodTableView extends AbstractView
         return panel;
     }
 
-    /**
-     * 
-     * @param table
-     * @param column
-     */
     private void assignDateColumnRenderer(JTable table, int column)
     {
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
@@ -235,12 +230,6 @@ public final class FoodTableView extends AbstractView
         table.getColumnModel().getColumn(column).setCellRenderer(dateRenderer);
     }
 
-    /**
-     * 
-     * @param table
-     * @param list
-     * @return the selection model
-     */
     private EventSelectionModel assignSelectionModel(JTable table,
                                                      EventList list)
     {
@@ -298,17 +287,12 @@ public final class FoodTableView extends AbstractView
         comparatorChooser.chooseComparator(2, 0, false);
     }
 
-    /**
-     * 
-     * @param table
-     * @param foodList
-     */
     private void assignTableModel(JTable table, EventList foodList)
     {
         final String nameHeader = LocalisationManager.INSTANCE
                 .getText("domain.food.name");
         final String quantityHeader = LocalisationManager.INSTANCE
-                .getText("domain.food.quantity");
+                .getText("domain.food.description");
         final String expiryHeader = LocalisationManager.INSTANCE
                 .getText("domain.food.expiry");
         final String[] tableHeaders = { nameHeader, quantityHeader,

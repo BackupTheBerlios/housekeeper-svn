@@ -116,7 +116,7 @@ final class FoodItemConverter
         {
             String quantity = quantityElement
                     .getAttributeValue(ATTRIBUTE_QUANTITY_VALUE);
-            food.setQuantity(quantity);
+            food.setDescription(quantity);
         }
 
         //Expiry
@@ -160,11 +160,11 @@ final class FoodItemConverter
         xmlElement.setAttribute(ATTRIBUTE_NAME, item.getName());
 
         //Quantity
-        if (item.getQuantity() != null)
+        if (item.getDescription() != null)
         {
             final Element quantityElement = new Element(ELEMENT_QUANTITY);
             quantityElement.setAttribute(ATTRIBUTE_QUANTITY_VALUE, item
-                    .getQuantity());
+                    .getDescription());
             xmlElement.addContent(quantityElement);
         }
 

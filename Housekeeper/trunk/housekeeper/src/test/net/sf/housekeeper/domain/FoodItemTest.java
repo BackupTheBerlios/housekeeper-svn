@@ -39,7 +39,7 @@ public final class FoodItemTest extends TestCase
         final int returnedYear = returnedItemDate.get(Calendar.YEAR);
 
         assertEquals(itemName, item.getName());
-        assertEquals(itemQuantity, item.getQuantity());
+        assertEquals(itemQuantity, item.getDescription());
         assertEquals(day, returnedDay);
         assertEquals(month, returnedMonth);
         assertEquals(year, returnedYear);
@@ -111,8 +111,8 @@ public final class FoodItemTest extends TestCase
     {
         final Food item = new Food();
         final String quantity = "quant";
-        item.setQuantity(quantity);
-        assertEquals(quantity, item.getQuantity());
+        item.setDescription(quantity);
+        assertEquals(quantity, item.getDescription());
     }
 
     /**
@@ -121,8 +121,8 @@ public final class FoodItemTest extends TestCase
     public void testUnsetQuantity()
     {
         final Food item = new Food();
-        item.setQuantity("");
-        assertNull(item.getQuantity());
+        item.setDescription("");
+        assertNull(item.getDescription());
     }
 
     /**
@@ -154,7 +154,7 @@ public final class FoodItemTest extends TestCase
         assertFalse(isEqualName);
         
         final Food differentQuantity = DataGenerator.createComplexItem();
-        differentQuantity.setQuantity("OtherQuantity");
+        differentQuantity.setDescription("OtherQuantity");
         final boolean isEqualQuantity = item.equals(differentQuantity);
         assertFalse(isEqualQuantity);
         

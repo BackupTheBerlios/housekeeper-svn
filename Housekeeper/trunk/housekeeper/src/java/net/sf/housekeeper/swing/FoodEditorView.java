@@ -126,21 +126,21 @@ final class FoodEditorView
     }
 
     /**
-     * Sets the item's quantity.
+     * Sets the item's description.
      * 
-     * @param text the item's quantity.
+     * @param text the item's description.
      */
-    public void setQuantityText(final String text)
+    public void setDescriptionText(final String text)
     {
         quantityField.setText(text);
     }
 
     /**
-     * Returns the item's quantity.
+     * Returns the item's description.
      * 
-     * @return the item's quantity.
+     * @return the item's description.
      */
-    public String getQuantityText()
+    public String getDescriptionText()
     {
         return quantityField.getText();
     }
@@ -325,7 +325,7 @@ final class FoodEditorView
         builder.nextLine();
 
         final String quantityLabel = LocalisationManager.INSTANCE
-                .getText("domain.food.quantity")
+                .getText("domain.food.description")
                 + ":";
         builder.append(quantityLabel, quantityField);
         builder.nextLine();

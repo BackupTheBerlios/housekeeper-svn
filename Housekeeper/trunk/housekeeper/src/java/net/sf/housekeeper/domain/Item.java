@@ -33,35 +33,35 @@ public class Item
     /**
      * Name of the Bound Bean Property "name".
      */
-    public static final String PROPERTYNAME_NAME     = "name";
+    public static final String PROPERTYNAME_NAME        = "name";
 
     /**
-     * Name of the Bound Bean Property "quantity".
+     * Name of the Bound Bean Property "description".
      */
-    public static final String PROPERTYNAME_QUANTITY = "quantity";
+    public static final String PROPERTYNAME_DESCRIPTION = "description";
 
     /**
      * Name of the Bound Bean Property "category".
      */
-    public static final String PROPERTYNAME_CATEGORY = "category";
-    
+    public static final String PROPERTYNAME_CATEGORY    = "category";
+
     /**
      * The name of this item.
      */
     private String             name;
 
     /**
-     * The quantity of one exemplar of this item.
+     * A description of this item.
      */
-    private String             quantity;
-    
+    private String             description;
+
     /**
      * The category.
      */
-    private String category;
+    private String             category;
 
     /**
-     * Creates a new item with an empty name and an unset quantity.
+     * Creates a new item with an empty name and description.
      */
     public Item()
     {
@@ -77,25 +77,24 @@ public class Item
     {
         final String clonedName = original.getName() == null ? null
                 : new String(original.getName());
-        final String clonedQuantity = original.getQuantity() == null ? null
-                : new String(original.getQuantity());
+        final String clonedDescription = original.getDescription() == null ? null
+                : new String(original.getDescription());
 
         setName(clonedName);
-        setQuantity(clonedQuantity);
+        setDescription(clonedDescription);
     }
 
     /**
      * Creates a new item with the given attributes.
      * 
      * @param name The name of the item. Must not be null.
-     * @param quantity The quantity of the item.
+     * @param description A description for this item.
      */
-    public Item(final String name, final String quantity)
+    public Item(final String name, final String description)
     {
         setName(name);
-        setQuantity(quantity);
+        setDescription(description);
     }
-
 
     /**
      * @return Returns the category.
@@ -112,7 +111,7 @@ public class Item
     {
         this.category = category;
     }
-    
+
     /**
      * Returns the name.
      * 
@@ -141,29 +140,27 @@ public class Item
     }
 
     /**
-     * @return Returns the quantity.
+     * @return Returns the description of this item. Null, if no description has
+     *         been set.
      */
-    public String getQuantity()
+    public String getDescription()
     {
-        return quantity;
+        return description;
     }
 
     /**
-     * Sets the quantity of one exemplar of this item. For example, a bottle of
-     * milk which contains 1 litre would be one item and its quantity would be 1
-     * litre.
+     * Sets the description for this item.
      * 
-     * @param quantity The quantity to set. If this is an empty string the
-     *            quantity becomes unset.
+     * @param description The descrption to set.
      */
-    public void setQuantity(final String quantity)
+    public void setDescription(final String description)
     {
-        if (quantity == null || quantity.equals(""))
+        if (description == null || description.equals(""))
         {
-            this.quantity = null;
+            this.description = null;
         } else
         {
-            this.quantity = quantity;
+            this.description = description;
         }
     }
 
@@ -187,14 +184,14 @@ public class Item
             return false;
         }
         Item castedObj = (Item) o;
-        
-        final boolean equalName = this.name == null ? castedObj.name == null : this.name
-                .equals(castedObj.name);
-        final boolean equalQuantity = this.quantity == null ? castedObj.quantity == null
-                : this.quantity.equals(castedObj.quantity);
+
+        final boolean equalName = this.name == null ? castedObj.name == null
+                : this.name.equals(castedObj.name);
+        final boolean equalDescription = this.description == null ? castedObj.description == null
+                : this.description.equals(castedObj.description);
         final boolean equalCategory = this.category == null ? castedObj.category == null
                 : this.category.equals(castedObj.category);
-        return equalName && equalQuantity && equalCategory;
+        return equalName && equalDescription && equalCategory;
     }
 
     /*
@@ -206,7 +203,8 @@ public class Item
     {
         int hashCode = 1;
         hashCode = 31 * hashCode + (name == null ? 0 : name.hashCode());
-        hashCode = 31 * hashCode + (quantity == null ? 0 : quantity.hashCode());
+        hashCode = 31 * hashCode
+                + (description == null ? 0 : description.hashCode());
         hashCode = 31 * hashCode + (category == null ? 0 : category.hashCode());
         return hashCode;
     }
@@ -222,8 +220,8 @@ public class Item
         buffer.append("[Item:");
         buffer.append(" name: ");
         buffer.append(name);
-        buffer.append(" quantity: ");
-        buffer.append(quantity);
+        buffer.append(" description: ");
+        buffer.append(description);
         buffer.append(" category: ");
         buffer.append(category);
         buffer.append("]");

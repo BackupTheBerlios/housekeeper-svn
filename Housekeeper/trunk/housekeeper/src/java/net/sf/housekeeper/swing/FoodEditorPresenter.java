@@ -126,7 +126,7 @@ final class FoodEditorPresenter
     private void updateModelFromView()
     {
         model.setName(view.getNameText());
-        model.setQuantity(view.getQuantityText());
+        model.setDescription(view.getDescriptionText());
         if (view.isExpiryEnabled())
         {
             model.setExpiry(view.getExpiryDate());
@@ -143,7 +143,7 @@ final class FoodEditorPresenter
     private void updateViewFromModel()
     {
         view.setNameText(model.getName());
-        view.setQuantityText(model.getQuantity());
+        view.setDescriptionText(model.getDescription());
         if (model.getExpiry() != null)
         {
             view.setExpiryDate(model.getExpiry());
