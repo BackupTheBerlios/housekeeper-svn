@@ -36,7 +36,7 @@ import java.util.Iterator;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  *
- * @see PurchasedArticle
+ * @see StockItem
  * @since 0.1
  */
 public class Purchase extends DomainObject
@@ -114,7 +114,7 @@ public class Purchase extends DomainObject
 
         for (Iterator iter = purchasedArticles.iterator(); iter.hasNext();)
         {
-            PurchasedArticle article = (PurchasedArticle)iter.next();
+            StockItem article = (StockItem)iter.next();
             totalAmount += article.getArticle().getPrice();
         }
 
@@ -127,7 +127,7 @@ public class Purchase extends DomainObject
      *
      * @param article The article, that should be added.
      */
-    public void add(PurchasedArticle article)
+    public void add(StockItem article)
     {
         purchasedArticles.add(article);
     }
@@ -147,7 +147,7 @@ public class Purchase extends DomainObject
      *
      * @param article The article, that should be removed.
      */
-    public void remove(PurchasedArticle article)
+    public void remove(StockItem article)
     {
         purchasedArticles.remove(article);
     }

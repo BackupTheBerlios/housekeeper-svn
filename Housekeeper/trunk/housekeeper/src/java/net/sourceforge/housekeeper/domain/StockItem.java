@@ -37,7 +37,7 @@ import java.util.Date;
  *
  * @since 0.1
  */
-public class PurchasedArticle extends DomainObject
+public class StockItem extends DomainObject
 {
     //~ Instance fields --------------------------------------------------------
 
@@ -53,11 +53,11 @@ public class PurchasedArticle extends DomainObject
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new PurchasedArticle object with default values. The related
+     * Creates a new StockItem object with default values. The related
      * article is an empty one, there are no consumptions and the date is set
      * to today.
      */
-    public PurchasedArticle()
+    public StockItem()
     {
         article       = new AssortimentItem();
         consumptions  = new ArrayList();

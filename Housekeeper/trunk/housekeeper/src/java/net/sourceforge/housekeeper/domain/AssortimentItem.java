@@ -27,7 +27,7 @@ package net.sourceforge.housekeeper.domain;
  * An item like banana or a bottle of milk which is part of a vendor's
  * assortiment and can be bought. Notice, that objects of this class doesn't
  * represent a concrete item that has been bought. Use {@link
- * PurchasedArticle} instead.
+ * StockItem} instead.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$

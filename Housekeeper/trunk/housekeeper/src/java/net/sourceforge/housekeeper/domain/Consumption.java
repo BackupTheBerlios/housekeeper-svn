@@ -27,7 +27,7 @@ import java.util.Date;
 
 
 /**
- * Represents a consumption of a {@link PurchasedArticle}. It holds the date
+ * Represents a consumption of a {@link StockItem}. It holds the date
  * and the quantity consumed.
  *
  * @author Adrian Gygax
