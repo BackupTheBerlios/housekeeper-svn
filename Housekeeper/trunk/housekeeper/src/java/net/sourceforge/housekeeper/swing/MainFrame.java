@@ -1,9 +1,5 @@
 package net.sourceforge.housekeeper.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -24,7 +20,7 @@ public final class MainFrame extends ExtendedFrame
 
 	private JMenuBar menuBar;
 	private JMenu menuArticles;
-	private JMenuItem itemNewArticle;
+	private JMenu menuFile;
 	
 	private JTabbedPane tabbedPane;
 	
@@ -66,14 +62,20 @@ public final class MainFrame extends ExtendedFrame
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		//Menus
+		//File Menu
+		menuFile = new JMenu("File");
+		menuBar.add(menuFile);
+		
+		menuFile.add(new JMenuItem(LoadData.INSTANCE));
+		menuFile.add(new JMenuItem(SaveData.INSTANCE));
+		menuFile.addSeparator();
+		menuFile.add(new JMenuItem(Exit.INSTANCE));
+		
+		//Articles menu
 		menuArticles = new JMenu("Articles");
 		menuBar.add(menuArticles);
 		
-		//Menu items
-		itemNewArticle = new JMenuItem("New article");
-		menuArticles.add(itemNewArticle);
-		itemNewArticle.addActionListener(new MenuHandler());
+		menuArticles.add(new JMenuItem(NewArticle.INSTANCE));		
 	}
 	
 	private void buildComponents()
@@ -82,20 +84,6 @@ public final class MainFrame extends ExtendedFrame
 		tabbedPane.addTab("Articles", new ArticlePanel());
 
 		getContentPane().add(tabbedPane);
-	}
-	
-	private class MenuHandler implements ActionListener
-	{
-
-		/* (non-Javadoc)
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed(ActionEvent e)
-		{
-			JDialog articleDialog = new ArticleDialog();
-			articleDialog.show();
-		}
-		 
 	}
 
 }
