@@ -226,7 +226,7 @@
 
     <resources>
       <resource>
-        <directory>src/conf</directory>
+        <directory>src/resources</directory>
         <includes>
           <include>**/*</include>
         </includes>
