@@ -21,8 +21,14 @@
 
 package net.sf.housekeeper.persistence;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
@@ -97,9 +103,12 @@ public final class PersistenceController
     public void replaceDomainWithSaved(final Household currentDomain)
             throws IOException, UnsupportedFileVersionException
     {
-        final Household savedHousehold = jdomPersistence.loadData(dataFile);
+        final InputStream dataStream = new BufferedInputStream(
+                new FileInputStream(dataFile));
+        final Household savedHousehold = jdomPersistence.loadData(dataStream);
+        dataStream.close();
         currentDomain.replaceAll(savedHousehold);
-        
+
         //The data has not been changed by the user.
         currentDomain.resetChangedStatus();
     }
@@ -114,7 +123,11 @@ public final class PersistenceController
     public void saveDomainData(final Household currentDomain)
             throws IOException
     {
-        jdomPersistence.saveData(currentDomain, dataFile);
+        final OutputStream dataStream = new BufferedOutputStream(
+                new FileOutputStream(dataFile));
+        jdomPersistence.saveData(currentDomain, dataStream);
+        dataStream.flush();
+        dataStream.close();
         
         //The data now has been saved.
         currentDomain.resetChangedStatus();

@@ -21,8 +21,9 @@
 
 package net.sf.housekeeper.persistence;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import net.sf.housekeeper.domain.Household;
 
@@ -41,7 +42,7 @@ public interface PersistenceService
      * Returns saved domain objects from this PersistenceService. For example,
      * invoking this method could create objects from a default XML-File.
      * 
-     * @param location The location of the data to be loaded.
+     * @param dataStream A stream with the data which should be parsed.
      * @return A Household object holding the loaded data.
      * @throws IOException If the data couldn't be retrieved.
      * @throws UnsupportedFileVersionException if the version or format of the
@@ -49,16 +50,16 @@ public interface PersistenceService
      * @throws IllegalArgumentException if the given file is not a valid
      *             Housekeeper file.
      */
-    Household loadData(final File location) throws IOException,
+    Household loadData(final InputStream dataStream) throws IOException,
             UnsupportedFileVersionException, IllegalArgumentException;
 
     /**
      * Saves all domain objects of the given household persistently.
      * 
      * @param household The Household to be saved.
-     * @param location The location to save the data to.
+     * @param dataStream The stream to the converted data shall be sent to.
      * @throws IOException If the data couldn't be stored.
      */
-    void saveData(final Household household, final File location)
+    void saveData(final Household household, final OutputStream dataStream)
             throws IOException;
 }

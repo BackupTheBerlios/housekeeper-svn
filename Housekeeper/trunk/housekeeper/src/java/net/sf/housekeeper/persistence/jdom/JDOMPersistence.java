@@ -21,9 +21,9 @@
 
 package net.sf.housekeeper.persistence.jdom;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceService;
@@ -50,11 +50,11 @@ public final class JDOMPersistence implements PersistenceService
      * Name of the attribute wich specifies the file format version.
      */
     private static final String  FILE_VERSION_ATTRIBUTE = "version";
-    
+
     /**
      * Name of the root element.
      */
-    private static final String ROOT_ELEMENT = "household";
+    private static final String  ROOT_ELEMENT           = "household";
 
     /**
      * Object used for converting between DOM and domain model.
@@ -73,9 +73,9 @@ public final class JDOMPersistence implements PersistenceService
     /*
      * (non-Javadoc)
      * 
-     * @see net.sf.housekeeper.persistence.PersistenceService#loadData(java.io.File)
+     * @see net.sf.housekeeper.persistence.PersistenceService#loadData(java.io.InputStream)
      */
-    public Household loadData(final File location) throws IOException,
+    public Household loadData(final InputStream location) throws IOException,
             UnsupportedFileVersionException, IllegalArgumentException
     {
         final SAXBuilder builder = new SAXBuilder();
@@ -95,13 +95,11 @@ public final class JDOMPersistence implements PersistenceService
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.persistence.PersistenceService#saveData(net.sf.housekeeper.domain.Household,
-     *      java.io.File)
+
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.persistence.PersistenceService#saveData(net.sf.housekeeper.domain.Household, java.io.OutputStream)
      */
-    public void saveData(final Household household, final File location)
+    public void saveData(final Household household, final OutputStream location)
             throws IOException
     {
         final Element root = modelConverter.convertDomainToXML(household);
@@ -109,9 +107,8 @@ public final class JDOMPersistence implements PersistenceService
 
         final Format format = Format.getPrettyFormat();
         final XMLOutputter serializer = new XMLOutputter(format);
-        final FileWriter fileWriter = new FileWriter(location);
-        serializer.output(document, fileWriter);
-        fileWriter.close();
+
+        serializer.output(document, location);
     }
 
     /**
