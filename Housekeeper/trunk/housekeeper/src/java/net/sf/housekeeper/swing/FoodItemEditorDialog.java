@@ -78,7 +78,7 @@ public final class FoodItemEditorDialog extends JDialog
     {
         super(owner, "Item Editor", true);
         this.presentationModel = new PresentationModel(item);
-        canceled = false;
+        canceled = true;
     }
 
     /**
@@ -106,7 +106,7 @@ public final class FoodItemEditorDialog extends JDialog
     public void open()
     {
         build();
-        canceled = false;
+        canceled = true;
         setVisible(true);
     }
 
