@@ -14,7 +14,7 @@ import org.jdom.Element;
  * Converts XML element hierarchies into domain objects and vice-versa. It does
  * only support the latest version of the Housekeeper XML file format. For
  * converting between formats use
- * {@link net.sf.housekeeper.persistence.jdom.DOMConverter} objects.
+ * {@link net.sf.housekeeper.persistence.jdom.DocumentVersionConverter} objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$

@@ -48,6 +48,8 @@ public final class JDOMPersistenceTest extends XMLTestCase
 
     private static final String VERSION1_DATA   = "data_v1.xml";
 
+    private static final String VERSION2_DATA   = "data_v1_to_v2.xml";
+
     private static final String NOT_AN_XML_FILE = "notAnXmlFile.xml";
 
     private JDOMPersistence     jdomPersistence;

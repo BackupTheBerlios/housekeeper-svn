@@ -21,22 +21,39 @@
 
 package net.sf.housekeeper.persistence.jdom;
 
+import java.util.Collection;
+
+import org.jdom.Attribute;
+import org.jdom.Document;
 import org.jdom.Element;
 
 
 /**
- * Converts a DOM to a DOM of another file version.
- * 
- * @author Adrian Gygax
+ * @author
  * @version $Revision$, $Date$
  */
-interface DOMConverter
+final class Version1To2Converter implements DocumentVersionConverter
 {
 
-    /**
-     * Converts the given DOM to a DOM of a different file version.
-     * 
-     * @param root The root element of the XML object tree. Must not be null.
-     */
-    void convert(final Element root);
+
+    public void convert(Document document)
+    {
+        final Element root = document.getRootElement();
+        
+        //Set version
+        final Attribute versionAttribute = root.getAttribute("version");
+        versionAttribute.setValue("2");
+        
+        //Move foodItem elements
+        final Collection foodItems = root.cloneContent();
+        root.removeChildren("foodItem");
+
+        final Element convenianceElement = new Element("food");
+        convenianceElement.setAttribute("category", "convenienceFoods");
+        convenianceElement.addContent(foodItems);
+        
+        root.addContent(convenianceElement);
+    }
+    
+
 }
