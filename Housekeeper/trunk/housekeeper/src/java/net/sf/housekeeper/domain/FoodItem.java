@@ -53,16 +53,18 @@ public final class FoodItem extends Model
      */
     public static final String PROPERTYNAME_EXPIRY   = "expiry";
 
-    /** The name of this item. */
+    /**
+     * The name of this item.
+     */
     private String             name;
 
-    /** The date, before the item should have been consumed entirely. */
+    /**
+     * The date before the item should have been consumed entirely.
+     */
     private Date               expiry;
 
     /**
-     * The quantity of one exemplar of this item. For example, a bottle of milk
-     * which contains 1 litre would be one item an its quantity would be 1
-     * litre.
+     * The quantity of one exemplar of this item.
      */
     private String             quantity;
 
@@ -81,12 +83,12 @@ public final class FoodItem extends Model
     }
 
     /**
-     * Creates a new FoodItem object with default values. The name is empty,
-     * there is no quantity set and the expiry date is set to today.
+     * Creates a new FoodItem object with default values. Name, quantity and the
+     * expiry date remain unset.
      */
     public FoodItem()
     {
-        this("", "", new Date());
+        this("", "", null);
     }
 
     /**
@@ -94,7 +96,7 @@ public final class FoodItem extends Model
      * given date. A value of null specifies that the expiry for this item
      * should not be set to a value.
      * 
-     * @param expiry The new expiry date or null.
+     * @param expiry The new expiry date or null to unset the date.
      */
     public void setExpiry(final Date expiry)
     {
@@ -109,7 +111,8 @@ public final class FoodItem extends Model
             calendar.add(Calendar.DAY_OF_MONTH, 1);
             calendar.add(Calendar.SECOND, -1);
             this.expiry = calendar.getTime();
-        } else {
+        } else
+        {
             this.expiry = null;
         }
 
@@ -139,11 +142,16 @@ public final class FoodItem extends Model
     /**
      * Sets the name of this item.
      * 
-     * @param name The name to set.
+     * @param name The name to set. Must not be null.
+     * @throws IllegalArgumentException if name is null.
      */
     public void setName(final String name)
     {
-        assert name != null : "Parameter name must not be null";
+        if (name == null)
+        {
+            throw new IllegalArgumentException("Parameter 'name' must not be null.");
+        }
+        
         Object oldValue = getExpiry();
         this.name = name;
         firePropertyChange(PROPERTYNAME_NAME, oldValue, name);
@@ -165,7 +173,7 @@ public final class FoodItem extends Model
      * @param quantity The quantity to set.
      */
     public void setQuantity(final String quantity)
-    {
+    {       
         Object oldValue = getExpiry();
         if (quantity == null)
         {

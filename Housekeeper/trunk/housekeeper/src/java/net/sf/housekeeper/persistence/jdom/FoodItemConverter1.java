@@ -22,6 +22,7 @@
 package net.sf.housekeeper.persistence.jdom;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import net.sf.housekeeper.domain.FoodItem;
@@ -62,18 +63,22 @@ final class FoodItemConverter1
                 .getAttributeValue("value");
 
         //Expiry
+        Date expiryDate = null;
         final Element expiryElement = foodItemElement.getChild("expiry");
-        final int day = Integer
-                .parseInt(expiryElement.getAttributeValue("day"));
-        final int month = Integer.parseInt(expiryElement
-                .getAttributeValue("month"));
-        final int year = Integer.parseInt(expiryElement
-                .getAttributeValue("year"));
-        final Calendar expiryCalendar = new GregorianCalendar(year, month - 1,
-                day);
+        if (expiryElement != null)
+        {
+            final int day = Integer.parseInt(expiryElement
+                    .getAttributeValue("day"));
+            final int month = Integer.parseInt(expiryElement
+                    .getAttributeValue("month"));
+            final int year = Integer.parseInt(expiryElement
+                    .getAttributeValue("year"));
+            final Calendar expiryCalendar = new GregorianCalendar(year,
+                    month - 1, day);
+            expiryDate = expiryCalendar.getTime();
+        }
 
-        final FoodItem foodItem = new FoodItem(itemName, quantity,
-                expiryCalendar.getTime());
+        final FoodItem foodItem = new FoodItem(itemName, quantity, expiryDate);
         return foodItem;
     }
 
@@ -96,16 +101,19 @@ final class FoodItemConverter1
         xmlElement.addContent(quantityElement);
 
         //Expiry
-        final Element expiryElement = new Element("expiry");
-        final Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(item.getExpiry());
-        expiryElement.setAttribute("day", ""
-                + calendar.get(GregorianCalendar.DAY_OF_MONTH));
-        expiryElement.setAttribute("month", ""
-                + calendar.get(GregorianCalendar.MONTH));
-        expiryElement.setAttribute("year", ""
-                + calendar.get(GregorianCalendar.YEAR));
-        xmlElement.addContent(expiryElement);
+        if (item.getExpiry() != null)
+        {
+            final Element expiryElement = new Element("expiry");
+            final Calendar calendar = GregorianCalendar.getInstance();
+            calendar.setTime(item.getExpiry());
+            expiryElement.setAttribute("day", ""
+                    + calendar.get(GregorianCalendar.DAY_OF_MONTH));
+            expiryElement.setAttribute("month", ""
+                    + calendar.get(GregorianCalendar.MONTH));
+            expiryElement.setAttribute("year", ""
+                    + calendar.get(GregorianCalendar.YEAR));
+            xmlElement.addContent(expiryElement);
+        }
 
         return xmlElement;
     }

@@ -24,9 +24,12 @@ package net.sf.housekeeper.swing;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -38,20 +41,20 @@ import net.sf.housekeeper.swing.util.BoundComponentFactory;
 
 import com.jgoodies.binding.PresentationModel;
 import com.jgoodies.binding.adapter.BasicComponentFactory;
+import com.jgoodies.binding.value.BufferedValueModel;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * A dialog for editing a FoodItem. Uses a StockItemEditorBuilder to build the
- * editor form and just adds buttons to accept or cancel the edit. These buttons
- * trigger a commit or flush in the underlying PresentationModel.
+ * A dialog for editing a FoodItem. The buttons for accepting or canceling the
+ * edit trigger a commit or flush in the underlying PresentationModel.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class FoodItemEditorDialog extends JDialog
+public final class FoodItemEditorDialog extends JDialog
 {
 
     /**
@@ -113,7 +116,12 @@ public class FoodItemEditorDialog extends JDialog
      */
     private void build()
     {
-        setContentPane(buildContentPane());
+        final JPanel panel = new JPanel(new BorderLayout());
+        panel.add(buildEditorPanel(), BorderLayout.CENTER);
+        panel.add(buildButtonBar(), BorderLayout.SOUTH);
+        panel.setBorder(Borders.DIALOG_BORDER);
+        setContentPane(panel);
+
         pack();
         setResizable(false);
         setLocationRelativeTo(getOwner());
@@ -133,50 +141,94 @@ public class FoodItemEditorDialog extends JDialog
     }
 
     /**
-     * Build the pane consisting of an editor panel and a button bar.
-     * 
-     * @return the whole editor pane.
-     */
-    private JPanel buildContentPane()
-    {
-        final JPanel panel = new JPanel(new BorderLayout());
-        panel.add(buildEditorPanel(), BorderLayout.CENTER);
-        panel.add(buildButtonBar(), BorderLayout.SOUTH);
-        panel.setBorder(Borders.DIALOG_BORDER);
-        return panel;
-    }
-
-    /**
      * Builds a panel with a form for editing an item's properties.
      * 
      * @return a panel with a form for editing an item's properties.
      */
     private JComponent buildEditorPanel()
     {
-        //Create components
+        //Create name field
         final JTextField nameField = BasicComponentFactory
                 .createTextField(presentationModel
                         .getBufferedModel(FoodItem.PROPERTYNAME_NAME));
         nameField.setColumns(20);
+
+        //Create quantity field
         final JTextField quantityField = BasicComponentFactory
                 .createTextField(presentationModel
                         .getBufferedModel(FoodItem.PROPERTYNAME_QUANTITY));
-        quantityField.setColumns(20);
+        quantityField.setColumns(10);
+
+        //Create expiry date selection spinner
         final JSpinner dateSpinner = BoundComponentFactory
                 .createDateSpinner(presentationModel
                         .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY));
 
+        //Create checkbox which controls if date selection is enabled or
+        //disabled.
+        final JCheckBox checkbox = new JCheckBox();
+        checkbox.setToolTipText("Check to enable the setting "
+                + "of an expiry date. Uncheck to disable it");
+        final Object expiryValue = presentationModel
+                .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY).getValue();
+        checkbox.setSelected(expiryValue != null);
+        dateSpinner.setEnabled(expiryValue != null);
+        checkbox.addItemListener(new CheckBoxListener(dateSpinner));
+
         //Build layout
         final FormLayout layout = new FormLayout(
-                "right:pref, 3dlu, default:grow");
+                "right:pref, 3dlu, fill:default:grow, 3dlu, default");
         final DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.setDefaultDialogBorder();
+        builder.setRowGroupingEnabled(true);
 
-        builder.append("Name", nameField);
-        builder.append("Quantity", quantityField);
-        builder.append("Expiry", dateSpinner);
+        builder.append("Name:", nameField);
+        builder.nextLine();
+        builder.append("Quantity:", quantityField);
+        builder.nextLine();
+        builder.append("Expiry:", dateSpinner, checkbox);
 
         return builder.getPanel();
+    }
+
+    /**
+     * Listens for selection state changes of a checkbox. If it becomes
+     * deselected, the domain object's expiry date value is set to null. Date
+     * selection is disabled but the spinner model caches the last selected
+     * date. If the checkbox becomes selected date selection is enabled and the
+     * domain object's expiry date is set to the spinner model's cached date.
+     */
+    private class CheckBoxListener implements ItemListener
+    {
+
+        private final JSpinner spinner;
+
+        private CheckBoxListener(JSpinner spinner)
+        {
+            this.spinner = spinner;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+         */
+        public void itemStateChanged(ItemEvent e)
+        {
+            final boolean hasBeenSelected = e.getStateChange() == ItemEvent.SELECTED;
+            final BufferedValueModel expiryValueModel = presentationModel
+                    .getBufferedModel(FoodItem.PROPERTYNAME_EXPIRY);
+
+            spinner.setEnabled(hasBeenSelected);
+
+            if (hasBeenSelected)
+            {
+                expiryValueModel.setValue(spinner.getValue());
+            } else
+            {
+                expiryValueModel.setValue(null);
+            }
+        }
     }
 
     /**

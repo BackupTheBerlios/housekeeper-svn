@@ -1,11 +1,12 @@
 <document>
   <properties>
     <title>Change history</title>
-    <author email="adrian.gygax(at)gmx.net">Adrian Gygax</author>
   </properties>
   <body>
     <release version="0.2.0" date="not yet released">
-        <action dev="notizklotz" type="add" issue="1054868">Added support for 
+      <action dev="notizklotz" type="fix" issue="1053909">Food items are not 
+            forced to have an expiry date anymore.</action>
+      <action dev="notizklotz" type="add" issue="1054868">Added support for 
             handling different file format versions.</action>
     </release>
     <release version="0.1.2a" date="2004-11-18">

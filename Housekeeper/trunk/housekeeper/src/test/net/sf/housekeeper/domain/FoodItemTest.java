@@ -1,6 +1,7 @@
 package net.sf.housekeeper.domain;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import junit.framework.TestCase;
 
@@ -11,8 +12,9 @@ import junit.framework.TestCase;
 public class FoodItemTest extends TestCase
 {
 
-    /*
-     * Class under test for void FoodItem(String, String, Date)
+    /**
+     * Tests if the attributes are set to the correct values
+     * using the constructor.
      */
     public final void testFoodItemStringStringDate()
     {
@@ -41,17 +43,12 @@ public class FoodItemTest extends TestCase
         assertEquals(year, returnedYear);
     }
 
-    /*
-     * Class under test for void FoodItem()
+    /**
+     * Tests the setting of a normal expiry date.
+     *
      */
-    public final void testFoodItem()
+    public final void testSetNormalExpiry()
     {
-
-    }
-
-    public final void testSetExpiry()
-    {
-        //Test normal operation
         final FoodItem item = new FoodItem();
         final Calendar nowCal = Calendar.getInstance();
 
@@ -64,40 +61,64 @@ public class FoodItemTest extends TestCase
                 .get(Calendar.DAY_OF_MONTH));
         assertEquals(nowCal.get(Calendar.MONTH), itemCal.get(Calendar.MONTH));
         assertEquals(nowCal.get(Calendar.YEAR), itemCal.get(Calendar.YEAR));
-
-        //Test null
+    }
+    
+    /**
+     * Tests the unsetting of an expiry date.
+     */
+    public final void testSetNullExpiry()
+    {
+        final FoodItem item = new FoodItem();
+        item.setExpiry(new Date());
         item.setExpiry(null);
         assertNull(item.getExpiry());
     }
 
-    public final void testSetName()
+    /**
+     * Tests setting a normal name.
+     */
+    public final void testSetNormalName()
     {
         //Test normal
         final FoodItem item = new FoodItem();
         final String name = "aname";
         item.setName(name);
         assertEquals(name, item.getName());
-
-        //Test null
-//        try
-//        {
-//            item.setName(null);
-//            fail("Item.setName(String) must not allow null as parameter");
-//        } catch (AssertionError e)
-//        {
-//            //No code as the exception SHOULD be thrown.
-//        }
+    }
+    
+    /**
+     * Tests setting the name to null.
+     */
+    public final void testSetNullName()
+    {
+      try
+      {
+          final FoodItem item = new FoodItem();
+          item.setName(null);
+          fail("Item.setName(String) must not allow null as parameter");
+      } catch (IllegalArgumentException e)
+      {
+          //No code as the exception is expected be thrown.
+      }
     }
 
+    /**
+     * Tests setting the quantity.
+     */
     public final void testSetQuantity()
     {
-        //Test normal
         final FoodItem item = new FoodItem();
         final String quantity = "quant";
         item.setQuantity(quantity);
         assertEquals(quantity, item.getQuantity());
-
-        //Test null
+    }
+    
+    /**
+     * Tests setting the quantity to null.
+     */
+    public final void testSetNullQuantity()
+    {
+        final FoodItem item = new FoodItem();
         item.setQuantity(null);
         assertEquals("", item.getQuantity());
     }

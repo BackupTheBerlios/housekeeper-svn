@@ -64,9 +64,6 @@ public final class BoundComponentFactory
      */
     public static JSpinner createDateSpinner(final ValueModel valueModel)
     {
-        assert valueModel != null : "Parameter valueModel must not be null";
-        assert valueModel.getValue().getClass().equals(Date.class) : "valueModel must provide Date objects as values";
-
         final SpinnerDateModel model = new SpinnerDateModelAdapter(valueModel);
         //Need to truncate the current date for correct spinner operation
         model.setStart(DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH));

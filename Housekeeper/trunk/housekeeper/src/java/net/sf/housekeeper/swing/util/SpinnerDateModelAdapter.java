@@ -47,9 +47,9 @@ public class SpinnerDateModelAdapter extends SpinnerDateModel implements
     private final ValueModel subject;
 
     /**
-     * Creates a new adapter which synchronizes with <code>subject</code>. The
-     * initial date is set to the subject's value. All other settings use the
-     * defaults from {@link SpinnerDateModel#SpinnerDateModel()}.
+     * Creates a new adapter which synchronizes with <code>subject</code>.
+     * The initial date is set to the subject's value. All other settings use
+     * the defaults from {@link SpinnerDateModel#SpinnerDateModel()}.
      * 
      * @param subject The subject to synchronize the date with. Must not be null
      *            and must provide {@link Date}objects as values.
@@ -57,13 +57,9 @@ public class SpinnerDateModelAdapter extends SpinnerDateModel implements
     public SpinnerDateModelAdapter(final ValueModel subject)
     {
         super();
-        assert subject != null : "Parameter valueModel must not be null";
-        assert subject.getValue().getClass().equals(Date.class) : "valueModel must provide Date objects as values";
 
         this.subject = subject;
-
         setValue(subject.getValue());
-
         subject.addValueChangeListener(this);
     }
 
@@ -75,7 +71,13 @@ public class SpinnerDateModelAdapter extends SpinnerDateModel implements
     public void setValue(Object value)
     {
         subject.setValue(value);
-        super.setValue(value);
+
+        //A SpinnerDateModel must not provide a null value. Because of this
+        //setting to null is ignored.
+        if (value != null)
+        {
+            super.setValue(value);
+        }
     }
 
     /*
@@ -85,6 +87,13 @@ public class SpinnerDateModelAdapter extends SpinnerDateModel implements
      */
     public void propertyChange(PropertyChangeEvent evt)
     {
-        super.setValue(evt.getNewValue());
+        final Object eventValue = evt.getNewValue();
+        
+        //A SpinnerDateModel must not provide a null value. Because of this
+        //setting to null is ignored.
+        if (eventValue != null)
+        {
+            super.setValue(eventValue);
+        }
     }
 }
