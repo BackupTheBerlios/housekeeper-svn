@@ -351,6 +351,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
         public void execute()
         {
             final Food foodObject = new Food();
+            foodObject.setCategory(category);
             final FormModel formModel = SwingFormModel.createFormModel(foodObject);
             final FoodPropertiesForm form = new FoodPropertiesForm(formModel);
 
