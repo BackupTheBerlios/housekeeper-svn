@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceService;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 import net.sf.housekeeper.util.ConfigurationManager;
@@ -38,7 +39,7 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 /**
- * Uses JDOM to save the data to an XML file.
+ * Uses JDOM to convert data between an XML file and domain objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -64,18 +65,19 @@ public final class JDOMPersistence implements PersistenceService
      * 
      * @see net.sf.housekeeper.persistence.PersistenceService#loadData()
      */
-    public void loadData() throws IOException, UnsupportedFileVersionException
+    public Household loadData() throws IOException, UnsupportedFileVersionException
     {
         final SAXBuilder builder = new SAXBuilder();
+        LogFactory.getLog(getClass()).debug(
+                                            "Trying to load file: "
+                                                    + dataFile);
         try
         {
-            LogFactory.getLog(getClass()).debug(
-                                                "Trying to load file: "
-                                                        + dataFile);
             final Document document = builder.build(dataFile);
             final Element root = document.getRootElement();
-
-            DomainConverterProxy.getInstance().replaceDomain(root);
+            final Household household = DomainConverterProxy.instance().convertToDomain(root);
+            
+            return household;
         } catch (JDOMException e)
         {
             e.printStackTrace();
@@ -84,15 +86,14 @@ public final class JDOMPersistence implements PersistenceService
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.persistence.PersistenceService#saveData()
+
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.persistence.PersistenceService#saveData(net.sf.housekeeper.domain.Household)
      */
-    public void saveData() throws IOException
+    public void saveData(final Household household) throws IOException
     {
-        final Element root = DomainConverterProxy.getInstance()
-                .convertDomainToXML();
+        final Element root = DomainConverterProxy.instance()
+                .convertDomainToXML(household);
         final Document document = new Document(root);
 
         final Format format = Format.getPrettyFormat();

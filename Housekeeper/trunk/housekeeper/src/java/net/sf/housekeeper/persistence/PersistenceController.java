@@ -22,36 +22,51 @@
 package net.sf.housekeeper.persistence;
 
 import java.io.IOException;
+import java.util.Collection;
 
+import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.domain.Household;
 
 /**
- * PersistenceServices are able to store and load domain objects from/to a persistence data source. Examples for such a service
- * are mapping objects to an XML-file or a database backend.
+ * Provides methods to replace or store the current domain objects using the default {@link net.sf.housekeeper.persistence.PersistenceService}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public interface PersistenceService
+public final class PersistenceController
 {
 
+    private PersistenceController()
+    {
+
+    }
+
     /**
-     * Returns saved domain objects from this
-     * PersistenceService. For example, invoking this
-     * method could create objects from a default XML-File. 
+     * Loads the saved data using the default {@link PersistenceService} and replaces all domain objects with them.
      * 
-     * @return A Household object holding the loaded data.
      * @throws IOException If the data couldn't be retrieved.
      * @throws UnsupportedFileVersionException if the version or format of the
      *  data source is not supported.
      */
-    Household loadData() throws IOException, UnsupportedFileVersionException;
-
+    public static void replaceDomainWithSaved() throws IOException,
+            UnsupportedFileVersionException
+    {
+        final Household household = PersistenceServiceFactory
+                .getCurrentService().loadData();
+        FoodItemManager.instance().replaceAll(household.getFoodItems());
+    }
+    
     /**
-     * Saves all domain objects of the given household persistently.
+     * Persistently saves the current domain objects using the default {@link PersistenceService}.
      * 
-     * @param household The Household to be saved.
      * @throws IOException If the data couldn't be stored.
      */
-    void saveData(final Household household) throws IOException;
+    public static void saveDomainData() throws IOException
+    {
+        final Collection foodItems = FoodItemManager.instance().getSupplyList();
+        final Household household = new Household(foodItems);
+        PersistenceServiceFactory.getCurrentService().saveData(household);
+    }
+    
+    
 }

@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import net.sf.housekeeper.domain.FoodItem;
-import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.jdom.DomainConverter;
 
 import org.jdom.Element;
@@ -53,7 +53,7 @@ public final class DomainConverter1 implements DomainConverter
      * 
      * @see net.sf.housekeeper.persistence.jdom.DomainConverter#replaceDomain(org.jdom.Element)
      */
-    public void replaceDomain(final Element root)
+    public Household convertToDomain(final Element root)
     {
 
         //Replace food items
@@ -66,7 +66,9 @@ public final class DomainConverter1 implements DomainConverter
             final FoodItem item = FoodItemConverter1.convert(element);
             foodItems.add(item);
         }
-        FoodItemManager.instance().replaceAll(foodItems);
+        
+        final Household household = new Household(foodItems);
+        return household;
     }
 
     /*
@@ -74,12 +76,12 @@ public final class DomainConverter1 implements DomainConverter
      * 
      * @see net.sf.housekeeper.persistence.jdom.DomainConverter#createDocument()
      */
-    public Element convertDomainToXML()
+    public Element convertDomainToXML(Household household)
     {
         final Element root = new Element("household");
         root.setAttribute("version", "" + SUPPORTED_FILE_VERSION);
 
-        final Iterator iter = FoodItemManager.instance().getItemsIterator();
+        final Iterator iter = household.getFoodItems().iterator();
         while (iter.hasNext())
         {
             final FoodItem item = (FoodItem) iter.next();

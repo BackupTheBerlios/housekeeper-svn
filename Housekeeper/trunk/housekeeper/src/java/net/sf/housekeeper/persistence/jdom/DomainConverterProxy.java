@@ -1,5 +1,6 @@
 package net.sf.housekeeper.persistence.jdom;
 
+import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 import net.sf.housekeeper.persistence.jdom.v1.DomainConverter1;
 
@@ -43,17 +44,16 @@ final class DomainConverterProxy implements DomainConverter
      * 
      * @return the Singleton instance of this class.
      */
-    static DomainConverterProxy getInstance()
+    static DomainConverterProxy instance()
     {
         return INSTANCE;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.persistence.jdom.DomainConverter#replaceDomain(org.jdom.Element)
+
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.persistence.jdom.DomainConverter#convertToDomain(org.jdom.Element)
      */
-    public void replaceDomain(Element root) throws UnsupportedFileVersionException
+    public Household convertToDomain(Element root) throws UnsupportedFileVersionException
     {
         //Get the file version
         final String versionString = root
@@ -76,7 +76,8 @@ final class DomainConverterProxy implements DomainConverter
 
         //Create domain converter
         final DomainConverter converter = new DomainConverter1();
-        converter.replaceDomain(root);
+        final Household household = converter.convertToDomain(root);
+        return household;
     }
 
     /*
@@ -84,10 +85,10 @@ final class DomainConverterProxy implements DomainConverter
      * 
      * @see net.sf.housekeeper.persistence.jdom.DomainConverter#createDocument()
      */
-    public Element convertDomainToXML()
+    public Element convertDomainToXML(Household household)
     {
         final DomainConverter latestConverter = new DomainConverter1();
-        final Element document = latestConverter.convertDomainToXML();
+        final Element document = latestConverter.convertDomainToXML(household);
         return document;
     }
 

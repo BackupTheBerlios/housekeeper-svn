@@ -42,7 +42,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import net.sf.housekeeper.ApplicationController;
-import net.sf.housekeeper.persistence.PersistenceServiceFactory;
+import net.sf.housekeeper.persistence.PersistenceController;
 import net.sf.housekeeper.util.ConfigurationManager;
 
 import org.apache.commons.lang.SystemUtils;
@@ -175,7 +175,7 @@ public final class MainFrame extends JFrame
         {
             try
             {
-                PersistenceServiceFactory.getCurrentService().saveData();
+                PersistenceController.saveDomainData();
             } catch (IOException e)
             {
                 exit = false;
@@ -239,7 +239,7 @@ public final class MainFrame extends JFrame
         {
             try
             {
-                PersistenceServiceFactory.getCurrentService().loadData();
+                PersistenceController.replaceDomainWithSaved();
             } catch (FileNotFoundException exception)
             {
                 JOptionPane.showMessageDialog(MainFrame.INSTANCE,
@@ -270,7 +270,7 @@ public final class MainFrame extends JFrame
         {
             try
             {
-                PersistenceServiceFactory.getCurrentService().saveData();
+                PersistenceController.saveDomainData();
             } catch (IOException e1)
             {
                 e1.printStackTrace();

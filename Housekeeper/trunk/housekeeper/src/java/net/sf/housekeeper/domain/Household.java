@@ -19,42 +19,38 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.persistence;
 
-import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
+package net.sf.housekeeper.domain;
+
+import java.util.Collection;
+
 
 /**
- * A Factory for centralized management of the persistence services. Clients
- * should call {@link #getCurrentService()}to receive a reference to the
- * currently used persistence service implementation.
+ * A container for items in a household. Currently only used for saving and loading.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class PersistenceServiceFactory
+public class Household
 {
-
+    private final Collection foodItems;
+    
+    
     /**
-     * An instance of the currently used persistence service implementation.
+     *
+     * @param foodItems
      */
-    private static PersistenceService currentService = new JDOMPersistence();
-
-    /**
-     * Prevents instanciation.
-     */
-    private PersistenceServiceFactory()
+    public Household(final Collection foodItems)
     {
-
+        this.foodItems = foodItems;
     }
-
+    
+    
     /**
-     * Returns the <code>PersistenceService</code> implementation used for
-     * mapping domain data from and to a persistent data source.
-     * 
-     * @return The currently used persistence service implementation.
+     * @return Returns the foodItems.
      */
-    public static PersistenceService getCurrentService()
+    public Collection getFoodItems()
     {
-        return currentService;
+        return foodItems;
     }
 }
