@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -39,7 +40,7 @@ public final class StockPanel extends JPanel implements Observer
         table       = new JTable(model);
         buttonPanel = new JPanel();
 
-        //buttonPanel.add(new JButton(NewAssortimentItemAction.INSTANCE));
+        buttonPanel.add(new JButton(NewStockItemAction.INSTANCE));
         
 
         setLayout(new BorderLayout());

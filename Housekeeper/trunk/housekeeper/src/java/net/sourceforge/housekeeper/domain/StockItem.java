@@ -1,100 +1,73 @@
 /*
  * This file is part of Housekeeper.
- *
- * Housekeeper is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * Housekeeper is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Housekeeper; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
- * MA  02111-1307  USA
- *
- * Copyright 2003, Adrian Gygax
- * http://housekeeper.sourceforge.net
+ * 
+ * Housekeeper is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ * 
+ * Housekeeper is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * Housekeeper; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ * Copyright 2003, Adrian Gygax http://housekeeper.sourceforge.net
  */
 
 package net.sourceforge.housekeeper.domain;
 
-
-import java.util.ArrayList;
-import java.util.Collection;
-
-
 /**
- * A concrete article, that has been purchased. There can be multiple objects
- * of this class for every {@link AssortimentItem}.
- *
+ * A concrete article, that has been purchased. There can be multiple objects of
+ * this class for every {@link AssortimentItem}.
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- *
+ * 
  * @since 0.1
  */
 public class StockItem extends DomainObject
 {
-    //~ Instance fields --------------------------------------------------------
 
-    /** The type of article the object is */
-    private AssortimentItem assItem;
+    //~ Instance fields
+    // --------------------------------------------------------
 
-    /** Information about consumptions of this object */
-    private Collection consumptions;
+    /** The name of this stock item */
+    private String name;
 
     /** The date, before the article should be consumed entirely */
     private String bestBeforeEnd;
 
-    //~ Constructors -----------------------------------------------------------
+    //~ Constructors
+    // -----------------------------------------------------------
 
-    /**
-     * Creates a new StockItem object with default values. The related
-     * article is an empty one, there are no consumptions and the date is set
-     * to today.
-     */
-    public StockItem(AssortimentItem assItem, String bestBeforeEnd)
+  
+    public StockItem(String name, String bestBeforeEnd)
     {
-        this.assItem       = assItem;
-        consumptions  = new ArrayList();
+        this.name = name;
         this.bestBeforeEnd = bestBeforeEnd;
     }
     
+    /**
+     * Creates a new StockItem object with default values. The related article
+     * is an empty one, there are no consumptions and the date is set to today.
+     */
     public StockItem()
     {
-        this(new AssortimentItem(), "");
+        this("", "");
     }
 
-
-    //~ Methods ----------------------------------------------------------------
+    //~ Methods
+    // ----------------------------------------------------------------
 
     /**
      * Sets the corresponding attribute to a new value.
-     *
-     * @param article The new value.
-     */
-    public void setArticle(AssortimentItem article)
-    {
-        this.assItem = article;
-    }
-
-    /**
-     * Gets the corresponding attribute.
-     *
-     * @return The corresponding attribute.
-     */
-    public AssortimentItem getArticle()
-    {
-        return assItem;
-    }
-
-    /**
-     * Sets the corresponding attribute to a new value.
-     *
-     * @param bestBeforeEnd The new value.
+     * 
+     * @param bestBeforeEnd
+     *            The new value.
      */
     public void setBestBeforeEnd(String bestBeforeEnd)
     {
@@ -103,7 +76,7 @@ public class StockItem extends DomainObject
 
     /**
      * Gets the corresponding attribute.
-     *
+     * 
      * @return The corresponding attribute.
      */
     public String getBestBeforeEnd()
@@ -112,32 +85,19 @@ public class StockItem extends DomainObject
     }
 
     /**
-     * Sets the corresponding attribute to a new value.
-     *
-     * @param consumption The new value.
+     * @return Returns the name.
      */
-    public void setConsumption(Collection consumption)
+    public String getName()
     {
-        this.consumptions = consumption;
+        return name;
     }
 
     /**
-     * Gets the corresponding attribute.
-     *
-     * @return The corresponding attribute.
+     * @param name
+     *            The name to set.
      */
-    public Collection getConsumption()
+    public void setName(String name)
     {
-        return consumptions;
-    }
-
-    /**
-     * Adds a consumption reducing the remaining available quantity.
-     *
-     * @param consumption The consumption to be added.
-     */
-    public void add(Consumption consumption)
-    {
-        consumptions.add(consumption);
+        this.name = name;
     }
 }

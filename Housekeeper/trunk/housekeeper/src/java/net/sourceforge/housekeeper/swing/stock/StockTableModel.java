@@ -71,7 +71,7 @@ public final class StockTableModel extends TableModelTemplate
         switch (arg1)
         {
             case 0:
-                return item.getArticle().getName();
+                return item.getName();
 
             case 1:
                 return item.getBestBeforeEnd();
