@@ -24,7 +24,7 @@ package net.sf.housekeeper.persistence;
 import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
 
 /**
- * A Factory for centralized management of the persistence services. Objects
+ * A Factory for centralized management of the persistence services. Clients
  * should call {@link #getCurrentService()}to receive a reference to the
  * currently used persistence service implementation.
  * 
@@ -48,8 +48,8 @@ public final class PersistenceServiceFactory
     }
 
     /**
-     * Returns a reference to the currently used persistence service
-     * implementation.
+     * Returns the <code>PersistenceService</code> implementation used for
+     * mapping domain data from and to a persistent data source.
      * 
      * @return The currently used persistence service implementation.
      */

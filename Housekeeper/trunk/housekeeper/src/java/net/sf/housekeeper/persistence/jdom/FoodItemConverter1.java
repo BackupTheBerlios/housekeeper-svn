@@ -29,19 +29,19 @@ import net.sf.housekeeper.domain.FoodItem;
 import org.jdom.Element;
 
 /**
- * Utility class for converting between JDOM Elements and domain
+ * Utility class for converting between JDOM Elements and
  * {@link net.sf.housekeeper.domain.FoodItem}objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class FoodItemConverter
+final class FoodItemConverter1
 {
 
     /**
      * Prevents instanciation.
      */
-    private FoodItemConverter()
+    private FoodItemConverter1()
     {
     }
 

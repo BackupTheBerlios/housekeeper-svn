@@ -228,13 +228,12 @@ public final class MainFrame extends JFrame
                                               "No data has been saved yet.",
                                               "Error",
                                               JOptionPane.ERROR_MESSAGE);
-            } catch (IOException exception)
+            } catch (Exception exception)
             {
                 exception.printStackTrace();
                 JOptionPane
                         .showMessageDialog(
-                                           MainFrame.INSTANCE,
-                                           "There was a problem loading the data.",
+                                           MainFrame.INSTANCE, exception.getMessage(),
                                            "Error", JOptionPane.ERROR_MESSAGE);
             }
         }

@@ -36,14 +36,18 @@ public interface PersistenceService
 {
 
     /**
-     * Loads data from the default storage place into memory.
+     * Replaces all domain objects in memory with data from this
+     * PersistenceService. For example, invoking this
+     * method could create objects from a default XML-File. 
      * 
      * @throws IOException If the data couldn't be retrieved.
+     * @throws UnsupportedFileVersionException if the version or format of the
+     *  data source is not supported.
      */
-    void loadData() throws IOException;
+    void loadData() throws IOException, UnsupportedFileVersionException;
 
     /**
-     * Saves data to the default storage place.
+     * Saves all domain objects persistently.
      * 
      * @throws IOException If the data couldn't be stored.
      */

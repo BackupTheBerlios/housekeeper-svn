@@ -26,13 +26,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import net.sf.housekeeper.persistence.PersistenceService;
+import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 
+import org.apache.commons.logging.LogFactory;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-
 
 /**
  * Uses JDOM to save the data to an XML file.
@@ -47,45 +49,58 @@ public final class JDOMPersistence implements PersistenceService
      * File used for loading and saving
      */
     private final File dataFile;
-    
+
     public JDOMPersistence()
     {
         final String homeDirString = System.getProperty("user.home");
         final File hkDir = new File(homeDirString, ".housekeeper");
         hkDir.mkdir();
-        
+
         dataFile = new File(hkDir, "data.xml");
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see net.sf.housekeeper.persistence.PersistenceService#loadData()
      */
-    public void loadData() throws IOException
+    public void loadData() throws IOException, IllegalArgumentException,
+            UnsupportedFileVersionException
     {
         final SAXBuilder builder = new SAXBuilder();
         try
         {
+            LogFactory.getLog(getClass()).debug(
+                                                "Trying to load file: "
+                                                        + dataFile);
             final Document document = builder.build(dataFile);
-            DomainConverter.replaceDomain(document);
+            final Element root = document.getRootElement();
+
+            DomainConverterProxy.getInstance().replaceDomain(root);
         } catch (JDOMException e)
         {
             e.printStackTrace();
-            throw new IOException("There was an error parsing the XML document.");
+            throw new IOException(
+                    "There was an error parsing the XML document: " + dataFile);
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see net.sf.housekeeper.persistence.PersistenceService#saveData()
      */
     public void saveData() throws IOException
     {
-        final Document document = DomainConverter.createDocument();
-        
+        final Element root = DomainConverterProxy.getInstance()
+                .convertDomainToXML();
+        final Document document = new Document(root);
+
         final Format format = Format.getPrettyFormat();
         final XMLOutputter serializer = new XMLOutputter(format);
         final FileWriter fileWriter = new FileWriter(dataFile);
         serializer.output(document, fileWriter);
         fileWriter.close();
     }
-    
+
 }
