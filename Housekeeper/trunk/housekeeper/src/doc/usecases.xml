@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE usecases SYSTEM "./usecases.dtd">
+
+<usecases>
+	<usecase>
+		<name>Neuen Artikel erstellen</name>
+		<description>
+			Der Benutzer erstellt einen neuen Artikel, wie z. B. eine Flasche Milch. Das System speichert den Artikel.
+		</description>
+	</usecase>
+	
+	<usecase>
+		<name>Bestehenden Artikel modifizieren</name>
+		<description>
+			Der Benutzer wählt einen Artikel aus und ändert dessen Daten. Das System überprüft die Verträglichkeit mit bereits bestehenden eingekauften Artikeln.
+		</description>
+	</usecase>	
+
+</usecases>

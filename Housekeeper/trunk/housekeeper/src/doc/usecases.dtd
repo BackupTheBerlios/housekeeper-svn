@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from usecases.xml by XMLBuddy -->
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT usecase (name,description)>
+<!ELEMENT usecases (usecase+)>
