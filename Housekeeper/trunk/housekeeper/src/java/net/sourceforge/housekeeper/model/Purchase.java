@@ -58,7 +58,7 @@ public class Purchase
     public Purchase()
     {
         purchasedArticles = new ArrayList();
-        date              = new Date();
+        date = new Date();
     }
 
     //~ Methods ----------------------------------------------------------------
@@ -104,6 +104,25 @@ public class Purchase
     }
 
     /**
+     * TODO DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
+    public double getTotalAmount()
+    {
+        double totalAmount = 0;
+
+        for (Iterator iter = purchasedArticles.iterator(); iter.hasNext();)
+        {
+            PurchasedArticle article = (PurchasedArticle)iter.next();
+            totalAmount += article.getArticle().getPrice();
+        }
+
+
+        return totalAmount;
+    }
+
+    /**
      * Adds an article to the list of purchased articles.
      *
      * @param article The article, that should be added.
@@ -114,6 +133,16 @@ public class Purchase
     }
 
     /**
+     * Adds articles from a collection to the list of purchased articles.
+     *
+     * @param articles The articles, that should be added.
+     */
+    public void add(Collection articles)
+    {
+        purchasedArticles.addAll(articles);
+    }
+
+    /**
      * Removes an article from the list of purchased articles.
      *
      * @param article The article, that should be removed.
@@ -121,17 +150,5 @@ public class Purchase
     public void remove(PurchasedArticle article)
     {
         purchasedArticles.remove(article);
-    }
-    
-    public double getTotalAmount()
-    {
-        double totalAmount = 0;
-        
-        for (Iterator iter = purchasedArticles.iterator(); iter.hasNext();)
-        {
-            PurchasedArticle article = (PurchasedArticle)iter.next();
-            totalAmount += article.getArticle().getPrice();
-        }
-        return totalAmount;
     }
 }
