@@ -3,6 +3,8 @@ package net.sf.housekeeper.domain;
 import java.util.Calendar;
 import java.util.Date;
 
+import net.sf.housekeeper.testutils.DataGenerator;
+
 import junit.framework.TestCase;
 
 /**
@@ -128,12 +130,8 @@ public final class FoodItemTest extends TestCase
      */
     public void testEquality()
     {
-        final String name = "AName";
-        final Date expiry = new Date();
-        final String quantity = "AQuantity";
-
-        final FoodItem item = new FoodItem("AName", "AQuantity", expiry);
-        final FoodItem item2 = new FoodItem("AName", "AQuantity", (Date) expiry.clone());
+        final FoodItem item = DataGenerator.createComplexItem();
+        final FoodItem item2 = DataGenerator.createComplexItem();
         
         final boolean itemEqualsItem2 = item.equals(item2);
         final boolean item2EqualsItem = item2.equals(item);
@@ -148,20 +146,20 @@ public final class FoodItemTest extends TestCase
      */
     public void testInequality()
     {
-        final String name = "AName";
-        final Date expiry = new Date();
-        final String quantity = "AQuantity";
-        final FoodItem item = new FoodItem(name, quantity, expiry);
+        final FoodItem item = DataGenerator.createComplexItem();
         
-        final FoodItem differentName = new FoodItem("FAwer", quantity, expiry);
-        final boolean isEqualDifName = item.equals(differentName);
-        assertFalse(isEqualDifName);
+        final FoodItem differentName = DataGenerator.createComplexItem();
+        differentName.setName("OtherName");
+        final boolean isEqualName = item.equals(differentName);
+        assertFalse(isEqualName);
         
-        final FoodItem differentQuantity = new FoodItem(name, "faase", expiry);
-        final boolean isEqualDifQuantity = item.equals(differentQuantity);
-        assertFalse(isEqualDifQuantity);
+        final FoodItem differentQuantity = DataGenerator.createComplexItem();
+        differentQuantity.setQuantity("OtherQuantity");
+        final boolean isEqualQuantity = item.equals(differentQuantity);
+        assertFalse(isEqualQuantity);
         
-        final FoodItem differentExpiry = new FoodItem(name, quantity, new Date(2));
+        final FoodItem differentExpiry = DataGenerator.createComplexItem();
+        differentExpiry.setExpiry(new Date(2));
         final boolean isEqualDifExpiry = item.equals(differentExpiry);
         assertFalse(isEqualDifExpiry);
         

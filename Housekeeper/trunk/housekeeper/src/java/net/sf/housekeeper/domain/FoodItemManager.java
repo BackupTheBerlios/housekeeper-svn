@@ -206,4 +206,33 @@ public final class FoodItemManager
         return hasChanged;
     }
 
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != getClass()) {
+            return false;
+        }
+        FoodItemManager castedObj = (FoodItemManager) o;
+        return this.supply == null
+            ? castedObj.supply == null
+            : this.supply.equals(castedObj.supply);
+    }
+    
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode() {
+        int hashCode = 1;
+        hashCode = 31 * hashCode + (supply == null ? 0 : supply.hashCode());
+        return hashCode;
+    }
 }

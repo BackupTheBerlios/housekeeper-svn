@@ -93,4 +93,48 @@ public final class Household
     {
         foodItems.resetChangedStatus();
     }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != getClass()) {
+            return false;
+        }
+        Household castedObj = (Household) o;
+        return ((this.foodItems == null
+            ? castedObj.foodItems == null
+            : this.foodItems.equals(castedObj.foodItems)));
+    }
+    
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode() {
+        int hashCode = 1;
+        hashCode = 31
+            * hashCode
+            + (foodItems == null ? 0 : foodItems.hashCode());
+        return hashCode;
+    }
+    
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("[Household:");
+        buffer.append(" foodItems: ");
+        buffer.append(foodItems);
+        buffer.append("]");
+        return buffer.toString();
+    }
 }
