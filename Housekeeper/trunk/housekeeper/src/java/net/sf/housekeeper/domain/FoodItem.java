@@ -84,23 +84,32 @@ public final class FoodItem extends Model
 
     /**
      * Creates a new FoodItem object with default values. The related article is
-     * an empty one, there are no consumptions and the date is set to today.
+     * an empty one, there are no consumptions and the expiry date is set to
+     * today.
      */
     public FoodItem()
     {
-        this("","",new Date());
+        this("", "", new Date());
     }
 
     /**
-     * Sets the corresponding attribute to a new value.
+     * Sets the expiry date of this item to one second before midnight of the
+     * given date.
      * 
-     * @param expiry The new value.
+     * @param expiry The new expiry date.
      */
     public void setExpiry(final Date expiry)
     {
-        Object oldValue = getExpiry();
-        this.expiry = DateUtils.truncate(expiry, Calendar.DAY_OF_MONTH);;
-        firePropertyChange(PROPERTYNAME_EXPIRY, oldValue, expiry);
+        final Object oldValue = getExpiry();
+        final Date truncatedExpiry = DateUtils.truncate(expiry,
+                                                        Calendar.DAY_OF_MONTH);
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(truncatedExpiry);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.SECOND, -1);
+        this.expiry = calendar.getTime();
+        
+        firePropertyChange(PROPERTYNAME_EXPIRY, oldValue, getExpiry());
     }
 
     /**
@@ -162,8 +171,9 @@ public final class FoodItem extends Model
         firePropertyChange(PROPERTYNAME_QUANTITY, oldValue, quantity);
     }
 
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object o)
@@ -192,10 +202,13 @@ public final class FoodItem extends Model
                 : this.quantity.equals(castedObj.quantity)));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
-    public int hashCode() {
+    public int hashCode()
+    {
         int hashCode = super.hashCode();
         hashCode = 31 * hashCode + (name == null ? 0 : name.hashCode());
         hashCode = 31 * hashCode + (expiry == null ? 0 : expiry.hashCode());
@@ -203,10 +216,13 @@ public final class FoodItem extends Model
         return hashCode;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    public String toString()
+    {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[FoodItem:");
         buffer.append(" name: ");
@@ -218,17 +234,19 @@ public final class FoodItem extends Model
         buffer.append("]");
         return buffer.toString();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#clone()
      */
-    public Object clone() {
+    public Object clone()
+    {
         FoodItem inst = new FoodItem();
         inst.name = this.name == null ? null : new String(this.name);
         inst.expiry = this.expiry == null ? null : (Date) inst.expiry.clone();
-        inst.quantity = this.quantity == null
-            ? null
-            : new String(this.quantity);
+        inst.quantity = this.quantity == null ? null
+                : new String(this.quantity);
         return inst;
     }
 }
