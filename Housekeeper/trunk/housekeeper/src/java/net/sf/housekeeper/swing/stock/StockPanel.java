@@ -16,16 +16,20 @@ import com.odellengineeringltd.glazedlists.jtable.ListTable;
 import com.odellengineeringltd.glazedlists.jtable.TableComparatorChooser;
 
 /**
- * 
+ * Lets the user manage the {@link net.sf.housekeeper.domain.StockItem}objects.
+ * It provides access to displaying, adding and modifying items.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class StockPanel extends JPanel
 {
+
+    /** Singleton instance */
     private static final StockPanel INSTANCE = new StockPanel();
 
-    private ListTable table;
+    /** The table showing the items. */
+    private ListTable               table;
 
     /**
      * Creates a new StockPanel object.
@@ -36,21 +40,20 @@ public final class StockPanel extends JPanel
         buttonPanel.add(new JButton(new NewStockItemAction()));
         buttonPanel.add(new JButton(new DeleteStockItemAction()));
 
-        final EventList items = StorageFactory.getCurrentStorage().getAllStockItems();
+        final EventList items = StorageFactory.getCurrentStorage()
+                .getAllStockItems();
         final SortedList sortedList = new SortedList(items, null);
         table = new ListTable(sortedList, new StockTableCell());
         new TableComparatorChooser(table, sortedList, false);
-        
+
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
         add(table.getTableScrollPane(), BorderLayout.CENTER);
     }
 
-    //~ Methods ----------------------------------------------------------------
-
     /**
      * Returns the Singleton instance of this class.
-     *
+     * 
      * @return The Singleton instance.
      */
     public static StockPanel getInstance()
@@ -59,16 +62,19 @@ public final class StockPanel extends JPanel
     }
 
     /**
-     * Returns the selected Article Description from the table.
-     *
+     * Returns the selected item from the table.
+     * 
      * @return The selected Article Description or null if no table row is
      *         selected.
      */
     public StockItem getSelectedItem()
     {
-            return (StockItem)table.getSelected();
+        return (StockItem) table.getSelected();
     }
 
+    /**
+     * Deletes the currently selected item.
+     */
     private class DeleteStockItemAction extends AbstractAction
     {
 
@@ -76,7 +82,7 @@ public final class StockPanel extends JPanel
         {
             super("Delete Item");
         }
-        
+
         public void actionPerformed(ActionEvent arg0)
         {
             final StockItem item = getSelectedItem();
@@ -87,7 +93,10 @@ public final class StockPanel extends JPanel
             }
         }
     }
-    
+
+    /**
+     * Shows a dialog for adding a new item.
+     */
     private class NewStockItemAction extends AbstractAction
     {
 

@@ -43,29 +43,19 @@ import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * 
  * @since 0.1
  */
 public final class MainFrame extends JFrame
 {
 
-    //~ Static fields/initializers
-    // ---------------------------------------------
-
-    /** Singleton instance */
+    /** Singleton instance. */
     public static final MainFrame INSTANCE = new MainFrame();
 
-    //~ Instance fields
-    // --------------------------------------------------------
+    private JMenu                 menuFile;
 
-    private JMenu menuFile;
+    private JMenuBar              menuBar;
 
-    private JMenuBar menuBar;
-
-    private JTabbedPane tabbedPane;
-
-    //~ Constructors
-    // -----------------------------------------------------------
+    private JTabbedPane           tabbedPane;
 
     /**
      * Creates a new MainFrame object.
@@ -83,9 +73,6 @@ public final class MainFrame extends JFrame
         SwingUtils.centerOnScreen(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
-    //~ Methods
-    // ----------------------------------------------------------------
 
     /**
      * Builds the components of the frame and adds them to the content pane.
@@ -133,12 +120,13 @@ public final class MainFrame extends JFrame
         UIManager.put("Application.useSystemFontSettings", Boolean.TRUE);
         UIManager.put(Options.USE_SYSTEM_FONTS_APP_KEY, Boolean.TRUE);
     }
-    
+
     /**
      * Action for exiting the application.
      */
     private static class ExitAction extends AbstractAction
     {
+
         private ExitAction()
         {
             super("Exit");
@@ -149,9 +137,13 @@ public final class MainFrame extends JFrame
             System.exit(0);
         }
     }
-    
+
+    /**
+     * Action to cause the permanent saving of the data.
+     */
     private static class LoadDataAction extends AbstractAction
     {
+
         private LoadDataAction()
         {
             super("Load Data");
@@ -168,12 +160,13 @@ public final class MainFrame extends JFrame
             }
         }
     }
-    
+
     /**
-     * Action to cause saving of the data permanently.
+     * Action to cause the permanent saving of the data.
      */
     public final class SaveDataAction extends AbstractAction
     {
+
         private SaveDataAction()
         {
             super("Save Data");

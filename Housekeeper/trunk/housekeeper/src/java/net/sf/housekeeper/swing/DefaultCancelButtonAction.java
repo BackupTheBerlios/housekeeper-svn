@@ -22,45 +22,38 @@
 
 package net.sf.housekeeper.swing;
 
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
 
-
 /**
- * A default ActionListener for a dialog. It just calls dispose() from the
- * dialog object.
- *
+ * A default Action for closing a specified dialog.
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- *
  * @since 0.1
  */
-public final class DefaultCancelButtonActionListener extends AbstractAction
+public final class DefaultCancelButtonAction extends AbstractAction
 {
-    //~ Instance fields --------------------------------------------------------
 
     /** The dialog this Listener should act upon. */
     private final JDialog dialog;
 
-    //~ Constructors -----------------------------------------------------------
-
     /**
      * Creates a new DefaultCancelButtonActionListener object.
-     *
+     * 
      * @param dialog The dialog this Listener should act upon.
      */
-    public DefaultCancelButtonActionListener(JDialog dialog)
+    public DefaultCancelButtonAction(final JDialog dialog)
     {
         super("Cancel");
         this.dialog = dialog;
     }
 
-    //~ Methods ----------------------------------------------------------------
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
     public void actionPerformed(ActionEvent e)

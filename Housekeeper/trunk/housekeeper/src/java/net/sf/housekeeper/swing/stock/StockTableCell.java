@@ -7,12 +7,18 @@ import net.sf.housekeeper.domain.StockItem;
 import com.odellengineeringltd.glazedlists.jtable.TableFormat;
 
 /**
- * @author
-*/
+ * Backend for a {@link com.odellengineeringltd.glazedlists.jtable.ListTable}
+ * for displaying {@link net.sf.housekeeper.domain.StockItem}objects.
+ * 
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ */
 final class StockTableCell implements TableFormat
 {
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#getFieldCount()
      */
     public int getFieldCount()
@@ -20,33 +26,34 @@ final class StockTableCell implements TableFormat
         return 2;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#getFieldName(int)
      */
     public String getFieldName(int arg0)
     {
-        if (arg0 == 0)
-        {
-            return "Item";
-        }
+        if (arg0 == 0) { return "Item"; }
         return "Best before end";
     }
 
-    /* (non-Javadoc)
-     * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#getFieldValue(java.lang.Object, int)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#getFieldValue(java.lang.Object,
+     *      int)
      */
     public Object getFieldValue(Object arg0, int arg1)
     {
-        final StockItem item = (StockItem)arg0;
+        final StockItem item = (StockItem) arg0;
 
-        if (arg1 == 0)
-        {
-            return item.getName();
-        }
+        if (arg1 == 0) { return item.getName(); }
         return item.getBestBeforeEnd();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#configureTable(javax.swing.JTable)
      */
     public void configureTable(JTable arg0)

@@ -20,7 +20,6 @@
 
 package net.sf.housekeeper.swing.stock;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,7 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
 import net.sf.housekeeper.domain.StockItem;
-import net.sf.housekeeper.swing.DefaultCancelButtonActionListener;
+import net.sf.housekeeper.swing.DefaultCancelButtonAction;
 import net.sf.housekeeper.swing.MainFrame;
 import net.sf.housekeeper.swing.SwingUtils;
 
@@ -44,29 +43,16 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- * 
  * @since 0.1
  */
 public final class StockItemDialog extends JDialog
 {
+    /** The item to be processed. */
+    private StockItem        item;
 
-    //~ Instance fields
-    // --------------------------------------------------------
-
-    private StockItem item;
-
-    private JButton buttonCancel;
-
-    private JButton buttonOK;
-
-    private JTextField nameField;
-
-    private JSpinner spinner;
+    private JTextField       nameField;
 
     private SpinnerDateModel spinnerModel;
-
-    //~ Constructors
-    // -----------------------------------------------------------
 
     /**
      * Creates a new AssortimentItemDialog.
@@ -76,17 +62,27 @@ public final class StockItemDialog extends JDialog
         super(MainFrame.INSTANCE, true);
 
         nameField = new JTextField();
-        
+
         spinnerModel = new SpinnerDateModel();
-        spinner = new JSpinner(spinnerModel);
+        JSpinner spinner = new JSpinner(spinnerModel);
         spinner.setEditor(new JSpinner.DateEditor(spinner, "dd.MM.yyyy"));
-        
-        buttonOK = new JButton("OK");
+
+        JButton buttonOK = new JButton("OK");
         buttonOK.addActionListener(new OKButtonActionListener());
+        JButton buttonCancel = new JButton(new DefaultCancelButtonAction(this));
 
-        buttonCancel = new JButton(new DefaultCancelButtonActionListener(this));
+        //build layout
+        FormLayout layout = new FormLayout("right:pref, 3dlu, 80dlu", // columns
+                "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+        builder.setDefaultDialogBorder();
+        builder.append("Name", nameField);
+        builder.append("Best Before End", spinner);
+        builder.appendSeparator();
+        builder.append(ButtonBarFactory
+                .buildOKCancelBar(buttonOK, buttonCancel), 3);
+        setContentPane(builder.getPanel());
 
-        buildLayout();
         pack();
         SwingUtils.centerOnComponent(this, getParent());
     }
@@ -98,8 +94,7 @@ public final class StockItemDialog extends JDialog
      * Shows a dialog for entering a new Article Description. The new object is
      * returned by this method.
      * 
-     * @param title
-     *            Title of the dialog's window.
+     * @param title Title of the dialog's window.
      * 
      * @return The new object if the user confirms his entry, null if he aborts.
      */
@@ -115,10 +110,8 @@ public final class StockItemDialog extends JDialog
      * Shows a dialog for modifying an existing Article Description. The
      * modified object is returned by this method.
      * 
-     * @param title
-     *            Title of the dialog's window.
-     * @param stockItem
-     *            Object that should be modified.
+     * @param title Title of the dialog's window.
+     * @param stockItem Object that should be modified.
      * 
      * @return The modified object if the user confirms his entry, null if he
      *         aborts.
@@ -135,40 +128,6 @@ public final class StockItemDialog extends JDialog
         return stockItem;
     }
 
-    /**
-     * Builds the button bar.
-     * 
-     * @return The created button bar.
-     */
-    private Component buildButtonBar()
-    {
-        return ButtonBarFactory.buildOKCancelBar(buttonOK, buttonCancel);
-    }
-
-    /**
-     * Builds the layout of the dialog.
-     */
-    private void buildLayout()
-    {
-        FormLayout layout = new FormLayout("right:pref, 3dlu, 80dlu", // columns
-                "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-
-        builder.setDefaultDialogBorder();
-
-        builder.append("Name", nameField);
-        builder.append("Best Before End", spinner);
-
-        builder.appendSeparator();
-
-        builder.append(buildButtonBar(), 3);
-
-        setContentPane(builder.getPanel());
-    }
-
-    //~ Inner Classes
-    // ----------------------------------------------------------
-
     private class OKButtonActionListener implements ActionListener
     {
 
@@ -184,7 +143,7 @@ public final class StockItemDialog extends JDialog
                 item = new StockItem();
             }
 
-            item.setName(nameField.getText());  
+            item.setName(nameField.getText());
             item.setBestBeforeEnd(spinnerModel.getDate());
 
             dispose();

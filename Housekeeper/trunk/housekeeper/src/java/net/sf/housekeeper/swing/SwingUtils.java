@@ -22,68 +22,68 @@
 
 package net.sf.housekeeper.swing;
 
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 
-
 /**
- * Provides useful services to GUI components.
- *
+ * Useful utilites for GUI components.
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
- *
  * @since 0.1
  */
 public final class SwingUtils
 {
-    //~ Constructors -----------------------------------------------------------
 
+    /** Prevent instanciation. */
     private SwingUtils()
     {
     }
 
-    //~ Methods ----------------------------------------------------------------
-
     /**
-     * Centers a component on another component. This is particularly useful
-     * for centering dialogs on its parent window.
-     *
-     * @param centerComponent Component to be centered on another.
-     * @param onComponent Component on which centerComponent should be
-     *        centered.
+     * Centers a component on another component. This is particularly useful for
+     * centering dialogs on its parent window.
+     * 
+     * @param centerComponent Component to be centered on another. Must not be
+     *            null.
+     * @param onComponent Component on which centerComponent should be centered.
+     *            Must not be null.
      */
-    public static void centerOnComponent(Component centerComponent,
-                                  Component onComponent)
+    public static void centerOnComponent(final Component centerComponent,
+                                         final Component onComponent)
     {
-        final Point     parentFrameLocation = onComponent.getLocation();
+        final Point parentFrameLocation = onComponent.getLocation();
         final Dimension parentFrameSize = onComponent.getSize();
-        final Dimension thisDialogSize  = centerComponent.getSize();
+        final Dimension thisDialogSize = centerComponent.getSize();
+        final int modifier = 15;
 
         // Calculate locations
-        int xLocation = (parentFrameLocation.x + (parentFrameSize.width / 2)) -
-                        (thisDialogSize.width / 2);
-        int yLocation = (parentFrameLocation.y + (parentFrameSize.height / 2)) -
-                        (thisDialogSize.height / 2);
+        int xLocation = (parentFrameLocation.x + (parentFrameSize.width / 2))
+                - (thisDialogSize.width / 2);
+        int yLocation = (parentFrameLocation.y + (parentFrameSize.height / 2))
+                - (thisDialogSize.height / 2);
 
         // Do not set location outside of screen
-        xLocation = ifNegativeSetTo(xLocation, 15);
-        yLocation = ifNegativeSetTo(yLocation, 15);
-
+        if (xLocation < 0)
+        {
+            xLocation = 15;
+        }
+        if (yLocation < 0)
+        {
+            yLocation = 15;
+        }
 
         // Do not cover parent frame
-        if (xLocation <= (parentFrameLocation.x + 15))
+        if (xLocation <= (parentFrameLocation.x + modifier))
         {
-            xLocation = parentFrameLocation.x + 15;
+            xLocation = parentFrameLocation.x + modifier;
         }
 
-
-        if (yLocation <= (parentFrameLocation.y + 15))
+        if (yLocation <= (parentFrameLocation.y + modifier))
         {
-            yLocation = parentFrameLocation.y + 15;
+            yLocation = parentFrameLocation.y + modifier;
         }
-
 
         centerComponent.setLocation(xLocation, yLocation);
     }
@@ -91,13 +91,13 @@ public final class SwingUtils
     /**
      * Centers a component on the screen. This is particularly useful for
      * centering a Frame on the screen.
-     *
-     * @param comp Component to be centered on the screen.
+     * 
+     * @param comp Component to be centered on the screen. Must not be null.
      */
-    public static void centerOnScreen(Component comp)
+    public static void centerOnScreen(final Component comp)
     {
         // Center frame
-        Dimension paneSize   = comp.getSize();
+        Dimension paneSize = comp.getSize();
         Dimension screenSize = comp.getToolkit().getScreenSize();
 
         // Calculate locations
@@ -110,22 +110,11 @@ public final class SwingUtils
             xLocation = 0;
         }
 
-
         if (yLocation < 0)
         {
             yLocation = 0;
         }
 
-
         comp.setLocation(xLocation, yLocation);
-    }
-    
-    private static int ifNegativeSetTo(int from, int to)
-    {
-        if(from < 0)
-        {
-            return to;
-        }
-        return from;
     }
 }
