@@ -68,9 +68,10 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
                     .replaceDomainWithSaved(household);
         } catch (FileNotFoundException exception)
         {
-            final String nodata = LocalisationManager.INSTANCE
-                    .getText("gui.mainFrame.nodata");
-            showErrorDialog(nodata);
+            //Disabled as a workaround for bug #3476
+            //final String nodata = LocalisationManager.INSTANCE
+            //        .getText("gui.mainFrame.nodata");
+            //showErrorDialog(nodata);
         } catch (Exception exception)
         {
             showErrorDialog(exception.getLocalizedMessage());
