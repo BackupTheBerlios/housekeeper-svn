@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="Housekeeper - The household management software">
+  <title>Housekeeper - The household management software</title>
+  <body>
+    <links>
+      <item name="Sourceforge Project Site"  href="http://sourceforge.net/projects/housekeeper" />
+    </links>
+    <menu name="Overview">
+      <item href="/index.html" name="Home" />
+      <item href="/roadmap.html" name="Current Roadmap" />
+      <!--<item href="/faq.html" name="FAQ" />-->
+    </menu>
+  </body>
+</project>

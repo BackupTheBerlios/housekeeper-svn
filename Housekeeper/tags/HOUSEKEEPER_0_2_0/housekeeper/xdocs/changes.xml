@@ -1,0 +1,53 @@
+<document>
+  <properties>
+    <title>Change history</title>
+  </properties>
+  <body>
+    <release version="0.2.0" date="2004-12-05">
+        <action dev="notizklotz" type="add" issue="1077892">Ask user if wants 
+            to save modifications before exiting the application.</action>
+        <action dev="notizklotz" type="add" issue="1045200">Fixed 
+            display problems when running under JRE 5.0.</action>
+        <action dev="notizklotz" type="fix" issue="1045200">Fixed 
+            display problems when running under JRE 5.0.</action>
+        <action dev="notizklotz" type="fix" issue="1073874">Items with no 
+            expiry date are now displayed after any item which has a specified 
+            expiry date in the default table sorting.</action>
+        <action dev="notizklotz" type="fix" issue="1073313">Closing a dialog 
+            does now behave like pressing the Cancel button.</action>
+        <action dev="notizklotz" type="fix" issue="1071590">Fixed a problem 
+            where actions on food items sometimes modified the wrong 
+            item.</action>
+        <action dev="notizklotz" type="fix" issue="1053909">Food items are not 
+            forced to have an expiry date anymore.</action>
+    </release>
+    <release version="0.1.2a" date="2004-11-18">
+      <action dev="notizklotz" type="fix">Fixed application 
+            execution in Windows.</action>
+      <action dev="notizklotz" type="fix">Modified start 
+            script for Unix derivaties to enable application start from a file 
+            manager.</action>
+    </release>
+    <release version="0.1.2" date="2004-10-26">
+      <action dev="notizklotz" type="add" issue="1037939"> Added 
+            logging component for display of messages in the console.</action>
+      <action dev="notizklotz" type="add" issue="960660"> Implemented robust 
+            persistence layer using JDOM for reading and writing XML. </action>
+    </release>
+    <release version="0.1.1" date="2004-07-07">
+      <action dev="notizklotz" type="add">
+        Added basic item management functionality. (Add, Delete, Modify, Duplicate)
+      </action>
+      <action dev="notizklotz" type="add">
+        Items can be sorted by clicking on the table header.
+      </action>
+      <action dev="notizklotz" type="add">
+        Simple saving and loading mechanism implemented. BUT: Files saved with this version
+        will not be readable in the future anymore!
+      </action>
+      <action dev="notizklotz" type="add">
+        Basic about dialog with information about the libraries which are used.
+      </action>
+    </release>
+  </body>
+</document>
