@@ -1,6 +1,7 @@
 package net.sf.housekeeper.persistence.jdom;
 
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
+import net.sf.housekeeper.persistence.jdom.v1.DomainConverter1;
 
 import org.apache.commons.logging.LogFactory;
 import org.jdom.Element;

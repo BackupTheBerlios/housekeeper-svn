@@ -12,7 +12,7 @@ import org.jdom.Element;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-interface DomainConverter
+public interface DomainConverter
 {
 
     /**

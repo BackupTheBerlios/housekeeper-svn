@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.persistence.jdom;
+package net.sf.housekeeper.persistence.jdom.v1;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -27,6 +27,7 @@ import java.util.LinkedList;
 
 import net.sf.housekeeper.domain.FoodItem;
 import net.sf.housekeeper.domain.FoodItemManager;
+import net.sf.housekeeper.persistence.jdom.DomainConverter;
 
 import org.jdom.Element;
 
@@ -39,7 +40,7 @@ import org.jdom.Element;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-final class DomainConverter1 implements DomainConverter
+public final class DomainConverter1 implements DomainConverter
 {
 
     /**
@@ -75,7 +76,7 @@ final class DomainConverter1 implements DomainConverter
      */
     public Element convertDomainToXML()
     {
-        final Element root = new Element("housekeeper");
+        final Element root = new Element("household");
         root.setAttribute("version", "" + SUPPORTED_FILE_VERSION);
 
         final Iterator iter = FoodItemManager.INSTANCE.getItemsIterator();

@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.persistence.jdom;
+package net.sf.housekeeper.persistence.jdom.v1;
 
 import java.util.Calendar;
 import java.util.Date;
