@@ -36,12 +36,21 @@ import javax.swing.JFrame;
  *
  * @since 0.1
  */
-public class Housekeeper
+public final class Housekeeper
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** The version of the last release. */
     public static final String VERSION = "0.1.0";
+
+    //~ Constructors -----------------------------------------------------------
+
+    /**
+     * Prevents instances of this class
+     */
+    private Housekeeper()
+    {
+    }
 
     //~ Methods ----------------------------------------------------------------
 
