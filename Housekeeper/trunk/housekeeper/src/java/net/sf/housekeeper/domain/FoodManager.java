@@ -21,16 +21,13 @@
 
 package net.sf.housekeeper.domain;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import ca.odell.glazedlists.BasicEventList;
-import ca.odell.glazedlists.EventList;
 
 /**
  * Holds a list of items and provides operations to add, delete and change a
@@ -55,7 +52,7 @@ public final class FoodManager
     /**
      * Holds a list of all items on hand.
      */
-    private final EventList  foodList;
+    private final List  foodList;
 
     /**
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
@@ -75,8 +72,7 @@ public final class FoodManager
      */
     public FoodManager(final List items)
     {
-        //TODO Check if the elements of the list are all FoodItems.
-        foodList = new BasicEventList(items);
+        foodList = items;
         resetChangedStatus();
     }
 
@@ -124,9 +120,30 @@ public final class FoodManager
      * 
      * @return the supply.
      */
-    public EventList getSupplyList()
+    public List getSupplyList()
     {
         return foodList;
+    }
+    
+    public List getItemsForCategory(String category)
+    {
+        if (category == null)
+        {
+            return getSupplyList();
+        }
+        
+        final List categoryItems = new ArrayList();
+        final Iterator allItemsIter = foodList.iterator();
+        while(allItemsIter.hasNext())
+        {
+            final Food item = (Food)allItemsIter.next();
+            final boolean isOfCategory = item.getCategory().equals(category);
+            if (isOfCategory)
+            {
+                categoryItems.add(item);
+            }
+        }
+        return categoryItems;
     }
 
     /**

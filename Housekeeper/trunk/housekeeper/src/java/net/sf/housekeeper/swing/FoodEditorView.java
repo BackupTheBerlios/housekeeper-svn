@@ -319,19 +319,19 @@ final class FoodEditorView
         builder.setRowGroupingEnabled(true);
 
         final String nameLabel = LocalisationManager.INSTANCE
-                .getText("domain.food.name")
+                .getText("food.name")
                 + ":";
         builder.append(nameLabel, nameField);
         builder.nextLine();
 
         final String quantityLabel = LocalisationManager.INSTANCE
-                .getText("domain.food.description")
+                .getText("food.description")
                 + ":";
         builder.append(quantityLabel, quantityField);
         builder.nextLine();
 
         final String expiryLabel = LocalisationManager.INSTANCE
-                .getText("domain.food.expiry")
+                .getText("food.expiry")
                 + ":";
         builder.append(expiryLabel, dateSpinner, checkbox);
 

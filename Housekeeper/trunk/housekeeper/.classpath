@@ -10,7 +10,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/jgoodies/jars/looks-1.2.2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jdom/jars/jdom-1.0.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/glazedlists/jars/glazedlists-0.9.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/toedter/jars/jcalendar-1.2.1.jar"/>
 	<classpathentry sourcepath="SPRING" kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-20050324.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-resources-20050131.jar"/>

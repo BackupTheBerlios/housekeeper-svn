@@ -184,18 +184,6 @@
     </dependency>
     
     <dependency>
-        <groupId>glazedlists</groupId>
-        <artifactId>glazedlists</artifactId>
-        <version>0.9.4</version>
-        <url>http://publicobject.com/glazedlists/</url>
-        <properties>
-            <jnlp.jar>true</jnlp.jar>
-            <category>shared</category>
-            <jar.manifest.classpath>true</jar.manifest.classpath>
-        </properties>
-    </dependency>
-    
-    <dependency>
         <groupId>toedter</groupId>
         <artifactId>jcalendar</artifactId>
         <version>1.2.1</version>
