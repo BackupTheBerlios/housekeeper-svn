@@ -44,6 +44,9 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.sf.housekeeper.Housekeeper;
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.persistence.PersistenceServiceFactory;
@@ -63,6 +66,11 @@ public final class MainFrame extends JFrame
     /** Singleton instance. */
     public static final MainFrame INSTANCE = new MainFrame();
 
+    /**
+     * Log to be used for this class.
+     */
+    private static final Log LOG = LogFactory.getLog(MainFrame.class);
+    
     private JTabbedPane           tabbedPane;
 
     /**
@@ -87,6 +95,8 @@ public final class MainFrame extends JFrame
      */
     private void buildComponents()
     {
+        LOG.debug("Building GUI components");
+        
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Supply", createSupplyPanel());
         getContentPane().add(tabbedPane);
@@ -97,6 +107,8 @@ public final class MainFrame extends JFrame
      */
     private JMenuBar buildMenuBar()
     {
+        LOG.debug("Building menu bar");
+        
         final JMenuBar menuBar = new JMenuBar();
 
         //File Menu
@@ -148,7 +160,7 @@ public final class MainFrame extends JFrame
      * Initializes the Look and Feel.
      */
     private void initLookAndFeel()
-    {
+    { 
         if (System.getProperty("os.name").equals("Linux"))
         {
             try
@@ -159,6 +171,7 @@ public final class MainFrame extends JFrame
                 //Do nothing if setting the Look and Feel fails.
             }
         }
+        LOG.debug("Using Look and Feel: " + UIManager.getLookAndFeel().getName());
     }
 
     /**
