@@ -31,36 +31,63 @@ package net.sf.housekeeper.domain;
 public final class Household
 {
 
-    private final FoodManager food;
+    private final FoodManager convenienceFoodManager;
+
+    private final FoodManager miscFoodManager;
 
     /**
      * Creates a new domain with no data.
      */
     public Household()
     {
-        this(new FoodManager());
+        this(new FoodManager(), new FoodManager());
     }
 
     /**
-     * Creates a new domain using an existing {@link FoodManager}.
+     * Creates a new domain using an existing {@link FoodManager}for
+     * convenience foods.
      * 
-     * @param foodManager The manager which holds the domain data. Must not be
-     *            null.
+     * @param convenienceFoodManager The manager for convenience foods. Must not
+     *            be null.
      */
-    public Household(final FoodManager foodManager)
+    public Household(final FoodManager convenienceFoodManager)
     {
-        this.food = foodManager;
+        this(convenienceFoodManager, new FoodManager());
     }
 
     /**
-     * Returns the manager which allows access and manipulation of
-     * {@link Food} objects in this domain.
+     * Creates a new domain with existing {@link FoodManager}for both,
+     * convenience foods and miscellaneous food.
+     * 
+     * @param convenienceFoodManager The manager for convenience foods. Must not
+     *            be null.
+     * @param miscFoodManager The manager for miscellaneous food. Must not be null.
+     */
+    public Household(final FoodManager convenienceFoodManager,
+            final FoodManager miscFoodManager)
+    {
+        this.convenienceFoodManager = convenienceFoodManager;
+        this.miscFoodManager = miscFoodManager;
+    }
+
+    /**
+     * Returns the manager for convience food objects in this domain.
      * 
      * @return The manager. Is not null.
      */
-    public FoodManager getFoodManager()
+    public FoodManager getConvenienceFoodManager()
     {
-        return food;
+        return convenienceFoodManager;
+    }
+    
+    /**
+     * Returns the manager for miscellaneous food objects in this domain.
+     * 
+     * @return The manager. Is not null.
+     */
+    public FoodManager getMiscFoodManager()
+    {
+        return miscFoodManager;
     }
 
     /**
@@ -71,9 +98,11 @@ public final class Household
      */
     public void replaceAll(final Household domain)
     {
-        food.replaceAll(domain.getFoodManager().getSupplyList());
+        convenienceFoodManager.replaceAll(domain.getConvenienceFoodManager()
+                .getSupplyList());
+        miscFoodManager.replaceAll(domain.getMiscFoodManager().getSupplyList());
     }
-    
+
     /**
      * Returns true if any data has been changed since the last call to
      * {@link #resetChangedStatus()}.
@@ -82,58 +111,81 @@ public final class Household
      */
     public boolean hasChanged()
     {
-        return food.hasChanged();
+        final boolean hasChanged = convenienceFoodManager.hasChanged() || miscFoodManager.hasChanged();
+        return hasChanged;
     }
-    
+
     /**
      * Resets the status of the "has changed" attribute. After calling this,
      * {@link #hasChanged()}returns false.
      */
     public void resetChangedStatus()
     {
-        food.resetChangedStatus();
+        convenienceFoodManager.resetChangedStatus();
+        convenienceFoodManager.resetChangedStatus();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
             return true;
         }
-        if (o == null) {
+        if (o == null)
+        {
             return false;
         }
-        if (o.getClass() != getClass()) {
+        if (o.getClass() != getClass())
+        {
             return false;
         }
         Household castedObj = (Household) o;
-        return ((this.food == null
-            ? castedObj.food == null
-            : this.food.equals(castedObj.food)));
+        final boolean isConvEqual = this.convenienceFoodManager == null ? castedObj.convenienceFoodManager == null
+                : this.convenienceFoodManager
+                .equals(castedObj.convenienceFoodManager);
+        final boolean isMiscEqual = this.miscFoodManager == null ? castedObj.miscFoodManager == null
+                : this.miscFoodManager
+                .equals(castedObj.miscFoodManager);
+        return isConvEqual && isMiscEqual;
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
-    public int hashCode() {
+    public int hashCode()
+    {
         int hashCode = 1;
         hashCode = 31
-            * hashCode
-            + (food == null ? 0 : food.hashCode());
+                * hashCode
+                + (convenienceFoodManager == null ? 0 : convenienceFoodManager
+                        .hashCode());
+        hashCode = 31
+        * hashCode
+        + (miscFoodManager == null ? 0 : miscFoodManager
+                .hashCode());
         return hashCode;
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    public String toString()
+    {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[Household:");
-        buffer.append(" food: ");
-        buffer.append(food);
+        buffer.append(" Convenience Food: ");
+        buffer.append(convenienceFoodManager);
+        buffer.append(" Miscellaneous Food: ");
+        buffer.append(miscFoodManager);
         buffer.append("]");
         return buffer.toString();
     }

@@ -126,7 +126,7 @@ final class SupplyPanel extends JPanel
         boolean canceled = openEditor(item);
         if (!canceled)
         {
-            itemManager.addConvenienceFood(item);
+            itemManager.add(item);
         }
     }
 

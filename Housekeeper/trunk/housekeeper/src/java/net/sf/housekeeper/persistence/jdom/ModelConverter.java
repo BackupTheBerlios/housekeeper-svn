@@ -69,7 +69,7 @@ final class ModelConverter
         final Element root = new Element("household");
         root.setAttribute("version", "" + CURRENT_FILE_VERSION);
 
-        final Iterator iter = household.getFoodManager().getItemsIterator();
+        final Iterator iter = household.getConvenienceFoodManager().getItemsIterator();
         while (iter.hasNext())
         {
             final Food item = (Food) iter.next();

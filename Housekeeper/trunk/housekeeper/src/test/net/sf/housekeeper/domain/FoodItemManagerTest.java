@@ -21,7 +21,7 @@ public class FoodItemManagerTest extends TestCase
     {
         final FoodManager manager = new FoodManager();
         final Food item = new Food();
-        manager.addConvenienceFood(item);
+        manager.add(item);
         final boolean isItemInList = manager.getSupplyList().contains(item);
         assertTrue("The item added cannot be found in the list", isItemInList);
     }
@@ -45,7 +45,7 @@ public class FoodItemManagerTest extends TestCase
     {
         final FoodManager manager = new FoodManager();
         final Food oldItem = new Food();
-        manager.addConvenienceFood(oldItem);
+        manager.add(oldItem);
 
         final Collection col = new ArrayList();
         final Food newItem = new Food();
@@ -67,7 +67,7 @@ public class FoodItemManagerTest extends TestCase
     {
         final FoodManager manager = new FoodManager();
         final Food item = new Food();
-        manager.addConvenienceFood(item);
+        manager.add(item);
         manager.remove(item);
 
         final boolean isItemInList = manager.getSupplyList().contains(item);
