@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -28,6 +28,7 @@ import java.beans.XMLEncoder;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -56,10 +57,9 @@ final class XMLSerializationStorage extends MemoryStorage
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** The name of the file used for data storage */
-    private static final String FILENAME = System.getProperty("user.home") +
-                                       System.getProperty("file.separator") +
-                                       "housekeeper_ser.xml";
+    /** The path to the file that is used for data storage */
+    private static final File FILE = new File(System.getProperty("user.home"),
+                                              "housekeeper_ser.xml");
 
     //~ Instance fields --------------------------------------------------------
 
@@ -73,11 +73,9 @@ final class XMLSerializationStorage extends MemoryStorage
      */
     XMLSerializationStorage()
     {
-
     }
 
     //~ Methods ----------------------------------------------------------------
-
 
     /* (non-Javadoc)
      * @see net.sourceforge.housekeeper.storage.Storage#loadData()
@@ -86,7 +84,7 @@ final class XMLSerializationStorage extends MemoryStorage
     {
         try
         {
-            xmlDecoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(FILENAME)));
+            xmlDecoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(FILE)));
 
             Object result = xmlDecoder.readObject();
 
@@ -100,7 +98,6 @@ final class XMLSerializationStorage extends MemoryStorage
         }
     }
 
-
     /* (non-Javadoc)
      * @see net.sourceforge.housekeeper.storage.Storage#saveData()
      */
@@ -108,7 +105,7 @@ final class XMLSerializationStorage extends MemoryStorage
     {
         try
         {
-            xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILENAME)));
+            xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(FILE)));
 
             xmlEncoder.writeObject(articleDescriptions);
 

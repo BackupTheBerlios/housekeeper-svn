@@ -27,11 +27,15 @@ import net.sourceforge.housekeeper.domain.ArticleDescription;
 
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
+
+import org.jdom.input.SAXBuilder;
 
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -52,10 +56,9 @@ class JDOMStorage extends MemoryStorage
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** The name of the file used for data storage */
-    private static final String FILENAME = System.getProperty("user.home") +
-                                           System.getProperty("file.separator") +
-                                           "housekeeper_jdom.xml";
+    /** The path to the file that is used for data storage */
+    private static final File FILE = new File(System.getProperty("user.home"),
+                                              "housekeeper_jdom.xml");
 
     //~ Constructors -----------------------------------------------------------
 
@@ -73,7 +76,21 @@ class JDOMStorage extends MemoryStorage
      */
     public void loadData()
     {
-        // TODO Auto-generated method stub
+        SAXBuilder builder = new SAXBuilder();
+
+        try
+        {
+            builder.build(FILE);
+        }
+        catch (JDOMException e)
+        {
+            System.err.println(FILE + " is not well-formed.");
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /* (non-Javadoc)
@@ -103,7 +120,7 @@ class JDOMStorage extends MemoryStorage
 
         try
         {
-            OutputStream stream = new BufferedOutputStream(new FileOutputStream(FILENAME));
+            OutputStream stream = new BufferedOutputStream(new FileOutputStream(FILE));
             outputter.output(doc, stream);
         }
         catch (IOException e)
