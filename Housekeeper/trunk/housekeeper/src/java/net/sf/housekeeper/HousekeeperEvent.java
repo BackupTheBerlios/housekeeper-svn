@@ -34,17 +34,37 @@ public class HousekeeperEvent extends ApplicationEvent
     
     private final String eventType;
     
+    /**
+     * Event type if something gets selected by the user.
+     */
     public static final String SELECTED = "housekeeperEvent.selected";
 
+    /**
+     * Creates a new event.
+     * 
+     * @param eventType The type of this event.
+     * @param source The source of this event.
+     */
     public HousekeeperEvent(String eventType, Object source) {
         super(source);
         this.eventType = eventType;
     }
 
+    /**
+     * Returns the affected object.
+     * 
+     * @return The object.
+     */
     public Object getObject() {
         return getSource();
     }
 
+    /**
+     * Returns true if the object os of the specified class.
+     * 
+     * @param clazz The class to test against.
+     * @return True, if the class matches, false otherwise.
+     */
     public boolean objectIs(Class clazz) {
         if (getSource().getClass().isAssignableFrom(clazz)) {
             return true;
@@ -54,10 +74,18 @@ public class HousekeeperEvent extends ApplicationEvent
         }
     }
 
+    /**
+     * Returns the event type.
+     * 
+     * @return The event type.
+     */
     public String getEventType() {
         return eventType;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
         return new ToStringCreator(this).appendProperties().toString();
     }
