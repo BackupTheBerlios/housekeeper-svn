@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.2.1</currentVersion>
+  <currentVersion>0.2.2</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -36,8 +36,8 @@
   </description>
   
   <!-- a short description of what the project does -->
-  <shortDescription>An application for keeping track 
-        of food in a household.
+  <shortDescription>
+    A tracker application for food.
   </shortDescription>
 
   <!-- the project home page -->
@@ -56,6 +56,11 @@
   </repository>
   
   <versions>
+    <version>
+        <id>0.2.2</id>
+        <name>0.2.2</name>
+        <tag>HOUSEKEEPER_0_2_2</tag>
+    </version>
     <version>
         <id>0.2.1</id>
         <name>0.2.1</name>

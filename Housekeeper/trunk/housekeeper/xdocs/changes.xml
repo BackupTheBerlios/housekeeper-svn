@@ -3,14 +3,12 @@
         <title>Change history</title>
     </properties>
     <body>
-        <release version="0.2.2" date="not yet">
+        <release version="0.2.2" date="2005-01-27">
             <action dev="notizklotz" type="add" issue="1104462">Food items can 
               now be added either to a list of convenience foods or 
               miscellaneous food.</action>
             <action dev="notizklotz" type="add" issue="1108699">Added 
               icons to the user interface.</action>
-            <action dev="notizklotz" type="add">Application can now be 
-                installed with an installer.</action>
             <action dev="notizklotz" type="fix" issue="1110337">
                 Tables are resized if the window gets resized.</action>
             <action dev="notizklotz" type="fix" issue="1110336">The default 

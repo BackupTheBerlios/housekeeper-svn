@@ -29,8 +29,10 @@
   
   <goal name="package-copy-jars">
     <attainGoal name="jar" />
-    <ant:copy file="${maven.build.dir}/${maven.final.name}.jar" todir="${outputPath}"/>
-    <deploy:copy-deps todir="${outputPath}/lib" excludes="maven-statcvs-plugin"/>
+    <ant:copy file="${maven.build.dir}/${maven.final.name}.jar" 
+      todir="${outputPath}"/>
+    <deploy:copy-deps todir="${outputPath}/lib" 
+      excludes="maven-statcvs-plugin,xmlunit"/>
   </goal>
   
   <goal name="package-setup-scripts">
