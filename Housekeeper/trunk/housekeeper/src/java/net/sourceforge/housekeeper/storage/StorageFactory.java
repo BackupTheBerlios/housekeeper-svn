@@ -56,7 +56,7 @@ public class StorageFactory
     {
         if (currentStorage == null)
         {
-            currentStorage = new XMLStorage();
+            currentStorage = new XMLSerializationStorage();
         }
 
 
