@@ -68,16 +68,8 @@ final class SwingUtils
                         (thisDialogSize.height / 2);
 
         // Do not set location outside of screen
-        if (xLocation < 0)
-        {
-            xLocation = 15;
-        }
-
-
-        if (yLocation < 0)
-        {
-            yLocation = 15;
-        }
+        xLocation = ifNegativeSetTo(xLocation, 15);
+        yLocation = ifNegativeSetTo(yLocation, 15);
 
 
         // Do not cover parent frame
@@ -126,5 +118,14 @@ final class SwingUtils
 
 
         comp.setLocation(xLocation, yLocation);
+    }
+    
+    private static int ifNegativeSetTo(int from, int to)
+    {
+        if(from < 0)
+        {
+            return to;
+        }
+        return from;
     }
 }
