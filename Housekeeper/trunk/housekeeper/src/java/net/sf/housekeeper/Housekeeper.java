@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 
 import net.sf.housekeeper.swing.MainFrame;
 
+import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -74,6 +75,11 @@ public final class Housekeeper
      */
     public static void main(final String[] args)
     {
+        if(!SystemUtils.isJavaVersionAtLeast(140))
+        {
+            System.err.println("You need at least JRE 1.4 to run Housekeeper!");
+            System.exit(1);
+        }
         new Housekeeper(args);
     }
 
