@@ -3,6 +3,13 @@
         <title>Change history</title>
     </properties>
     <body>
+        <release version="0.3.0" date="not yet">
+            <action dev="notizklotz" type="add">Accelerators and 
+              mnemnonics.</action>
+            <action dev="notizklotz" type="change">Toolbar only shows 
+              icons.</action>
+            <action dev="notizklotz" type="add">Splash-Screen.</action>
+        </release>
         <release version="0.2.2" date="2005-01-27">
             <action dev="notizklotz" type="add" issue="1104462">Food items can 
               now be added either to a list of convenience foods or 

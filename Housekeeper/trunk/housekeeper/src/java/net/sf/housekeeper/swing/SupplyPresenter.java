@@ -21,20 +21,19 @@
 
 package net.sf.housekeeper.swing;
 
-import java.awt.event.ActionEvent;
 import java.util.EventObject;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.Food;
 import net.sf.housekeeper.domain.FoodManager;
 import net.sf.housekeeper.swing.util.EventObjectListener;
-import net.sf.housekeeper.swing.util.IconGenerator;
 import net.sf.housekeeper.util.LocalisationManager;
 
+import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.command.support.GlobalCommandIds;
 
 /**
  * Presenter for an overview of a supply.
@@ -47,15 +46,15 @@ final class SupplyPresenter extends AbstractView
 
     private FoodListPresenter activePresenter;
 
-    private final Action      deleteItemAction;
+    private final EditCommandExecutor      editExecutor = new EditCommandExecutor();
 
-    private final Action      duplicateItemAction;
+    private final NewCommandExecutor      newConvenienceFoodExecutor = new NewCommandExecutor(Food.CATEGORY_CONVENIENCE_FOOD);
 
-    private final Action      editItemAction;
-
-    private final Action      newConvenienceFoodAction;
-
-    private final Action      newMiscFoodAction;
+    private final NewCommandExecutor      newMiscFoodExecutor = new NewCommandExecutor(Food.CATEGORY_MISC);
+    
+    private final DuplicateCommandExecutor duplicateExecutor = new DuplicateCommandExecutor();
+    
+    private final DeleteCommandExecutor deleteExecutor = new DeleteCommandExecutor();
     
     private FoodManager foodManager;
 
@@ -73,26 +72,10 @@ final class SupplyPresenter extends AbstractView
     {
         super();
 
-        //init actions
-        final String newConvName = LocalisationManager.INSTANCE
-                .getText("gui.supply.newConvenienceFood");
-        newConvenienceFoodAction = new NewAction(newConvName, "convenienceFood");
-
-        final String newMiscName = LocalisationManager.INSTANCE
-                .getText("gui.supply.newMiscFood");
-        newMiscFoodAction = new NewAction(newMiscName, "misc");
-
-        duplicateItemAction = new DuplicateAction();
-        editItemAction = new EditAction();
-        deleteItemAction = new DeleteAction();
-
-        //Init button bar
+        newConvenienceFoodExecutor.setEnabled(true);
+        newMiscFoodExecutor.setEnabled(true);
+        
         view = new SupplyView();
-        view.addButton(newConvenienceFoodAction);
-        view.addButton(newMiscFoodAction);
-        view.addButton(duplicateItemAction);
-        view.addButton(editItemAction);
-        view.addButton(deleteItemAction);
 
         convPresenter = new FoodListPresenter();
         convPresenter.setCategory("convenienceFood");
@@ -136,6 +119,19 @@ final class SupplyPresenter extends AbstractView
         this.foodManager = manager;
         convPresenter.setFoodList(manager.getSupplyList());
         miscPresenter.setFoodList(manager.getSupplyList());
+    }
+    
+    /* (non-Javadoc)
+     * @see org.springframework.richclient.application.support.AbstractView#registerLocalCommandExecutors(org.springframework.richclient.application.PageComponentContext)
+     */
+    protected void registerLocalCommandExecutors(PageComponentContext context) {
+        context.register(GlobalCommandIds.DELETE, deleteExecutor);
+        context.register("editCommand", editExecutor);
+        context.register("duplicateCommand", duplicateExecutor);
+        context.register("newConvenienceFoodCommand", newConvenienceFoodExecutor
+                         );
+        context.register("newMiscFoodCommand", newMiscFoodExecutor
+        );
     }
     
     /**
@@ -219,9 +215,9 @@ final class SupplyPresenter extends AbstractView
     {
         boolean hasSelection = activePresenter != null
                 && activePresenter.hasSelection();
-        duplicateItemAction.setEnabled(hasSelection);
-        editItemAction.setEnabled(hasSelection);
-        deleteItemAction.setEnabled(hasSelection);
+        duplicateExecutor.setEnabled(hasSelection);
+        editExecutor.setEnabled(hasSelection);
+        deleteExecutor.setEnabled(hasSelection);
     }
 
     private void updateActivePresenter(final FoodListPresenter presenter)
@@ -237,24 +233,9 @@ final class SupplyPresenter extends AbstractView
         }
     }
 
-    /**
-     * Deletes the currently selected item.
-     */
-    private class DeleteAction extends AbstractAction
+    private class DeleteCommandExecutor extends AbstractActionCommandExecutor
     {
-
-        private DeleteAction()
-        {
-            super();
-            final String name = LocalisationManager.INSTANCE
-                    .getText("gui.supply.delete");
-            putValue(Action.NAME, name);
-            putValue(Action.SMALL_ICON, IconGenerator
-                    .getIcon("delete_edit.gif"));
-        }
-
-        public void actionPerformed(ActionEvent arg0)
-        {
+        public void execute() {
             deleteSelectedItem();
         }
     }
@@ -262,47 +243,21 @@ final class SupplyPresenter extends AbstractView
     /**
      * Duplicates the selected item.
      */
-    private class DuplicateAction extends AbstractAction
+    private class DuplicateCommandExecutor extends AbstractActionCommandExecutor
     {
 
-        private DuplicateAction()
-        {
-            super();
-            final String name = LocalisationManager.INSTANCE
-                    .getText("gui.supply.duplicate");
-            putValue(Action.NAME, name);
-            putValue(Action.SMALL_ICON, IconGenerator.getIcon("copy_edit.gif"));
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-         */
-        public void actionPerformed(ActionEvent e)
+        public void execute()
         {
             duplicateSelectedItem();
         }
-
     }
 
     /**
      * Shows a dialog for modifying the currently selected item and updates it.
      */
-    private class EditAction extends AbstractAction
+    private class EditCommandExecutor extends AbstractActionCommandExecutor
     {
-
-        private EditAction()
-        {
-            super();
-            final String name = LocalisationManager.INSTANCE
-                    .getText("gui.supply.edit");
-            putValue(Action.NAME, name);
-            putValue(Action.SMALL_ICON, IconGenerator.getIcon("text_edit.gif"));
-        }
-
-        public void actionPerformed(ActionEvent arg0)
-        {
+        public void execute() {
             editSelectedItem();
         }
     }
@@ -310,21 +265,18 @@ final class SupplyPresenter extends AbstractView
     /**
      * Shows a dialog for adding a new item.
      */
-    private class NewAction extends AbstractAction
+    private class NewCommandExecutor extends AbstractActionCommandExecutor
     {
 
         private final String category;
 
-        private NewAction(final String name, final String category)
+        private NewCommandExecutor(final String category)
         {
             super();
             this.category = category;
-
-            putValue(Action.NAME, name);
-            putValue(Action.SMALL_ICON, IconGenerator.getIcon("add_obj.gif"));
         }
 
-        public void actionPerformed(ActionEvent arg0)
+        public void execute()
         {
             addNewItem(category);
         }

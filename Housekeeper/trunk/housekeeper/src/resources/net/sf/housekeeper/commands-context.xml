@@ -5,6 +5,15 @@
 
   <bean id="windowCommandManager" 
     class="org.springframework.richclient.application.support.ApplicationWindowCommandManager">
+		<property name="sharedCommandIds">
+			<list>
+        <value>newConvenienceFoodCommand</value>
+        <value>newMiscFoodCommand</value>
+        <value>duplicateCommand</value>
+        <value>editCommand</value>
+				<value>deleteCommand</value>
+			</list>
+		</property>
   </bean>
 
 	<bean id="menuBar" 
@@ -14,6 +23,20 @@
 				<ref bean="fileMenu"/>
         <value>glue</value>
         <ref bean="helpMenu"/>
+			</list>
+		</property>
+	</bean>
+  
+  <bean id="toolBar" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+		<property name="members">
+			<list>
+        <value>newConvenienceFoodCommand</value>
+        <value>newMiscFoodCommand</value>
+        <value>separator</value>
+        <value>duplicateCommand</value>
+        <value>editCommand</value>
+				<value>deleteCommand</value>
 			</list>
 		</property>
 	</bean>

@@ -21,13 +21,10 @@
 
 package net.sf.housekeeper.swing;
 
-import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 
-import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -40,10 +37,6 @@ import javax.swing.JPanel;
 final class SupplyView extends JPanel
 {
 
-    private final JPanel contentPanel;
-
-    private final JPanel buttonPanel;
-
     private Frame        parentFrame;
 
     /**
@@ -52,13 +45,7 @@ final class SupplyView extends JPanel
      */
     public SupplyView()
     {
-        setLayout(new BorderLayout());
-
-        contentPanel = new JPanel(new GridLayout(1, 0));
-        buttonPanel = new JPanel();
-
-        add(contentPanel, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.NORTH);
+        setLayout(new GridLayout(1, 0));
     }
 
     /**
@@ -70,17 +57,7 @@ final class SupplyView extends JPanel
     void addPanel(JPanel panel)
     {
         panel.setBorder(BorderFactory.createTitledBorder(panel.getName()));
-        contentPanel.add(panel);
-    }
-
-    /**
-     * Adds a button to the right of the existing buttons.
-     * 
-     * @param action The action to assign to the button.
-     */
-    void addButton(final Action action)
-    {
-        buttonPanel.add(new JButton(action));
+        add(panel);
     }
 
     /**
