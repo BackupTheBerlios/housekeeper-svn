@@ -17,7 +17,7 @@
   
   <goal name="package-copy-misc">
     <ant:copy file="${basedir}/GPL.txt" tofile="${outputPath}/LICENSE.txt"/>
-    <ant:copy file="${basedir}/src/resources/images/housekeeper_icon64.gif" 
+    <ant:copy file="${basedir}/src/resources/images/housekeeper_icon64.ico" 
       todir="${outputPath}"/>
     <ant:copy file="${basedir}/src/resources/images/housekeeper_icon64.xpm" 
       todir="${outputPath}"/>
