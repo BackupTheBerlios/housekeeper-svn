@@ -44,32 +44,32 @@ public final class PersistenceController
      * Singleton instance.
      */
     private static PersistenceController instance;
-    
+
     /**
      * Persistance using JDOM.
      */
-    private final PersistenceService jdomPersistence;
-    
+    private final PersistenceService     jdomPersistence;
+
     /**
      * File used for loading and saving
      */
-    private final File dataFile;
+    private final File                   dataFile;
 
     /**
      * Initializes the persistence service to use.
-     *
+     *  
      */
     private PersistenceController()
     {
         final File dataDir = (File) ConfigurationManager.INSTANCE
-        .getConfiguration()
-        .getProperty(ConfigurationManager.DATA_DIRECTORY);
+                .getConfiguration()
+                .getProperty(ConfigurationManager.DATA_DIRECTORY);
 
         dataFile = new File(dataDir, "data.xml");
 
         jdomPersistence = new JDOMPersistence();
     }
-    
+
     /**
      * Returns the Singleton instance.
      * 
@@ -81,7 +81,7 @@ public final class PersistenceController
         {
             instance = new PersistenceController();
         }
-        
+
         return instance;
     }
 
@@ -111,8 +111,8 @@ public final class PersistenceController
     {
         final Collection foodItems = FoodItemManager.instance().getSupplyList();
         final Household household = new Household(foodItems);
-        jdomPersistence.saveData(household,
-                                                               dataFile);
+        jdomPersistence.saveData(household, dataFile);
+        FoodItemManager.instance().resetChangedStatus();
     }
 
 }
