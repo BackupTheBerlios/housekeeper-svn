@@ -24,22 +24,24 @@ package net.sourceforge.housekeeper.storage;
 
 
 /**
- * DOCUMENT ME!
+ * A Factory for centralized management of Storage objects. Objects should call this class' getCurrentStorage() to receive a reference to the currently used storage technique.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
-public class StorageFactory
+public final class StorageFactory
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** An instance of the currently used storage technique */
     private static Storage currentStorage;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
      * Creates a new StorageFactory object.
-    
      */
     private StorageFactory()
     {
@@ -48,9 +50,9 @@ public class StorageFactory
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Returns a reference to the currently used storage technique.
      *
-     * @return DOCUMENT ME!
+     * @return Currently used storage technique.
      */
     public static Storage getCurrentStorage()
     {

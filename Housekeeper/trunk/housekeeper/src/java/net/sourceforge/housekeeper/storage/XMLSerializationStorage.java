@@ -93,38 +93,33 @@ final class XMLSerializationStorage implements Storage
         return Collections.unmodifiableCollection(articleDescriptions);
     }
 
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#getAllPurchases()
      */
     public Collection getAllPurchases()
     {
         return Collections.unmodifiableCollection(purchases);
     }
 
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param article DOCUMENT ME!
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#add(net.sourceforge.housekeeper.domain.ArticleDescription)
      */
     public void add(ArticleDescription article)
     {
         articleDescriptions.add(article);
     }
 
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param purchase DOCUMENT ME!
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#add(net.sourceforge.housekeeper.domain.Purchase)
      */
     public void add(Purchase purchase)
     {
         purchases.add(purchase);
     }
 
-    /**
-     * TODO DOCUMENT ME!
+
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#loadData()
      */
     public void loadData()
     {
@@ -144,18 +139,17 @@ final class XMLSerializationStorage implements Storage
         }
     }
 
-    /**
-     * TODO DOCUMENT ME!
-     *
-     * @param article DOCUMENT ME!
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#remove(net.sourceforge.housekeeper.domain.ArticleDescription)
      */
     public void remove(ArticleDescription article)
     {
         articleDescriptions.remove(article);
     }
 
-    /**
-     * TODO DOCUMENT ME!
+
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.Storage#saveData()
      */
     public void saveData()
     {

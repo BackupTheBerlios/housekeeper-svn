@@ -30,56 +30,59 @@ import java.util.Collection;
 
 
 /**
- * DOCUMENT ME!
+ * Defines the interface a class has to implement to act as a possible storage technique.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public interface Storage
 {
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Returns an unmodifiable Collection of all Article Descriptions.
      *
-     * @return DOCUMENT ME!
+     * @return All Article Descriptions.
      */
     public Collection getAllArticleDescriptions();
 
     /**
-     * TODO DOCUMENT ME!
+     * Returns an unmodifiable Collection of all Purchases.
      *
-     * @return DOCUMENT ME!
+     * @return All Purchases.
      */
     public Collection getAllPurchases();
 
     /**
-     * TODO DOCUMENT ME!
+     * Adds a Purchase to the Storage.
      *
-     * @param purchase DOCUMENT ME!
+     * @param purchase The Purchase to be added.
      */
     public void add(Purchase purchase);
 
     /**
-     * TODO DOCUMENT ME!
+     * Adds an Article Description to the storage
      *
-     * @param article DOCUMENT ME!
+     * @param article Article Description to be added.
      */
-    public void add(ArticleDescription article);
+    public void add(ArticleDescription articleDescription);
 
     /**
-     * TODO DOCUMENT ME!
+     * Causes data to be loaded from persistent storage.
      */
     public void loadData();
 
     /**
-     * TODO DOCUMENT ME!
+     * Removes an Article Description from the storage.
      *
-     * @param article DOCUMENT ME!
+     * @param article Article Description to be removed.
      */
     public void remove(ArticleDescription article);
 
     /**
-     * TODO DOCUMENT ME!
+     * Causes datat to be saved to persistent storage.
      */
     public void saveData();
 }

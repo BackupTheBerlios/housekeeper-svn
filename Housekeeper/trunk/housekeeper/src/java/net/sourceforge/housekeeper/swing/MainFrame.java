@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -38,36 +38,31 @@ import javax.swing.UIManager;
 
 
 /**
- * DOCUMENT ME!
+ * The Main Frame of the Housekeeper application.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @since 0.1
  */
 public final class MainFrame extends JFrame
 {
     //~ Static fields/initializers ---------------------------------------------
 
-    /** TODO DOCUMENT ME! */
+    /** Singleton instance */
     public static final MainFrame INSTANCE = new MainFrame();
 
     //~ Instance fields --------------------------------------------------------
 
-    /** TODO DOCUMENT ME! */
-    private JMenu menuArticles;
-
-    /** TODO DOCUMENT ME! */
-    private JMenu menuFile;
-
-    /** TODO DOCUMENT ME! */
-    private JMenuBar menuBar;
-
-    /** TODO DOCUMENT ME! */
+    private JMenu       menuArticles;
+    private JMenu       menuFile;
+    private JMenuBar    menuBar;
     private JTabbedPane tabbedPane;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a new MainFrame object.
      */
     private MainFrame()
     {
@@ -86,7 +81,7 @@ public final class MainFrame extends JFrame
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Builds the components of the frame and adds them to the content pane.
      */
     private void buildComponents()
     {
@@ -98,7 +93,7 @@ public final class MainFrame extends JFrame
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Builds the menus.
      */
     private void buildMenus()
     {
@@ -123,7 +118,7 @@ public final class MainFrame extends JFrame
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Initializes the Look and Feel.
      */
     private void initLookAndFeel()
     {

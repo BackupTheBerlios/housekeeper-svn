@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA  02111-1307  USA
  *
- * Copyright 2003, Adrian Gygax
+ * Copyright 2003-2004, Adrian Gygax
  * http://housekeeper.sourceforge.net
  */
 
@@ -29,7 +29,7 @@ import java.awt.Point;
 
 
 /**
- * DOCUMENT ME!
+ * Provides useful services to GUI components.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -46,6 +46,62 @@ final class SwingUtils
 
     //~ Methods ----------------------------------------------------------------
 
+    /**
+     * Centers a component on another component. This is particularly useful
+     * for centering dialogs on its parent window.
+     *
+     * @param centerComponent Component to be centered on another.
+     * @param onComponent Component on which centerComponent should be
+     *        centered.
+     */
+    static void centerOnComponent(Component centerComponent,
+                                  Component onComponent)
+    {
+        final Point     parentFrameLocation = onComponent.getLocation();
+        final Dimension parentFrameSize = onComponent.getSize();
+        final Dimension thisDialogSize  = centerComponent.getSize();
+
+        // Calculate locations
+        int xLocation = (parentFrameLocation.x + (parentFrameSize.width / 2)) -
+                        (thisDialogSize.width / 2);
+        int yLocation = (parentFrameLocation.y + (parentFrameSize.height / 2)) -
+                        (thisDialogSize.height / 2);
+
+        // Do not set location outside of screen
+        if (xLocation < 0)
+        {
+            xLocation = 15;
+        }
+
+
+        if (yLocation < 0)
+        {
+            yLocation = 15;
+        }
+
+
+        // Do not cover parent frame
+        if (xLocation <= (parentFrameLocation.x + 15))
+        {
+            xLocation = parentFrameLocation.x + 15;
+        }
+
+
+        if (yLocation <= (parentFrameLocation.y + 15))
+        {
+            yLocation = parentFrameLocation.y + 15;
+        }
+
+
+        centerComponent.setLocation(xLocation, yLocation);
+    }
+
+    /**
+     * Centers a component on the screen. This is particularly useful for
+     * centering a Frame on the screen.
+     *
+     * @param comp Component to be centered on the screen.
+     */
     static void centerOnScreen(Component comp)
     {
         // Center frame
@@ -71,45 +127,4 @@ final class SwingUtils
 
         comp.setLocation(xLocation, yLocation);
     }
-    
-    static void centerOnComponent(Component centerComponent, Component onComponent)
-       {
-           final Point     parentFrameLocation = onComponent.getLocation();
-           final Dimension parentFrameSize = onComponent.getSize();
-           final Dimension thisDialogSize = centerComponent.getSize();
-
-           // Calculate locations
-           int xLocation = (parentFrameLocation.x + (parentFrameSize.width / 2)) -
-                           (thisDialogSize.width / 2);
-           int yLocation = (parentFrameLocation.y + (parentFrameSize.height / 2)) -
-                           (thisDialogSize.height / 2);
-
-           // Do not set location outside of screen
-           if (xLocation < 0)
-           {
-               xLocation = 15;
-           }
-
-
-           if (yLocation < 0)
-           {
-               yLocation = 15;
-           }
-
-
-           // Do not cover parent frame
-           if (xLocation <= (parentFrameLocation.x + 15))
-           {
-               xLocation = parentFrameLocation.x + 15;
-           }
-
-
-           if (yLocation <= (parentFrameLocation.y + 15))
-           {
-               yLocation = parentFrameLocation.y + 15;
-           }
-
-
-           centerComponent.setLocation(xLocation, yLocation);
-       }
 }
