@@ -18,7 +18,10 @@
 
 package net.sourceforge.housekeeper.storage;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Iterator;
 
 import org.jdom.Document;
@@ -47,7 +50,7 @@ class JDOMStorage extends MemoryStorage
     //~ Static fields/initializers ---------------------------------------------
 
     /** The name of the file used for data storage */
-    private static final String FILENAME = "/home/phelan/temp/jdom.xml";
+    private static final String FILENAME = "/home/phelan/temp/housekeeper_jdom.xml";
 
 
 
@@ -82,11 +85,13 @@ class JDOMStorage extends MemoryStorage
         }
         
         Document doc = new Document(root);
-        
+ 
+ 
         XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         
         try {
-          outputter.output(doc, System.out);       
+          OutputStream stream = new BufferedOutputStream(new FileOutputStream(FILENAME));
+          outputter.output(doc, stream);       
         }
         catch (IOException e) {
           System.err.println(e);
