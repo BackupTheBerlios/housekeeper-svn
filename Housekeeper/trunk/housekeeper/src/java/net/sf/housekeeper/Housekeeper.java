@@ -20,7 +20,7 @@ import net.sf.housekeeper.swing.MainFrame;
 
 /**
  * Class containing the <code>main</code> method.
- * 
+ *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  * @since 0.1
@@ -32,22 +32,21 @@ public final class Housekeeper
     public static final String VERSION = "0.1.1";
 
     /**
-     * Starts the Housekeeper application with a Swing GUI.
-     * 
-     * @param args
-     *            Not used
-     */
-    public static void main(String[] args)
-    {
-        JFrame mainFrame = MainFrame.INSTANCE;
-
-        mainFrame.show();
-    }
-
-    /**
-     * Prevents instances of this class
+     * Prevents instances of this class.
      */
     private Housekeeper()
     {
     }
+    
+    /**
+     * Starts the Housekeeper application with a Swing GUI.
+     *
+     * @param args unsused.
+     */
+    public static void main(final String[] args)
+    {
+        JFrame mainFrame = MainFrame.INSTANCE;
+        mainFrame.show();
+    }
+
 }
