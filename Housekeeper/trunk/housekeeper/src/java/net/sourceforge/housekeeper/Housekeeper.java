@@ -37,6 +37,8 @@ import javax.swing.JFrame;
  */
 public class Housekeeper
 {
+    public static final String VERSION = "0.1.0";
+    
     //~ Methods ----------------------------------------------------------------
 
     /**
