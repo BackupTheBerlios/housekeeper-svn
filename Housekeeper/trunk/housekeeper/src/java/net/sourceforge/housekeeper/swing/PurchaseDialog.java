@@ -31,7 +31,8 @@ import net.sourceforge.housekeeper.model.ArticleDescription;
 import net.sourceforge.housekeeper.model.Purchase;
 import net.sourceforge.housekeeper.model.PurchasedArticle;
 
-import java.awt.Component;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,6 +41,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -104,7 +106,7 @@ final class PurchaseDialog extends ExtendedDialog
      *
      * @return DOCUMENT ME!
      */
-    private Component buildButtonBar()
+    private JPanel buildButtonPanel()
     {
         return ButtonBarFactory.buildOKCancelBar(buttonOK, buttonCancel);
     }
@@ -114,30 +116,55 @@ final class PurchaseDialog extends ExtendedDialog
      */
     private void buildLayout()
     {
-        FormLayout layout = new FormLayout("right:pref, 3dlu, 80dlu, 120dlu", // columns
-                                           "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(buildLeftPanel(), BorderLayout.WEST);
+        contentPane.add(buildRightPanel(), BorderLayout.EAST);
+        contentPane.add(buildButtonPanel(), BorderLayout.SOUTH);
+    }
 
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
+    private JPanel buildLeftPanel()
+    {
+        FormLayout layout = new FormLayout("right:pref, 3dlu, 80dlu, 120dlu", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.setDefaultDialogBorder();
 
-        builder.appendTitle("Purchase");
+        builder.appendSeparator("Purchase");
         builder.nextLine();
         builder.append("Date", dateField);
 
-        builder.appendSeparator();
+        builder.appendSeparator("Purchased Articles");
+        builder.append(new JScrollPane(new JTable()), 4);
 
-        builder.appendTitle("Articles");
+        return builder.getPanel();
+    }
+
+    /**
+     * TODO DOCUMENT ME!
+     *
+     * @return DOCUMENT ME!
+     */
+    private JPanel buildRightPanel()
+    {
+        FormLayout layout = new FormLayout("right:pref, 3dlu, 80dlu, 3dlu, 120dlu",
+                                           "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+        builder.setDefaultDialogBorder();
+
+        builder.appendSeparator("Available Article Descriptions");
         builder.nextLine();
-        builder.append(new JScrollPane(articleList), 4);
+
+        builder.append(new JScrollPane(articleList), 5);
+
         builder.append("Best before end", bfeField);
-        builder.append(ButtonBarFactory.buildRightAlignedBar(buttonAddArticle),
-                       4);
+        builder.append(ButtonBarFactory.buildRightAlignedBar(buttonAddArticle));
 
-        builder.appendSeparator();
-
-        builder.append(buildButtonBar(), 4);
-
-        setContentPane(builder.getPanel());
+        return builder.getPanel();
     }
 
     /**
