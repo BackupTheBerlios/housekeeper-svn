@@ -21,7 +21,12 @@
 
 package net.sf.housekeeper.swing;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JComponent;
+
+import net.sf.housekeeper.swing.util.CalendarDateChooserEditor;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.forms.AbstractForm;
@@ -40,6 +45,12 @@ public class FoodPropertiesForm extends AbstractForm
 
     public FoodPropertiesForm(FormModel formModel) {
         super(formModel, "foodPropertiesForm");
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
+        .getDateInstance(DateFormat.SHORT);
+        final String formatPattern = dateFormat.toPattern();
+
+        getFormModel().registerCustomEditor("expiry", 
+                                       new CalendarDateChooserEditor(formatPattern));
     }
 
     protected JComponent createFormControl() {
