@@ -23,47 +23,49 @@
 package net.sourceforge.housekeeper.model;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 
 /**
- * DOCUMENT ME!
+ * A <code>Purchase</code> consists of articles one has purchased on a shopping
+ * tour.
  *
  * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ *
+ * @see PurchasedArticle
+ * @since 0.1
  */
 public class Purchase
 {
     //~ Instance fields --------------------------------------------------------
 
-    /** TODO DOCUMENT ME! */
-    private Collection purchasedArticle;
+    /** The articles, that have been purchased. */
+    private Collection purchasedArticles;
 
-    /** TODO DOCUMENT ME! */
+    /** The date, the articles have been purchased. */
     private Date date;
-
-    /** TODO DOCUMENT ME! */
-    private int id;
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     *
-     *
+     * Creates a <code>Purchase</code> object with default values for the
+     * attributes. It contains an empty list of articles and the current date.
      */
     public Purchase()
     {
-        super();
-
-        // TODO Auto-generated constructor stub
+        purchasedArticles = new ArrayList();
+        date              = new Date();
     }
 
     //~ Methods ----------------------------------------------------------------
 
     /**
-     * TODO DOCUMENT ME!
+     * Sets the corresponding attribute to a new value.
      *
-     * @param date DOCUMENT ME!
+     * @param date The new value.
      */
     public void setDate(Date date)
     {
@@ -71,9 +73,9 @@ public class Purchase
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Gets the corresponding attribute.
      *
-     * @return DOCUMENT ME!
+     * @return The corresponding attribute.
      */
     public Date getDate()
     {
@@ -81,42 +83,42 @@ public class Purchase
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Sets the corresponding attribute to a new value.
      *
-     * @param id DOCUMENT ME!
+     * @param purchasedArticles The new value.
      */
-    public void setId(int id)
+    public void setPurchasedArticles(Collection purchasedArticles)
     {
-        this.id = id;
+        this.purchasedArticles = purchasedArticles;
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Gets the corresponding attribute.
      *
-     * @return DOCUMENT ME!
+     * @return The corresponding attribute.
      */
-    public int getId()
+    public Collection getPurchasedArticles()
     {
-        return id;
+        return purchasedArticles;
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Adds an article to the list of purchased articles.
      *
-     * @param purchasedArticle DOCUMENT ME!
+     * @param article The article, that should be added.
      */
-    public void setPurchasedArticle(Collection purchasedArticle)
+    public void add(PurchasedArticle article)
     {
-        this.purchasedArticle = purchasedArticle;
+        purchasedArticles.add(article);
     }
 
     /**
-     * TODO DOCUMENT ME!
+     * Removes an article from the list of purchased articles.
      *
-     * @return DOCUMENT ME!
+     * @param article The article, that should be removed.
      */
-    public Collection getPurchasedArticle()
+    public void remove(PurchasedArticle article)
     {
-        return purchasedArticle;
+        purchasedArticles.remove(article);
     }
 }
