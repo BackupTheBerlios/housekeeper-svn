@@ -26,13 +26,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.ExpiringItem;
+import net.sf.housekeeper.domain.ExpirableItem;
 
 import org.jdom.Element;
 
 /**
  * Utility class for converting between JDOM Elements and
- * {@link net.sf.housekeeper.domain.ExpiringItem}objects.
+ * {@link net.sf.housekeeper.domain.ExpirableItem}objects.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -91,15 +91,16 @@ final class ExpiringItemConverter
     public static final String ELEMENT_DESCRIPTION         = "description";
 
     /**
-     * Converts a JDOM Element object into a {@link ExpiringItem}.
+     * Converts a JDOM Element object into a {@link ExpirableItem}.
+     * @param categories The categories to use for assigning items.
      * 
      * @param itemElement The element to convert. It is not checked if this
-     *            Element actually can be converted to a ExpiringItem.
-     * @return The ExpiringItem object build from the given Element.
+     *            Element actually can be converted to a ExpirableItem.
+     * @return The ExpirableItem object build from the given Element.
      */
-    static ExpiringItem convert(final Category categories, final Element itemElement)
+    static ExpirableItem convert(final Category categories, final Element itemElement)
     {
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
 
         //Name
         final String itemName = itemElement.getAttributeValue(ATTRIBUTE_NAME);
@@ -159,12 +160,12 @@ final class ExpiringItemConverter
     }
 
     /**
-     * Converts a {@link ExpiringItem}object into a JDOM Element.
+     * Converts a {@link ExpirableItem}object into a JDOM Element.
      * 
      * @param item The item to be converted.
-     * @return The JDOM element representing the given ExpiringItem.
+     * @return The JDOM element representing the given ExpirableItem.
      */
-    static Element convert(final ExpiringItem item)
+    static Element convert(final ExpirableItem item)
     {
         final Element xmlElement = new Element(ELEMENT_ITEM);
 

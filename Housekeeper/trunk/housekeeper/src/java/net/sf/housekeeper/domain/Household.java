@@ -54,6 +54,7 @@ public final class Household
      * 
      * @param itemManager The manager for food objects. Must not
      *            be null.
+     * @param categoryManager The manager for categories. Must not be null.
      */
     public Household(final ItemManager itemManager, final CategoryManager categoryManager)
     {
@@ -85,6 +86,11 @@ public final class Household
         categoryManager.replaceAll(domain.getCategoryManager().getCategories());
     }
 
+    /**
+     * Returns the category manager.
+     * 
+     * @return the category manager.
+     */
     public CategoryManager getCategoryManager()
     {
         return categoryManager;

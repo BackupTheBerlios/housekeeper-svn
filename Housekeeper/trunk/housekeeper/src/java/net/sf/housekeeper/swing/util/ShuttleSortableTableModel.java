@@ -49,6 +49,10 @@ import org.springframework.util.Styler;
  * null values are not treated any special on comparison.
  */
 public class ShuttleSortableTableModel extends AbstractTableModelFilter implements SortableTableModel {
+    
+    /**
+     * Comment for <code>OBJECT_COMPARATOR</code>
+     */
     public static final Comparator OBJECT_COMPARATOR = new Comparator() {
         public int compare(Object o1, Object o2) {
             String s1 = o1.toString();
@@ -73,6 +77,9 @@ public class ShuttleSortableTableModel extends AbstractTableModelFilter implemen
         }
     };
 
+    /**
+     * @param model
+     */
     public ShuttleSortableTableModel(TableModel model) {
         super(model);
         allocateIndexes();
@@ -105,14 +112,24 @@ public class ShuttleSortableTableModel extends AbstractTableModelFilter implemen
         return filteredModel.isCellEditable(indexes[row], column);
     }
 
+    /**
+     * @return a
+     */
     public boolean isAutoSortEnabled() {
         return autoSortEnabled;
     }
 
+    /**
+     * @param autoSortEnabled
+     */
     public void setAutoSortEnabled(boolean autoSortEnabled) {
         this.autoSortEnabled = autoSortEnabled;
     }
 
+    /**
+     * @param columnIndex
+     * @return a
+     */
     public Comparator getComparator(int columnIndex) {
         return this.columnComparators[columnIndex];
     }
@@ -166,6 +183,9 @@ public class ShuttleSortableTableModel extends AbstractTableModelFilter implemen
         return postSortSelectedRows;
     }
 
+    /**
+     * 
+     */
     protected void notifyTableChanged() {
         if (!EventQueue.isDispatchThread()) {
             SwingUtilities.invokeLater(notifyTableRunnable);
@@ -187,6 +207,10 @@ public class ShuttleSortableTableModel extends AbstractTableModelFilter implemen
         return converted;
     }
 
+    /**
+     * @param index
+     * @return s
+     */
     /* this linear search is a bit slow -- we'll need to optimize later */
     public int convertModelToRowIndex(int index) {
         for (int i = 0; i < indexes.length; i++) {
@@ -269,6 +293,11 @@ public class ShuttleSortableTableModel extends AbstractTableModelFilter implemen
         }
     }
 
+    /**
+     * @param row1
+     * @param row2
+     * @return a
+     */
     public int compare(int row1, int row2) {
         compares++;
         for (int level = 0; level < columnsToSort.size(); level++) {

@@ -20,7 +20,7 @@ public class ItemManagerTest extends TestCase
     public void testAdd()
     {
         final ItemManager manager = new ItemManager();
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
         manager.add(item);
         final boolean isItemInList = manager.getAllItems().contains(item);
         assertTrue("The item added cannot be found in the list", isItemInList);
@@ -44,11 +44,11 @@ public class ItemManagerTest extends TestCase
     public void testReplaceAll()
     {
         final ItemManager manager = new ItemManager();
-        final ExpiringItem oldItem = new ExpiringItem();
+        final ExpirableItem oldItem = new ExpirableItem();
         manager.add(oldItem);
 
         final Collection col = new ArrayList();
-        final ExpiringItem newItem = new ExpiringItem();
+        final ExpirableItem newItem = new ExpirableItem();
         newItem.setName("NewItem");
         col.add(newItem);
         manager.replaceAll(col);
@@ -66,7 +66,7 @@ public class ItemManagerTest extends TestCase
     public void testRemove()
     {
         final ItemManager manager = new ItemManager();
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
         manager.add(item);
         manager.remove(item);
 

@@ -47,11 +47,17 @@ public final class PlatformAwareUIConfigurer implements InitializingBean
     private static final Log    LOG      = LogFactory
                                                  .getLog(PlatformAwareUIConfigurer.class);
 
+    /**
+     * @param configurer
+     */
     public void setConfigurer(final UIManagerConfigurer configurer)
     {
         this.configurer = configurer;
     }
 
+    /**
+     * @param theme
+     */
     public void setTheme(PlasticTheme theme)
     {
         PlasticLookAndFeel.setMyCurrentTheme(theme);

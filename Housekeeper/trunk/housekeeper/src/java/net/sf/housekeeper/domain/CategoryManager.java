@@ -27,25 +27,29 @@ import java.util.List;
 
 import net.sf.housekeeper.HousekeeperEvent;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.richclient.application.Application;
+import org.springframework.util.Assert;
 
 /**
- * @author
+ * Manages the {@link net.sf.housekeeper.domain.Category}objects in the domain.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class CategoryManager implements ApplicationContextAware
 {
 
-    private static final Log LOG = LogFactory.getLog(CategoryManager.class);
-    
-    private ArrayList categories;
+    private ArrayList          categories;
+
     private ApplicationContext applicationContext;
 
+    /**
+     * Initializes this manager with a default set of categories.
+     *  
+     */
     public CategoryManager()
     {
         categories = new ArrayList(1);
@@ -63,13 +67,25 @@ public final class CategoryManager implements ApplicationContextAware
         categories.add(rootCategory);
     }
 
+    /**
+     * Returns an unmodifyable list of all root level categories.
+     * 
+     * @return The categories. Not null.
+     */
     public List getCategories()
     {
         return Collections.unmodifiableList(categories);
     }
 
+    /**
+     * Replaces all categories with other ones.
+     * 
+     * @param categories The categories. Must not be null.
+     */
     public void replaceAll(final List categories)
     {
+        Assert.notNull(categories);
+
         this.categories.clear();
         this.categories.addAll(categories);
         applicationContext.publishEvent(new HousekeeperEvent(

@@ -44,6 +44,11 @@ public final class BorderLayoutApplicationPage extends AbstractApplicationPage
 
     private JPanel control;
 
+    
+    /**
+     * @param window
+     * @param pageDescriptor
+     */
     public BorderLayoutApplicationPage(ApplicationWindow window,
             PageDescriptor pageDescriptor)
     {

@@ -22,6 +22,10 @@
 package net.sf.housekeeper.swing.page;
 
 
+/**
+ * @author
+ * @version $Revision$, $Date$
+ */
 public class ViewLocationDescriptor
 {
     private String viewDescriptorID;
@@ -30,18 +34,30 @@ public class ViewLocationDescriptor
     
     
     
+    /**
+     * @return The location.
+     */
     public String getLocation()
     {
         return location;
     }
+    /**
+     * @param location
+     */
     public void setLocation(String location)
     {
         this.location = location;
     }
+    /**
+     * @return The id.
+     */
     public String getViewDescriptorID()
     {
         return viewDescriptorID;
     }
+    /**
+     * @param viewDescriptorID
+     */
     public void setViewDescriptorID(String viewDescriptorID)
     {
         this.viewDescriptorID = viewDescriptorID;

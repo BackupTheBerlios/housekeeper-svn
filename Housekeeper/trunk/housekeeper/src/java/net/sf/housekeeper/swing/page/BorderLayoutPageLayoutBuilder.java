@@ -30,5 +30,9 @@ import org.springframework.richclient.application.PageLayoutBuilder;
  */
 public interface BorderLayoutPageLayoutBuilder extends PageLayoutBuilder
 {
+    /**
+     * @param descriptorID
+     * @param location
+     */
     public void addView(final String descriptorID, final String location);
 }

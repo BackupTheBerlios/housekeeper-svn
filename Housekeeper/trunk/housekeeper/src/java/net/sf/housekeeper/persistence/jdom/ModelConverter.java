@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.ExpiringItem;
+import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Household;
 
 import org.jdom.Element;
@@ -60,10 +60,11 @@ final class ModelConverter
     }
 
     /**
-     * Creates {@link ExpiringItem}objects from a food container.
+     * Creates {@link ExpirableItem}objects from a food container.
+     * @param categories The categories to use.
      * 
      * @param foodElement The container with the food elements.
-     * @return A list of {@link ExpiringItem}objects.
+     * @return A list of {@link ExpirableItem}objects.
      */
     private ArrayList getFoodItems(final Category categories,
                                    final Element foodElement)
@@ -74,7 +75,7 @@ final class ModelConverter
         while (foodItemIterator.hasNext())
         {
             final Element element = (Element) foodItemIterator.next();
-            final ExpiringItem item = ExpiringItemConverter.convert(categories,
+            final ExpirableItem item = ExpiringItemConverter.convert(categories,
                                                                     element);
             food.add(item);
         }

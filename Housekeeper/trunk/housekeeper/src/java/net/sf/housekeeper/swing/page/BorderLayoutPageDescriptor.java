@@ -104,10 +104,16 @@ public class BorderLayoutPageDescriptor implements PageDescriptor
         return null;
     }
     
+    /**
+     * @param descriptors
+     */
     public void setViews(Collection descriptors) {
         views = descriptors;
     }
     
+    /**
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }

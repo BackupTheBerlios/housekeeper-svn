@@ -36,7 +36,7 @@ import org.springframework.richclient.forms.JGoodiesBeanFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * A Form for editing the properties of an {@link net.sf.housekeeper.domain.ExpiringItem}
+ * A Form for editing the properties of an {@link net.sf.housekeeper.domain.ExpirableItem}
  * object.
  * 
  * @author Adrian Gygax

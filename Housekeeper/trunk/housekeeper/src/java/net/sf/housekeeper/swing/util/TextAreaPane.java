@@ -59,11 +59,17 @@ public final class TextAreaPane extends AbstractControlFactory implements
 
     private DefaultMessageAreaModel messageAreaModel;
 
+    /**
+     * 
+     */
     public TextAreaPane()
     {
         init(this);
     }
 
+    /**
+     * @param delegate
+     */
     public TextAreaPane(Messagable delegate)
     {
         init(delegate);
@@ -75,6 +81,9 @@ public final class TextAreaPane extends AbstractControlFactory implements
         this.messageAreaModel.addPropertyChangeListener(this);
     }
 
+    /**
+     * @param defaultIcon
+     */
     public void setDefaultIcon(Icon defaultIcon)
     {
         this.defaultIcon = defaultIcon;
@@ -123,6 +132,9 @@ public final class TextAreaPane extends AbstractControlFactory implements
         }
     }
 
+    /**
+     * 
+     */
     public void clearMessage()
     {
         messageAreaModel.setMessage(null);

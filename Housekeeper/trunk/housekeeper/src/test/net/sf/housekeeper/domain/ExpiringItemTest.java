@@ -29,7 +29,7 @@ public final class ExpiringItemTest extends TestCase
         final int year = 2004;
         itemDate.set(year, month, day, 15, 22);
 
-        final ExpiringItem item = new ExpiringItem(itemName, itemQuantity, itemDate
+        final ExpirableItem item = new ExpirableItem(itemName, itemQuantity, itemDate
                 .getTime());
 
         final Calendar returnedItemDate = Calendar.getInstance();
@@ -51,7 +51,7 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testSetExpiry()
     {
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
         final Calendar nowCal = Calendar.getInstance();
 
         item.setExpiry(nowCal.getTime());
@@ -70,7 +70,7 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testUnsetExpiry()
     {
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
         item.setExpiry(new Date());
         item.setExpiry(null);
         assertNull(item.getExpiry());
@@ -82,7 +82,7 @@ public final class ExpiringItemTest extends TestCase
     public void testSetNormalName()
     {
         //Test normal
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
         final String name = "aname";
         item.setName(name);
         assertEquals(name, item.getName());
@@ -95,7 +95,7 @@ public final class ExpiringItemTest extends TestCase
     {
         try
         {
-            final ExpiringItem item = new ExpiringItem();
+            final ExpirableItem item = new ExpirableItem();
             item.setName(null);
             fail("Item.setName(String) must not allow null as parameter");
         } catch (IllegalArgumentException e)
@@ -109,7 +109,7 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testSetQuantity()
     {
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
         final String quantity = "quant";
         item.setDescription(quantity);
         assertEquals(quantity, item.getDescription());
@@ -120,7 +120,7 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testUnsetQuantity()
     {
-        final ExpiringItem item = new ExpiringItem();
+        final ExpirableItem item = new ExpirableItem();
         item.setDescription("");
         assertNull(item.getDescription());
     }
@@ -130,8 +130,8 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testEquality()
     {
-        final ExpiringItem item = DataGenerator.createComplexItem();
-        final ExpiringItem item2 = DataGenerator.createComplexItem();
+        final ExpirableItem item = DataGenerator.createComplexItem();
+        final ExpirableItem item2 = DataGenerator.createComplexItem();
         
         final boolean itemEqualsItem2 = item.equals(item2);
         final boolean item2EqualsItem = item2.equals(item);
@@ -146,19 +146,19 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testInequality()
     {
-        final ExpiringItem item = DataGenerator.createComplexItem();
+        final ExpirableItem item = DataGenerator.createComplexItem();
         
-        final ExpiringItem differentName = DataGenerator.createComplexItem();
+        final ExpirableItem differentName = DataGenerator.createComplexItem();
         differentName.setName("OtherName");
         final boolean isEqualName = item.equals(differentName);
         assertFalse(isEqualName);
         
-        final ExpiringItem differentQuantity = DataGenerator.createComplexItem();
+        final ExpirableItem differentQuantity = DataGenerator.createComplexItem();
         differentQuantity.setDescription("OtherQuantity");
         final boolean isEqualQuantity = item.equals(differentQuantity);
         assertFalse(isEqualQuantity);
         
-        final ExpiringItem differentExpiry = DataGenerator.createComplexItem();
+        final ExpirableItem differentExpiry = DataGenerator.createComplexItem();
         differentExpiry.setExpiry(new Date(2));
         final boolean isEqualDifExpiry = item.equals(differentExpiry);
         assertFalse(isEqualDifExpiry);
@@ -173,8 +173,8 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testClone()
     {
-        final ExpiringItem originalItem = DataGenerator.createComplexItem();
-        final ExpiringItem clonedItem = new ExpiringItem(originalItem);
+        final ExpirableItem originalItem = DataGenerator.createComplexItem();
+        final ExpirableItem clonedItem = new ExpirableItem(originalItem);
         assertEquals(clonedItem, originalItem);
     }
 

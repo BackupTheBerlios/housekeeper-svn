@@ -41,6 +41,10 @@ public final class CustomTableUtils
         
     }
     
+    /**
+     * @param tableModel
+     * @return table.
+     */
     public static JTable createStandardSortableTable(TableModel tableModel) {
         JTable table = new JTable(tableModel);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -50,6 +54,10 @@ public final class CustomTableUtils
         return table;
     }
     
+    /**
+     * @param table
+     * @return table
+     */
     public static JTable attachSorter(JTable table) {
         TableModel tableModel = table.getModel();
         ShuttleSortableTableModel sortedModel = new ShuttleSortableTableModel(tableModel);

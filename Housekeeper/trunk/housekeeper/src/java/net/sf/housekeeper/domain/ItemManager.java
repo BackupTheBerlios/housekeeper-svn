@@ -110,9 +110,9 @@ public final class ItemManager
      * 
      * @param item The item to be duplicated.
      */
-    public void duplicate(final ExpiringItem item)
+    public void duplicate(final ExpirableItem item)
     {
-        final ExpiringItem clonedItem = new ExpiringItem(item);
+        final ExpirableItem clonedItem = new ExpirableItem(item);
         add(clonedItem);
         hasChanged = true;
     }
@@ -122,7 +122,7 @@ public final class ItemManager
      * 
      * @return an iterator for all managed items. Is not null.
      */
-    public Iterator getItemsIterator()
+    public Iterator iterator()
     {
         return items.iterator();
     }
@@ -156,7 +156,7 @@ public final class ItemManager
         final Iterator allItemsIter = items.iterator();
         while (allItemsIter.hasNext())
         {
-            final ExpiringItem item = (ExpiringItem) allItemsIter.next();
+            final ExpirableItem item = (ExpirableItem) allItemsIter.next();
             final boolean isOfCategory = category
                     .contains(item.getCategory());
             if (isOfCategory)

@@ -37,7 +37,9 @@ import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 
 /**
- * @author
+ * Provides persistence using XML and the JiBX data mapper.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class JiBXPersistence implements PersistenceService

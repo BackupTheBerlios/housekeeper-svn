@@ -34,7 +34,7 @@ import net.sf.housekeeper.util.DateUtils;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ExpiringItem extends Item
+public class ExpirableItem extends Item
 {
 
     /**
@@ -43,40 +43,25 @@ public final class ExpiringItem extends Item
     public static final String PROPERTYNAME_EXPIRY       = "expiry";
 
     /**
-     * Category for misc food.
-     */
-    public static final String CATEGORY_MISC             = "misc";
-
-    /**
-     * Category for convenience foods.
-     */
-    public static final String CATEGORY_CONVENIENCE_FOOD = "convenienceFood";
-
-    /**
-     * Default category.
-     */
-    public static final String CATEGORY_DEFAULT          = CATEGORY_CONVENIENCE_FOOD;
-
-    /**
      * The date before the item should have been consumed entirely.
      */
     private Date               expiry;
 
     /**
-     * Creates a new ExpiringItem object with default values. All properties are
+     * Creates a new ExpirableItem object with default values. All properties are
      * not set.
      */
-    public ExpiringItem()
+    public ExpirableItem()
     {
         super();
     }
 
     /**
-     * Creates a new item as a deep copy of an existing ExpiringItem object.
+     * Creates a new item as a deep copy of an existing ExpirableItem object.
      * 
      * @param original The item to be cloned.
      */
-    public ExpiringItem(final ExpiringItem original)
+    public ExpirableItem(final ExpirableItem original)
     {
         super(original);
 
@@ -90,13 +75,13 @@ public final class ExpiringItem extends Item
     }
 
     /**
-     * Creates a new ExpiringItem object with specified values and no category.
+     * Creates a new ExpirableItem object with specified values and no category.
      * 
      * @param name The name of the item. Must not be null.
      * @param quantity The quantity which one exemplar of this item contains.
      * @param expiry The date until this item should be consumed.
      */
-    public ExpiringItem(final String name, final String quantity,
+    public ExpirableItem(final String name, final String quantity,
             final Date expiry)
     {
         super(name, quantity);
@@ -153,7 +138,7 @@ public final class ExpiringItem extends Item
         {
             return false;
         }
-        ExpiringItem castedObj = (ExpiringItem) o;
+        ExpirableItem castedObj = (ExpirableItem) o;
 
         final boolean equalExpiry = this.expiry == null ? castedObj.expiry == null
                 : this.expiry.equals(castedObj.expiry);

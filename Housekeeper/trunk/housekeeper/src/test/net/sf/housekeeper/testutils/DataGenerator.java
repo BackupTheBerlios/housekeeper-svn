@@ -23,7 +23,7 @@ package net.sf.housekeeper.testutils;
 
 import java.util.Calendar;
 
-import net.sf.housekeeper.domain.ExpiringItem;
+import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Household;
 
 /**
@@ -74,7 +74,7 @@ public final class DataGenerator
 
     /**
      * Creates a {@link Household}object which is populated with a complex and
-     * a simple {@link ExpiringItem}.
+     * a simple {@link ExpirableItem}.
      * 
      * @return Not null.
      */
@@ -88,11 +88,11 @@ public final class DataGenerator
     }
 
     /**
-     * Creates a {@link ExpiringItem}object which has all attributes set to a value.
+     * Creates a {@link ExpirableItem}object which has all attributes set to a value.
      * 
      * @return Not null.
      */
-    public static ExpiringItem createComplexItem()
+    public static ExpirableItem createComplexItem()
     {
         final String itemName = "aName";
         final String itemQuantity = "aQuantity";
@@ -103,21 +103,21 @@ public final class DataGenerator
         final int year = 2004;
         itemDate.set(year, month, day, 15, 22);
 
-        final ExpiringItem item = new ExpiringItem(itemName, itemQuantity, itemDate.getTime());
+        final ExpirableItem item = new ExpirableItem(itemName, itemQuantity, itemDate.getTime());
 
         return item;
     }
 
     /**
-     * Creates a {@link ExpiringItem}object which has only its name set.
+     * Creates a {@link ExpirableItem}object which has only its name set.
      * 
      * @return Not null.
      */
-    public static ExpiringItem createSimpleItem()
+    public static ExpirableItem createSimpleItem()
     {
         final String itemName = "aName";
 
-        final ExpiringItem item = new ExpiringItem(itemName, null, null);
+        final ExpirableItem item = new ExpirableItem(itemName, null, null);
 
         return item;
     }

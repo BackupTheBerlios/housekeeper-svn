@@ -43,7 +43,7 @@ import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.ExpiringItem;
+import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.swing.util.CustomTableUtils;
 
@@ -224,7 +224,7 @@ public final class ItemsTableView extends AbstractView implements
         return convCommandGroup.createPopupMenu();
     }
 
-    private ExpiringItem getSelected()
+    private ExpirableItem getSelected()
     {
         if (hasSelection())
         {
@@ -233,7 +233,7 @@ public final class ItemsTableView extends AbstractView implements
                     .getModel();
             final int convertedRow = sortModel
                     .convertSortedIndexToDataIndex(selectedRow);
-            return (ExpiringItem) tableModel.getRow(convertedRow);
+            return (ExpirableItem) tableModel.getRow(convertedRow);
         }
 
         return null;
@@ -295,7 +295,7 @@ public final class ItemsTableView extends AbstractView implements
 
         private ItemsTableModel(List rows, MessageSource messages)
         {
-            super(ExpiringItem.class, rows, messages);
+            super(ExpirableItem.class, rows, messages);
             setRowNumbers(false);
         }
 
@@ -321,7 +321,7 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpiringItem selectedItem = getSelected();
+            final ExpirableItem selectedItem = getSelected();
             itemManager.remove(selectedItem);
             refresh();
         }
@@ -336,7 +336,7 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpiringItem selectedItem = getSelected();
+            final ExpirableItem selectedItem = getSelected();
             itemManager.duplicate(selectedItem);
             refresh();
         }
@@ -350,7 +350,7 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpiringItem foodObject = getSelected();
+            final ExpirableItem foodObject = getSelected();
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
             final ExpiringItemPropertiesForm form = new ExpiringItemPropertiesForm(formModel);
@@ -383,7 +383,7 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpiringItem foodObject = new ExpiringItem();
+            final ExpirableItem foodObject = new ExpirableItem();
             foodObject.setCategory(category);
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
