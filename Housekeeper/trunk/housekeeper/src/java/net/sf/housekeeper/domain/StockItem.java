@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  * A concrete article, that has been purchased.
- *
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  * @since 0.1
@@ -32,13 +32,12 @@ import java.util.Date;
 public final class StockItem
 {
 
-    /** The name of this stock item */
+    /** The name of this stock item. */
     private String name;
 
-    /** The date, before the article should be consumed entirely */
-    private Date bestBeforeEnd;
+    /** The date, before the article should be consumed entirely. */
+    private Date   bestBeforeEnd;
 
-  
     /**
      * Creates a new StockItem object with specified values.
      * 
@@ -50,7 +49,7 @@ public final class StockItem
         this.name = name;
         this.bestBeforeEnd = bestBeforeEnd;
     }
-    
+
     /**
      * Creates a new StockItem object with default values. The related article
      * is an empty one, there are no consumptions and the date is set to today.
@@ -60,12 +59,10 @@ public final class StockItem
         this("", new Date());
     }
 
-
     /**
      * Sets the corresponding attribute to a new value.
-     *
-     * @param bestBeforeEnd
-     *            The new value.
+     * 
+     * @param bestBeforeEnd The new value.
      */
     public void setBestBeforeEnd(final Date bestBeforeEnd)
     {
@@ -74,7 +71,7 @@ public final class StockItem
 
     /**
      * Gets the corresponding attribute.
-     *
+     * 
      * @return The corresponding attribute.
      */
     public Date getBestBeforeEnd()
@@ -93,8 +90,7 @@ public final class StockItem
     }
 
     /**
-     * @param name
-     *            The name to set.
+     * @param name The name to set.
      */
     public void setName(final String name)
     {

@@ -67,11 +67,11 @@ public final class ComponentCenterer
         // Do not set location outside of screen
         if (xLocation < 0)
         {
-            xLocation = 15;
+            xLocation = modifier;
         }
         if (yLocation < 0)
         {
-            yLocation = 15;
+            yLocation = modifier;
         }
 
         // Do not cover parent frame

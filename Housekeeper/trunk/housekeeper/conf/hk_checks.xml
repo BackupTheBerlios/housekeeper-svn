@@ -27,10 +27,6 @@
     <!-- See http://checkstyle.sf.net/config_javadoc.html#PackageHtml -->
     <module name="PackageHtml"/>
 
-    <!-- Checks whether files end with a new line.                        -->
-    <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
-    <module name="NewlineAtEndOfFile"/>
-
     <!-- Checks that property files contain the same keys.         -->
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
@@ -80,7 +76,6 @@
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
         <module name="AnonInnerLength"/>
-        <module name="ParameterNumber"/>
         
         
         <!-- Checks for whitespace                               -->
@@ -163,7 +158,6 @@
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
-        <module name="FinalParameters"/>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
 
@@ -175,7 +169,6 @@
 		</module>
 		<module name="CyclomaticComplexity"/>
 		
-		<module name="usage.OneMethodPrivateField"/>
 		<module name="usage.UnusedLocalVariable"/>
 		<module name="usage.UnusedPrivateField"/>
 		<module name="usage.UnusedPrivateMethod"/>

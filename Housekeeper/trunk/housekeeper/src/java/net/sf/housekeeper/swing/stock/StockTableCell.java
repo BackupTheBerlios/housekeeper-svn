@@ -19,7 +19,8 @@ final class StockTableCell implements TableFormat
     /*
      * (non-Javadoc)
      * 
-     * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#getFieldCount()
+     * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#
+     *      getFieldCount()
      */
     public int getFieldCount()
     {
@@ -29,9 +30,10 @@ final class StockTableCell implements TableFormat
     /*
      * (non-Javadoc)
      * 
-     * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#getFieldName(int)
+     * @see com.odellengineeringltd.glazedlists.jtable.TableFormat#
+     *      getFieldName(int)
      */
-    public String getFieldName(int arg0)
+    public String getFieldName(final int arg0)
     {
         if (arg0 == 0) { return "Item"; }
         return "Best before end";
