@@ -23,8 +23,10 @@ package net.sf.housekeeper.swing.stock;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -70,10 +72,21 @@ public final class StockItemDialog extends JDialog
 
         nameField = new JTextField();
 
+        /*
+         * The next few lines just create a Date object with the current date
+         * not the exact current time. This prevents the problem that the date
+         * in the spinner can't be set to today, once it has been modified.
+         */
+        final Calendar now = new GregorianCalendar();
+        now.setTime(new Date());
+        final Calendar todayCal = new GregorianCalendar(now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+        final Date today = todayCal.getTime();
+
         spinnerModel = new SpinnerDateModel();
+        spinnerModel.setStart(today);
         JSpinner spinner = new JSpinner(spinnerModel);
-        spinner
-                .setEditor(new DateEditor(spinner, DateFormat.getDateInstance()));
+        spinner.setEditor(new DateEditor(spinner));
 
         JButton buttonOK = new JButton("OK");
         buttonOK.addActionListener(new OKButtonActionListener());
@@ -157,76 +170,40 @@ public final class StockItemDialog extends JDialog
             dispose();
         }
     }
-
+    
+    /**
+     * An editor for a JSpinner which formats dates.
+     */
     private class DateEditor extends JSpinner.DefaultEditor
     {
-
-        private DateEditor(JSpinner spinner, DateFormat format)
+        
+        /**
+         * Creates a DateEditor using the current locale.
+         * 
+         * @param spinner The spinner for this editor.
+         */
+        private DateEditor(final JSpinner spinner)
         {
             super(spinner);
-            if (!(spinner.getModel() instanceof SpinnerDateModel)) { throw new IllegalArgumentException(
-                    "model not a SpinnerDateModel"); }
 
-            SpinnerDateModel model = (SpinnerDateModel) spinner.getModel();
-            DateFormatter formatter = new DateEditorFormatter(model, format);
-            DefaultFormatterFactory factory = new DefaultFormatterFactory(
+            final SpinnerDateModel model = (SpinnerDateModel) spinner.getModel();
+            final DateFormatter formatter = new DateFormatter();
+            final DefaultFormatterFactory factory = new DefaultFormatterFactory(
                     formatter);
-            JFormattedTextField ftf = getTextField();
+            final JFormattedTextField ftf = getTextField();
             ftf.setEditable(true);
             ftf.setFormatterFactory(factory);
 
-            /*
-             * TBD - initializing the column width of the text field is
-             * imprecise and doing it here is tricky because the developer may
-             * configure the formatter later.
-             */
             try
             {
                 String maxString = formatter.valueToString(model.getStart());
                 String minString = formatter.valueToString(model.getEnd());
-                ftf
-                        .setColumns(Math.max(maxString.length(), minString
+                ftf.setColumns(Math.max(maxString.length(), minString
                                 .length()));
             } catch (ParseException e)
             {
-                // PENDING: hmuller
+                e.printStackTrace();
             }
-        }
-    }
-
-    /**
-     * This subclass of javax.swing.DateFormatter maps the minimum/maximum
-     * properties to te start/end properties of a SpinnerDateModel.
-     */
-    private static class DateEditorFormatter extends DateFormatter
-    {
-
-        private final SpinnerDateModel model;
-
-        DateEditorFormatter(SpinnerDateModel model, DateFormat format)
-        {
-            super(format);
-            this.model = model;
-        }
-
-        public void setMinimum(Comparable min)
-        {
-            model.setStart(min);
-        }
-
-        public Comparable getMinimum()
-        {
-            return model.getStart();
-        }
-
-        public void setMaximum(Comparable max)
-        {
-            model.setEnd(max);
-        }
-
-        public Comparable getMaximum()
-        {
-            return model.getEnd();
         }
     }
 }
