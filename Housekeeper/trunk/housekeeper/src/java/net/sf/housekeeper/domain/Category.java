@@ -24,6 +24,7 @@ package net.sf.housekeeper.domain;
 import java.rmi.server.UID;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.springframework.util.Assert;
 import org.springframework.util.ToStringCreator;
@@ -36,56 +37,48 @@ import org.springframework.util.ToStringCreator;
  */
 public final class Category
 {
-    
-    private final String            id;
 
-    private String                  name;
+    private LinkedHashSet children;
 
-    private LinkedHashSet                    children;
-    
+    private final String  id;
+
+    private String        name;
+
+    private Category      parent;
+
     /**
      * Creates a new object with no name and children.
      */
     public Category()
     {
-        this(new UID().toString(), "");
-    }
-    
-    /**
-     * Creates a new object with no children.
-     * 
-     * @param name The Name for the category. Must not be null.
-     */
-    public Category(final String name)
-    {
-        this(new UID().toString(), name);
+        this("");
     }
 
     /**
-     * Creates a new object with a specified ID and name.
+     * Creates a new object with no children.
      * 
-     * @param id The ID. Must not be null.
-     * @param name The name. Must not be null.
+     * @param name The name for the category. Must not be null.
      */
-    public Category(String id, String name)
+    public Category(final String name)
     {
-        Assert.notNull(id);
         Assert.notNull(name);
-        this.id = id;
+        this.id = new UID().toString();
         this.name = name;
         this.children = new LinkedHashSet();
     }
 
     /**
-     * Adds a child Category to this category.
+     * Adds a child category and sets the "parent" property of that object to
+     * this category.
      * 
      * @param child The child to add. Must not be null.
      */
     public void addChild(final Category child)
     {
         children.add(child);
+        child.setParent(this);
     }
-    
+
     /**
      * Tests if a category either equals this category or is a children of this
      * category.
@@ -112,15 +105,15 @@ public final class Category
 
         return false;
     }
-    
+
     /**
      * @return Returns the children.
      */
-    public LinkedHashSet getChildren()
+    public Set getChildren()
     {
         return children;
     }
-    
+
     /**
      * Returns an iterator for all children of this category.
      * 
@@ -148,6 +141,16 @@ public final class Category
     }
 
     /**
+     * Returns the parent of this category.
+     * 
+     * @return Can be null.
+     */
+    public Category getParent()
+    {
+        return parent;
+    }
+
+    /**
      * @param name The name to set.
      */
     public void setName(String name)
@@ -155,15 +158,14 @@ public final class Category
         this.name = name;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Sets the parent of this category.
      * 
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @param parent The parent or null to unset this category's parent.
      */
-    public boolean equals(Object obj)
+    public void setParent(Category parent)
     {
-        final Category otherCat = (Category) obj;
-        return this.id.equals(otherCat.getId());
+        this.parent = parent;
     }
 
     /*
@@ -176,6 +178,17 @@ public final class Category
         int hashCode = 1;
         hashCode = 31 * hashCode + (id == null ? 0 : id.hashCode());
         return hashCode;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object obj)
+    {
+        final Category otherCat = (Category) obj;
+        return this.id.equals(otherCat.getId());
     }
 
     /*

@@ -16,6 +16,7 @@
   <mapping name="category" class="net.sf.housekeeper.domain.Category">
     <value name="id" field="id" ident="def" style="attribute"/>
     <value name="name" field="name"/>
+    <value name="parent" field="parent" ident="ref" usage="optional"/>
     <collection field="children" ident="ref" 
       item-type="net.sf.housekeeper.domain.Category"/>
   </mapping>
