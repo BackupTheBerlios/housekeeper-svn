@@ -65,8 +65,8 @@ public final class ItemManager
     }
 
     /**
-     * Creates a new manager with an existing list of {@link Item}s. Afterwards,
-     * {@link #hasChanged()}returns <code>false</code>.
+     * Creates a new manager with an existing list of {@link Item}s.
+     * Afterwards, {@link #hasChanged()}returns <code>false</code>.
      * 
      * @param items A list of {@link Item}s. The types of the elements the
      *            collection are NOT checked by this method.
@@ -78,7 +78,7 @@ public final class ItemManager
     }
 
     /**
-     * Adds an {@link Item} object to the list. After execution,
+     * Adds an {@link Item}object to the list. After execution,
      * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to add to the supply.
@@ -103,7 +103,7 @@ public final class ItemManager
         add(clonedItem);
         hasChanged = true;
     }
-    
+
     /**
      * Duplicates the provided item and adds it to the to the list. Afterwards,
      * {@link #hasChanged()}returns <code>true</code>.
@@ -120,7 +120,7 @@ public final class ItemManager
     /**
      * Provides an iterator for all managed items.
      * 
-     * @return  an iterator for all managed items. Is not null.
+     * @return an iterator for all managed items. Is not null.
      */
     public Iterator getItemsIterator()
     {
@@ -157,7 +157,8 @@ public final class ItemManager
         while (allItemsIter.hasNext())
         {
             final ExpiringItem item = (ExpiringItem) allItemsIter.next();
-            final boolean isOfCategory = item.getCategory().equals(category);
+            final boolean isOfCategory = category
+                    .contains(item.getCategory());
             if (isOfCategory)
             {
                 categoryItems.add(item);
@@ -167,8 +168,8 @@ public final class ItemManager
     }
 
     /**
-     * Removes a {@link Item} object from the supply. Afterwards, {@link #hasChanged()}
-     * returns <code>true</code>.
+     * Removes a {@link Item}object from the supply. Afterwards,
+     * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to remove from the supply.
      */
@@ -181,8 +182,8 @@ public final class ItemManager
     }
 
     /**
-     * Clears the list of items and replaces it with a new one.
-     * Afterwards, {@link #hasChanged()}returns <code>true</code>.
+     * Clears the list of items and replaces it with a new one. Afterwards,
+     * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param newItems The new items. Must not be null.
      */
@@ -196,7 +197,7 @@ public final class ItemManager
     }
 
     /**
-     * Updates an item in this manager. If you change a {@link Item} object you
+     * Updates an item in this manager. If you change a {@link Item}object you
      * MUST call this method so Observers can be notified of the update.
      * Afterwards, {@link #hasChanged()}returns <code>true</code>.
      * 
@@ -249,8 +250,8 @@ public final class ItemManager
             return false;
         }
         ItemManager castedObj = (ItemManager) o;
-        return this.items == null ? castedObj.items == null
-                : this.items.equals(castedObj.items);
+        return this.items == null ? castedObj.items == null : this.items
+                .equals(castedObj.items);
     }
 
     /*

@@ -22,11 +22,12 @@
 package net.sf.housekeeper.domain;
 
 import java.rmi.server.UID;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.util.ToStringCreator;
-
 
 /**
  * @author
@@ -34,30 +35,84 @@ import org.springframework.util.ToStringCreator;
  */
 public final class Category
 {
-    
-    public static final Category CONVENIENCE = new Category("convenienceFood", "Convenience Food");
-    
-    public static final Category MISC = new Category("misc", "Misc");
-    
-    private final String id;
-    
-    private String name;
-    
-    private List children;
-    
-    
+
+    public static final Category    CONVENIENCE = new Category(
+                                                        "convenienceFood",
+                                                        "Convenience Food");
+
+    public static final Category    MISC        = new Category("misc", "Misc");
+
+    private static final Category[] subcats     = { CONVENIENCE, MISC };
+
+    public static final Category    FOOD        = new Category("food", "Food",
+                                                        Arrays.asList(subcats));
+
+    private final String            id;
+
+    private String                  name;
+
+    private List                    children;
+
+    /**
+     * Creates a new object with no name and children.
+     */
     public Category()
     {
         this(new UID().toString(), "");
     }
-    
+
+    /**
+     * Creates a new object with a specified ID and name.
+     * 
+     * @param id
+     * @param name
+     */
     public Category(String id, String name)
+    {
+        this(id, name, new LinkedList());
+    }
+
+    /**
+     * Creates a new object.
+     * 
+     * @param id
+     * @param name
+     * @param children
+     */
+    public Category(String id, String name, List children)
     {
         this.id = id;
         this.name = name;
-        children = new LinkedList();
+        this.children = children;
     }
     
+    /**
+     * Tests if a category either equals this category or is a children of this
+     * category.
+     * 
+     * @param cat The category to test.
+     * @return True, if cat is conatained in this category. False otherwise.
+     */
+    public boolean contains(Category cat)
+    {
+        if (cat == this)
+        {
+            return true;
+        }
+
+        final Iterator catIter = children.iterator();
+        while (catIter.hasNext())
+        {
+            Category child = (Category) catIter.next();
+            if (child.contains(cat))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * @return Returns the children.
      */
@@ -65,7 +120,7 @@ public final class Category
     {
         return children;
     }
-    
+
     /**
      * @return Returns the id.
      */
@@ -73,7 +128,7 @@ public final class Category
     {
         return id;
     }
-    
+
     /**
      * @return Returns the name.
      */
@@ -81,7 +136,7 @@ public final class Category
     {
         return name;
     }
-    
+
     /**
      * @param children The children to set.
      */
@@ -89,7 +144,7 @@ public final class Category
     {
         this.children = children;
     }
-    
+
     /**
      * @param name The name to set.
      */
@@ -98,15 +153,17 @@ public final class Category
         this.name = name;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object obj)
     {
-        final Category otherCat = (Category)obj;
+        final Category otherCat = (Category) obj;
         return this.id.equals(otherCat.getId());
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -118,9 +175,10 @@ public final class Category
         hashCode = 31 * hashCode + (id == null ? 0 : id.hashCode());
         return hashCode;
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     public String toString()

@@ -22,16 +22,17 @@
 package net.sf.housekeeper.swing;
 
 import javax.swing.JComponent;
-import javax.swing.JList;
+import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
 
 import org.springframework.richclient.application.support.AbstractView;
-import org.springframework.richclient.list.BeanPropertyValueListRenderer;
+import org.springframework.richclient.tree.BeanTreeCellRenderer;
 
 /**
  * @author
@@ -40,7 +41,7 @@ import org.springframework.richclient.list.BeanPropertyValueListRenderer;
 public final class CategoriesView extends AbstractView
 {
 
-    private JList list;
+    private JTree tree;
 
     /*
      * (non-Javadoc)
@@ -49,26 +50,48 @@ public final class CategoriesView extends AbstractView
      */
     protected JComponent createControl()
     {
-        final Category[] listItems = { Category.CONVENIENCE, Category.MISC };
-        list = new JList(listItems);
-        list.getSelectionModel()
+        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(Category.FOOD);
+        final DefaultMutableTreeNode convNode = new DefaultMutableTreeNode(Category.CONVENIENCE);
+        final DefaultMutableTreeNode miscNode = new DefaultMutableTreeNode(Category.MISC);
+        rootNode.add(convNode);
+        rootNode.add(miscNode);
+        
+        tree = new JTree(rootNode);
+        tree.getSelectionModel()
                 .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new BeanPropertyValueListRenderer("name"));
+        
+        final BeanTreeCellRenderer renderer = new BeanTreeCellRenderer(Category.class, "name");
+        renderer.setOpenIcon(null);
+        renderer.setClosedIcon(null);
+        renderer.setLeafIcon(null);
+        tree.setCellRenderer(renderer);
 
-        list.addListSelectionListener(new ListSelectionListener() {
+        tree.addTreeSelectionListener(new TreeSelectionListener() {
 
-            public void valueChanged(ListSelectionEvent e)
-            {
-                getApplicationContext()
-                        .publishEvent(
-                                      new HousekeeperEvent(
-                                              HousekeeperEvent.SELECTED, list
-                                                      .getSelectedValue()));
+            public void valueChanged(TreeSelectionEvent e) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                                   tree.getLastSelectedPathComponent();
+
+                if (node == null) return;
+
+                Object nodeInfo = node.getUserObject();
+                    Category cat = (Category)nodeInfo;
+                    publishSelectionEvent(cat);
             }
         });
+        
+        tree.setRootVisible(true);
 
-        list.setSelectedIndex(0);
-        return list;
+        tree.setSelectionRow(0);
+        return tree;
+    }
+    
+    private void publishSelectionEvent(Category cat)
+    {
+        getApplicationContext()
+        .publishEvent(
+                      new HousekeeperEvent(
+                              HousekeeperEvent.SELECTED, cat));
     }
 
 }
