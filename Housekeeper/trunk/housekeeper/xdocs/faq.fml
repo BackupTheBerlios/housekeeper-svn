@@ -1,7 +1,20 @@
 <faqs title="Frequently Asked Questions">
 
   <part id="user">
-    <title>General</title>
+    <title>Installation</title>
+    <faq id="install-webstart-1.4.2">
+    	<question>I have installed Java 1.4.2. How can I install Housekeeper using Webstart?</question>
+    	<answer>
+    		<ol>
+    			<li><a href="http://ftp.berlios.de/pub/housekeeper/webstart/housekeeper.jnlp">Click here!</a></li>
+    			<li>Webstart automatically downloads and installs the application</li>
+    			<li>After that, Webstart shows a security warning. You have to accept that in order to start Housekeeper.</li>
+    			<li>Webstart is able to create an application shortcut on your desktop and in your application menu.</li>
+    			<li>On every start of Housekeeper, Webstart checks for updates available for Housekeeper.</li>
+    			<li>Webstart downloads only those parts of Housekeeper which have changed for the new version.</li>
+    		</ol>
+    	</anwser>
+    </faq>
 
   </part>
   <part id="devel">
