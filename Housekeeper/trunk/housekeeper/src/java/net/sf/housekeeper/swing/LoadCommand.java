@@ -68,10 +68,15 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
                     .replaceDomainWithSaved(household);
         } catch (FileNotFoundException exception)
         {
-            //Disabled as a workaround for bug #3476
-            //final String nodata = LocalisationManager.INSTANCE
-            //        .getText("gui.mainFrame.nodata");
-            //showErrorDialog(nodata);
+            //If called during startup, the application window is not yet
+            //initialized. So we can check for that to not show the "no data
+            //found" error on startup.
+            if (getApplicationWindow().getControl() != null)
+            {
+                final String nodata = LocalisationManager.INSTANCE
+                        .getText("gui.mainFrame.nodata");
+                showErrorDialog(nodata);
+            }
         } catch (Exception exception)
         {
             showErrorDialog(exception.getLocalizedMessage());
