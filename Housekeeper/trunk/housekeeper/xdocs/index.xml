@@ -29,8 +29,11 @@
             household issues. Currently, it is able to keep a list of food 
             inlcuding their expiry dates so you always have an overview of what 
             is going to seed soon.</p>
-        <p>Please see the <a href="roadmap.html">Roadmap</a> for planned 
-            features.</p>
+        <p>Please see the <a 
+          href="http://developer.berlios.de/feature/?group_id=3180">Requested 
+          features tracker</a> for planned features. If you have an idea for an 
+          additional feature please don't hesitate to create a new entry to the 
+          tracker!</p>
     </section>
     <section name="Prerequisites">
             <p>Housekeeper is compatible with every computer for which a 
@@ -39,7 +42,7 @@
                 Macintosh OS X, Linux or Solaris.</b> Housekeeper runs with any 
                 JRE of version 1.4 or greater.</p>
             <p>You can download a JRE for free <a 
-                href="http://java.sun.com/j2se/1.5.0/download.jsp">here</a>. 
+                href="http://www.java.com">here</a>. 
                 Please follow the installation instructions for the "J2SE 
                 Runtime Environment (JRE)" </p>
             <p> If your operating system is Macintosh OS X or Linux you 
