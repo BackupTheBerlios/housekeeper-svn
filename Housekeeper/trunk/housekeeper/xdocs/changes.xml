@@ -3,6 +3,10 @@
         <title>Change history</title>
     </properties>
     <body>
+        <release version="0.2.2" date="not yet">
+            <action dev="notizklotz" type="add">Application can now be 
+                installed with an installer.</action>
+        </release>
         <release version="0.2.1" date="2005-01-02">
             <action dev="notizklotz" type="add">German translations.</action>
             <action dev="notizklotz" type="add" issue="960802">Support for 
