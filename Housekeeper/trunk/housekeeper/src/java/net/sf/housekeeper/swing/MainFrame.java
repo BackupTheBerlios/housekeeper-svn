@@ -86,12 +86,12 @@ public final class MainFrame extends JFrame
         pack();
         setLocationRelativeTo(null);
         
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
 
             public void windowClosing(WindowEvent e)
             {
-               ApplicationController.instance().exit();
-
+               exitApplication();
             }
         });
     }
@@ -164,9 +164,53 @@ public final class MainFrame extends JFrame
     }
 
     /**
+     * Asks if data should be saved before it terminates the application.
+     */
+    private void exitApplication()
+    {
+        boolean exit = true;
+        
+        final int option = JOptionPane.showConfirmDialog(this, "Save modifications before exiting?");
+        if (option == JOptionPane.YES_OPTION)
+        {
+            try
+            {
+                PersistenceServiceFactory.getCurrentService().saveData();
+            } catch (IOException e)
+            {
+                exit = false;
+                showSavingErrorDialog();
+                e.printStackTrace();
+            }
+        } else if (option == JOptionPane.CANCEL_OPTION)
+        {
+            exit = false;
+        }
+        
+        if (exit)
+        {
+            ApplicationController.instance().exit();
+        }
+    }
+    
+    /**
+     * Shows a dialog which informs the user that saving was not succesful.
+     *
+     */
+    private void showSavingErrorDialog()
+    {
+        JOptionPane
+        .showMessageDialog(
+                           MainFrame.INSTANCE,
+                           "There was a problem saving the data.\n" +
+                           "Your modifications have NOT been saved.",
+                           "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
      * Action for exiting the application.
      */
-    private static class ExitAction extends AbstractAction
+    private class ExitAction extends AbstractAction
     {
 
         private ExitAction()
@@ -176,14 +220,14 @@ public final class MainFrame extends JFrame
 
         public void actionPerformed(ActionEvent e)
         {
-            ApplicationController.instance().exit();
+            exitApplication();
         }
     }
 
     /**
      * Action to load the data.
      */
-    private static class LoadDataAction extends AbstractAction
+    private class LoadDataAction extends AbstractAction
     {
 
         private LoadDataAction()
@@ -214,7 +258,7 @@ public final class MainFrame extends JFrame
     /**
      * Action to persistently save the data.
      */
-    private static class SaveDataAction extends AbstractAction
+    private class SaveDataAction extends AbstractAction
     {
 
         private SaveDataAction()
@@ -230,11 +274,7 @@ public final class MainFrame extends JFrame
             } catch (IOException e1)
             {
                 e1.printStackTrace();
-                JOptionPane
-                        .showMessageDialog(
-                                           MainFrame.INSTANCE,
-                                           "There was a problem saving the data.\nYour modifications have NOT been saved.",
-                                           "Error", JOptionPane.ERROR_MESSAGE);
+                showSavingErrorDialog();
             }
         }
     }
