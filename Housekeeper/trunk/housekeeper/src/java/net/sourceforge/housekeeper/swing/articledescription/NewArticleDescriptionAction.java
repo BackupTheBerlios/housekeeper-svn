@@ -20,12 +20,11 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing.action;
+package net.sourceforge.housekeeper.swing.articledescription;
 
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.swing.ArticleDescriptionDialog;
-import net.sourceforge.housekeeper.swing.ArticleDescriptionPanel;
+import net.sourceforge.housekeeper.storage.StorageFactory;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 import java.awt.event.ActionEvent;
@@ -34,29 +33,29 @@ import javax.swing.AbstractAction;
 
 
 /**
- * Action to cause the display of a dialog for modifying an ArticleDescription.
+ * Action to cause the display of a dialog for adding an ArticleDescription.
  *
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  *
  * @since 0.1
  */
-public final class ModifyArticleDescriptionAction extends AbstractAction
+public final class NewArticleDescriptionAction extends AbstractAction
 {
     //~ Static fields/initializers ---------------------------------------------
 
     /** Singleton instance of this object. */
-    public static final ModifyArticleDescriptionAction INSTANCE = new ModifyArticleDescriptionAction();
+    public static final NewArticleDescriptionAction INSTANCE = new NewArticleDescriptionAction();
 
     /** Title to be shown in GUI */
-    private static final String TITLE = "Modify Article Description";
+    private static final String TITLE = "New Article Description";
 
     //~ Constructors -----------------------------------------------------------
 
     /**
-     * Creates a new ModifyArticleDescription object.
+     * Creates a new NewArticleDescription object.
      */
-    private ModifyArticleDescriptionAction()
+    private NewArticleDescriptionAction()
     {
         super(TITLE);
     }
@@ -68,14 +67,12 @@ public final class ModifyArticleDescriptionAction extends AbstractAction
      */
     public void actionPerformed(ActionEvent e)
     {
-        ArticleDescription article = ArticleDescriptionPanel.getInstance()
-                                                            .getSelectedArticle();
+        ArticleDescriptionDialog d       = new ArticleDescriptionDialog();
+        ArticleDescription       article = d.show(TITLE);
 
         if (article != null)
         {
-            ArticleDescriptionDialog d = new ArticleDescriptionDialog();
-            d.show(TITLE, article);
-
+            StorageFactory.getCurrentStorage().add(article);
             DataUpdateMediator.getInstance().update();
         }
     }

@@ -28,6 +28,8 @@ import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
 import net.sourceforge.housekeeper.Housekeeper;
 import net.sourceforge.housekeeper.swing.action.*;
+import net.sourceforge.housekeeper.swing.articledescription.*;
+import net.sourceforge.housekeeper.swing.purchase.*;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;

@@ -20,11 +20,12 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.articledescription;
 
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
 import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -40,7 +41,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @since 0.1
  */
-final class ArticleDescriptionTableModel extends AbstractTableModel
+public final class ArticleDescriptionTableModel extends AbstractTableModel
     implements Observer
 {
     //~ Static fields/initializers ---------------------------------------------

@@ -20,11 +20,12 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.purchase;
 
 
 import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.storage.StorageFactory;
+import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 
 import java.awt.BorderLayout;
 
@@ -51,7 +52,7 @@ import javax.swing.table.AbstractTableModel;
  * @see
  * @since
  */
-final class PurchasePanel extends JPanel
+public final class PurchasePanel extends JPanel
 {
     //~ Static fields/initializers ---------------------------------------------
 
@@ -81,7 +82,7 @@ final class PurchasePanel extends JPanel
 
     //~ Methods ----------------------------------------------------------------
 
-    static PurchasePanel getInstance()
+    public static PurchasePanel getInstance()
     {
         return INSTANCE;
     }

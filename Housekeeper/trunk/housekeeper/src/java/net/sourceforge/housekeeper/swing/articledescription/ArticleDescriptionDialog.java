@@ -20,7 +20,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.articledescription;
 
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -28,6 +28,8 @@ import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.swing.MainFrame;
+import net.sourceforge.housekeeper.swing.SwingUtils;
 import net.sourceforge.housekeeper.swing.action.*;
 
 import java.awt.Component;

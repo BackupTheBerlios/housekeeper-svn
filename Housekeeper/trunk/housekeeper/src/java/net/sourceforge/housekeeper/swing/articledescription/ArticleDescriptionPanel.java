@@ -20,11 +20,10 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.swing;
+package net.sourceforge.housekeeper.swing.articledescription;
 
 
 import net.sourceforge.housekeeper.domain.ArticleDescription;
-import net.sourceforge.housekeeper.swing.action.*;
 
 import java.awt.BorderLayout;
 

@@ -36,7 +36,7 @@ import java.awt.Point;
  *
  * @since 0.1
  */
-final class SwingUtils
+public final class SwingUtils
 {
     //~ Constructors -----------------------------------------------------------
 
@@ -54,7 +54,7 @@ final class SwingUtils
      * @param onComponent Component on which centerComponent should be
      *        centered.
      */
-    static void centerOnComponent(Component centerComponent,
+    public static void centerOnComponent(Component centerComponent,
                                   Component onComponent)
     {
         final Point     parentFrameLocation = onComponent.getLocation();
@@ -94,7 +94,7 @@ final class SwingUtils
      *
      * @param comp Component to be centered on the screen.
      */
-    static void centerOnScreen(Component comp)
+    public static void centerOnScreen(Component comp)
     {
         // Center frame
         Dimension paneSize   = comp.getSize();
