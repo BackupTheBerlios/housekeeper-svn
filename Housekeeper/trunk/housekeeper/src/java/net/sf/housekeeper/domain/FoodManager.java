@@ -52,7 +52,7 @@ public final class FoodManager
     /**
      * Holds a list of all items on hand.
      */
-    private final List  foodList;
+    private final List       foodList;
 
     /**
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
@@ -124,19 +124,26 @@ public final class FoodManager
     {
         return foodList;
     }
-    
-    public List getItemsForCategory(String category)
+
+    /**
+     * Returns all items of a specific category. If category is null, then all
+     * items are returned.
+     * 
+     * @param category The category of the items.
+     * @return The items which match the category.
+     */
+    public List getItemsForCategory(final String category)
     {
         if (category == null)
         {
             return getSupplyList();
         }
-        
+
         final List categoryItems = new ArrayList();
         final Iterator allItemsIter = foodList.iterator();
-        while(allItemsIter.hasNext())
+        while (allItemsIter.hasNext())
         {
-            final Food item = (Food)allItemsIter.next();
+            final Food item = (Food) allItemsIter.next();
             final boolean isOfCategory = item.getCategory().equals(category);
             if (isOfCategory)
             {

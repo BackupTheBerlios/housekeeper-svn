@@ -26,31 +26,34 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import org.springframework.richclient.application.ApplicationPage;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.PageComponent;
 import org.springframework.richclient.application.PageComponentDescriptor;
 import org.springframework.richclient.application.PageComponentPane;
 import org.springframework.richclient.application.PageDescriptor;
-import org.springframework.richclient.application.PageLayoutBuilder;
 import org.springframework.richclient.application.support.AbstractApplicationPage;
 import org.springframework.richclient.application.support.DefaultViewContext;
-
 
 /**
  * @author
  * @version $Revision$, $Date$
  */
-public class BorderLayoutApplicationPage extends AbstractApplicationPage implements BorderLayoutPageLayoutBuilder {
+public final class BorderLayoutApplicationPage extends AbstractApplicationPage
+        implements BorderLayoutPageLayoutBuilder
+{
 
     private JPanel control;
 
-    public BorderLayoutApplicationPage(ApplicationWindow window, PageDescriptor pageDescriptor) {
+    public BorderLayoutApplicationPage(ApplicationWindow window,
+            PageDescriptor pageDescriptor)
+    {
         super(window, pageDescriptor);
     }
 
-    public JComponent getControl() {
-        if (control == null) {
+    public JComponent getControl()
+    {
+        if (control == null)
+        {
             this.control = new JPanel(new BorderLayout());
             this.getPageDescriptor().buildInitialLayout(this);
             setActiveComponent();
@@ -58,7 +61,8 @@ public class BorderLayoutApplicationPage extends AbstractApplicationPage impleme
         return control;
     }
 
-    protected boolean giveFocusTo(PageComponent pageComponent) {
+    protected boolean giveFocusTo(PageComponent pageComponent)
+    {
         PageComponentPane pane = pageComponent.getContext().getPane();
         pane.requestFocusInWindow();
 
@@ -67,9 +71,13 @@ public class BorderLayoutApplicationPage extends AbstractApplicationPage impleme
         return true;
     }
 
-    protected PageComponent createPageComponent(PageComponentDescriptor pageComponentDescriptor) {
-        PageComponent pageComponent = pageComponentDescriptor.createPageComponent();
-        pageComponent.setContext(new DefaultViewContext(this, new PageComponentPane(pageComponent)));
+    protected PageComponent createPageComponent(
+                                                PageComponentDescriptor pageComponentDescriptor)
+    {
+        PageComponent pageComponent = pageComponentDescriptor
+                .createPageComponent();
+        pageComponent.setContext(new DefaultViewContext(this,
+                new PageComponentPane(pageComponent)));
 
         // trigger the createControl method of the PageComponent, so if a
         // PageComponentListener is added
@@ -80,12 +88,16 @@ public class BorderLayoutApplicationPage extends AbstractApplicationPage impleme
     }
 
     // Initial Application Page Layout Builder methods
-    public void addView(String viewDescriptorId) {
+    public void addView(String viewDescriptorId)
+    {
         addView(viewDescriptorId, BorderLayout.EAST);
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.housekeeper.swing.page.BorderLayoutPageLayoutBuilder#addView(java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see net.sf.housekeeper.swing.page.BorderLayoutPageLayoutBuilder#addView(java.lang.String,
+     *      java.lang.String)
      */
     public void addView(String descriptorID, String location)
     {
