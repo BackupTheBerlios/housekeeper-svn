@@ -42,14 +42,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import net.sf.housekeeper.Housekeeper;
 import net.sf.housekeeper.domain.FoodItemManager;
 import net.sf.housekeeper.persistence.PersistenceServiceFactory;
 
 import com.jgoodies.binding.adapter.SingleListSelectionAdapter;
-import com.jgoodies.plaf.Options;
 import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
 /**
@@ -150,19 +148,17 @@ public final class MainFrame extends JFrame
      */
     private void initLookAndFeel()
     {
-        if (UIManager.getLookAndFeel().getClass().equals(MetalLookAndFeel.class))
+        if (System.getProperty("os.name").equals("Linux"))
         {
             try
             {
                 UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
-                UIManager.put("Application.useSystemFontSettings", Boolean.TRUE);
-                UIManager.put(Options.USE_SYSTEM_FONTS_APP_KEY, Boolean.TRUE);
             } catch (UnsupportedLookAndFeelException e)
             {
                 //Do nothing if setting the Look and Feel fails.
             }
         }
-        System.out.println(UIManager.getLookAndFeel());
+        System.out.println(System.getProperty("os.name"));
     }
 
     /**
