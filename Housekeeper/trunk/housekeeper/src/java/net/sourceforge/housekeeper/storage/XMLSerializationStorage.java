@@ -23,8 +23,8 @@
 package net.sourceforge.housekeeper.storage;
 
 
-import net.sourceforge.housekeeper.model.ArticleDescription;
-import net.sourceforge.housekeeper.model.Purchase;
+import net.sourceforge.housekeeper.entities.ArticleDescription;
+import net.sourceforge.housekeeper.entities.Purchase;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;

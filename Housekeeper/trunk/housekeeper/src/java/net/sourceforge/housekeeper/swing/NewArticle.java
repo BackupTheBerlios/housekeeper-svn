@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import net.sourceforge.housekeeper.model.ArticleDescription;
+import net.sourceforge.housekeeper.entities.ArticleDescription;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 
 

@@ -20,7 +20,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.model;
+package net.sourceforge.housekeeper.entities;
 
 
 import java.util.ArrayList;
