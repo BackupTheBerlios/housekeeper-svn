@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import net.sourceforge.housekeeper.entities.Purchase;
+import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 
 import java.awt.BorderLayout;

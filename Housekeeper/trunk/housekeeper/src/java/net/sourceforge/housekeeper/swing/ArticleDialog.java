@@ -27,7 +27,7 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.FormLayout;
 
-import net.sourceforge.housekeeper.entities.ArticleDescription;
+import net.sourceforge.housekeeper.domain.ArticleDescription;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;

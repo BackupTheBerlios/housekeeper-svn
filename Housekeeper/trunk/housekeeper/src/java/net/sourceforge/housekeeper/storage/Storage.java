@@ -23,8 +23,8 @@
 package net.sourceforge.housekeeper.storage;
 
 
-import net.sourceforge.housekeeper.entities.ArticleDescription;
-import net.sourceforge.housekeeper.entities.Purchase;
+import net.sourceforge.housekeeper.domain.ArticleDescription;
+import net.sourceforge.housekeeper.domain.Purchase;
 
 import java.util.Collection;
 

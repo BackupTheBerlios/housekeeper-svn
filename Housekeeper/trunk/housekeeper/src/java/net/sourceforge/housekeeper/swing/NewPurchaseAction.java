@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import net.sourceforge.housekeeper.entities.Purchase;
+import net.sourceforge.housekeeper.domain.Purchase;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 
 /**

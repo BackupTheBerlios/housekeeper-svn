@@ -20,7 +20,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sourceforge.housekeeper.entities;
+package net.sourceforge.housekeeper.domain;
 
 
 import java.util.Date;

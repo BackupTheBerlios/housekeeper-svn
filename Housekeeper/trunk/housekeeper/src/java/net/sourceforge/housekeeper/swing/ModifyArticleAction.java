@@ -23,7 +23,7 @@
 package net.sourceforge.housekeeper.swing;
 
 
-import net.sourceforge.housekeeper.entities.ArticleDescription;
+import net.sourceforge.housekeeper.domain.ArticleDescription;
 
 import java.awt.event.ActionEvent;
 
