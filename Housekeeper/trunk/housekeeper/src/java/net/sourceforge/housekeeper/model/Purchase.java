@@ -26,6 +26,7 @@ package net.sourceforge.housekeeper.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 
 /**
@@ -120,5 +121,17 @@ public class Purchase
     public void remove(PurchasedArticle article)
     {
         purchasedArticles.remove(article);
+    }
+    
+    public double getTotalAmount()
+    {
+        double totalAmount = 0;
+        
+        for (Iterator iter = purchasedArticles.iterator(); iter.hasNext();)
+        {
+            PurchasedArticle article = (PurchasedArticle)iter.next();
+            totalAmount += article.getArticle().getPrice();
+        }
+        return totalAmount;
     }
 }
