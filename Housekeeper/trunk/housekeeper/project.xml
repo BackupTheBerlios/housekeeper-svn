@@ -29,35 +29,7 @@
   <package>net.sourceforge.housekeeper</package>
   <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
   <description>
-    <p>The first stage will introduce the program as a simple single-user database for 
-    victuals you bought. After you have used them in parts or as a whole you will be 
-    able to update the database to reflect the changes. Entering items together with 
-    their prices will enable the application to provide minimalistic budget planning 
-    features.
-    </p>
-    
-    <p>
-   	The second stage will introduce multi-user capability. This will enable to track 
-   	down who bought what for how much solving a general community problem: 
-   	money.
-   	</p>
-   	
-   	<p>
-   	The third stage will introduce the ability to compose meals from the 
-   	victuals. This will make usage easier as you only specify which meal you have 
-   	prepared and the ingredients will automatically be deducted.
-   	</p>
-   	
-   	<p>
-   	The fourth stage 
-   	will introduce a conversion to meet the J2EE specification. That's mainly for 
-   	educational reasons.
-   	</p>
-   	
-   	<p>
-   	The future might even be an integration of Web Services. 
-   	(Fetching menus from the Internet, fetching lists of victuals from the stores; providing electronic purchase notes for access via J2ME)
-   	</p>
+    This project's goal is to provide a platform for managing all your household issues. You will be able to keep overview of how much you paid for food, what you have in stock, store your favourite recipes in a central place and get alarmed about nutritional values you are short of.
   </description>
   
   <!-- a short description of what the project does -->
