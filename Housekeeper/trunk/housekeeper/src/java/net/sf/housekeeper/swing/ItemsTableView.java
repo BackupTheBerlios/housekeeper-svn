@@ -175,7 +175,7 @@ public final class ItemsTableView extends AbstractView implements ApplicationLis
                             "tablePopupCommandGroup",
                             new Object[] { "newCommand",
                                     "duplicateCommand",
-                                    "editCommand", "deleteCommand" });
+                                    GlobalCommandIds.PROPERTIES, GlobalCommandIds.DELETE });
         return convCommandGroup.createPopupMenu();
     }
     
