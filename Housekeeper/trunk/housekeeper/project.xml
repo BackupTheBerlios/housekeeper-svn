@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.1.2-SNAPSHOT</currentVersion>
+  <currentVersion>0.1.1-SNAPSHOT</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -139,7 +139,9 @@
     <report>maven-jxr-plugin</report>
     <report>maven-license-plugin</report>
     <!-- <report>maven-linkcheck-plugin</report> -->
-    <report>maven-pmd-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-statcvs-plugin</report>
+    <!-- <report>maven-pmd-plugin</report> -->
     <report>maven-tasklist-plugin</report>
   </reports>
 
