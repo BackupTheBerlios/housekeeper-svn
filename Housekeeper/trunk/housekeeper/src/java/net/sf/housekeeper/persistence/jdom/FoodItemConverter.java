@@ -70,12 +70,6 @@ final class FoodItemConverter
     public static final String ATTRIBUTE_NAME           = "name";
 
     /**
-     * The name of the attribute "value" of the element
-     * {@link FoodItemConverter#ELEMENT_QUANTITY}.
-     */
-    public static final String ATTRIBUTE_QUANTITY_VALUE = "value";
-
-    /**
      * The name of the "category" element.
      */
     public static final String ELEMENT_CATEGORY         = "category";
@@ -93,7 +87,7 @@ final class FoodItemConverter
     /**
      * The name of the quantity element.
      */
-    public static final String ELEMENT_QUANTITY         = "quantity";
+    public static final String ELEMENT_DESCRIPTION         = "description";
 
     /**
      * Converts a JDOM Element object into a {@link Food}.
@@ -110,13 +104,13 @@ final class FoodItemConverter
         final String itemName = foodElement.getAttributeValue(ATTRIBUTE_NAME);
         food.setName(itemName);
 
-        //Quantity
-        final Element quantityElement = foodElement.getChild(ELEMENT_QUANTITY);
+        //Description
+        final Element quantityElement = foodElement.getChild(ELEMENT_DESCRIPTION);
         if (quantityElement != null)
         {
-            String quantity = quantityElement
-                    .getAttributeValue(ATTRIBUTE_QUANTITY_VALUE);
-            food.setDescription(quantity);
+            String desc = quantityElement
+                    .getValue();
+            food.setDescription(desc);
         }
 
         //Expiry
@@ -159,13 +153,13 @@ final class FoodItemConverter
         //Name
         xmlElement.setAttribute(ATTRIBUTE_NAME, item.getName());
 
-        //Quantity
+        //Description
         if (item.getDescription() != null)
         {
-            final Element quantityElement = new Element(ELEMENT_QUANTITY);
-            quantityElement.setAttribute(ATTRIBUTE_QUANTITY_VALUE, item
+            final Element descElement = new Element(ELEMENT_DESCRIPTION);
+            descElement.setText(item
                     .getDescription());
-            xmlElement.addContent(quantityElement);
+            xmlElement.addContent(descElement);
         }
 
         //Expiry

@@ -27,7 +27,9 @@ import java.util.Iterator;
 import org.jdom.Element;
 
 /**
- * @author
+ * Converts Housekeeper data JDOM trees of version 1 to version 2.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 final class Version1To2Converter implements DocumentVersionConverter

@@ -60,7 +60,7 @@ public final class JDOMPersistence implements PersistenceService
     /**
      * The current file version.
      */
-    private static final int     CURRENT_FILE_VERSION   = 2;
+    private static final int     CURRENT_FILE_VERSION   = 3;
 
     /**
      * The logger for this class.
@@ -218,7 +218,10 @@ public final class JDOMPersistence implements PersistenceService
         switch (version)
         {
             case 1:
-                docConverter = new Version1To2Converter();
+                docConverter = new Version2To3Converter(new Version1To2Converter());
+                break;
+            case 2:
+                docConverter = new Version2To3Converter();
                 break;
             case CURRENT_FILE_VERSION:
                 break;
