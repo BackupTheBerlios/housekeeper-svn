@@ -21,6 +21,7 @@
 		<property name="members">
 			<list>
 				<ref bean="fileMenu"/>
+        <ref bean="toolBar"/>
         <value>glue</value>
         <ref bean="helpMenu"/>
 			</list>
