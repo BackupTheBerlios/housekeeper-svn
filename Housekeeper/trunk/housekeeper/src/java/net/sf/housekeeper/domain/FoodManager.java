@@ -178,7 +178,7 @@ public final class FoodManager
      * Resets the status of the "has changed" attribute. After calling this,
      * {@link #hasChanged()}returns false.
      */
-    void resetChangedStatus()
+    public void resetChangedStatus()
     {
         hasChanged = false;
     }
@@ -189,7 +189,7 @@ public final class FoodManager
      * 
      * @return True if any dat has changed, false otherwise.
      */
-    boolean hasChanged()
+    public boolean hasChanged()
     {
         return hasChanged;
     }

@@ -8,7 +8,8 @@
               mnemnonics.</action>
             <action dev="notizklotz" type="change">Toolbar only shows 
               icons.</action>
-            <action dev="notizklotz" type="add">Splash-Screen.</action>
+            <action dev="notizklotz" type="add" issue="1116409">
+              Splash-Screen.</action>
         </release>
         <release version="0.2.2" date="2005-01-27">
             <action dev="notizklotz" type="add" issue="1104462">Food items can 
