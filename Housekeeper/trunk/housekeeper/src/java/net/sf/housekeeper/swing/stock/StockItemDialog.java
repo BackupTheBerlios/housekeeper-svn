@@ -92,9 +92,9 @@ public final class StockItemDialog extends JDialog
         buttonOK.addActionListener(new OKButtonActionListener());
         final JButton buttonCancel = new JButton(new DefaultCancelButtonAction(this));
 
-        final FormBuilder builder = new FormBuilder(80);
-        builder.append("Name", nameField);
-        builder.append("Best Before End", spinner);
+        final FormBuilder builder = new FormBuilder();
+        builder.append("Name", nameField, 80);
+        builder.append("Best Before End", spinner, 80);
         builder.setButtons(buttonOK, buttonCancel);
         setContentPane(builder.getPanel());
 
