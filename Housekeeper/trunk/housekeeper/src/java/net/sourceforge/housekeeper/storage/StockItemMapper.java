@@ -35,4 +35,6 @@ public interface StockItemMapper extends DataMapper
      *            DOCUMENT ME!
      */
     void add(StockItem item);
+    
+    void remove(StockItem item);
 }

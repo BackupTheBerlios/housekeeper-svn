@@ -37,7 +37,7 @@ import net.sourceforge.housekeeper.domain.AssortimentItem;
 import net.sourceforge.housekeeper.storage.StorageFactory;
 import net.sourceforge.housekeeper.swing.DataUpdateMediator;
 import net.sourceforge.housekeeper.swing.TableModelTemplate;
-import net.sourceforge.housekeeper.swing.stock.NewStockItemAction;
+
 
 
 /**
@@ -77,7 +77,6 @@ public final class AssortimentItemPanel extends JPanel implements Observer
 
         buttonPanel.add(new JButton(NewAssortimentItemAction.INSTANCE));
         buttonPanel.add(new JButton(ModifyAssortimentItemAction.INSTANCE));
-        buttonPanel.add(new JButton(NewStockItemAction.INSTANCE));
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);

@@ -38,4 +38,13 @@ public class MemStockItemMapper implements StockItemMapper
 		
 	}
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.housekeeper.storage.StockItemMapper#remove(net.sourceforge.housekeeper.domain.StockItem)
+     */
+    public void remove(StockItem item)
+    {
+        items.remove(item);
+        
+    }
+
 }

@@ -41,7 +41,7 @@ public final class StockPanel extends JPanel implements Observer
         buttonPanel = new JPanel();
 
         buttonPanel.add(new JButton(NewStockItemAction.INSTANCE));
-        
+        buttonPanel.add(new JButton(DeleteStockItemAction.INSTANCE));
 
         setLayout(new BorderLayout());
         add(buttonPanel, BorderLayout.NORTH);
@@ -70,7 +70,7 @@ public final class StockPanel extends JPanel implements Observer
      * @return The selected Article Description or null if no table row is
      *         selected.
      */
-    public StockItem getSelectedArticle()
+    public StockItem getSelectedItem()
     {
         int selectedRow = table.getSelectedRow();
 

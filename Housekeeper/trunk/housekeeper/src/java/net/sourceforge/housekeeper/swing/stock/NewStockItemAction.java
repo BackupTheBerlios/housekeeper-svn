@@ -12,7 +12,7 @@ import net.sourceforge.housekeeper.swing.DataUpdateMediator;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class NewStockItemAction extends AbstractAction
+final class NewStockItemAction extends AbstractAction
 {
 
     public static final NewStockItemAction INSTANCE = new NewStockItemAction();
