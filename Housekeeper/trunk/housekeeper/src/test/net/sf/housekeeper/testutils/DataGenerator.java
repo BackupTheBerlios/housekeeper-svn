@@ -50,33 +50,40 @@ public final class DataGenerator
     /**
      * Prefix for the test data within the classpath.
      */
-    private static final String prefix           = "/net/sf/housekeeper/persistence/jdom/";
+    private static final String prefix               = "/net/sf/housekeeper/persistence/jdom/";
 
     /**
      * A file which is not XML.
      */
-    public static final String  NOT_AN_XML_FILE  = prefix + "notAnXmlFile.xml";
+    public static final String  NOT_AN_XML_FILE      = prefix
+                                                             + "notAnXmlFile.xml";
 
     /**
      * Document which contains the same data as VERSION1_DATA but in the new
      * format.
      */
-    public static final String  VERSION1to2_DATA = prefix + "data_v1_to_v2.xml";
+    public static final String  VERSION1to2_DATA     = prefix
+                                                             + "data_v1_to_v2.xml";
 
     /**
      * Test data for document version 1.
      */
-    public static final String  VERSION1_DATA    = prefix + "data_v1.xml";
-    
+    public static final String  VERSION1_DATA        = prefix + "data_v1.xml";
+
     /**
-     * Test data for document version 1.
+     * Test data for document version 2.
      */
-    public static final String  VERSION2_DATA    = prefix + "data_v2.xml";
-    
+    public static final String  VERSION2_DATA        = prefix + "data_v2.xml";
+
+    /**
+     * Test data for document version 3.
+     */
+    public static final String  VERSION3_DATA        = prefix + "data_v3.xml";
+
     /**
      * Test data for the current version.
      */
-    public static final String CURRENT_VERSION_DATA = VERSION2_DATA;
+    public static final String  CURRENT_VERSION_DATA = VERSION3_DATA;
 
     private DataGenerator()
     {
