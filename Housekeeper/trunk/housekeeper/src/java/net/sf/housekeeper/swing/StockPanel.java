@@ -104,7 +104,7 @@ final class StockPanel extends JPanel
 
         private DeleteStockItemAction()
         {
-            super("Delete Item");
+            super("Delete");
         }
 
         public void actionPerformed(ActionEvent arg0)
@@ -176,7 +176,7 @@ final class StockPanel extends JPanel
 
         private ModifyStockItemAction()
         {
-            super("Modify item");
+            super("Modify");
         }
 
         public void actionPerformed(ActionEvent arg0)
@@ -233,7 +233,7 @@ final class StockPanel extends JPanel
 
         private DuplicateStockItemAction()
         {
-            super("Duplicate Item");
+            super("Duplicate");
         }
 
         /*
