@@ -109,7 +109,7 @@ final class SupplyPanel extends JPanel
         boolean canceled = openEditor(item);
         if (!canceled)
         {
-            FoodItemManager.INSTANCE.add(item);
+            FoodItemManager.instance().add(item);
         }
     }
 
@@ -149,7 +149,7 @@ final class SupplyPanel extends JPanel
         boolean canceled = openEditor(selected);
         if (!canceled)
         {
-            FoodItemManager.INSTANCE.update(selected);
+            FoodItemManager.instance().update(selected);
         }
     }
 

@@ -43,7 +43,7 @@ public final class FoodItemManager
     /**
      * Singleton instance.
      */
-    public static final FoodItemManager INSTANCE = new FoodItemManager();
+    private static final FoodItemManager instance = new FoodItemManager();
 
     /**
      * Log to be used for this class.
@@ -145,6 +145,11 @@ public final class FoodItemManager
         supply.remove(item);
         
         LOG.debug("Removed item: " + item);
+    }
+    
+    public static FoodItemManager instance()
+    {
+        return instance;
     }
 
 }

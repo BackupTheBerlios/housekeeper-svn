@@ -66,7 +66,7 @@ public final class DomainConverter1 implements DomainConverter
             final FoodItem item = FoodItemConverter1.convert(element);
             foodItems.add(item);
         }
-        FoodItemManager.INSTANCE.replaceAll(foodItems);
+        FoodItemManager.instance().replaceAll(foodItems);
     }
 
     /*
@@ -79,7 +79,7 @@ public final class DomainConverter1 implements DomainConverter
         final Element root = new Element("household");
         root.setAttribute("version", "" + SUPPORTED_FILE_VERSION);
 
-        final Iterator iter = FoodItemManager.INSTANCE.getItemsIterator();
+        final Iterator iter = FoodItemManager.instance().getItemsIterator();
         while (iter.hasNext())
         {
             final FoodItem item = (FoodItem) iter.next();

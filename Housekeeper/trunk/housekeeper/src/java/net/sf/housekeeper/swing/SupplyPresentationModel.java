@@ -89,7 +89,7 @@ public class SupplyPresentationModel
     public SupplyPresentationModel()
     {
         //Init table
-        final SortedList sortedList = new SortedList(FoodItemManager.INSTANCE
+        final SortedList sortedList = new SortedList(FoodItemManager.instance()
                 .getSupplyList(), null);
         final EventTableModel tableModel = new EventTableModel(sortedList,
                 ITEM_PROPERTIES, TABLE_HEADERS, PROPERTY_MODIFYABLE);
@@ -122,7 +122,7 @@ public class SupplyPresentationModel
      */
     public void deleteSelectedItem()
     {
-        FoodItemManager.INSTANCE.remove(getSelectedItem());
+        FoodItemManager.instance().remove(getSelectedItem());
     }
 
     /**
@@ -131,7 +131,7 @@ public class SupplyPresentationModel
     public void duplicateSelectedItem()
     {
         final FoodItem selectedItem = getSelectedItem();
-        FoodItemManager.INSTANCE.duplicate(selectedItem);
+        FoodItemManager.instance().duplicate(selectedItem);
     }
 
     /**
