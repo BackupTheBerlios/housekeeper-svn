@@ -52,6 +52,9 @@ public final class ComponentCenterer
     public static void centerOnComponent(final Component centerComponent,
                                          final Component onComponent)
     {
+        assert centerComponent != null : "Parameter centerComponent must not be null";
+        assert onComponent != null : "Parameter onComponent must not be null";
+
         final Point parentFrameLocation = onComponent.getLocation();
         final Dimension parentFrameSize = onComponent.getSize();
         final Dimension thisDialogSize = centerComponent.getSize();
@@ -95,6 +98,8 @@ public final class ComponentCenterer
      */
     public static void centerOnScreen(final Component comp)
     {
+        assert comp != null : "Parameter centerComponent must not be null";
+        
         // Center frame
         Dimension paneSize = comp.getSize();
         Dimension screenSize = comp.getToolkit().getScreenSize();

@@ -106,7 +106,8 @@ public final class StockItemDialog extends JDialog
      * Shows a dialog for entering a new Article Description. The new object is
      * returned by this method.
      * 
-     * @param title Title of the dialog's window.
+     * @param title Title of the dialog's window. If null an empty string is
+     *  used.
      * 
      * @return The new object if the user confirms his entry, null if he aborts.
      */
@@ -122,14 +123,17 @@ public final class StockItemDialog extends JDialog
      * Shows a dialog for modifying an existing Article Description. The
      * modified object is returned by this method.
      * 
-     * @param title Title of the dialog's window.
-     * @param stockItem Object that should be modified.
+     * @param title Title of the dialog's window. If null an empty string is
+     *  used.
+     * @param stockItem Object that should be modified. Must not be null.
      * 
      * @return The modified object if the user confirms his entry, null if he
      *         aborts.
      */
     public StockItem show(final String title, final StockItem stockItem)
     {
+        assert stockItem != null : "Parameter stockItem must not be null";
+        
         setTitle(title);
 
         this.item = stockItem;
@@ -140,6 +144,9 @@ public final class StockItemDialog extends JDialog
         return stockItem;
     }
 
+    /**
+     * Updates the underlying StockItem object and closes the dialog.
+     */
     private class OKButtonActionListener implements ActionListener
     {
 
@@ -163,8 +170,6 @@ public final class StockItemDialog extends JDialog
     }
     
     /**
-    
-    /* 
      * An editor for a JSpinner which formats dates.
      */
     private class DateEditor extends JSpinner.DefaultEditor

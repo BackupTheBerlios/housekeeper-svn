@@ -37,7 +37,7 @@ import com.odellengineeringltd.glazedlists.jtable.ListTable;
 import com.odellengineeringltd.glazedlists.jtable.TableComparatorChooser;
 
 /**
- * Lets the user manage the {@link net.sf.housekeeper.domain.StockItem}objects.
+ * Lets the user manage the {@link net.sf.housekeeper.domain.StockItem} objects.
  * It provides access to displaying, adding and modifying items.
  * 
  * @author Adrian Gygax

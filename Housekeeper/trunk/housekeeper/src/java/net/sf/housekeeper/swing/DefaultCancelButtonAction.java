@@ -42,11 +42,13 @@ public final class DefaultCancelButtonAction extends AbstractAction
     /**
      * Creates a new DefaultCancelButtonActionListener object.
      * 
-     * @param dialog The dialog this Listener should act upon.
+     * @param dialog The dialog this Listener should act upon. Must not be null.
      */
     public DefaultCancelButtonAction(final JDialog dialog)
     {
         super("Cancel");
+        assert dialog != null : "Parameter dialog must not be null";
+        
         this.dialog = dialog;
     }
 

@@ -42,11 +42,14 @@ public final class StockItem
     /**
      * Creates a new StockItem object with specified values.
      * 
-     * @param name Name of the item.
-     * @param bestBeforeEnd Date until this item should be consumed.
+     * @param name Name of the item. Must not be null.
+     * @param bestBeforeEnd Date until this item should be consumed. Must not be null.
      */
     public StockItem(final String name, final Date bestBeforeEnd)
     {
+        assert name != null : "Parameter name must not be null";
+        assert bestBeforeEnd != null : "Parameter bestBeforeEnd must not be null";
+        
         this.name = name;
         this.bestBeforeEnd = bestBeforeEnd;
     }
@@ -67,6 +70,8 @@ public final class StockItem
      */
     public void setBestBeforeEnd(final Date bestBeforeEnd)
     {
+        assert bestBeforeEnd != null : "Parameter bestBeforeEnd must not be null";
+        
         this.bestBeforeEnd = bestBeforeEnd;
     }
 
@@ -95,6 +100,8 @@ public final class StockItem
      */
     public void setName(final String name)
     {
+        assert name != null : "Parameter name must not be null";
+        
         this.name = name;
     }
 }
