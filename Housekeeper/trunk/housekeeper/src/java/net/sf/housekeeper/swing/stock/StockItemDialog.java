@@ -41,10 +41,7 @@ import net.sf.housekeeper.domain.StockItem;
 import net.sf.housekeeper.swing.DefaultCancelButtonAction;
 import net.sf.housekeeper.swing.MainFrame;
 import net.sf.housekeeper.swing.util.ComponentCenterer;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.ButtonBarFactory;
-import com.jgoodies.forms.layout.FormLayout;
+import net.sf.housekeeper.swing.util.FormBuilder;
 
 /**
  * Dialog for showing, modifying and adding items to stock.
@@ -85,23 +82,17 @@ public final class StockItemDialog extends JDialog
 
         spinnerModel = new SpinnerDateModel();
         spinnerModel.setStart(today);
-        JSpinner spinner = new JSpinner(spinnerModel);
+        final JSpinner spinner = new JSpinner(spinnerModel);
         spinner.setEditor(new DateEditor(spinner));
 
-        JButton buttonOK = new JButton("OK");
+        final JButton buttonOK = new JButton("OK");
         buttonOK.addActionListener(new OKButtonActionListener());
-        JButton buttonCancel = new JButton(new DefaultCancelButtonAction(this));
+        final JButton buttonCancel = new JButton(new DefaultCancelButtonAction(this));
 
-        //build layout
-        FormLayout layout = new FormLayout("right:pref, 3dlu, 80dlu", // columns
-                "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-        builder.setDefaultDialogBorder();
+        final FormBuilder builder = new FormBuilder(80);
         builder.append("Name", nameField);
         builder.append("Best Before End", spinner);
-        builder.appendSeparator();
-        builder.append(ButtonBarFactory
-                .buildOKCancelBar(buttonOK, buttonCancel), 3);
+        builder.setButtons(buttonOK, buttonCancel);
         setContentPane(builder.getPanel());
 
         pack();
@@ -172,6 +163,8 @@ public final class StockItemDialog extends JDialog
     }
     
     /**
+    
+    /* 
      * An editor for a JSpinner which formats dates.
      */
     private class DateEditor extends JSpinner.DefaultEditor
