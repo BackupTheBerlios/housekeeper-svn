@@ -4,6 +4,8 @@
   </properties>
   <body>
     <release version="0.2.0" date="not yet released">
+        <action dev="notizklotz" type="fix" issue="1045200">Fixed 
+            display problems when running under JRE 5.0.</action>
         <action dev="notizklotz" type="fix" issue="1073874">Items with no 
             expiry date are now displayed after any item which has a specified 
             expiry date in the default table sorting.</action>
