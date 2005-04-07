@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+
+  <properties>
+    <title>Housekeeper</title>
+  </properties>
+
+  <body>
+    <section name="About Housekeeper">
+        <p> This project's goal is to provide an application for managing 
+            household issues. Currently, it is able to keep a list of food 
+            inlcuding their expiry dates so you always have an overview of what 
+            is going to seed soon.</p>
+        <p>Please see the <a 
+          href="http://developer.berlios.de/feature/?group_id=3180">Requested 
+          features tracker</a> for planned features. If you have an idea for an 
+          additional feature please don't hesitate to create a new entry to the 
+          tracker!</p>
+    </section>
+  </body>
+</document>

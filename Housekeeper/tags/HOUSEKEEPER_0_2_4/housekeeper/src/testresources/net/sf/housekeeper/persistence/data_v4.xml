@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<household version="4">
+  <supply>
+    <expirableItem>
+      <name>Rösti</name>
+      <description>250g</description>
+      <category>2af081:1031960a7c0:-7ffc</category>
+    </expirableItem>
+    <expirableItem>
+      <name>Pizza 4 formaggi</name>
+      <category>2af081:1031960a7c0:-7ffc</category>
+      <expiry>2005-01-18T23:00:00</expiry>
+    </expirableItem>
+    <expirableItem>
+      <name>Risotto ai funghi porcini</name>
+      <category>2af081:1031960a7c0:-7ffc</category>
+    </expirableItem>
+    <expirableItem>
+      <name>Risotto alla Milanese</name>
+      <description>250g</description>
+      <category>2af081:1031960a7c0:-7ffc</category>
+      <expiry>2005-02-07T23:00:00</expiry>
+    </expirableItem>
+    <expirableItem>
+      <name>Milch</name>
+      <category>2af081:1031960a7c0:-7ffb</category>
+      <expiry>2005-01-21T23:00:00</expiry>
+    </expirableItem>
+    <expirableItem>
+      <name>Älplermakronen</name>
+      <category>2af081:1031960a7c0:-7ffc</category>
+      <expiry>2005-01-29T23:00:00</expiry>
+    </expirableItem>
+    <expirableItem>
+      <name>Fiori Lorraine</name>
+      <category>2af081:1031960a7c0:-7ffc</category>
+      <expiry>2005-01-21T23:00:00</expiry>
+    </expirableItem>
+  </supply>
+  <categories>
+    <category id="2af081:1031960a7c0:-7ffd">
+      <name>Lebensmittel</name>
+      <category id="2af081:1031960a7c0:-7ffc">
+        <name>Fertiggerichte</name>
+        <parent>2af081:1031960a7c0:-7ffd</parent>
+      </category>
+      <category id="2af081:1031960a7c0:-7ffb">
+        <name>Sonstige Nahrungsmittel</name>
+        <parent>2af081:1031960a7c0:-7ffd</parent>
+      </category>
+    </category>
+  </categories>
+</household>
