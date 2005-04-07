@@ -3,7 +3,7 @@
         <title>Change history</title>
     </properties>
     <body>
-      <release version="0.2.4" date="2005-04-06">
+      <release version="0.2.4" date="2005-04-07">
         <action dev="notizklotz" type="update" issue="3522">Use platform 
           specific Look&amp;Feel.</action>
         <action dev="notizklotz" type="update" issue="3620">Redesigned user 
