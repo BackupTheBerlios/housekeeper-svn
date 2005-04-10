@@ -1,0 +1,3 @@
+#Sun Apr 10 16:48:21 CEST 2005
+org.jibx.plugins.eclipse.bindings=conf/binding.xml\:
+org.jibx.plugins.eclipse.load=true
