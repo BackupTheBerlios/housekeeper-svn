@@ -23,6 +23,10 @@ package net.sf.housekeeper.swing.page;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.PageComponent;
@@ -88,7 +92,7 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
     protected boolean giveFocusTo(PageComponent pageComponent)
     {
         PageComponentPane pane = pageComponent.getContext().getPane();
-        pane.requestFocusInWindow();
+        //pane.requestFocusInWindow();
 
         fireFocusGained(pageComponent);
 
@@ -100,13 +104,26 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
      * 
      * @see org.springframework.richclient.application.support.AbstractApplicationPage#addPageComponent(org.springframework.richclient.application.PageComponent)
      */
-    protected void addPageComponent(PageComponent pageComponent)
+    protected void addPageComponent(final PageComponent pageComponent)
     {
         final String componentID = pageComponent.getId();
         final String location = getLocationFor(componentID);
 
-        final Component pageControl = pageComponent.getContext().getPane()
-                .getControl();
+        final SimpleInternalFrame pageControl = (SimpleInternalFrame) pageComponent
+                .getContext().getPane().getControl();
+        addMouseListener(pageControl, new MouseAdapter() {
+
+            public void mousePressed(MouseEvent e)
+            {
+                if (getActiveComponent() != pageComponent)
+                {
+                    showView(componentID);
+                }
+
+            }
+
+        });
+
         getControl().add(pageControl, location);
 
         super.addPageComponent(pageComponent);
@@ -129,6 +146,29 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
             location = BorderLayout.WEST;
         }
         return location;
+    }
+
+    /**
+     * Adds a listener to a Component and all its children.
+     * 
+     * @param comp The component.
+     * @param listener The listener.
+     */
+    private void addMouseListener(final Component comp,
+                                  final MouseListener listener)
+    {
+        comp.addMouseListener(listener);
+
+        if (comp instanceof Container)
+        {
+            final Component[] children = ((Container) comp).getComponents();
+            for (int i = 0; i < children.length; i++)
+            {
+                addMouseListener(children[i], listener);
+            }
+
+        }
+
     }
 
 }
