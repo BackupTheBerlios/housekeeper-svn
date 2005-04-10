@@ -26,9 +26,11 @@ import java.awt.Component;
 
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.PageComponent;
+import org.springframework.richclient.application.PageComponentListener;
 import org.springframework.richclient.application.PageComponentPane;
 import org.springframework.richclient.application.PageDescriptor;
 import org.springframework.richclient.application.support.DefaultApplicationPage;
+import org.springframework.richclient.control.SimpleInternalFrame;
 
 /**
  * An ApplicationPage which lays out the Housekeeper views.
@@ -38,7 +40,6 @@ import org.springframework.richclient.application.support.DefaultApplicationPage
  */
 public final class HousekeeperApplicationPage extends DefaultApplicationPage
 {
-    
 
     /**
      * Creates a new page
@@ -50,10 +51,38 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
             PageDescriptor pageDescriptor)
     {
         super(window, pageDescriptor);
+        addPageComponentListener(new PageComponentListener() {
+
+            public void componentOpened(PageComponent component)
+            {
+
+            }
+
+            public void componentFocusGained(PageComponent component)
+            {
+                final SimpleInternalFrame frame = (SimpleInternalFrame) component
+                        .getContext().getPane().getControl();
+                frame.setSelected(true);
+            }
+
+            public void componentFocusLost(PageComponent component)
+            {
+                final SimpleInternalFrame frame = (SimpleInternalFrame) component
+                        .getContext().getPane().getControl();
+                frame.setSelected(false);
+
+            }
+
+            public void componentClosed(PageComponent component)
+            {
+
+            }
+        });
     }
 
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.support.AbstractApplicationPage#giveFocusTo(org.springframework.richclient.application.PageComponent)
      */
     protected boolean giveFocusTo(PageComponent pageComponent)
@@ -66,20 +95,22 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.support.AbstractApplicationPage#addPageComponent(org.springframework.richclient.application.PageComponent)
      */
     protected void addPageComponent(PageComponent pageComponent)
     {
         final String componentID = pageComponent.getId();
         final String location = getLocationFor(componentID);
-        
-        final Component pageControl = pageComponent.getContext().getPane().getControl();
+
+        final Component pageControl = pageComponent.getContext().getPane()
+                .getControl();
         getControl().add(pageControl, location);
-        
+
         super.addPageComponent(pageComponent);
     }
-
 
     /**
      * Decides where to put the page in the layout.
