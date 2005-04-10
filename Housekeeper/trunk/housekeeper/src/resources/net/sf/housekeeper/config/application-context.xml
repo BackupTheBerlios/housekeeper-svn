@@ -29,7 +29,7 @@
   <bean id="applicationDescriptor" 
 		class="org.springframework.richclient.application.ApplicationDescriptor">
 		<property name="version">
-			<value>0.2.3</value>
+			<value>0.2.4</value>
 		</property>
 	</bean>
   
