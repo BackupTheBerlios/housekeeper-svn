@@ -108,35 +108,17 @@
 	</bean>
   
 
-  <bean id="initialPageLayout" class="net.sf.housekeeper.swing.page.BorderLayoutPageDescriptor"> 
+  <bean id="initialPageLayout" class="net.sf.housekeeper.swing.page.MultipleViewsPageDescriptor"> 
     <property name="id"><value>initialPageLayout</value></property> 
     <property name="views"> 
       <list>
-        <ref bean="itemViewLocationDescriptor"/>
-        <ref bean="categoryViewLocationDescriptor"/>
+        <ref bean="supplyView"/>
+        <ref bean="categoryView"/>
       </list> 
     </property> 
   </bean> 
- 
-  <bean id="categoryViewLocationDescriptor" class="net.sf.housekeeper.swing.page.ViewLocationDescriptor"> 
-		<property name="viewDescriptorID">
-			<value>categoryView</value>
-		</property>
-    <property name="location">
-			<value>West</value>
-		</property>
-  </bean>
   
-  <bean id="itemViewLocationDescriptor" class="net.sf.housekeeper.swing.page.ViewLocationDescriptor"> 
-		<property name="viewDescriptorID">
-			<value>supplyView</value>
-		</property>
-    <property name="location">
-			<value>Center</value>
-		</property>
-  </bean>
-  
-  <bean id="applicationWindowPrototype" class="net.sf.housekeeper.swing.page.BorderLayoutApplicationWindow" singleton="false"/> 
+  <bean id="applicationWindowPrototype" class="net.sf.housekeeper.swing.page.HousekeeperApplicationWindow" singleton="false"/> 
  
   <!-- Housekeeper beans -->
   

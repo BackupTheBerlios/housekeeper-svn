@@ -21,45 +21,21 @@
 
 package net.sf.housekeeper.swing.page;
 
+import org.springframework.richclient.application.ApplicationPage;
+import org.springframework.richclient.application.PageDescriptor;
+import org.springframework.richclient.application.support.DefaultApplicationWindow;
 
 /**
  * @author
  * @version $Revision$, $Date$
  */
-public class ViewLocationDescriptor
+public class HousekeeperApplicationWindow extends DefaultApplicationWindow
 {
-    private String viewDescriptorID;
-    
-    private String location;
-    
-    
-    
-    /**
-     * @return The location.
-     */
-    public String getLocation()
+
+    protected ApplicationPage createPage(PageDescriptor descriptor)
     {
-        return location;
+        return new HousekeeperApplicationPage(this, descriptor);
+
     }
-    /**
-     * @param location
-     */
-    public void setLocation(String location)
-    {
-        this.location = location;
-    }
-    /**
-     * @return The id.
-     */
-    public String getViewDescriptorID()
-    {
-        return viewDescriptorID;
-    }
-    /**
-     * @param viewDescriptorID
-     */
-    public void setViewDescriptorID(String viewDescriptorID)
-    {
-        this.viewDescriptorID = viewDescriptorID;
-    }
+
 }

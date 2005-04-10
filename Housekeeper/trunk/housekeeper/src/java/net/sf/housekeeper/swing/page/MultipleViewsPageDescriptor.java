@@ -29,13 +29,14 @@ import javax.swing.Icon;
 
 import org.springframework.richclient.application.PageDescriptor;
 import org.springframework.richclient.application.PageLayoutBuilder;
+import org.springframework.richclient.application.ViewDescriptor;
 
 
 /**
  * @author
  * @version $Revision$, $Date$
  */
-public class BorderLayoutPageDescriptor implements PageDescriptor
+public class MultipleViewsPageDescriptor implements PageDescriptor
 {
 
     private String id;
@@ -55,12 +56,11 @@ public class BorderLayoutPageDescriptor implements PageDescriptor
      */
     public void buildInitialLayout(PageLayoutBuilder pageLayout)
     {
-        final BorderLayoutPageLayoutBuilder borderLayoutBuilder = (BorderLayoutPageLayoutBuilder)pageLayout;
         final Iterator viewIterator = views.iterator();
         while (viewIterator.hasNext())
         {
-            ViewLocationDescriptor view = (ViewLocationDescriptor) viewIterator.next();
-            borderLayoutBuilder.addView(view.getViewDescriptorID(), view.getLocation());
+            final ViewDescriptor desc = (ViewDescriptor)viewIterator.next();
+            pageLayout.addView(desc.getId());
         }        
     }
 
@@ -105,6 +105,8 @@ public class BorderLayoutPageDescriptor implements PageDescriptor
     }
     
     /**
+     * A collection of {@link org.springframework.richclient.application.ViewDescriptor}s.
+     * 
      * @param descriptors
      */
     public void setViews(Collection descriptors) {
