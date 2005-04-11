@@ -21,12 +21,13 @@
 
 package net.sf.housekeeper.swing.page;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import net.sf.housekeeper.swing.util.UIFSplitPane;
 
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.PageComponent;
@@ -45,6 +46,8 @@ import org.springframework.richclient.control.SimpleInternalFrame;
 public final class HousekeeperApplicationPage extends DefaultApplicationPage
 {
 
+    private final UIFSplitPane rootSplitPane;
+
     /**
      * Creates a new page
      * 
@@ -55,6 +58,13 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
             PageDescriptor pageDescriptor)
     {
         super(window, pageDescriptor);
+        rootSplitPane = new UIFSplitPane();
+        rootSplitPane.setDividerLocation(200);
+        rootSplitPane.setOneTouchExpandable(false);
+        rootSplitPane.setDividerSize(3);
+
+        getControl().add(rootSplitPane);
+
         addPageComponentListener(new PageComponentListener() {
 
             public void componentOpened(PageComponent component)
@@ -107,7 +117,6 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
     protected void addPageComponent(final PageComponent pageComponent)
     {
         final String componentID = pageComponent.getId();
-        final String location = getLocationFor(componentID);
 
         final SimpleInternalFrame pageControl = (SimpleInternalFrame) pageComponent
                 .getContext().getPane().getControl();
@@ -124,28 +133,15 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
 
         });
 
-        getControl().add(pageControl, location);
-
-        super.addPageComponent(pageComponent);
-    }
-
-    /**
-     * Decides where to put the page in the layout.
-     * 
-     * @param componentID The ID of the page.
-     * @return The BorderLayout location.
-     */
-    private String getLocationFor(final String componentID)
-    {
-        String location = null;
         if (componentID.equals("supplyView"))
         {
-            location = BorderLayout.CENTER;
+            rootSplitPane.setRightComponent(pageControl);
         } else if (componentID.equals("categoryView"))
         {
-            location = BorderLayout.WEST;
+            rootSplitPane.setLeftComponent(pageControl);
         }
-        return location;
+
+        super.addPageComponent(pageComponent);
     }
 
     /**
