@@ -24,6 +24,7 @@ package net.sf.housekeeper.swing;
 import java.util.Iterator;
 
 import javax.swing.JComponent;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -116,7 +117,9 @@ public final class CategoriesView extends AbstractView implements
         });
 
         refresh();
-        return tree;
+        
+        final JScrollPane scrollPane = new JScrollPane(tree);
+        return scrollPane;
     }
 
     private void refresh()
