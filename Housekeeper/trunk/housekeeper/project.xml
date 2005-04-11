@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.2.4</currentVersion>
+  <currentVersion>0.2.5-SNAPSHOT</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -103,6 +103,18 @@
     
   <!-- any mailing lists for the project -->
   <mailingLists>
+    <mailingList>
+        <name>housekeeper-announce</name>
+        <subscribe>
+            http://lists.berlios.de/mailman/listinfo/housekeeper-announce
+        </subscribe>
+        <unsubscribe>
+            http://lists.berlios.de/mailman/listinfo/housekeeper-announce
+        </unsubscribe>
+        <archive>
+            http://lists.berlios.de/pipermail/housekeeper-announce
+        </archive>
+    </mailingList>
     <mailingList>
         <name>housekeeper-devel</name>
         <subscribe>
