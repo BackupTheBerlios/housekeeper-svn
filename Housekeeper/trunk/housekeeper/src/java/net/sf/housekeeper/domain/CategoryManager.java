@@ -23,6 +23,7 @@ package net.sf.housekeeper.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.housekeeper.HousekeeperEvent;
@@ -66,6 +67,32 @@ public final class CategoryManager implements ApplicationContextAware
         rootCategory.addChild(new Category(miscName));
         categories.add(rootCategory);
     }
+    
+    /**
+     * Adds a category to the specified parent. If parent == null, then
+     * category is added as a new top level category.
+     * 
+     * @param category The category to add.
+     * @param parent The parent for the category.
+     */
+    public void add(final Category category, Category parent)
+    {
+        Assert.notNull(category);
+        
+        category.setParent(parent);
+        
+        final boolean isRoot = parent == null;
+        if (isRoot)
+        {
+            categories.add(category);
+        } else 
+        {
+            category.getParent().addChild(category);
+        }
+        
+        applicationContext.publishEvent(new HousekeeperEvent(
+                                                             HousekeeperEvent.CATEGORIES_MODIFIED, this));
+    }
 
     /**
      * Returns an unmodifyable list of all root level categories.
@@ -75,6 +102,16 @@ public final class CategoryManager implements ApplicationContextAware
     public List getCategories()
     {
         return Collections.unmodifiableList(categories);
+    }
+    
+    /**
+     * Returns an iterator over all top level categories.
+     * 
+     * @return != null.
+     */
+    public Iterator getTopLevelCategories()
+    {
+        return  categories.iterator();
     }
 
     /**

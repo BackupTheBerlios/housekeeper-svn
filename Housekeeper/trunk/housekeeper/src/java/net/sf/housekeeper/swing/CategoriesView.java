@@ -38,10 +38,16 @@ import net.sf.housekeeper.domain.CategoryManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.binding.form.FormModel;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.dialog.TitledPageApplicationDialog;
+import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.richclient.tree.BeanTreeCellRenderer;
+
 
 /**
  * Shows a tree of categories.
@@ -58,7 +64,18 @@ public final class CategoriesView extends AbstractView implements
     private CategoryManager categoryManager;
 
     private JTree           tree;
+    
+    private final NewCommandExecutor newCommand = new NewCommandExecutor();
 
+    /**
+     * Creates a new instance.
+     *
+     */
+    public CategoriesView()
+    {
+        newCommand.setEnabled(true);
+    }
+    
     /**
      * Sets the category manager to be used.
      * 
@@ -93,14 +110,7 @@ public final class CategoriesView extends AbstractView implements
 
             public void valueChanged(TreeSelectionEvent e)
             {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree
-                        .getLastSelectedPathComponent();
-
-                if (node == null)
-                    return;
-
-                Object nodeInfo = node.getUserObject();
-                Category cat = (Category) nodeInfo;
+                Category cat = getSelectedCategory();
                 publishSelectionEvent(cat);
             }
         });
@@ -112,9 +122,17 @@ public final class CategoriesView extends AbstractView implements
     private void refresh()
     {
         LOG.debug("Refreshing view");
-        final Category root = (Category)categoryManager
-        .getCategories().get(0);
-        final DefaultMutableTreeNode rootNode = createNode(root);
+        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("All Categories");
+        
+        
+        final Iterator iter = categoryManager.getTopLevelCategories();
+        while (iter.hasNext())
+        {
+            Category element = (Category) iter.next();
+            final DefaultMutableTreeNode node = createNode(element);
+            rootNode.add(node);
+        }
+
         final DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
         tree.setModel(treeModel);
         tree.setSelectionRow(0);
@@ -136,10 +154,18 @@ public final class CategoriesView extends AbstractView implements
 
     private void publishSelectionEvent(Category cat)
     {
+        final Object source;
+        if (cat == null)
+        {
+            source = new Object();
+        } else
+        {
+            source = cat;
+        }
         getApplicationContext().publishEvent(
                                              new HousekeeperEvent(
-                                                     HousekeeperEvent.SELECTED,
-                                                     cat));
+                                                     HousekeeperEvent.CATEGORY_SELECTED,
+                                                     source));
     }
 
     /*
@@ -165,6 +191,63 @@ public final class CategoriesView extends AbstractView implements
             }
         }
 
+    }
+    
+    private Category getSelectedCategory()
+    {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree
+                .getLastSelectedPathComponent();
+        
+        if (node == null)
+            return null;
+
+        Object nodeInfo = node.getUserObject();
+        return nodeInfo instanceof Category ? (Category) nodeInfo : null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.richclient.application.support.AbstractView#registerLocalCommandExecutors(org.springframework.richclient.application.PageComponentContext)
+     */
+    protected void registerLocalCommandExecutors(PageComponentContext context)
+    {
+        context.register("newCommand", newCommand);
+    }
+    
+    /**
+     * Shows a dialog for adding a new item.
+     */
+    private class NewCommandExecutor extends AbstractActionCommandExecutor
+    {
+
+        public void execute()
+        {
+            final Category newCategory = new Category();
+            final Category parentCategory = getSelectedCategory();
+            
+            final FormModel formModel = SwingFormModel
+                    .createFormModel(newCategory);
+            final CategoryPropertyForm form = new CategoryPropertyForm(
+                    formModel);
+
+            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
+                    form, getWindowControl()) {
+
+                protected void onAboutToShow()
+                {
+                    setEnabled(true);
+                }
+
+                protected boolean onFinish()
+                {
+                    formModel.commit();
+                    categoryManager.add(newCategory, parentCategory);
+                    return true;
+                }
+            };
+            dialog.showDialog();
+        }
     }
 
 }

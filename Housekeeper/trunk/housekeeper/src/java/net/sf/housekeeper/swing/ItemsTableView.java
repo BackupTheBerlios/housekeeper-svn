@@ -183,10 +183,17 @@ public final class ItemsTableView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
-            if (le.getEventType() == HousekeeperEvent.SELECTED
-                    && le.objectIs(Category.class))
-            {
-                final Category cat = (Category) le.getObject();
+            if (le.getEventType() == HousekeeperEvent.CATEGORY_SELECTED)
+            {               
+                final Category cat;
+                if (le.getSource() instanceof Category)
+                {
+                    cat = (Category) le.getObject();
+                } else
+                {
+                    cat = null;
+                }
+
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run()
