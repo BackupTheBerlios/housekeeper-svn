@@ -215,7 +215,7 @@
     <dependency>
         <groupId>toedter</groupId>
         <artifactId>jcalendar</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2</version>
         <url>http://www.toedter.com/en/jcalendar/</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
