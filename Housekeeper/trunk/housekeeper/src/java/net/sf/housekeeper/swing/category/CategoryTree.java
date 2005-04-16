@@ -81,6 +81,29 @@ public final class CategoryTree extends JTree
         return nodeInfo instanceof Category ? (Category) nodeInfo : null;
     }
 
+    private boolean hasSelection()
+    {
+        return getSelectionCount() > 0;
+    }
+
+    /**
+     * Returns if any Category is selected.
+     * 
+     * @return true if a Category is selected. False if nothing or no Category
+     *         is selected.
+     */
+    public boolean isCategorySelected()
+    {
+        if (hasSelection())
+        {
+            if (getSelectedCategory() != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Sets the selection in this tree to <code>selectCategory</code>
      * 

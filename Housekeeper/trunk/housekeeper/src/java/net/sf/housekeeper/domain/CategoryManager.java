@@ -69,19 +69,16 @@ public final class CategoryManager implements ApplicationContextAware
     }
     
     /**
-     * Adds a category to the specified parent. If parent == null, then
+     * Adds a category. If parent == null, then
      * category is added as a new top level category.
      * 
      * @param category The category to add.
-     * @param parent The parent for the category.
      */
-    public void add(final Category category, Category parent)
+    public void add(final Category category)
     {
         Assert.notNull(category);
         
-        category.setParent(parent);
-        
-        final boolean isRoot = parent == null;
+        final boolean isRoot = category.getParent() == null;
         if (isRoot)
         {
             categories.add(category);
@@ -138,5 +135,19 @@ public final class CategoryManager implements ApplicationContextAware
             throws BeansException
     {
         this.applicationContext = arg0;
+    }
+
+    /**
+     * @param newCategory
+     */
+    public void update(Category newCategory)
+    {
+        Assert.notNull(newCategory);
+        
+        
+        
+        applicationContext.publishEvent(new HousekeeperEvent(
+                                                             HousekeeperEvent.CATEGORIES_MODIFIED, this));
+        
     }
 }

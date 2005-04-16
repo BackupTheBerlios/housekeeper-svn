@@ -76,7 +76,11 @@ public final class Category
     public void addChild(final Category child)
     {
         children.add(child);
-        child.setParent(this);
+        
+        if (child.getParent() != this)
+        {
+            child.setParent(this);
+        }
     }
 
     /**
@@ -163,9 +167,30 @@ public final class Category
      * 
      * @param parent The parent or null to unset this category's parent.
      */
-    public void setParent(Category parent)
+    private void setParent(Category parent)
     {
-        this.parent = parent;
+        if (this.parent != parent)
+        {
+            if (this.parent != null)
+            {
+                parent.removeChild(this);
+            }
+            this.parent = parent;
+        }
+    }
+
+    /**
+     * @param category
+     */
+    public void removeChild(Category category)
+    {
+        if (!children.contains(category))
+        {
+            throw new IllegalArgumentException(
+                    "This is not a child of this category: " + category);
+        }
+        setParent(null);
+        children.remove(category);
     }
 
     /*
@@ -191,7 +216,7 @@ public final class Category
         {
             return false;
         }
-        
+
         final Category otherCat = (Category) obj;
         return this.id.equals(otherCat.getId());
     }

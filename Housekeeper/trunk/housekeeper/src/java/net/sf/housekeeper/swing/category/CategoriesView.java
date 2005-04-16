@@ -61,6 +61,8 @@ public final class CategoriesView extends AbstractView implements
     private CategoryTree           tree;
     
     private final NewCommandExecutor newCommand = new NewCommandExecutor();
+    
+    private final PropertyCommandExecutor propertyCommand = new PropertyCommandExecutor();
 
     /**
      * Creates a new instance.
@@ -96,6 +98,7 @@ public final class CategoriesView extends AbstractView implements
             {
                 Category cat = tree.getSelectedCategory();
                 publishSelectionEvent(cat);
+                updateActionEnablement();
             }
         });
 
@@ -108,7 +111,6 @@ public final class CategoriesView extends AbstractView implements
     private void refresh()
     {
         LOG.debug("Refreshing view");
-        
         
         final List cats = categoryManager.getCategories();
         tree.setCategories(cats);
@@ -157,6 +159,17 @@ public final class CategoriesView extends AbstractView implements
     protected void registerLocalCommandExecutors(PageComponentContext context)
     {
         context.register("newCommand", newCommand);
+        //context.register(GlobalCommandIds.PROPERTIES, propertyCommand);
+    }
+    
+    /**
+     * Enables and disables Actions (and thus the buttons) depending on the
+     * current selection state.
+     */
+    private void updateActionEnablement()
+    {
+        boolean hasSelection = tree.isCategorySelected();
+        propertyCommand.setEnabled(hasSelection);
     }
     
     /**
@@ -168,7 +181,11 @@ public final class CategoriesView extends AbstractView implements
         public void execute()
         {
             final Category newCategory = new Category();
-            newCategory.setParent(tree.getSelectedCategory());
+            final Category parentCategory = tree.getSelectedCategory();
+            if (parentCategory != null)
+            {
+                parentCategory.addChild(newCategory);
+            }
             
             final FormModel formModel = SwingFormModel
                     .createFormModel(newCategory);
@@ -186,7 +203,41 @@ public final class CategoriesView extends AbstractView implements
                 protected boolean onFinish()
                 {
                     formModel.commit();
-                    categoryManager.add(newCategory, newCategory.getParent());
+                    categoryManager.add(newCategory);
+                    return true;
+                }
+            };
+            dialog.showDialog();
+        }
+    }
+    
+    /**
+     * Shows a dialog for adding a new item.
+     */
+    private class PropertyCommandExecutor extends AbstractActionCommandExecutor
+    {
+
+        public void execute()
+        {
+            final Category newCategory = tree.getSelectedCategory();
+            
+            final FormModel formModel = SwingFormModel
+                    .createFormModel(newCategory);
+            final CategoryPropertyForm form = new CategoryPropertyForm(
+                    formModel);
+
+            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
+                    form, getWindowControl()) {
+
+                protected void onAboutToShow()
+                {
+                    setEnabled(true);
+                }
+
+                protected boolean onFinish()
+                {
+                    formModel.commit();
+                    categoryManager.update(newCategory);
                     return true;
                 }
             };
