@@ -27,10 +27,8 @@ import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import net.sf.housekeeper.domain.Category;
@@ -83,8 +81,19 @@ public final class CategoryTree extends JTree
         return nodeInfo instanceof Category ? (Category) nodeInfo : null;
     }
 
-    public void setSelectedCategory(Category cat)
+    /**
+     * Sets the selection in this tree to <code>selectCategory</code>
+     * 
+     * @param selectCategory The category to select or null to clear the
+     *            selection.
+     */
+    public void setSelectedCategory(Category selectCategory)
     {
+        if (selectCategory == null)
+        {
+            clearSelection();
+        }
+
         final DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) getModel()
                 .getRoot();
         final Enumeration children = rootNode.breadthFirstEnumeration();
@@ -94,7 +103,7 @@ public final class CategoryTree extends JTree
         {
             DefaultMutableTreeNode element = (DefaultMutableTreeNode) children
                     .nextElement();
-            if (element.getUserObject() == cat)
+            if (element.getUserObject() == selectCategory)
             {
                 nodeToSelect = element;
                 break;

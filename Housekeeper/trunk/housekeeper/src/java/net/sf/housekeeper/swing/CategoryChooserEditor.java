@@ -31,19 +31,29 @@ import javax.swing.event.TreeSelectionListener;
 import net.sf.housekeeper.domain.Category;
 
 import org.springframework.richclient.form.support.AbstractCustomPropertyEditor;
+import org.springframework.util.Assert;
 
 
 /**
- * @author
+ * A {@link java.beans.PropertyEditor} for chosing categories. 
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class CategoryChooserEditor extends AbstractCustomPropertyEditor
+public final class CategoryChooserEditor extends AbstractCustomPropertyEditor
 {
 
     private final CategoryTree tree;
     
+    /**
+     * Creates a new PropertyEditor for chosing categories. 
+     * 
+     * @param categories The list of possible categories for selection,
+     */
     public CategoryChooserEditor(List categories)
     {
+        Assert.notNull(categories);
+        
         tree = new CategoryTree();
         tree.setCategories(categories);
         tree.addTreeSelectionListener(new TreeSelectionListener() {
