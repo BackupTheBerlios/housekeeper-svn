@@ -21,6 +21,7 @@
 
 package net.sf.housekeeper.swing;
 
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,27 +30,28 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import net.sf.housekeeper.domain.Category;
 
 import org.springframework.richclient.tree.BeanTreeCellRenderer;
 import org.springframework.util.Assert;
 
-
 /**
- * Shows a list of {@link net.sf.housekeeper.domain.Category} objects as a
- * tree.
+ * Shows a list of {@link net.sf.housekeeper.domain.Category}objects as a tree.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public final class CategoryTree extends JTree
 {
+
     private List categories;
-    
+
     /**
      * Creates an empty tree.
-     *
+     *  
      */
     public CategoryTree()
     {
@@ -64,7 +66,7 @@ public final class CategoryTree extends JTree
         setCellRenderer(renderer);
         setRootVisible(true);
     }
-    
+
     /**
      * Returns the selected {@link Category}.
      * 
@@ -73,14 +75,39 @@ public final class CategoryTree extends JTree
     public Category getSelectedCategory()
     {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) getLastSelectedPathComponent();
-        
+
         if (node == null)
             return null;
 
         Object nodeInfo = node.getUserObject();
         return nodeInfo instanceof Category ? (Category) nodeInfo : null;
     }
-    
+
+    public void setSelectedCategory(Category cat)
+    {
+        final DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) getModel()
+                .getRoot();
+        final Enumeration children = rootNode.breadthFirstEnumeration();
+
+        DefaultMutableTreeNode nodeToSelect = null;
+        while (children.hasMoreElements())
+        {
+            DefaultMutableTreeNode element = (DefaultMutableTreeNode) children
+                    .nextElement();
+            if (element.getUserObject() == cat)
+            {
+                nodeToSelect = element;
+                break;
+            }
+        }
+
+        if (nodeToSelect != null)
+        {
+            final TreePath path = new TreePath(nodeToSelect.getPath());
+            setSelectionPath(path);
+        }
+    }
+
     /**
      * Show another list of objects in this tree.
      * 
@@ -89,11 +116,11 @@ public final class CategoryTree extends JTree
     public void setCategories(final List categories)
     {
         Assert.notNull(categories);
-        
+
         this.categories = categories;
         refresh();
     }
-    
+
     private DefaultMutableTreeNode createNode(final Category cat)
     {
         final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(cat);
@@ -107,11 +134,12 @@ public final class CategoryTree extends JTree
 
         return rootNode;
     }
-    
+
     private void refresh()
     {
-        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("All Categories");
-        
+        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(
+                "All Categories");
+
         final Iterator iter = categories.iterator();
         while (iter.hasNext())
         {
@@ -121,16 +149,8 @@ public final class CategoryTree extends JTree
         }
 
         final DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
-        
-        final Runnable r = new Runnable() {
 
-            public void run()
-            {
-                setModel(treeModel);
-                setSelectionRow(0);
-            }
-        };
-        SwingUtilities.invokeLater(r);
-
+        setModel(treeModel);
+        setSelectionRow(0);
     }
 }

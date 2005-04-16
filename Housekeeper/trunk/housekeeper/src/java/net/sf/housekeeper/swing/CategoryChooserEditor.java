@@ -62,7 +62,7 @@ public class CategoryChooserEditor extends AbstractCustomPropertyEditor
     protected void propertyValueChanged()
     {
         final Category value = (Category)getValue();
-        //tree.setSelectedCategory(value);
+        tree.setSelectedCategory(value);
     }
 
     /* (non-Javadoc)
