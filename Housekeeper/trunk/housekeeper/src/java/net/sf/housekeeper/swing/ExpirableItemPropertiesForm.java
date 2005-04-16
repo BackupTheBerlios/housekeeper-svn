@@ -29,11 +29,8 @@ import javax.swing.JComponent;
 import net.sf.housekeeper.swing.util.CalendarDateChooserEditor;
 
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
-import org.springframework.richclient.forms.BeanFormBuilder;
-import org.springframework.richclient.forms.JGoodiesBeanFormBuilder;
-
-import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * A Form for editing the properties of an {@link net.sf.housekeeper.domain.ExpirableItem}
@@ -69,13 +66,12 @@ public final class ExpirableItemPropertiesForm extends AbstractForm
      * @see org.springframework.richclient.forms.AbstractForm#createFormControl()
      */
     protected JComponent createFormControl()
-    {
-        final FormLayout layout = new FormLayout(
-                "right:pref, 3dlu, fill:default:grow");
-        BeanFormBuilder formBuilder = new JGoodiesBeanFormBuilder(
-                getFormModel(), layout);
+    {        
+        TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
         formBuilder.add("name");
+        formBuilder.row();
         formBuilder.add("description");
+        formBuilder.row();
         formBuilder.add("expiry");
         return formBuilder.getForm();
     }
