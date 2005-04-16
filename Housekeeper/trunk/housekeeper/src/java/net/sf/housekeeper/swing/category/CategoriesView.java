@@ -64,6 +64,8 @@ public final class CategoriesView extends AbstractView implements
     private final NewCommandExecutor newCommand = new NewCommandExecutor();
     
     private final PropertyCommandExecutor propertyCommand = new PropertyCommandExecutor();
+    
+    private final DeleteCommandExecutor deleteCommand = new DeleteCommandExecutor();
 
     /**
      * Creates a new instance.
@@ -161,6 +163,7 @@ public final class CategoriesView extends AbstractView implements
     {
         context.register("newCommand", newCommand);
         context.register(GlobalCommandIds.PROPERTIES, propertyCommand);
+        context.register(GlobalCommandIds.DELETE, deleteCommand);
     }
     
     /**
@@ -171,6 +174,7 @@ public final class CategoriesView extends AbstractView implements
     {
         boolean hasSelection = tree.isCategorySelected();
         propertyCommand.setEnabled(hasSelection);
+        deleteCommand.setEnabled(hasSelection);
     }
     
     /**
@@ -243,6 +247,16 @@ public final class CategoriesView extends AbstractView implements
                 }
             };
             dialog.showDialog();
+        }
+    }
+    
+    private class DeleteCommandExecutor extends AbstractActionCommandExecutor
+    {
+
+        public void execute()
+        {
+            final Category selectedItem = tree.getSelectedCategory();
+            categoryManager.remove(selectedItem);
         }
     }
 

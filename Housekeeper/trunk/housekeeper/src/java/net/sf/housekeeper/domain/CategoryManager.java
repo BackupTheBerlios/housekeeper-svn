@@ -169,4 +169,22 @@ public final class CategoryManager implements ApplicationContextAware
             }
         }
     }
+
+    /**
+     * @param selectedItem
+     */
+    public void remove(Category selectedItem)
+    {
+        final Category parent = selectedItem.getParent();
+        if (parent == null)
+        {
+            categories.remove(selectedItem);
+        } else
+        {
+            selectedItem.setParent(null);
+        }
+
+        applicationContext.publishEvent(new HousekeeperEvent(
+                HousekeeperEvent.CATEGORIES_MODIFIED, this));
+    }
 }
