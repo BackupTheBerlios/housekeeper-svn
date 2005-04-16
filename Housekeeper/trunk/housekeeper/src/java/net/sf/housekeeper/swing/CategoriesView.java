@@ -21,17 +21,12 @@
 
 package net.sf.housekeeper.swing;
 
-import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
 import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
@@ -47,7 +42,6 @@ import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.SwingFormModel;
-import org.springframework.richclient.tree.BeanTreeCellRenderer;
 
 
 /**
@@ -64,7 +58,7 @@ public final class CategoriesView extends AbstractView implements
 
     private CategoryManager categoryManager;
 
-    private JTree           tree;
+    private CategoryTree           tree;
     
     private final NewCommandExecutor newCommand = new NewCommandExecutor();
 
@@ -94,24 +88,13 @@ public final class CategoriesView extends AbstractView implements
      */
     protected JComponent createControl()
     {
-        tree = new JTree();
-
-        tree.getSelectionModel()
-                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        final BeanTreeCellRenderer renderer = new BeanTreeCellRenderer(
-                Category.class, "name");
-        renderer.setOpenIcon(null);
-        renderer.setClosedIcon(null);
-        renderer.setLeafIcon(null);
-        tree.setCellRenderer(renderer);
-        tree.setRootVisible(true);
+        tree = new CategoryTree();
 
         tree.addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent e)
             {
-                Category cat = getSelectedCategory();
+                Category cat = tree.getSelectedCategory();
                 publishSelectionEvent(cat);
             }
         });
@@ -125,34 +108,10 @@ public final class CategoriesView extends AbstractView implements
     private void refresh()
     {
         LOG.debug("Refreshing view");
-        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("All Categories");
         
         
-        final Iterator iter = categoryManager.getTopLevelCategories();
-        while (iter.hasNext())
-        {
-            Category element = (Category) iter.next();
-            final DefaultMutableTreeNode node = createNode(element);
-            rootNode.add(node);
-        }
-
-        final DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
-        tree.setModel(treeModel);
-        tree.setSelectionRow(0);
-    }
-
-    private DefaultMutableTreeNode createNode(final Category cat)
-    {
-        final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(cat);
-
-        final Iterator catIter = cat.getChildrenIterator();
-        while (catIter.hasNext())
-        {
-            Category element = (Category) catIter.next();
-            rootNode.add(createNode(element));
-        }
-
-        return rootNode;
+        final List cats = categoryManager.getCategories();
+        tree.setCategories(cats);
     }
 
     private void publishSelectionEvent(Category cat)
@@ -184,28 +143,10 @@ public final class CategoriesView extends AbstractView implements
             if (le.getEventType() == HousekeeperEvent.CATEGORIES_MODIFIED)
             {
                 LOG.debug("Received CATEGORIES_MODIFIED event");
-                SwingUtilities.invokeLater(new Runnable() {
-
-                    public void run()
-                    {
-                        refresh();
-                    }
-                });
+                refresh();
             }
         }
 
-    }
-    
-    private Category getSelectedCategory()
-    {
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree
-                .getLastSelectedPathComponent();
-        
-        if (node == null)
-            return null;
-
-        Object nodeInfo = node.getUserObject();
-        return nodeInfo instanceof Category ? (Category) nodeInfo : null;
     }
 
     /*
@@ -227,7 +168,7 @@ public final class CategoriesView extends AbstractView implements
         public void execute()
         {
             final Category newCategory = new Category();
-            final Category parentCategory = getSelectedCategory();
+            final Category parentCategory = tree.getSelectedCategory();
             
             final FormModel formModel = SwingFormModel
                     .createFormModel(newCategory);
