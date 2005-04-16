@@ -40,6 +40,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.SwingFormModel;
 
@@ -112,7 +113,7 @@ public final class CategoriesView extends AbstractView implements
     {
         LOG.debug("Refreshing view");
         
-        final List cats = categoryManager.getCategories();
+        final List cats = categoryManager.getTopLevelCategories();
         tree.setCategories(cats);
     }
 
@@ -159,7 +160,7 @@ public final class CategoriesView extends AbstractView implements
     protected void registerLocalCommandExecutors(PageComponentContext context)
     {
         context.register("newCommand", newCommand);
-        //context.register(GlobalCommandIds.PROPERTIES, propertyCommand);
+        context.register(GlobalCommandIds.PROPERTIES, propertyCommand);
     }
     
     /**

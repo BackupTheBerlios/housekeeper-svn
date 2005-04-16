@@ -41,7 +41,7 @@ final class ModelConverter
     {
         final Household household = new Household();
         final ArrayList items = getFoodItems((Category) household
-                .getCategoryManager().getCategories().get(0), root);
+                .getCategoryManager().getTopLevelCategories().get(0), root);
 
         household.getItemManager().replaceAll(items);
 

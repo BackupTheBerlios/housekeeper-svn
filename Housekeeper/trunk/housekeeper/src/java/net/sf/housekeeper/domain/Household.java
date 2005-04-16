@@ -83,7 +83,7 @@ public final class Household
     {
         itemManager.replaceAll(domain.getItemManager()
                 .getAllItems());
-        categoryManager.replaceAll(domain.getCategoryManager().getCategories());
+        categoryManager.replaceAll(domain.getCategoryManager().getTopLevelCategories());
     }
 
     /**

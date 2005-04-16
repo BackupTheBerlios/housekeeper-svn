@@ -75,12 +75,8 @@ public final class Category
      */
     public void addChild(final Category child)
     {
+        child.parent = this;
         children.add(child);
-        
-        if (child.getParent() != this)
-        {
-            child.setParent(this);
-        }
     }
 
     /**
@@ -163,34 +159,34 @@ public final class Category
     }
 
     /**
-     * Sets the parent of this category.
+     * Sets the parent of this Category. The object is removed
+     * from its old parent and added as a child to its new parent.
      * 
-     * @param parent The parent or null to unset this category's parent.
+     * @param newParent The new parent or null if this category should become
+     * a root category.
      */
-    private void setParent(Category parent)
+    public void setParent(Category newParent)
     {
-        if (this.parent != parent)
+        if (this.parent != newParent)
         {
             if (this.parent != null)
             {
-                parent.removeChild(this);
+                this.parent.removeChild(this);
             }
-            this.parent = parent;
+            if (newParent != null)
+            {
+                newParent.addChild(this);
+            }
         }
     }
-
+    
     /**
      * @param category
      */
-    public void removeChild(Category category)
+    private void removeChild(Category category)
     {
-        if (!children.contains(category))
-        {
-            throw new IllegalArgumentException(
-                    "This is not a child of this category: " + category);
-        }
-        setParent(null);
         children.remove(category);
+        category.parent = null;
     }
 
     /*

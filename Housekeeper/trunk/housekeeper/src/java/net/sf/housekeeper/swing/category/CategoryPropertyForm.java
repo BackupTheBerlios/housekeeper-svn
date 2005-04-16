@@ -50,7 +50,7 @@ public class CategoryPropertyForm extends AbstractForm
         getFormModel().registerCustomEditor(
                                             "parent",
                                             new CategoryChooserEditor(catMan
-                                                    .getCategories()));
+                                                    .getTopLevelCategories()));
     }
 
     /*

@@ -67,28 +67,25 @@ public final class CategoryManager implements ApplicationContextAware
         rootCategory.addChild(new Category(miscName));
         categories.add(rootCategory);
     }
-    
+
     /**
-     * Adds a category. If parent == null, then
-     * category is added as a new top level category.
+     * Adds a category. If parent == null, then category is added as a new top
+     * level category.
      * 
      * @param category The category to add.
      */
     public void add(final Category category)
     {
         Assert.notNull(category);
-        
+
         final boolean isRoot = category.getParent() == null;
         if (isRoot)
         {
             categories.add(category);
-        } else 
-        {
-            category.getParent().addChild(category);
         }
-        
+
         applicationContext.publishEvent(new HousekeeperEvent(
-                                                             HousekeeperEvent.CATEGORIES_MODIFIED, this));
+                HousekeeperEvent.CATEGORIES_MODIFIED, this));
     }
 
     /**
@@ -96,19 +93,19 @@ public final class CategoryManager implements ApplicationContextAware
      * 
      * @return The categories. Not null.
      */
-    public List getCategories()
+    public List getTopLevelCategories()
     {
         return Collections.unmodifiableList(categories);
     }
-    
+
     /**
      * Returns an iterator over all top level categories.
      * 
      * @return != null.
      */
-    public Iterator getTopLevelCategories()
+    public Iterator getTopLevelCategoriesIterator()
     {
-        return  categories.iterator();
+        return categories.iterator();
     }
 
     /**
@@ -138,16 +135,38 @@ public final class CategoryManager implements ApplicationContextAware
     }
 
     /**
-     * @param newCategory
+     * Updates the a Category.
+     * 
+     * @param category != null.
      */
-    public void update(Category newCategory)
+    public void update(Category category)
     {
-        Assert.notNull(newCategory);
-        
-        
-        
+        Assert.notNull(category);
+
+        cleanupRootCategories();
+        if (category.getParent() == null && !categories.contains(category))
+        {
+            categories.add(category);
+        }
+
         applicationContext.publishEvent(new HousekeeperEvent(
-                                                             HousekeeperEvent.CATEGORIES_MODIFIED, this));
-        
+                HousekeeperEvent.CATEGORIES_MODIFIED, this));
+    }
+
+    /**
+     * Removes all categories whose parent is not null from the list of root
+     * categories.
+     */
+    private void cleanupRootCategories()
+    {
+        final Iterator iter = categories.iterator();
+        while (iter.hasNext())
+        {
+            Category element = (Category) iter.next();
+            if (element.getParent() != null)
+            {
+                categories.remove(element);
+            }
+        }
     }
 }
