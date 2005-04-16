@@ -125,7 +125,7 @@
 	<bean id="supplyView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 		<property name="viewClass">
-			<value>net.sf.housekeeper.swing.ItemsTableView</value>
+			<value>net.sf.housekeeper.swing.item.ItemsTableView</value>
 		</property>
     <property name="viewProperties">
       <map>
@@ -139,7 +139,7 @@
   <bean id="categoryView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 		<property name="viewClass">
-			<value>net.sf.housekeeper.swing.CategoriesView</value>
+			<value>net.sf.housekeeper.swing.category.CategoriesView</value>
 		</property>
     <property name="viewProperties">
       <map>

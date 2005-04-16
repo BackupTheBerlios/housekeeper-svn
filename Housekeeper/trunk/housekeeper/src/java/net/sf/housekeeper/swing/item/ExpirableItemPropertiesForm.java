@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.swing;
+package net.sf.housekeeper.swing.item;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
