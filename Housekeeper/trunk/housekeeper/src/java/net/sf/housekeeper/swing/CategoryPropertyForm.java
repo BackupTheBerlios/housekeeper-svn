@@ -23,13 +23,11 @@ package net.sf.housekeeper.swing;
 
 import javax.swing.JComponent;
 
+import net.sf.housekeeper.domain.CategoryManager;
+
 import org.springframework.binding.form.FormModel;
+import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
-import org.springframework.richclient.forms.BeanFormBuilder;
-import org.springframework.richclient.forms.JGoodiesBeanFormBuilder;
-
-import com.jgoodies.forms.layout.FormLayout;
-
 
 /**
  * @author
@@ -37,6 +35,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class CategoryPropertyForm extends AbstractForm
 {
+
     /**
      * Creates a new Form using the given model.
      * 
@@ -45,6 +44,13 @@ public class CategoryPropertyForm extends AbstractForm
     public CategoryPropertyForm(final FormModel formModel)
     {
         super(formModel, "categoryPropertyForm");
+
+        final CategoryManager catMan = (CategoryManager) getApplicationContext()
+                .getBean("categoryManager");
+        getFormModel().registerCustomEditor(
+                                            "parent",
+                                            new CategoryChooserEditor(catMan
+                                                    .getCategories()));
     }
 
     /*
@@ -54,11 +60,10 @@ public class CategoryPropertyForm extends AbstractForm
      */
     protected JComponent createFormControl()
     {
-        final FormLayout layout = new FormLayout(
-                "right:pref, 3dlu, fill:default:grow");
-        BeanFormBuilder formBuilder = new JGoodiesBeanFormBuilder(
-                getFormModel(), layout);
+        TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
         formBuilder.add("name");
+        formBuilder.row();
+        formBuilder.add("parent");
         return formBuilder.getForm();
     }
 

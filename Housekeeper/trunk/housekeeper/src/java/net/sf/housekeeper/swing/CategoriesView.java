@@ -168,7 +168,7 @@ public final class CategoriesView extends AbstractView implements
         public void execute()
         {
             final Category newCategory = new Category();
-            final Category parentCategory = tree.getSelectedCategory();
+            newCategory.setParent(tree.getSelectedCategory());
             
             final FormModel formModel = SwingFormModel
                     .createFormModel(newCategory);
@@ -186,7 +186,7 @@ public final class CategoriesView extends AbstractView implements
                 protected boolean onFinish()
                 {
                     formModel.commit();
-                    categoryManager.add(newCategory, parentCategory);
+                    categoryManager.add(newCategory, newCategory.getParent());
                     return true;
                 }
             };

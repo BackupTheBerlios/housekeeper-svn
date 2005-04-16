@@ -187,6 +187,11 @@ public final class Category
      */
     public boolean equals(Object obj)
     {
+        if (obj == null)
+        {
+            return false;
+        }
+        
         final Category otherCat = (Category) obj;
         return this.id.equals(otherCat.getId());
     }
