@@ -84,6 +84,8 @@ public final class CategoryManager implements ApplicationContextAware
         if (isRoot)
         {
             categories.add(category);
+        } else {
+            category.getParent().addChild(category);
         }
 
         applicationContext.publishEvent(new HousekeeperEvent(

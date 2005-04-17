@@ -159,13 +159,24 @@ public final class Category
     }
 
     /**
+     * Sets the parent of this Category.
+     * 
+     * @param newParent The new parent or null if this category should become
+     * a root category.
+     */
+    public void setParent(Category newParent)
+    {
+        this.parent = newParent;
+    }
+    
+    /**
      * Sets the parent of this Category. The object is removed
      * from its old parent and added as a child to its new parent.
      * 
      * @param newParent The new parent or null if this category should become
      * a root category.
      */
-    public void setParent(Category newParent)
+    public void changeParent(Category newParent)
     {
         if (this.parent != newParent)
         {
@@ -178,8 +189,7 @@ public final class Category
                 newParent.addChild(this);
             }
         }
-    }
-    
+    }   
     /**
      * @param category
      */
