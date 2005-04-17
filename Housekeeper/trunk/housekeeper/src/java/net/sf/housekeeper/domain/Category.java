@@ -149,6 +149,16 @@ public final class Category
     {
         return parent;
     }
+    
+    /**
+     * Returns wheter this category is a leaf or not.
+     * 
+     * @return True, if this category has no children. False otherwise.
+     */
+    public boolean isLeaf()
+    {
+        return children.isEmpty();
+    }
 
     /**
      * @param name The name to set.

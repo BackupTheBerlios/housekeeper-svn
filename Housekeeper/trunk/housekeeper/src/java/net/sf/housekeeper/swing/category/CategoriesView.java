@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.swing.category;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -104,7 +106,7 @@ public final class CategoriesView extends AbstractView implements
                 updateActionEnablement();
             }
         });
-
+        tree.addMouseListener(new DoubleClickListener());
         refresh();
         
         final JScrollPane scrollPane = new JScrollPane(tree);
@@ -257,4 +259,19 @@ public final class CategoriesView extends AbstractView implements
         }
     }
 
+    private final class DoubleClickListener extends MouseAdapter
+    {
+
+        public void mouseClicked(MouseEvent e)
+        {
+            if (e.getClickCount() == 2)
+            {
+                if (tree.getSelectedCategory().isLeaf())
+                {
+                    getWindowCommandManager().getActionCommand("propertiesCommand")
+                    .execute();
+                }
+            }
+        }
+    }
 }
