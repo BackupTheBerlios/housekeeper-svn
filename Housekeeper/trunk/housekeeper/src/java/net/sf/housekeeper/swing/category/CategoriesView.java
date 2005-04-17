@@ -26,6 +26,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -41,11 +42,12 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.application.PageComponentContext;
 import org.springframework.richclient.application.support.AbstractView;
+import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.SwingFormModel;
-
+import org.springframework.richclient.util.PopupMenuMouseListener;
 
 /**
  * Shows a tree of categories.
@@ -56,28 +58,29 @@ import org.springframework.richclient.forms.SwingFormModel;
 public final class CategoriesView extends AbstractView implements
         ApplicationListener
 {
-    
-    private static final Log LOG = LogFactory.getLog(CategoriesView.class);
 
-    private CategoryManager categoryManager;
+    private static final Log              LOG             = LogFactory
+                                                                  .getLog(CategoriesView.class);
 
-    private CategoryTree           tree;
-    
-    private final NewCommandExecutor newCommand = new NewCommandExecutor();
-    
+    private CategoryManager               categoryManager;
+
+    private CategoryTree                  tree;
+
+    private final NewCommandExecutor      newCommand      = new NewCommandExecutor();
+
     private final PropertyCommandExecutor propertyCommand = new PropertyCommandExecutor();
-    
-    private final DeleteCommandExecutor deleteCommand = new DeleteCommandExecutor();
+
+    private final DeleteCommandExecutor   deleteCommand   = new DeleteCommandExecutor();
 
     /**
      * Creates a new instance.
-     *
+     *  
      */
     public CategoriesView()
     {
         newCommand.setEnabled(true);
     }
-    
+
     /**
      * Sets the category manager to be used.
      * 
@@ -107,8 +110,9 @@ public final class CategoriesView extends AbstractView implements
             }
         });
         tree.addMouseListener(new DoubleClickListener());
+        tree.addMouseListener(new PopupTriggerListener(createContextMenu()));
         refresh();
-        
+
         final JScrollPane scrollPane = new JScrollPane(tree);
         return scrollPane;
     }
@@ -116,7 +120,7 @@ public final class CategoriesView extends AbstractView implements
     private void refresh()
     {
         LOG.debug("Refreshing view");
-        
+
         final List cats = categoryManager.getTopLevelCategories();
         tree.setCategories(cats);
     }
@@ -131,10 +135,11 @@ public final class CategoriesView extends AbstractView implements
         {
             source = cat;
         }
-        getApplicationContext().publishEvent(
-                                             new HousekeeperEvent(
-                                                     HousekeeperEvent.CATEGORY_SELECTED,
-                                                     source));
+        getApplicationContext()
+                .publishEvent(
+                              new HousekeeperEvent(
+                                      HousekeeperEvent.CATEGORY_SELECTED,
+                                      source));
     }
 
     /*
@@ -167,7 +172,7 @@ public final class CategoriesView extends AbstractView implements
         context.register(GlobalCommandIds.PROPERTIES, propertyCommand);
         context.register(GlobalCommandIds.DELETE, deleteCommand);
     }
-    
+
     /**
      * Enables and disables Actions (and thus the buttons) depending on the
      * current selection state.
@@ -178,7 +183,18 @@ public final class CategoriesView extends AbstractView implements
         propertyCommand.setEnabled(hasSelection);
         deleteCommand.setEnabled(hasSelection);
     }
-    
+
+    private JPopupMenu createContextMenu()
+    {
+        CommandGroup convCommandGroup = getWindowCommandManager()
+                .createCommandGroup(
+                                    "categoryPopupCommandGroup",
+                                    new Object[] { "newCommand",
+                                            GlobalCommandIds.PROPERTIES,
+                                            GlobalCommandIds.DELETE });
+        return convCommandGroup.createPopupMenu();
+    }
+
     /**
      * Shows a dialog for adding a new item.
      */
@@ -190,7 +206,7 @@ public final class CategoriesView extends AbstractView implements
             final Category newCategory = new Category();
             final Category parentCategory = tree.getSelectedCategory();
             newCategory.setParent(parentCategory);
-            
+
             final FormModel formModel = SwingFormModel
                     .createFormModel(newCategory);
             final CategoryPropertyForm form = new CategoryPropertyForm(
@@ -214,7 +230,7 @@ public final class CategoriesView extends AbstractView implements
             dialog.showDialog();
         }
     }
-    
+
     /**
      * Shows a dialog for adding a new item.
      */
@@ -224,7 +240,7 @@ public final class CategoriesView extends AbstractView implements
         public void execute()
         {
             final Category newCategory = tree.getSelectedCategory();
-            
+
             final FormModel formModel = SwingFormModel
                     .createFormModel(newCategory);
             final CategoryPropertyForm form = new CategoryPropertyForm(
@@ -248,7 +264,7 @@ public final class CategoriesView extends AbstractView implements
             dialog.showDialog();
         }
     }
-    
+
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor
     {
 
@@ -268,10 +284,30 @@ public final class CategoriesView extends AbstractView implements
             {
                 if (tree.getSelectedCategory().isLeaf())
                 {
-                    getWindowCommandManager().getActionCommand("propertiesCommand")
-                    .execute();
+                    getWindowCommandManager()
+                            .getActionCommand("propertiesCommand").execute();
                 }
             }
+        }
+    }
+
+    private class PopupTriggerListener extends PopupMenuMouseListener
+    {
+
+        private PopupTriggerListener(final JPopupMenu menu)
+        {
+            super(menu);
+        }
+
+        /**
+         * Selects the row beneath the cursor before showing the popup menu
+         */
+        protected boolean onAboutToShow(MouseEvent e)
+        {
+            final int row = tree.getRowForLocation((int) e.getPoint().getX(),
+                                                   (int) e.getPoint().getY());
+            tree.setSelectionRow(row);
+            return super.onAboutToShow(e);
         }
     }
 }
