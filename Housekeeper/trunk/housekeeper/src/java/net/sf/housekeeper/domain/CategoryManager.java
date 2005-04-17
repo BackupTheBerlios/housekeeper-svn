@@ -43,9 +43,11 @@ import org.springframework.util.Assert;
 public final class CategoryManager implements ApplicationContextAware
 {
 
-    private ArrayList          categories;
-
     private ApplicationContext applicationContext;
+
+    private ArrayList          categories;
+    
+    private ItemManager itemManager;
 
     /**
      * Initializes this manager with a default set of categories.
@@ -109,6 +111,37 @@ public final class CategoryManager implements ApplicationContextAware
     }
 
     /**
+     * Removes a category. All items of that category are reassigned to 
+     * that category's parent to assure referential integrity.
+     * 
+     * @param category != null
+     */
+    public void remove(Category category)
+    {
+        Assert.notNull(category);
+        
+        final Category parent = category.getParent();
+        
+        final Iterator iter = itemManager.getItemsForCategory(category).iterator();
+        while (iter.hasNext())
+        {
+            Item element = (Item) iter.next();
+            element.setCategory(parent);
+        }
+        
+        if (parent == null)
+        {
+            categories.remove(category);
+        } else
+        {
+            category.setParent(null);
+        }
+
+        applicationContext.publishEvent(new HousekeeperEvent(
+                HousekeeperEvent.CATEGORIES_MODIFIED, this));
+    }
+
+    /**
      * Replaces all categories with other ones.
      * 
      * @param categories The categories. Must not be null.
@@ -132,6 +165,17 @@ public final class CategoryManager implements ApplicationContextAware
             throws BeansException
     {
         this.applicationContext = arg0;
+    }
+    
+    /**
+     * Sets the itemManager. Needed for assuring referential integerity when
+     * deleting a category.
+     * 
+     * @param im The manager.
+     */
+    public void setItemManager(ItemManager im)
+    {
+        this.itemManager = im;
     }
 
     /**
@@ -168,23 +212,5 @@ public final class CategoryManager implements ApplicationContextAware
                 categories.remove(element);
             }
         }
-    }
-
-    /**
-     * @param selectedItem
-     */
-    public void remove(Category selectedItem)
-    {
-        final Category parent = selectedItem.getParent();
-        if (parent == null)
-        {
-            categories.remove(selectedItem);
-        } else
-        {
-            selectedItem.setParent(null);
-        }
-
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.CATEGORIES_MODIFIED, this));
     }
 }

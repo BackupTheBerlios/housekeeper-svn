@@ -158,6 +158,9 @@
   
   <bean id="categoryManager"
 		class="net.sf.housekeeper.domain.CategoryManager">
+    <property name="itemManager">
+      <ref local="itemManager"/>
+		</property>
 	</bean>
   
   <bean id="itemManager"
