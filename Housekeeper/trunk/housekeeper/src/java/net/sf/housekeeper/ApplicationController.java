@@ -64,7 +64,9 @@ public final class ApplicationController
                 + "startup-context.xml";
         String applicationContextPath = rootContextDirectoryClassPath
                 + "application-context.xml";
-        new ApplicationLauncher(startupContextPath, applicationContextPath);
+        String domainContextPath = rootContextDirectoryClassPath
+        + "domain-context.xml";        
+        new ApplicationLauncher(startupContextPath, new String[] {applicationContextPath, domainContextPath});
     }
 
 }
