@@ -210,13 +210,18 @@ public final class Category
             }
         }
     }   
+
     /**
-     * @param category
+     * Removes a child.
+     * 
+     * @param child != null
      */
-    private void removeChild(Category category)
+    public void removeChild(Category child)
     {
-        children.remove(category);
-        category.parent = null;
+        Assert.notNull(child);
+        
+        children.remove(child);
+        child.parent = null;
     }
 
     /*

@@ -217,4 +217,13 @@ public final class CategoryTree extends JTree
         setModel(treeModel);
         setSelectionRow(0);
     }
+
+    /**
+     * @param category
+     */
+    public void removeCategory(Category category)
+    {
+        final DefaultMutableTreeNode node = findNode(category);
+        getCastedModel().removeNodeFromParent(node);
+    }
 }

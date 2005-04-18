@@ -49,6 +49,11 @@ public class HousekeeperEvent extends ApplicationEvent
      * Event type if a category has been added.
      */
     public static final String CATEGORY_ADDED = "houskeeperEvent.categoryAdded";
+
+    /**
+     * Event type if a category has been added.
+     */
+    public static final String CATEGORY_REMOVED = "houskeeperEvent.categoryRemoved";
     
     /**
      * Event type if something unspecified has been changed, and all views

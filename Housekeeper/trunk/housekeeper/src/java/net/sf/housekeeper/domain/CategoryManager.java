@@ -28,6 +28,8 @@ import java.util.List;
 
 import net.sf.housekeeper.event.HousekeeperEvent;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -42,13 +44,14 @@ import org.springframework.util.Assert;
  */
 public final class CategoryManager implements ApplicationContextAware
 {
-
+    private static final Log LOG = LogFactory.getLog(CategoryManager.class);
+    
     private ApplicationContext applicationContext;
 
     private ArrayList          categories;
     
     private ItemManager itemManager;
-
+    
     /**
      * Initializes this manager with a default set of categories.
      *  
@@ -122,6 +125,8 @@ public final class CategoryManager implements ApplicationContextAware
     {
         Assert.notNull(category);
         
+        LOG.debug("Removing category: " + category);
+        
         final Category parent = category.getParent();
         
         final Iterator iter = itemManager.getItemsForCategory(category).iterator();
@@ -134,13 +139,12 @@ public final class CategoryManager implements ApplicationContextAware
         if (parent == null)
         {
             categories.remove(category);
-        } else
-        {
-            category.setParent(null);
+        } else {
+            parent.removeChild(category);
         }
 
         applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.CATEGORIES_MODIFIED, this));
+                HousekeeperEvent.CATEGORY_REMOVED, category));
     }
 
     /**
