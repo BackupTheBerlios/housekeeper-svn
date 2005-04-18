@@ -4,7 +4,9 @@
   <title>Housekeeper - The household management software</title>
   <body>
     <links>
-      <item name="Berlios Project Site" 
+      <item name="Downloads" 
+        href="http://developer.berlios.de/project/showfiles.php?group_id=3180" />
+      <item name="BerliOS Project Site" 
         href="http://developer.berlios.de/projects/housekeeper/" />
     </links>
     <menu name="Overview">
@@ -12,7 +14,7 @@
         <item 
             href="http://developer.berlios.de/screenshots/?group_id=3180" 
             name="Screenshots"/>
-        <item href="/installation.html" name="Download and installation" />
+        <item href="/installation.html" name="Installation" />
         <item href="/changes-report.html" name="Changelog" />
         <!--<item href="/faq.html" name="FAQ" />-->
     </menu>
