@@ -16,6 +16,6 @@
         <item href="/changes-report.html" name="Changelog" />
         <!--<item href="/faq.html" name="FAQ" />-->
     </menu>
-    <!--<search/>-->
+    <search/>
   </body>
 </project>
