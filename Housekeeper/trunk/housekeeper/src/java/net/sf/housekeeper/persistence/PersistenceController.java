@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -50,6 +52,9 @@ import net.sf.housekeeper.persistence.jibx.JiBXPersistence;
 public final class PersistenceController implements ApplicationContextAware
 {
 
+    private static final Log         LOG = LogFactory
+                                                 .getLog(PersistenceController.class);
+
     private final PersistenceService jibxPersistence;
 
     /**
@@ -60,7 +65,7 @@ public final class PersistenceController implements ApplicationContextAware
     /**
      * File used for loading and saving
      */
-    private final File               dataFile;
+    private File                     dataFile;
 
     private ApplicationContext       applicationContext;
 
@@ -71,13 +76,30 @@ public final class PersistenceController implements ApplicationContextAware
      */
     public PersistenceController()
     {
-        final String homeDirString = System.getProperty("user.home");
-        final File hkDir = new File(homeDirString, ".housekeeper");
+        final String customDataFile = System
+                .getProperty("net.sf.housekeeper.persistence.datafile");
+        if (customDataFile != null)
+        {
+            LOG.debug("Trying to use custom data file at: " + customDataFile);
+            final File customFile = new File(customDataFile);
+            if (customFile.canRead())
+            {
+                dataFile = customFile;
+            }
+        }
 
-        //Create directory for data if it doesn't exist.
-        hkDir.mkdir();
+        if (dataFile == null)
+        {
+            final String homeDirString = System.getProperty("user.home");
+            final File hkDir = new File(homeDirString, ".housekeeper");
 
-        dataFile = new File(hkDir, "data.xml");
+            //Create directory for data if it doesn't exist.
+            hkDir.mkdir();
+
+            dataFile = new File(hkDir, "data.xml");
+        }
+
+        LOG.info("Using data file: " + dataFile);
 
         jibxPersistence = new JiBXPersistence();
         jdomPersistence = new JDOMPersistence();
@@ -95,6 +117,8 @@ public final class PersistenceController implements ApplicationContextAware
     public void replaceDomainWithSaved(final Household currentDomain)
             throws IOException, UnsupportedFileVersionException
     {
+        LOG.info("Loading data from: " + dataFile);
+
         final InputStream dataStream = new BufferedInputStream(
                 new FileInputStream(dataFile));
 
@@ -133,6 +157,8 @@ public final class PersistenceController implements ApplicationContextAware
     public void saveDomainData(final Household currentDomain)
             throws IOException
     {
+        LOG.info("Saving data to: " + dataFile);
+
         final OutputStream dataStream = new BufferedOutputStream(
                 new FileOutputStream(dataFile));
         jibxPersistence.saveData(currentDomain, dataStream);
