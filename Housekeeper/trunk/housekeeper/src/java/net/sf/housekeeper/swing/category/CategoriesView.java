@@ -31,9 +31,9 @@ import javax.swing.JScrollPane;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
-import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.CategoryManager;
+import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -152,6 +152,11 @@ public final class CategoriesView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
+            if (le.getEventType() == HousekeeperEvent.CATEGORY_ADDED)
+            {
+                LOG.debug("Received CATEGORY_ADDED event");
+                tree.addCategory((Category)e.getSource());
+            }
             if (le.getEventType() == HousekeeperEvent.CATEGORIES_MODIFIED)
             {
                 LOG.debug("Received CATEGORIES_MODIFIED event");

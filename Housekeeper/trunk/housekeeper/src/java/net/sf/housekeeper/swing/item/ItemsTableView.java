@@ -41,10 +41,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
-import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.swing.util.CustomTableUtils;
 
 import org.springframework.binding.form.FormModel;

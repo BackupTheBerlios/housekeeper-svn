@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper;
+package net.sf.housekeeper.event;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.ToStringCreator;
@@ -45,6 +45,11 @@ public class HousekeeperEvent extends ApplicationEvent
      */
     public static final String SUPPLY_MODIFIED = "houskeeperEvent.supplyModified";
 
+    /**
+     * Event type if a category has been added.
+     */
+    public static final String CATEGORY_ADDED = "houskeeperEvent.categoryAdded";
+    
     /**
      * Event type if something unspecified has been changed, and all views
      * should be refreshed.

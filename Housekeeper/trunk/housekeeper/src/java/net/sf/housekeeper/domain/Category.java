@@ -159,6 +159,16 @@ public final class Category
     {
         return children.isEmpty();
     }
+    
+    /**
+     * Returns wheter this category is at top level or not.
+     * 
+     * @return True, if this category has no parent. False otherwise.
+     */
+    public boolean isTopLevel()
+    {
+        return parent == null;
+    }
 
     /**
      * @param name The name to set.

@@ -36,8 +36,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import net.sf.housekeeper.HousekeeperEvent;
 import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
 import net.sf.housekeeper.persistence.jibx.JiBXPersistence;
 

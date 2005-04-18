@@ -66,6 +66,32 @@ public final class CategoryTree extends JTree
     }
 
     /**
+     * Adds a category to this tree.
+     * 
+     * @param category The category to add.
+     */
+    public void addCategory(Category category)
+    {
+        DefaultMutableTreeNode parentNode;
+        if (category.isTopLevel())
+        {
+            parentNode = (DefaultMutableTreeNode)getModel().getRoot();
+            
+        } else
+        {
+            parentNode = findNode(category.getParent());
+        }
+        
+        final DefaultMutableTreeNode node = createNode(category);
+        getCastedModel().insertNodeInto(node, parentNode, parentNode.getChildCount());
+    }
+    
+    private DefaultTreeModel getCastedModel()
+    {
+        return (DefaultTreeModel)getModel();
+    }
+    
+    /**
      * Returns the selected {@link Category}.
      * 
      * @return The selected category or null, if none is selected.
@@ -79,11 +105,6 @@ public final class CategoryTree extends JTree
 
         Object nodeInfo = node.getUserObject();
         return nodeInfo instanceof Category ? (Category) nodeInfo : null;
-    }
-
-    private boolean hasSelection()
-    {
-        return getSelectionCount() > 0;
     }
 
     /**
@@ -105,6 +126,19 @@ public final class CategoryTree extends JTree
     }
 
     /**
+     * Show another list of objects in this tree.
+     * 
+     * @param categories != null
+     */
+    public void setCategories(final List categories)
+    {
+        Assert.notNull(categories);
+
+        this.categories = categories;
+        refresh();
+    }
+
+    /**
      * Sets the selection in this tree to <code>selectCategory</code>
      * 
      * @param selectCategory The category to select or null to clear the
@@ -117,21 +151,7 @@ public final class CategoryTree extends JTree
             clearSelection();
         }
 
-        final DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) getModel()
-                .getRoot();
-        final Enumeration children = rootNode.breadthFirstEnumeration();
-
-        DefaultMutableTreeNode nodeToSelect = null;
-        while (children.hasMoreElements())
-        {
-            DefaultMutableTreeNode element = (DefaultMutableTreeNode) children
-                    .nextElement();
-            if (element.getUserObject() == selectCategory)
-            {
-                nodeToSelect = element;
-                break;
-            }
-        }
+        DefaultMutableTreeNode nodeToSelect = findNode(selectCategory);
 
         if (nodeToSelect != null)
         {
@@ -140,17 +160,24 @@ public final class CategoryTree extends JTree
         }
     }
 
-    /**
-     * Show another list of objects in this tree.
-     * 
-     * @param categories != null
-     */
-    public void setCategories(final List categories)
+    private DefaultMutableTreeNode findNode(Category selectCategory)
     {
-        Assert.notNull(categories);
+        final DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) getModel()
+                .getRoot();
+        final Enumeration children = rootNode.breadthFirstEnumeration();
 
-        this.categories = categories;
-        refresh();
+        DefaultMutableTreeNode nodeToFind = null;
+        while (children.hasMoreElements())
+        {
+            DefaultMutableTreeNode element = (DefaultMutableTreeNode) children
+                    .nextElement();
+            if (element.getUserObject() == selectCategory)
+            {
+                nodeToFind = element;
+                break;
+            }
+        }
+        return nodeToFind;
     }
 
     private DefaultMutableTreeNode createNode(final Category cat)
@@ -165,6 +192,11 @@ public final class CategoryTree extends JTree
         }
 
         return rootNode;
+    }
+
+    private boolean hasSelection()
+    {
+        return getSelectionCount() > 0;
     }
 
     private void refresh()

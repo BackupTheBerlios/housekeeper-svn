@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.housekeeper.HousekeeperEvent;
+import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -89,7 +89,7 @@ public final class CategoryManager implements ApplicationContextAware
         }
 
         applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.CATEGORIES_MODIFIED, this));
+                HousekeeperEvent.CATEGORY_ADDED, category));
     }
 
     /**
