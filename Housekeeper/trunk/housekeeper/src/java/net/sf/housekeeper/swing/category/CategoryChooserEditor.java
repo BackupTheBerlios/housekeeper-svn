@@ -81,6 +81,7 @@ public final class CategoryChooserEditor extends AbstractCustomPropertyEditor
     protected JComponent createCustomEditor()
     {
         final JScrollPane scroll = new JScrollPane(tree);
+        tree.setVisibleRowCount(6);
         return scroll;
     }
 
