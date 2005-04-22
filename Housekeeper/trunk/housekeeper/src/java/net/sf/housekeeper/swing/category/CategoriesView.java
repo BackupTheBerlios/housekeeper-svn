@@ -153,15 +153,15 @@ public final class CategoriesView extends AbstractView implements
             final HousekeeperEvent le = (HousekeeperEvent) e;
             if (le.isEventType(HousekeeperEvent.ADDED))
             {
-                LOG.debug("Received event: " + le.toString());
+                LOG.debug("Received event: " + le.getEventType());
                 tree.addCategory((Category) e.getSource());
             } else if (le.isEventType(HousekeeperEvent.REMOVED))
             {
-                LOG.debug("Received event: " + le.toString());
+                LOG.debug("Received event: " + le.getEventType());
                 tree.removeCategory((Category) e.getSource());
             } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
             {
-                LOG.debug("Received event: " + le.toString());
+                LOG.debug("Received event: " + le.getEventType());
                 refresh();
             }
         }
