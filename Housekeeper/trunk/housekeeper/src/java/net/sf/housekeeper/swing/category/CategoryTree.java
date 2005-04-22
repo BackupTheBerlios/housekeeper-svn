@@ -72,25 +72,34 @@ public final class CategoryTree extends JTree
      */
     public void addCategory(Category category)
     {
-        DefaultMutableTreeNode parentNode;
-        if (category.isTopLevel())
+        final DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) getModel()
+                .getRoot();
+        if (rootNode.isLeaf())
         {
-            parentNode = (DefaultMutableTreeNode)getModel().getRoot();
-            
+            refresh();
         } else
         {
-            parentNode = findNode(category.getParent());
+            DefaultMutableTreeNode parentNode;
+            if (category.isTopLevel())
+            {
+                parentNode = rootNode;
+
+            } else
+            {
+                parentNode = findNode(category.getParent());
+            }
+
+            final DefaultMutableTreeNode node = createNode(category);
+            getCastedModel().insertNodeInto(node, parentNode,
+                                            parentNode.getChildCount());
         }
-        
-        final DefaultMutableTreeNode node = createNode(category);
-        getCastedModel().insertNodeInto(node, parentNode, parentNode.getChildCount());
     }
-    
+
     private DefaultTreeModel getCastedModel()
     {
-        return (DefaultTreeModel)getModel();
+        return (DefaultTreeModel) getModel();
     }
-    
+
     /**
      * Returns the selected {@link Category}.
      * 
