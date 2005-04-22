@@ -135,11 +135,10 @@ public final class CategoriesView extends AbstractView implements
         {
             source = cat;
         }
-        getApplicationContext()
-                .publishEvent(
-                              new HousekeeperEvent(
-                                      HousekeeperEvent.CATEGORY_SELECTED,
-                                      source));
+        getApplicationContext().publishEvent(
+                                             new HousekeeperEvent(
+                                                     HousekeeperEvent.SELECTED,
+                                                     source));
     }
 
     /*
@@ -152,18 +151,17 @@ public final class CategoriesView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
-            if (le.isEventType(HousekeeperEvent.CATEGORY_ADDED))
+            if (le.isEventType(HousekeeperEvent.ADDED))
             {
-                LOG.debug("Received CATEGORY_ADDED event");
-                tree.addCategory((Category)e.getSource());
-            } else if (le.isEventType(HousekeeperEvent.CATEGORY_REMOVED))
+                LOG.debug("Received event: " + le.toString());
+                tree.addCategory((Category) e.getSource());
+            } else if (le.isEventType(HousekeeperEvent.REMOVED))
             {
-                LOG.debug("Received CATEGORY_REMOVED event");
-                tree.removeCategory((Category)e.getSource());
-            }          
-            else if (le.isEventType(HousekeeperEvent.CATEGORIES_MODIFIED))
+                LOG.debug("Received event: " + le.toString());
+                tree.removeCategory((Category) e.getSource());
+            } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
             {
-                LOG.debug("Received CATEGORIES_MODIFIED event");
+                LOG.debug("Received event: " + le.toString());
                 refresh();
             }
         }

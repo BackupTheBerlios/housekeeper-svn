@@ -143,7 +143,7 @@ public final class PersistenceController implements ApplicationContextAware
         if (applicationContext != null)
         {
             applicationContext.publishEvent(new HousekeeperEvent(
-                    HousekeeperEvent.SUPPLY_MODIFIED, this));
+                    HousekeeperEvent.DATA_REPLACED, currentDomain));
         }
     }
 

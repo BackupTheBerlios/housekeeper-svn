@@ -96,7 +96,7 @@ public final class CategoryManager extends AbstractManager implements
 
         setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.CATEGORY_ADDED, category));
+                HousekeeperEvent.ADDED, category));
     }
 
     /**
@@ -151,7 +151,7 @@ public final class CategoryManager extends AbstractManager implements
 
         setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.CATEGORY_REMOVED, category));
+                HousekeeperEvent.REMOVED, category));
     }
 
     /**
@@ -168,7 +168,7 @@ public final class CategoryManager extends AbstractManager implements
         
         setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.CATEGORIES_MODIFIED, this));
+                HousekeeperEvent.DATA_REPLACED, this));
     }
 
     /*
@@ -210,7 +210,7 @@ public final class CategoryManager extends AbstractManager implements
 
         setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.CATEGORIES_MODIFIED, this));
+                HousekeeperEvent.DATA_REPLACED, this));
     }
 
     /**

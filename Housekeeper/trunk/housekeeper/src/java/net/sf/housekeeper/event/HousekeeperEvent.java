@@ -25,7 +25,9 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.util.ToStringCreator;
 
 /**
- * @author
+ * Events about domain object changes.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public class HousekeeperEvent extends ApplicationEvent
@@ -36,29 +38,22 @@ public class HousekeeperEvent extends ApplicationEvent
     /**
      * Event type if something gets selected by the user.
      */
-    public static final String CATEGORY_SELECTED   = "housekeeperEvent.selected";
-
-    /**
-     * Event type if items in supply has been changed, and all views should be
-     * refreshed.
-     */
-    public static final String SUPPLY_MODIFIED     = "houskeeperEvent.supplyModified";
+    public static final String SELECTED      = "housekeeperEvent.selected";
 
     /**
      * Event type if a category has been added.
      */
-    public static final String CATEGORY_ADDED      = "houskeeperEvent.categoryAdded";
+    public static final String ADDED         = "houskeeperEvent.added";
 
     /**
      * Event type if a category has been added.
      */
-    public static final String CATEGORY_REMOVED    = "houskeeperEvent.categoryRemoved";
+    public static final String REMOVED       = "houskeeperEvent.removed";
 
     /**
-     * Event type if something unspecified has been changed, and all views
-     * should be refreshed.
+     * Event type if data has been replaced.
      */
-    public static final String CATEGORIES_MODIFIED = "houskeeperEvent.categoriesModified";
+    public static final String DATA_REPLACED = "houskeeperEvent.modified";
 
     /**
      * Creates a new event.
