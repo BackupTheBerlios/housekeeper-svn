@@ -42,16 +42,18 @@ import org.springframework.util.Assert;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class CategoryManager implements ApplicationContextAware
+public final class CategoryManager extends AbstractManager implements
+        ApplicationContextAware
 {
-    private static final Log LOG = LogFactory.getLog(CategoryManager.class);
-    
+
+    private static final Log   LOG = LogFactory.getLog(CategoryManager.class);
+
     private ApplicationContext applicationContext;
 
     private ArrayList          categories;
-    
-    private ItemManager itemManager;
-    
+
+    private ItemManager        itemManager;
+
     /**
      * Initializes this manager with a default set of categories.
      *  
@@ -87,10 +89,12 @@ public final class CategoryManager implements ApplicationContextAware
         if (isRoot)
         {
             categories.add(category);
-        } else {
+        } else
+        {
             category.getParent().addChild(category);
         }
 
+        setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
                 HousekeeperEvent.CATEGORY_ADDED, category));
     }
@@ -116,33 +120,36 @@ public final class CategoryManager implements ApplicationContextAware
     }
 
     /**
-     * Removes a category. All items of that category are reassigned to 
-     * that category's parent to assure referential integrity.
+     * Removes a category. All items of that category are reassigned to that
+     * category's parent to assure referential integrity.
      * 
      * @param category != null
      */
     public void remove(Category category)
     {
         Assert.notNull(category);
-        
+
         LOG.debug("Removing category: " + category);
-        
+
         final Category parent = category.getParent();
-        
-        final Iterator iter = itemManager.getItemsForCategory(category).iterator();
+
+        final Iterator iter = itemManager.getItemsForCategory(category)
+                .iterator();
         while (iter.hasNext())
         {
             Item element = (Item) iter.next();
             element.setCategory(parent);
         }
-        
+
         if (parent == null)
         {
             categories.remove(category);
-        } else {
+        } else
+        {
             parent.removeChild(category);
         }
 
+        setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
                 HousekeeperEvent.CATEGORY_REMOVED, category));
     }
@@ -158,6 +165,8 @@ public final class CategoryManager implements ApplicationContextAware
 
         this.categories.clear();
         this.categories.addAll(categories);
+        
+        setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
                 HousekeeperEvent.CATEGORIES_MODIFIED, this));
     }
@@ -172,7 +181,7 @@ public final class CategoryManager implements ApplicationContextAware
     {
         this.applicationContext = arg0;
     }
-    
+
     /**
      * Sets the itemManager. Needed for assuring referential integerity when
      * deleting a category.
@@ -199,6 +208,7 @@ public final class CategoryManager implements ApplicationContextAware
             categories.add(category);
         }
 
+        setChanged();
         applicationContext.publishEvent(new HousekeeperEvent(
                 HousekeeperEvent.CATEGORIES_MODIFIED, this));
     }

@@ -32,14 +32,14 @@ import org.springframework.util.ToStringCreator;
 public final class Household
 {
 
-    private final ItemManager itemManager;
-    
+    private final ItemManager     itemManager;
+
     private final CategoryManager categoryManager;
 
     /**
      * The version to be used in the XML file.
      */
-    public final int version = 4;
+    public final int              version = 4;
 
     /**
      * Creates a new domain with no data.
@@ -52,17 +52,17 @@ public final class Household
     /**
      * Creates a new domain using an existing {@link ItemManager}.
      * 
-     * @param itemManager The manager for food objects. Must not
-     *            be null.
+     * @param itemManager The manager for food objects. Must not be null.
      * @param categoryManager The manager for categories. Must not be null.
      */
-    public Household(final ItemManager itemManager, final CategoryManager categoryManager)
+    public Household(final ItemManager itemManager,
+            final CategoryManager categoryManager)
     {
         this.itemManager = itemManager;
         this.categoryManager = categoryManager;
 
     }
-    
+
     /**
      * Returns the manager for food objects in this domain.
      * 
@@ -81,9 +81,9 @@ public final class Household
      */
     public void replaceAll(final Household domain)
     {
-        itemManager.replaceAll(domain.getItemManager()
-                .getAllItems());
-        categoryManager.replaceAll(domain.getCategoryManager().getTopLevelCategories());
+        itemManager.replaceAll(domain.getItemManager().getAllItems());
+        categoryManager.replaceAll(domain.getCategoryManager()
+                .getTopLevelCategories());
     }
 
     /**
@@ -104,7 +104,8 @@ public final class Household
      */
     public boolean hasChanged()
     {
-        final boolean hasChanged = itemManager.hasChanged();
+        final boolean hasChanged = itemManager.hasChanged()
+                || categoryManager.hasChanged();
         return hasChanged;
     }
 
@@ -115,6 +116,7 @@ public final class Household
     public void resetChangedStatus()
     {
         itemManager.resetChangedStatus();
+        categoryManager.resetChangedStatus();
     }
 
     /*

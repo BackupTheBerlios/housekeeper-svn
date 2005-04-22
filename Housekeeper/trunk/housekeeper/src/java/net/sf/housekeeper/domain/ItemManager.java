@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ItemManager
+public final class ItemManager extends AbstractManager
 {
 
     /**
@@ -46,14 +46,9 @@ public final class ItemManager
     private static final Log LOG = LogFactory.getLog(ItemManager.class);
 
     /**
-     * Flag indicating if any data has been changed.
-     */
-    private boolean          hasChanged;
-
-    /**
      * Holds a list of all managed items.
      */
-    private final ArrayList       items;
+    private final ArrayList  items;
 
     /**
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
@@ -86,9 +81,12 @@ public final class ItemManager
     public void add(final Item item)
     {
         items.add(item);
-        hasChanged = true;
+        setChanged();
 
-        LOG.debug("Added: " + item);
+        if (LOG.isDebugEnabled())
+        {
+            LOG.debug("Added: " + item);
+        }
     }
 
     /**
@@ -101,7 +99,7 @@ public final class ItemManager
     {
         final Item clonedItem = new Item(item);
         add(clonedItem);
-        hasChanged = true;
+        setChanged();
     }
 
     /**
@@ -114,7 +112,7 @@ public final class ItemManager
     {
         final ExpirableItem clonedItem = new ExpirableItem(item);
         add(clonedItem);
-        hasChanged = true;
+        setChanged();
     }
 
     /**
@@ -157,8 +155,7 @@ public final class ItemManager
         while (allItemsIter.hasNext())
         {
             final ExpirableItem item = (ExpirableItem) allItemsIter.next();
-            final boolean isOfCategory = category
-                    .contains(item.getCategory());
+            final boolean isOfCategory = category.contains(item.getCategory());
             if (isOfCategory)
             {
                 categoryItems.add(item);
@@ -176,9 +173,12 @@ public final class ItemManager
     public void remove(final Item item)
     {
         items.remove(item);
-        hasChanged = true;
+        setChanged();
 
-        LOG.debug("Removed: " + item);
+        if (LOG.isDebugEnabled())
+        {
+            LOG.debug("Removed: " + item);
+        }
     }
 
     /**
@@ -191,7 +191,7 @@ public final class ItemManager
     {
         items.clear();
         items.addAll(newItems);
-        hasChanged = true;
+        setChanged();
 
         LOG.debug("Replaced all food objects");
     }
@@ -205,29 +205,12 @@ public final class ItemManager
      */
     public void update(final Item item)
     {
-        hasChanged = true;
+        setChanged();
 
-        LOG.debug("Updated food: " + item);
-    }
-
-    /**
-     * Resets the status of the "has changed" attribute. After calling this,
-     * {@link #hasChanged()}returns false.
-     */
-    public void resetChangedStatus()
-    {
-        hasChanged = false;
-    }
-
-    /**
-     * Returns true if any data has been changed since the last call to
-     * {@link #resetChangedStatus()}.
-     * 
-     * @return True if any dat has changed, false otherwise.
-     */
-    public boolean hasChanged()
-    {
-        return hasChanged;
+        if (LOG.isDebugEnabled())
+        {
+            LOG.debug("Updated food: " + item);
+        }
     }
 
     /*
