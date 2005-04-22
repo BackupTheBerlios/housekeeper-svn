@@ -26,10 +26,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 import net.sf.housekeeper.domain.Category;
 
@@ -54,7 +54,7 @@ public final class CategoryTree extends JTree
     public CategoryTree()
     {
         getSelectionModel()
-                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                .setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
         final BeanTreeCellRenderer renderer = new BeanTreeCellRenderer(
                 Category.class, "name");
