@@ -152,16 +152,16 @@ public final class CategoriesView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
-            if (le.getEventType() == HousekeeperEvent.CATEGORY_ADDED)
+            if (le.isEventType(HousekeeperEvent.CATEGORY_ADDED))
             {
                 LOG.debug("Received CATEGORY_ADDED event");
                 tree.addCategory((Category)e.getSource());
-            } else if (le.getEventType() == HousekeeperEvent.CATEGORY_REMOVED)
+            } else if (le.isEventType(HousekeeperEvent.CATEGORY_REMOVED))
             {
                 LOG.debug("Received CATEGORY_REMOVED event");
                 tree.removeCategory((Category)e.getSource());
             }          
-            else if (le.getEventType() == HousekeeperEvent.CATEGORIES_MODIFIED)
+            else if (le.isEventType(HousekeeperEvent.CATEGORIES_MODIFIED))
             {
                 LOG.debug("Received CATEGORIES_MODIFIED event");
                 refresh();

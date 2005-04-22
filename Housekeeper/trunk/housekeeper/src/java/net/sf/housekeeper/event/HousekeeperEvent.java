@@ -24,61 +24,52 @@ package net.sf.housekeeper.event;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.ToStringCreator;
 
-
 /**
  * @author
  * @version $Revision$, $Date$
  */
 public class HousekeeperEvent extends ApplicationEvent
 {
-    
-    private final String eventType;
-    
+
+    private final String       eventType;
+
     /**
      * Event type if something gets selected by the user.
      */
-    public static final String CATEGORY_SELECTED = "housekeeperEvent.selected";
-    
+    public static final String CATEGORY_SELECTED   = "housekeeperEvent.selected";
+
     /**
-     * Event type if items in supply has been changed, and all views
-     * should be refreshed.
+     * Event type if items in supply has been changed, and all views should be
+     * refreshed.
      */
-    public static final String SUPPLY_MODIFIED = "houskeeperEvent.supplyModified";
+    public static final String SUPPLY_MODIFIED     = "houskeeperEvent.supplyModified";
 
     /**
      * Event type if a category has been added.
      */
-    public static final String CATEGORY_ADDED = "houskeeperEvent.categoryAdded";
+    public static final String CATEGORY_ADDED      = "houskeeperEvent.categoryAdded";
 
     /**
      * Event type if a category has been added.
      */
-    public static final String CATEGORY_REMOVED = "houskeeperEvent.categoryRemoved";
-    
+    public static final String CATEGORY_REMOVED    = "houskeeperEvent.categoryRemoved";
+
     /**
      * Event type if something unspecified has been changed, and all views
      * should be refreshed.
      */
     public static final String CATEGORIES_MODIFIED = "houskeeperEvent.categoriesModified";
-    
+
     /**
      * Creates a new event.
      * 
      * @param eventType The type of this event.
      * @param source The source of this event.
      */
-    public HousekeeperEvent(String eventType, Object source) {
+    public HousekeeperEvent(String eventType, Object source)
+    {
         super(source);
         this.eventType = eventType;
-    }
-
-    /**
-     * Returns the affected object.
-     * 
-     * @return The object.
-     */
-    public Object getObject() {
-        return getSource();
     }
 
     /**
@@ -87,29 +78,36 @@ public class HousekeeperEvent extends ApplicationEvent
      * @param clazz The class to test against.
      * @return True, if the class matches, false otherwise.
      */
-    public boolean objectIs(Class clazz) {
-        if (getSource().getClass().isAssignableFrom(clazz)) {
+    public boolean objectIs(Class clazz)
+    {
+        if (getSource().getClass().isAssignableFrom(clazz))
+        {
             return true;
-        }
-        else {
+        } else
+        {
             return false;
         }
     }
 
     /**
-     * Returns the event type.
+     * Returns true, if <code>type<code> is identical to this event's type.
      * 
-     * @return The event type.
+     * @param type The type to test. 
+     * @return true, if <code>type<code> is identical to this event's type.
      */
-    public String getEventType() {
-        return eventType;
+    public boolean isEventType(String type)
+    {
+        return type == eventType;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    public String toString()
+    {
         return new ToStringCreator(this).appendProperties().toString();
     }
-    
+
 }

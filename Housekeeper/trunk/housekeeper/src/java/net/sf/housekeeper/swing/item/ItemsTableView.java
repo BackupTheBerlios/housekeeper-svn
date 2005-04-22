@@ -183,12 +183,12 @@ public final class ItemsTableView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
-            if (le.getEventType() == HousekeeperEvent.CATEGORY_SELECTED)
+            if (le.isEventType(HousekeeperEvent.CATEGORY_SELECTED))
             {               
                 final Category cat;
                 if (le.getSource() instanceof Category)
                 {
-                    cat = (Category) le.getObject();
+                    cat = (Category) le.getSource();
                 } else
                 {
                     cat = null;
@@ -201,7 +201,7 @@ public final class ItemsTableView extends AbstractView implements
                         setCategory(cat);
                     }
                 });
-            } else if (le.getEventType() == HousekeeperEvent.SUPPLY_MODIFIED)
+            } else if (le.isEventType(HousekeeperEvent.SUPPLY_MODIFIED))
             {
                 SwingUtilities.invokeLater(new Runnable() {
 
