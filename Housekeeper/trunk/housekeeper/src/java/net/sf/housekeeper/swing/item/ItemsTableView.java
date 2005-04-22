@@ -36,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -135,6 +136,8 @@ public final class ItemsTableView extends AbstractView implements
 
         table.getSelectionModel()
                 .addListSelectionListener(new TableSelectionListener());
+        table.getSelectionModel()
+                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.addMouseListener(new PopupTriggerListener(createContextMenu()));
         table.addMouseListener(new DoubleClickListener());
         assignDateColumnRenderer(table, 2);
@@ -184,7 +187,7 @@ public final class ItemsTableView extends AbstractView implements
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
             if (le.isEventType(HousekeeperEvent.SELECTED))
-            {               
+            {
                 final Category cat;
                 if (le.getSource() instanceof Category)
                 {
