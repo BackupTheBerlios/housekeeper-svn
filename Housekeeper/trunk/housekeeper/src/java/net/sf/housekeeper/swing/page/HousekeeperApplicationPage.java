@@ -63,8 +63,6 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
         rootSplitPane.setOneTouchExpandable(false);
         rootSplitPane.setDividerSize(3);
 
-        getControl().add(rootSplitPane);
-
         addPageComponentListener(new PageComponentListener() {
 
             public void componentOpened(PageComponent component)
@@ -92,6 +90,8 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
 
             }
         });
+        
+        getControl().add(rootSplitPane);
     }
 
     /*
@@ -120,6 +120,7 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
 
         final SimpleInternalFrame pageControl = (SimpleInternalFrame) pageComponent
                 .getContext().getPane().getControl();
+        pageControl.setSelected(false);
         addMouseListener(pageControl, new MouseAdapter() {
 
             public void mousePressed(MouseEvent e)
