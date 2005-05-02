@@ -81,8 +81,6 @@ public final class ItemsTableView extends AbstractView implements
 
     private final EditCommandExecutor      editExecutor      = new EditCommandExecutor();
 
-    private final NewItemCommandExecutor       newItemExecutor   = new NewItemCommandExecutor();
-
     private final DuplicateCommandExecutor duplicateExecutor = new DuplicateCommandExecutor();
 
     private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
@@ -91,14 +89,6 @@ public final class ItemsTableView extends AbstractView implements
 
     private Category                       category;
 
-    /**
-     * Creates a new view showing a list of items.
-     *  
-     */
-    public ItemsTableView()
-    {
-        newItemExecutor.setEnabled(true);
-    }
 
     /*
      * (non-Javadoc)
@@ -155,7 +145,6 @@ public final class ItemsTableView extends AbstractView implements
         context.register(GlobalCommandIds.DELETE, deleteExecutor);
         context.register(GlobalCommandIds.PROPERTIES, editExecutor);
         context.register("duplicateCommand", duplicateExecutor);
-        context.register("newItemCommand", newItemExecutor);
     }
 
     /**
@@ -378,41 +367,6 @@ public final class ItemsTableView extends AbstractView implements
                 {
                     formModel.commit();
                     itemManager.update(foodObject);
-                    refresh();
-                    return true;
-                }
-            };
-            dialog.showDialog();
-        }
-    }
-
-    /**
-     * Shows a dialog for adding a new item.
-     */
-    private class NewItemCommandExecutor extends AbstractActionCommandExecutor
-    {
-
-        public void execute()
-        {
-            final ExpirableItem foodObject = new ExpirableItem();
-            foodObject.setCategory(category);
-            final FormModel formModel = SwingFormModel
-                    .createFormModel(foodObject);
-            final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
-                    formModel);
-
-            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                    form, getWindowControl()) {
-
-                protected void onAboutToShow()
-                {
-                    setEnabled(true);
-                }
-
-                protected boolean onFinish()
-                {
-                    formModel.commit();
-                    itemManager.add(foodObject);
                     refresh();
                     return true;
                 }

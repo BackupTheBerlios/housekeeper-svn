@@ -30,11 +30,25 @@
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
     <property name="members">
       <list>
-        <value>newItemCommand</value>
+        <ref local="newItemCommand"/>
         <value>duplicateCommand</value>
         <value>propertiesCommand</value>
         <value>deleteCommand</value>
       </list>
+    </property>
+  </bean>
+  
+  <bean id="newItemCommandExecutor" 
+		class="net.sf.housekeeper.swing.item.NewItemCommandExecutor">
+    <property name="itemManager">
+      <ref bean="itemManager"/>
+    </property>
+  </bean>
+
+  <bean id="newItemCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+    <property name="commandExecutor">
+      <ref local="newItemCommandExecutor"/>
     </property>
   </bean>
   
