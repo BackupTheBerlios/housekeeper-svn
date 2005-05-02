@@ -66,7 +66,7 @@ public final class CategoriesView extends AbstractView implements
 
     private CategoryTree                  tree;
 
-    private final NewCommandExecutor      newCommand      = new NewCommandExecutor();
+    private final NewCategoryCommandExecutor      newCommand      = new NewCategoryCommandExecutor();
 
     private final PropertyCommandExecutor propertyCommand = new PropertyCommandExecutor();
 
@@ -175,7 +175,7 @@ public final class CategoriesView extends AbstractView implements
      */
     protected void registerLocalCommandExecutors(PageComponentContext context)
     {
-        context.register("newCommand", newCommand);
+        context.register("newCategoryCommand", newCommand);
         context.register(GlobalCommandIds.PROPERTIES, propertyCommand);
         context.register(GlobalCommandIds.DELETE, deleteCommand);
     }
@@ -196,7 +196,7 @@ public final class CategoriesView extends AbstractView implements
         CommandGroup convCommandGroup = getWindowCommandManager()
                 .createCommandGroup(
                                     "categoryPopupCommandGroup",
-                                    new Object[] { "newCommand",
+                                    new Object[] { "newCategoryCommand",
                                             GlobalCommandIds.PROPERTIES,
                                             GlobalCommandIds.DELETE });
         return convCommandGroup.createPopupMenu();
@@ -205,7 +205,7 @@ public final class CategoriesView extends AbstractView implements
     /**
      * Shows a dialog for adding a new item.
      */
-    private class NewCommandExecutor extends AbstractActionCommandExecutor
+    private class NewCategoryCommandExecutor extends AbstractActionCommandExecutor
     {
 
         public void execute()

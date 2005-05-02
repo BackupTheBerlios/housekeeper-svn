@@ -81,7 +81,7 @@ public final class ItemsTableView extends AbstractView implements
 
     private final EditCommandExecutor      editExecutor      = new EditCommandExecutor();
 
-    private final NewCommandExecutor       newItemExecutor   = new NewCommandExecutor();
+    private final NewItemCommandExecutor       newItemExecutor   = new NewItemCommandExecutor();
 
     private final DuplicateCommandExecutor duplicateExecutor = new DuplicateCommandExecutor();
 
@@ -155,7 +155,7 @@ public final class ItemsTableView extends AbstractView implements
         context.register(GlobalCommandIds.DELETE, deleteExecutor);
         context.register(GlobalCommandIds.PROPERTIES, editExecutor);
         context.register("duplicateCommand", duplicateExecutor);
-        context.register("newCommand", newItemExecutor);
+        context.register("newItemCommand", newItemExecutor);
     }
 
     /**
@@ -227,7 +227,7 @@ public final class ItemsTableView extends AbstractView implements
         CommandGroup convCommandGroup = getWindowCommandManager()
                 .createCommandGroup(
                                     "tablePopupCommandGroup",
-                                    new Object[] { "newCommand",
+                                    new Object[] { "newItemCommand",
                                             "duplicateCommand",
                                             GlobalCommandIds.PROPERTIES,
                                             GlobalCommandIds.DELETE });
@@ -389,7 +389,7 @@ public final class ItemsTableView extends AbstractView implements
     /**
      * Shows a dialog for adding a new item.
      */
-    private class NewCommandExecutor extends AbstractActionCommandExecutor
+    private class NewItemCommandExecutor extends AbstractActionCommandExecutor
     {
 
         public void execute()
