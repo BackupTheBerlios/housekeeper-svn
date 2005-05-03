@@ -89,7 +89,6 @@ public final class ItemsTableView extends AbstractView implements
 
     private Category                       category;
 
-
     /*
      * (non-Javadoc)
      * 
@@ -175,7 +174,8 @@ public final class ItemsTableView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
-            if (le.isEventType(HousekeeperEvent.SELECTED))
+
+            if (le.isEventType(HousekeeperEvent.CATEGORY_SELECTED))
             {
                 final Category cat;
                 if (le.getSource() instanceof Category)
@@ -193,7 +193,8 @@ public final class ItemsTableView extends AbstractView implements
                         setCategory(cat);
                     }
                 });
-            } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
+            } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED)
+                    || le.getSource() instanceof ExpirableItem)
             {
                 SwingUtilities.invokeLater(new Runnable() {
 
@@ -322,7 +323,6 @@ public final class ItemsTableView extends AbstractView implements
         {
             final ExpirableItem selectedItem = getSelected();
             itemManager.remove(selectedItem);
-            refresh();
         }
     }
 
@@ -337,7 +337,6 @@ public final class ItemsTableView extends AbstractView implements
         {
             final ExpirableItem selectedItem = getSelected();
             itemManager.duplicate(selectedItem);
-            refresh();
         }
     }
 
@@ -367,7 +366,6 @@ public final class ItemsTableView extends AbstractView implements
                 {
                     formModel.commit();
                     itemManager.update(foodObject);
-                    refresh();
                     return true;
                 }
             };

@@ -37,6 +37,30 @@ import org.springframework.util.ToStringCreator;
  */
 public final class Category
 {
+    
+    private static Category selectedCategory;
+
+    /**
+     * Returns the currently selected Category. Needed as a workaround
+     * until CommandExecutors can be registered as ApplicationEvent listeners.
+     * Then, NewItemCommandExecutor can listen for selection changes itself.
+     * 
+     * @return -
+     */
+    public static Category getSelectedCategory()
+    {
+        return selectedCategory;
+    }
+    
+    /**
+     * Sets the currently selected Category.
+     * 
+     * @param selectedCategory -
+     */
+    public static void setSelectedCategory(Category selectedCategory)
+    {
+        Category.selectedCategory = selectedCategory;
+    }
 
     private LinkedHashSet children;
 
@@ -45,7 +69,7 @@ public final class Category
     private String        name;
 
     private Category      parent;
-
+    
     /**
      * Creates a new object with no name and children.
      */
@@ -78,6 +102,28 @@ public final class Category
         child.parent = this;
         children.add(child);
     }
+    
+    /**
+     * Sets the parent of this Category. The object is removed
+     * from its old parent and added as a child to its new parent.
+     * 
+     * @param newParent The new parent or null if this category should become
+     * a root category.
+     */
+    public void changeParent(Category newParent)
+    {
+        if (this.parent != newParent)
+        {
+            if (this.parent != null)
+            {
+                this.parent.removeChild(this);
+            }
+            if (newParent != null)
+            {
+                newParent.addChild(this);
+            }
+        }
+    }   
 
     /**
      * Tests if a category either equals this category or is a children of this
@@ -104,6 +150,22 @@ public final class Category
         }
 
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+
+        final Category otherCat = (Category) obj;
+        return this.id.equals(otherCat.getId());
     }
 
     /**
@@ -149,6 +211,18 @@ public final class Category
     {
         return parent;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode()
+    {
+        int hashCode = 1;
+        hashCode = 31 * hashCode + (id == null ? 0 : id.hashCode());
+        return hashCode;
+    }
     
     /**
      * Returns wheter this category is a leaf or not.
@@ -171,6 +245,19 @@ public final class Category
     }
 
     /**
+     * Removes a child.
+     * 
+     * @param child != null
+     */
+    public void removeChild(Category child)
+    {
+        Assert.notNull(child);
+        
+        children.remove(child);
+        child.parent = null;
+    }
+
+    /**
      * @param name The name to set.
      */
     public void setName(String name)
@@ -187,69 +274,6 @@ public final class Category
     public void setParent(Category newParent)
     {
         this.parent = newParent;
-    }
-    
-    /**
-     * Sets the parent of this Category. The object is removed
-     * from its old parent and added as a child to its new parent.
-     * 
-     * @param newParent The new parent or null if this category should become
-     * a root category.
-     */
-    public void changeParent(Category newParent)
-    {
-        if (this.parent != newParent)
-        {
-            if (this.parent != null)
-            {
-                this.parent.removeChild(this);
-            }
-            if (newParent != null)
-            {
-                newParent.addChild(this);
-            }
-        }
-    }   
-
-    /**
-     * Removes a child.
-     * 
-     * @param child != null
-     */
-    public void removeChild(Category child)
-    {
-        Assert.notNull(child);
-        
-        children.remove(child);
-        child.parent = null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode()
-    {
-        int hashCode = 1;
-        hashCode = 31 * hashCode + (id == null ? 0 : id.hashCode());
-        return hashCode;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-
-        final Category otherCat = (Category) obj;
-        return this.id.equals(otherCat.getId());
     }
 
     /*

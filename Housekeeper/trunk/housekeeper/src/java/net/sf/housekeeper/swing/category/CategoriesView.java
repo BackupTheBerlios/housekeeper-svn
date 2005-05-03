@@ -59,18 +59,18 @@ public final class CategoriesView extends AbstractView implements
         ApplicationListener
 {
 
-    private static final Log              LOG             = LogFactory
-                                                                  .getLog(CategoriesView.class);
+    private static final Log                 LOG             = LogFactory
+                                                                     .getLog(CategoriesView.class);
 
-    private CategoryManager               categoryManager;
+    private CategoryManager                  categoryManager;
 
-    private CategoryTree                  tree;
+    private CategoryTree                     tree;
 
-    private final NewCategoryCommandExecutor      newCommand      = new NewCategoryCommandExecutor();
+    private final NewCategoryCommandExecutor newCommand      = new NewCategoryCommandExecutor();
 
-    private final PropertyCommandExecutor propertyCommand = new PropertyCommandExecutor();
+    private final PropertyCommandExecutor    propertyCommand = new PropertyCommandExecutor();
 
-    private final DeleteCommandExecutor   deleteCommand   = new DeleteCommandExecutor();
+    private final DeleteCommandExecutor      deleteCommand   = new DeleteCommandExecutor();
 
     /**
      * Creates a new instance.
@@ -100,15 +100,7 @@ public final class CategoriesView extends AbstractView implements
     {
         tree = new CategoryTree();
 
-        tree.addTreeSelectionListener(new TreeSelectionListener() {
-
-            public void valueChanged(TreeSelectionEvent e)
-            {
-                Category cat = tree.getSelectedCategory();
-                publishSelectionEvent(cat);
-                updateActionEnablement();
-            }
-        });
+        tree.addTreeSelectionListener(new SelectionHandler());
         tree.addMouseListener(new DoubleClickListener());
         tree.addMouseListener(new PopupTriggerListener(createContextMenu()));
         refresh();
@@ -135,10 +127,11 @@ public final class CategoriesView extends AbstractView implements
         {
             source = cat;
         }
-        getApplicationContext().publishEvent(
-                                             new HousekeeperEvent(
-                                                     HousekeeperEvent.SELECTED,
-                                                     source));
+        getApplicationContext()
+                .publishEvent(
+                              new HousekeeperEvent(
+                                      HousekeeperEvent.CATEGORY_SELECTED,
+                                      source));
     }
 
     /*
@@ -151,17 +144,20 @@ public final class CategoriesView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
-            if (le.isEventType(HousekeeperEvent.ADDED))
+            LOG.debug("Received event: " + le.getEventType());
+            
+            if (le.objectIs(Category.class))
             {
-                LOG.debug("Received event: " + le.getEventType());
-                tree.addCategory((Category) e.getSource());
-            } else if (le.isEventType(HousekeeperEvent.REMOVED))
+                if (le.isEventType(HousekeeperEvent.ADDED))
+                {
+                        tree.addCategory((Category) e.getSource());
+                } else if (le.isEventType(HousekeeperEvent.REMOVED))
+                {
+                    tree.removeCategory((Category) e.getSource());
+                }
+            }
+            else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
             {
-                LOG.debug("Received event: " + le.getEventType());
-                tree.removeCategory((Category) e.getSource());
-            } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
-            {
-                LOG.debug("Received event: " + le.getEventType());
                 refresh();
             }
         }
@@ -202,10 +198,23 @@ public final class CategoriesView extends AbstractView implements
         return convCommandGroup.createPopupMenu();
     }
 
+    private final class SelectionHandler implements TreeSelectionListener
+    {
+
+        public void valueChanged(TreeSelectionEvent e)
+        {
+            Category cat = tree.getSelectedCategory();
+            Category.setSelectedCategory(cat);
+            publishSelectionEvent(cat);
+            updateActionEnablement();
+        }
+    }
+
     /**
      * Shows a dialog for adding a new item.
      */
-    private class NewCategoryCommandExecutor extends AbstractActionCommandExecutor
+    private class NewCategoryCommandExecutor extends
+            AbstractActionCommandExecutor
     {
 
         public void execute()

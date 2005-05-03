@@ -36,24 +36,29 @@ public class HousekeeperEvent extends ApplicationEvent
     private final String       eventType;
 
     /**
-     * Event type if something gets selected by the user.
+     * Event type if a category gets selected by the user.
      */
-    public static final String SELECTED      = "housekeeperEvent.SELECTED";
+    public static final String CATEGORY_SELECTED      = "housekeeperEvent.SELECTED";
 
     /**
-     * Event type if a category has been added.
+     * Event type if somehting has been added.
      */
     public static final String ADDED         = "houskeeperEvent.ADDED";
 
     /**
-     * Event type if a category has been added.
+     * Event type if something has been added.
      */
     public static final String REMOVED       = "houskeeperEvent.REMOVED";
 
     /**
+     * Event type if something has been modified.
+     */
+    public static final String MODIFIED      = "housekeeperEvent.MODIFIED";
+    
+    /**
      * Event type if data has been replaced.
      */
-    public static final String DATA_REPLACED = "houskeeperEvent.MODIFIED";
+    public static final String DATA_REPLACED = "houskeeperEvent.DATA_REPLACED";
 
     /**
      * Creates a new event.
