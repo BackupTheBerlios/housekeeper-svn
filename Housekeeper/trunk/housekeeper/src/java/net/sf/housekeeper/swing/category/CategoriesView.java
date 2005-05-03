@@ -66,20 +66,9 @@ public final class CategoriesView extends AbstractView implements
 
     private CategoryTree                     tree;
 
-    private final NewCategoryCommandExecutor newCommand      = new NewCategoryCommandExecutor();
-
     private final PropertyCommandExecutor    propertyCommand = new PropertyCommandExecutor();
 
     private final DeleteCommandExecutor      deleteCommand   = new DeleteCommandExecutor();
-
-    /**
-     * Creates a new instance.
-     *  
-     */
-    public CategoriesView()
-    {
-        newCommand.setEnabled(true);
-    }
 
     /**
      * Sets the category manager to be used.
@@ -171,7 +160,6 @@ public final class CategoriesView extends AbstractView implements
      */
     protected void registerLocalCommandExecutors(PageComponentContext context)
     {
-        context.register("newCategoryCommand", newCommand);
         context.register(GlobalCommandIds.PROPERTIES, propertyCommand);
         context.register(GlobalCommandIds.DELETE, deleteCommand);
     }
@@ -207,43 +195,6 @@ public final class CategoriesView extends AbstractView implements
             Category.setSelectedCategory(cat);
             publishSelectionEvent(cat);
             updateActionEnablement();
-        }
-    }
-
-    /**
-     * Shows a dialog for adding a new item.
-     */
-    private class NewCategoryCommandExecutor extends
-            AbstractActionCommandExecutor
-    {
-
-        public void execute()
-        {
-            final Category newCategory = new Category();
-            final Category parentCategory = tree.getSelectedCategory();
-            newCategory.setParent(parentCategory);
-
-            final FormModel formModel = SwingFormModel
-                    .createFormModel(newCategory);
-            final CategoryPropertyForm form = new CategoryPropertyForm(
-                    formModel);
-
-            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                    form, getWindowControl()) {
-
-                protected void onAboutToShow()
-                {
-                    setEnabled(true);
-                }
-
-                protected boolean onFinish()
-                {
-                    formModel.commit();
-                    categoryManager.add(newCategory);
-                    return true;
-                }
-            };
-            dialog.showDialog();
         }
     }
 
