@@ -19,7 +19,7 @@
     <property name="members">
       <list>
         <ref bean="fileMenu"/>
-        <ref bean="toolBar"/>
+        <ref bean="editMenu"/>
         <value>glue</value>
         <ref bean="helpMenu"/>
       </list>
@@ -38,24 +38,13 @@
     </property>
   </bean>
   
-  <bean id="newItemCommandExecutor" 
-		class="net.sf.housekeeper.swing.item.NewItemCommandExecutor">
-    <property name="itemManager">
-      <ref bean="itemManager"/>
-    </property>
-  </bean>
-
-  <bean id="newItemCommand" 
-		class="org.springframework.richclient.command.TargetableActionCommand">
-    <property name="commandExecutor">
-      <ref local="newItemCommandExecutor"/>
-    </property>
-  </bean>
-  
-	<bean id="fileMenu" 
-		class="org.springframework.richclient.command.CommandGroupFactoryBean">
-		<property name="members">
+  <!-- Menus -->
+  <bean id="fileMenu" 
+    class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
       <list>
+        <ref local="newMenu"/>
+        <value>separator</value>
         <bean 
           class="net.sf.housekeeper.swing.LoadCommand">
           <property name="household">
@@ -78,16 +67,53 @@
         <bean 
           class="org.springframework.richclient.command.support.ExitCommand"/>
       </list>
-		</property>
-	</bean>
+    </property>
+  </bean>
+  
+  <bean id="newMenu" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <ref local="newItemCommand"/>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="editMenu" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <value>duplicateCommand</value>
+        <value>propertiesCommand</value>
+        <value>deleteCommand</value>
+      </list>
+    </property>
+  </bean>
   
   <bean id="helpMenu" 
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
-		<property name="members">
-			<list>
-				<ref bean="aboutCommand"/>
-			</list>
-		</property>
+    <property name="members">
+      <list>
+        <ref bean="aboutCommand"/>
+      </list>
+    </property>
+  </bean>
+  
+  
+  <!-- Commands -->
+  
+  <bean id="newItemCommandExecutor" 
+		class="net.sf.housekeeper.swing.item.NewItemCommandExecutor">
+    <property name="itemManager">
+      <ref bean="itemManager"/>
+    </property>
+  </bean>
+
+  <bean id="newItemCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+    <property name="commandExecutor">
+      <ref local="newItemCommandExecutor"/>
+    </property>
   </bean>
   
   <bean id="aboutCommand" 
