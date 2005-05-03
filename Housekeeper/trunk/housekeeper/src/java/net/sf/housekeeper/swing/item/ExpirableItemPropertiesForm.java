@@ -51,7 +51,7 @@ public final class ExpirableItemPropertiesForm extends AbstractForm
      */
     public ExpirableItemPropertiesForm(final FormModel formModel)
     {
-        super(formModel, "foodPropertiesForm");
+        super(formModel, "itemPropertiesForm");
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
         final String formatPattern = dateFormat.toPattern();
