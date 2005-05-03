@@ -29,7 +29,7 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.SwingFormModel;
-
+import org.springframework.util.Assert;
 
 /**
  * Shows a dialog for adding a {@link net.sf.housekeeper.domain.Category}.
@@ -37,28 +37,37 @@ import org.springframework.richclient.forms.SwingFormModel;
 public final class NewCategoryCommandExecutor extends
         AbstractActionCommandExecutor
 {
-    
+
     private CategoryManager categoryManager;
 
+    /**
+     * Creates a new executor which is always enabled.
+     *  
+     */
     public NewCategoryCommandExecutor()
     {
         setEnabled(true);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.richclient.command.ActionCommandExecutor#execute()
+     */
     public void execute()
     {
+        Assert.notNull(categoryManager);
+
         final Category newCategory = new Category();
         final Category parentCategory = Category.getSelectedCategory();
         newCategory.setParent(parentCategory);
 
-        final FormModel formModel = SwingFormModel
-                .createFormModel(newCategory);
-        final CategoryPropertyForm form = new CategoryPropertyForm(
-                formModel);
+        final FormModel formModel = SwingFormModel.createFormModel(newCategory);
+        final CategoryPropertyForm form = new CategoryPropertyForm(formModel);
 
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-dialogPage) {
+                dialogPage) {
 
             protected void onAboutToShow()
             {
@@ -74,10 +83,16 @@ dialogPage) {
         };
         dialog.showDialog();
     }
-    
-    
+
+    /**
+     * Sets the {@link CategoryManager}for adding newly created categories.
+     * 
+     * @param categoryManager != null
+     */
     public void setCategoryManager(CategoryManager categoryManager)
     {
+        Assert.notNull(categoryManager);
+
         this.categoryManager = categoryManager;
     }
 }
