@@ -37,13 +37,13 @@ import org.springframework.util.ToStringCreator;
  */
 public final class Category
 {
-    
+
     private static Category selectedCategory;
 
     /**
-     * Returns the currently selected Category. Needed as a workaround
-     * until CommandExecutors can be registered as ApplicationEvent listeners.
-     * Then, NewItemCommandExecutor can listen for selection changes itself.
+     * Returns the currently selected Category. Needed as a workaround until
+     * CommandExecutors can be registered as ApplicationEvent listeners. Then,
+     * NewItemCommandExecutor can listen for selection changes itself.
      * 
      * @return -
      */
@@ -51,7 +51,7 @@ public final class Category
     {
         return selectedCategory;
     }
-    
+
     /**
      * Sets the currently selected Category.
      * 
@@ -69,7 +69,7 @@ public final class Category
     private String        name;
 
     private Category      parent;
-    
+
     /**
      * Creates a new object with no name and children.
      */
@@ -102,13 +102,13 @@ public final class Category
         child.parent = this;
         children.add(child);
     }
-    
+
     /**
-     * Sets the parent of this Category. The object is removed
-     * from its old parent and added as a child to its new parent.
+     * Sets the parent of this Category. The object is removed from its old
+     * parent and added as a child to its new parent.
      * 
-     * @param newParent The new parent or null if this category should become
-     * a root category.
+     * @param newParent The new parent or null if this category should become a
+     *            root category.
      */
     public void changeParent(Category newParent)
     {
@@ -123,7 +123,7 @@ public final class Category
                 newParent.addChild(this);
             }
         }
-    }   
+    }
 
     /**
      * Tests if a category either equals this category or is a children of this
@@ -223,7 +223,7 @@ public final class Category
         hashCode = 31 * hashCode + (id == null ? 0 : id.hashCode());
         return hashCode;
     }
-    
+
     /**
      * Returns wheter this category is a leaf or not.
      * 
@@ -233,7 +233,7 @@ public final class Category
     {
         return children.isEmpty();
     }
-    
+
     /**
      * Returns wheter this category is at top level or not.
      * 
@@ -252,7 +252,7 @@ public final class Category
     public void removeChild(Category child)
     {
         Assert.notNull(child);
-        
+
         children.remove(child);
         child.parent = null;
     }
@@ -268,11 +268,15 @@ public final class Category
     /**
      * Sets the parent of this Category.
      * 
-     * @param newParent The new parent or null if this category should become
-     * a root category.
+     * @param newParent The new parent or null if this category should become a
+     *            root category.
      */
     public void setParent(Category newParent)
     {
+        Assert
+                .isTrue(newParent != this,
+                        "A category cannot be its own parent!");
+
         changeParent(newParent);
     }
 

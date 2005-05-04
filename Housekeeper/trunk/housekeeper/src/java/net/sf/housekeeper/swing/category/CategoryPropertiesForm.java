@@ -33,7 +33,7 @@ import org.springframework.richclient.forms.AbstractForm;
  * @author
  * @version $Revision$, $Date$
  */
-public class CategoryPropertyForm extends AbstractForm
+public class CategoryPropertiesForm extends AbstractForm
 {
 
     /**
@@ -41,9 +41,9 @@ public class CategoryPropertyForm extends AbstractForm
      * 
      * @param formModel The model to use. Must not be null.
      */
-    public CategoryPropertyForm(final FormModel formModel)
+    public CategoryPropertiesForm(final FormModel formModel)
     {
-        super(formModel, "categoryPropertyForm");
+        super(formModel, "categoryPropertiesForm");
 
         final CategoryManager catMan = (CategoryManager) getApplicationContext()
                 .getBean("categoryManager");

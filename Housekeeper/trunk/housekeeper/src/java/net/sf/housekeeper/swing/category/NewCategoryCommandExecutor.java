@@ -63,7 +63,7 @@ public final class NewCategoryCommandExecutor extends
         newCategory.setParent(parentCategory);
 
         final FormModel formModel = SwingFormModel.createFormModel(newCategory);
-        final CategoryPropertyForm form = new CategoryPropertyForm(formModel);
+        final CategoryPropertiesForm form = new CategoryPropertiesForm(formModel);
 
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(

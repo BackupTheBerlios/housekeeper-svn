@@ -211,7 +211,7 @@ public final class CategoriesView extends AbstractView implements
 
             final FormModel formModel = SwingFormModel
                     .createFormModel(newCategory);
-            final CategoryPropertyForm form = new CategoryPropertyForm(
+            final CategoryPropertiesForm form = new CategoryPropertiesForm(
                     formModel);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
