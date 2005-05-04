@@ -30,8 +30,8 @@
 		class="org.springframework.richclient.command.CommandGroupFactoryBean">
     <property name="members">
       <list>
-        <ref local="newItemCommand"/>
         <ref local="newCategoryCommand"/>
+        <ref local="newItemCommand"/>
         <value>separator</value>
         <value>duplicateCommand</value>
         <value>propertiesCommand</value>
