@@ -235,6 +235,25 @@ public final class Category
     }
 
     /**
+     * Tests if a given category is a child of this category.
+     * 
+     * @param probableChild The category to test if it is a child.
+     * @return True, if it is a child. False otherwise.
+     */
+    public boolean isChild(Category probableChild)
+    {
+        final Iterator iter = getChildrenIterator();
+        while (iter.hasNext())
+        {
+            if (iter.next() == probableChild)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns wheter this category is at top level or not.
      * 
      * @return True, if this category has no parent. False otherwise.
@@ -276,6 +295,9 @@ public final class Category
         Assert
                 .isTrue(newParent != this,
                         "A category cannot be its own parent!");
+        Assert
+                .isTrue(!isChild(newParent),
+                        "Currently, a category's parent cannot be set to one of its current children");
 
         changeParent(newParent);
     }

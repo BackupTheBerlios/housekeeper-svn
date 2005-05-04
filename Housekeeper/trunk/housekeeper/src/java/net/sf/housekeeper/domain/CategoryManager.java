@@ -202,10 +202,13 @@ public final class CategoryManager extends AbstractManager implements
     {
         Assert.notNull(category);
 
-        cleanupRootCategories();
+        //cleanupRootCategories();
         if (category.getParent() == null && !categories.contains(category))
         {
             categories.add(category);
+        } else if (category.getParent() != null && categories.contains(category))
+        {
+            categories.remove(category);
         }
 
         setChanged();
@@ -213,20 +216,4 @@ public final class CategoryManager extends AbstractManager implements
                 HousekeeperEvent.DATA_REPLACED, this));
     }
 
-    /**
-     * Removes all categories whose parent is not null from the list of root
-     * categories.
-     */
-    private void cleanupRootCategories()
-    {
-        final Iterator iter = categories.iterator();
-        while (iter.hasNext())
-        {
-            Category element = (Category) iter.next();
-            if (element.getParent() != null)
-            {
-                categories.remove(element);
-            }
-        }
-    }
 }
