@@ -273,7 +273,7 @@ public final class Category
      */
     public void setParent(Category newParent)
     {
-        this.parent = newParent;
+        changeParent(newParent);
     }
 
     /*
