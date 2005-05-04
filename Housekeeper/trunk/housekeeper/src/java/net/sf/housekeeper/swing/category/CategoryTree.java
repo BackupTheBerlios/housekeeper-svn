@@ -44,15 +44,29 @@ import org.springframework.util.Assert;
  */
 public final class CategoryTree extends JTree
 {
-
+    private final String rootNodeTitle;
+    
     private List categories;
 
     /**
-     * Creates an empty tree.
+     * Creates an empty tree. The root node has a default label.
      *  
      */
     public CategoryTree()
     {
+        this("------");
+
+    }
+    
+    /**
+     * Creates an empty tree.
+     * 
+     * @param rootNodeTitle The title for the root node.
+     */
+    public CategoryTree(final String rootNodeTitle)
+    {
+        this.rootNodeTitle = rootNodeTitle;
+        
         getSelectionModel()
                 .setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
@@ -62,6 +76,8 @@ public final class CategoryTree extends JTree
         renderer.setClosedIcon(null);
         renderer.setLeafIcon(null);
         setCellRenderer(renderer);
+
+        final boolean showRootNode = rootNodeTitle != null;
         setRootVisible(true);
     }
 
@@ -211,7 +227,7 @@ public final class CategoryTree extends JTree
     private void refresh()
     {
         final DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(
-                "All Categories");
+                rootNodeTitle);
 
         final Iterator iter = categories.iterator();
         while (iter.hasNext())

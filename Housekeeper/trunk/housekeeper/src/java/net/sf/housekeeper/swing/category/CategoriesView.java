@@ -87,7 +87,8 @@ public final class CategoriesView extends AbstractView implements
      */
     protected JComponent createControl()
     {
-        tree = new CategoryTree();
+        final String rootNodeTitle = getMessage("category.allCategories");
+        tree = new CategoryTree(rootNodeTitle);
 
         tree.addTreeSelectionListener(new SelectionHandler());
         tree.addMouseListener(new DoubleClickListener());
