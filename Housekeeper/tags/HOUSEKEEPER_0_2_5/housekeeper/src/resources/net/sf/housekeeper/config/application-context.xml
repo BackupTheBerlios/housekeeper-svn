@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+  <!-- Spring configuration beans -->
+  
+	<bean id="application" 
+		class="org.springframework.richclient.application.Application">
+    <constructor-arg index="0">
+			<ref bean="applicationDescriptor"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="lifecycleAdvisor"/>
+		</constructor-arg>
+	</bean>
+	  
+  <bean id="lifecycleAdvisor" 
+    class="net.sf.housekeeper.HousekeeperLifecycleAdvisor">
+    <property name="windowCommandBarDefinitions">
+			<value>net/sf/housekeeper/config/commands-context.xml</value>
+		</property>
+    <property name="startingPageId">
+      <value>initialPageLayout</value>
+    </property>
+  </bean>
+  
+  <bean id="applicationDescriptor" 
+		class="org.springframework.richclient.application.ApplicationDescriptor">
+		<property name="version">
+			<value>0.2.5</value>
+		</property>
+	</bean>
+  
+  <bean id="applicationObjectConfigurer"
+		class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
+		<constructor-arg index="0">
+			<ref bean="messageSource"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="imageSource"/>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<ref bean="iconSource"/>
+		</constructor-arg>
+	</bean>
+
+  <bean id="applicationEventMulticaster" 
+		class="org.springframework.context.event.SimpleApplicationEventMulticaster"/>
+
+  <bean id="componentFactory" 
+		class="org.springframework.richclient.factory.DefaultComponentFactory">
+		<property name="iconSource">
+			<ref bean="iconSource"/>
+		</property>
+		<property name="messageSource">
+			<ref bean="messageSource"/>
+		</property>
+	</bean>
+
+  <bean id="lookAndFeelConfigurer" 
+    class="net.sf.housekeeper.util.PlatformAwareUIConfigurer">
+    <property name="theme">
+			<bean class="com.jgoodies.looks.plastic.theme.ExperienceBlue"/>
+		</property>
+  </bean>
+
+  <bean id="messageSource" 
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+        <value>net.sf.housekeeper.translations</value>
+				<value>org.springframework.richclient.application.messages</value>
+			</list>
+		</property>
+	</bean>
+    
+  <bean id="imageResourcesFactory" 
+		class="org.springframework.context.support.ResourceMapFactoryBean">
+		<property name="locations">
+      <list>
+        <value> 
+          classpath:org/springframework/richclient/image/images.properties</value>
+        <value> classpath:net/sf/housekeeper/config/images.properties</value>
+      </list>
+		</property>
+		<property name="resourceBasePath">
+			<value>images/</value>
+		</property>
+	</bean>
+  
+  <bean id="imageSource" 
+		class="org.springframework.richclient.image.DefaultImageSource">
+		<constructor-arg index="0">
+			<ref bean="imageResourcesFactory"/>
+		</constructor-arg>
+		<property name="brokenImageIndicator">
+			<value>images/alert/error_obj.gif</value>
+		</property>
+	</bean>
+  
+  <bean id="iconSource" 
+		class="org.springframework.richclient.image.DefaultIconSource">
+		<constructor-arg index="0">
+			<ref bean="imageSource"/>
+		</constructor-arg>
+	</bean>
+  
+
+  <bean id="initialPageLayout" class="net.sf.housekeeper.swing.page.MultipleViewsPageDescriptor"> 
+    <property name="id"><value>initialPageLayout</value></property> 
+    <property name="views"> 
+      <list>
+        <ref bean="supplyView"/>
+        <ref bean="categoryView"/>
+      </list> 
+    </property> 
+  </bean> 
+  
+  <bean id="applicationWindowPrototype"
+    class="net.sf.housekeeper.swing.page.HousekeeperApplicationWindow"
+    singleton="false"/> 
+
+</beans>

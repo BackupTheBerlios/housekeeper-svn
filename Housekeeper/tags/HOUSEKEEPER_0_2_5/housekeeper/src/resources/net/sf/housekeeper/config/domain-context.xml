@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="supplyView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+		<property name="viewClass">
+			<value>net.sf.housekeeper.swing.item.ItemsTableView</value>
+		</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="itemManager">
+          <ref local="itemManager"/>
+        </entry>
+      </map>
+		</property>
+	</bean>
+  
+  <bean id="categoryView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+		<property name="viewClass">
+			<value>net.sf.housekeeper.swing.category.CategoriesView</value>
+		</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="categoryManager">
+          <ref local="categoryManager"/>
+        </entry>
+      </map>
+		</property>
+	</bean>
+    
+  <bean id="household"
+		class="net.sf.housekeeper.domain.Household">
+    <constructor-arg><ref local="itemManager"/></constructor-arg>
+    <constructor-arg><ref local="categoryManager"/></constructor-arg>
+	</bean>
+  
+  <bean id="categoryManager"
+		class="net.sf.housekeeper.domain.CategoryManager">
+    <property name="itemManager">
+      <ref local="itemManager"/>
+		</property>
+	</bean>
+  
+  <bean id="itemManager"
+		class="net.sf.housekeeper.domain.ItemManager">
+	</bean>
+  
+  <bean id="persistenceController"
+		class="net.sf.housekeeper.persistence.PersistenceController">
+	</bean>
+
+</beans>
