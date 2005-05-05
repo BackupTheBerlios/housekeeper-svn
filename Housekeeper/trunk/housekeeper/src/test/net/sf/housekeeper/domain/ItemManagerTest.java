@@ -4,22 +4,39 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.easymock.MockControl;
+import org.springframework.context.ApplicationContext;
+
 import junit.framework.TestCase;
 
 /**
+ * Tests {@link net.sf.housekeeper.domain.ItemManager}.
+ * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public class ItemManagerTest extends TestCase
 {
 
+    private ItemManager manager;
+    private MockControl control;
+    private ApplicationContext mock;
+    
+    
+    protected void setUp() throws Exception
+    {
+        control = MockControl.createNiceControl(ApplicationContext.class);
+        mock = (ApplicationContext) control.getMock();
+        manager = new ItemManager();
+        manager.setApplicationContext(mock);
+    }
+    
     /**
      * Tests if an added item is contained in the list.
      *
      */
     public void testAdd()
     {
-        final ItemManager manager = new ItemManager();
         final ExpirableItem item = new ExpirableItem();
         manager.add(item);
         final boolean isItemInList = manager.getAllItems().contains(item);
@@ -32,7 +49,6 @@ public class ItemManagerTest extends TestCase
      */
     public void testGetSupplyList()
     {
-        final ItemManager manager = new ItemManager();
         final List supply = manager.getAllItems();
         assertNotNull("getSupplyList() returns null", supply);
     }
@@ -43,7 +59,6 @@ public class ItemManagerTest extends TestCase
      */
     public void testReplaceAll()
     {
-        final ItemManager manager = new ItemManager();
         final ExpirableItem oldItem = new ExpirableItem();
         manager.add(oldItem);
 
@@ -65,7 +80,6 @@ public class ItemManagerTest extends TestCase
      */
     public void testRemove()
     {
-        final ItemManager manager = new ItemManager();
         final ExpirableItem item = new ExpirableItem();
         manager.add(item);
         manager.remove(item);
