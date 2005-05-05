@@ -7,7 +7,7 @@
       <category>2af081:1031960a7c0:-7ffc</category>
     </expirableItem>
     <expirableItem>
-      <name>Pizza 4 formaggi</name>
+      <name>Pizza quattro formaggi</name>
       <category>2af081:1031960a7c0:-7ffc</category>
       <expiry>2005-01-18T23:00:00</expiry>
     </expirableItem>
@@ -22,7 +22,7 @@
       <expiry>2005-02-07T23:00:00</expiry>
     </expirableItem>
     <expirableItem>
-      <name>Milch</name>
+      <name>Milk</name>
       <category>2af081:1031960a7c0:-7ffb</category>
       <expiry>2005-01-21T23:00:00</expiry>
     </expirableItem>
@@ -36,18 +36,33 @@
       <category>2af081:1031960a7c0:-7ffc</category>
       <expiry>2005-01-21T23:00:00</expiry>
     </expirableItem>
+    <expirableItem>
+      <name>Bexin</name>
+      <description>Remedy for cough</description>
+      <category>f892a4:103ac2d7dcd:-7ff4</category>
+      <expiry>2006-05-30T22:00:00</expiry>
+    </expirableItem>
+    <expirableItem>
+      <name>Dafalgan</name>
+      <description>Remedy for pain and fever</description>
+      <category>f892a4:103ac2d7dcd:-7ff4</category>
+      <expiry>2005-08-30T22:00:00</expiry>
+    </expirableItem>
   </supply>
   <categories>
     <category id="2af081:1031960a7c0:-7ffd">
-      <name>Lebensmittel</name>
+      <name>Food</name>
       <category id="2af081:1031960a7c0:-7ffc">
-        <name>Fertiggerichte</name>
+        <name>Convenience foods</name>
         <parent>2af081:1031960a7c0:-7ffd</parent>
       </category>
       <category id="2af081:1031960a7c0:-7ffb">
-        <name>Sonstige Nahrungsmittel</name>
+        <name>Misc</name>
         <parent>2af081:1031960a7c0:-7ffd</parent>
       </category>
+    </category>
+    <category id="f892a4:103ac2d7dcd:-7ff4">
+      <name>Medicaments</name>
     </category>
   </categories>
 </household>
