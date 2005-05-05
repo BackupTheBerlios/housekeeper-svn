@@ -33,8 +33,12 @@
     <section 
         name="Automatic download and installation with Webstart">
        <p>The 
-        preferred way to install Housekeeper is using <a 
+        easiest way to install Housekeeper is using <a 
         href="http://java.sun.com/j2se/1.5.0/docs/guide/javaws/developersguide/faq.html">Webstart</a>. 
+        <p> <a 
+        href="http://ftp.berlios.de/pub/housekeeper/webstart/housekeeper.jnlp"> 
+        Download and install Housekeeper with Webstart now!</a> </p>
+        <p>
         Benefits are:
          <ul>
           <li>Automatic download and installation.</li>
@@ -47,9 +51,6 @@
           <li>No separate download. Webstart is included in the JRE.</li>
           </ul>
           </p>
-        <p> <a 
-        href="http://ftp.berlios.de/pub/housekeeper/webstart/housekeeper.jnlp"> 
-        Download and install Housekeeper with Webstart now!</a> </p>
       </section> 
       
       <section name="Manual download and installation"> <p>If you don't want 
