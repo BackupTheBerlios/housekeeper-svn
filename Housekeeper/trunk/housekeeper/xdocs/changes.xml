@@ -3,6 +3,11 @@
         <title>Change history</title>
     </properties>
     <body>
+      <release version="0.2.5" date="2005-05-05">
+        <action dev="notizklotz" type="add">User defined categories.</action>
+        <action dev="notizklotz" type="add" issue="3522">Allow specification of
+          data file with command line parameter.</action>
+      </release>
       <release version="0.2.4" date="2005-04-07">
         <action dev="notizklotz" type="update" issue="3522">Use platform 
           specific Look&amp;Feel.</action>

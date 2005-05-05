@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.2.5-SNAPSHOT</currentVersion>
+  <currentVersion>0.2.5</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -29,15 +29,16 @@
   <package>net.sf.housekeeper</package>
   
   <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
-  <description>This project's goal is to provide an application for managing 
-        all your household issues. Currently, it is able to keep a list of food 
-        which is on hand. You can specify expiry dates and sort your food after 
+  <description>An application wich supports the management of a household.
+        Currently, it helps keeping track of which items you have on hand (like
+        food or medicaments).
+        You can specify expiry dates and sort your items after 
         them so you always have an overview of what is going to seed soon.
   </description>
   
   <!-- a short description of what the project does -->
   <shortDescription>
-    A tracker application for food.
+    Household management.
   </shortDescription>
 
   <!-- the project home page -->
@@ -59,6 +60,11 @@
   </repository>
   
   <versions>
+    <version>
+        <id>0.2.5</id>
+        <name>0.2.5</name>
+        <tag>HOUSEKEEPER_0_2_5</tag>
+    </version>
     <version>
         <id>0.2.4</id>
         <name>0.2.4</name>
