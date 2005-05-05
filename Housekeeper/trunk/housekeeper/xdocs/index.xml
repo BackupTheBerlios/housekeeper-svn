@@ -5,7 +5,7 @@
   </properties>
   <body>
     <section name="About Housekeeper">
-      <p>Housekeeper is an application wich supports the management of a household.
+      <p>Housekeeper is an application which supports the management of a household.
         Currently, it helps keeping track of which items you have on hand (like
         food or medicaments).
         You can specify expiry dates and sort your items after 

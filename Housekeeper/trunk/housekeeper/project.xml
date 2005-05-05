@@ -29,7 +29,7 @@
   <package>net.sf.housekeeper</package>
   
   <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
-  <description>An application wich supports the management of a household.
+  <description>Housekeeper is an application which supports the management of a household.
         Currently, it helps keeping track of which items you have on hand (like
         food or medicaments).
         You can specify expiry dates and sort your items after 
