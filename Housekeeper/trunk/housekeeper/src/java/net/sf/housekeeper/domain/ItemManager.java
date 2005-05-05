@@ -31,9 +31,6 @@ import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 /**
  * Holds a list of items and provides operations to add, delete and change an
@@ -42,21 +39,18 @@ import org.springframework.context.ApplicationContextAware;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ItemManager extends AbstractManager implements
-        ApplicationContextAware
+public final class ItemManager extends AbstractManager
 {
 
     /**
      * Log to be used for this class.
      */
-    private static final Log   LOG = LogFactory.getLog(ItemManager.class);
+    private static final Log LOG = LogFactory.getLog(ItemManager.class);
 
     /**
      * Holds a list of all managed items.
      */
-    private final ArrayList    items;
-
-    private ApplicationContext applicationContext;
+    private final ArrayList  items;
 
     /**
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
@@ -96,8 +90,7 @@ public final class ItemManager extends AbstractManager implements
             LOG.debug("Added: " + item);
         }
 
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.ADDED, item));
+        publishHousekeeperEvent(HousekeeperEvent.ADDED, item);
     }
 
     /**
@@ -189,8 +182,7 @@ public final class ItemManager extends AbstractManager implements
             LOG.debug("Removed: " + item);
         }
 
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.REMOVED, item));
+        publishHousekeeperEvent(HousekeeperEvent.REMOVED, item);
     }
 
     /**
@@ -207,8 +199,7 @@ public final class ItemManager extends AbstractManager implements
 
         LOG.debug("Replaced all food objects");
 
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.DATA_REPLACED, this));
+        publishHousekeeperEvent(HousekeeperEvent.DATA_REPLACED, this);
     }
 
     /**
@@ -227,8 +218,7 @@ public final class ItemManager extends AbstractManager implements
             LOG.debug("Updated food: " + item);
         }
 
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.MODIFIED, item));
+        publishHousekeeperEvent(HousekeeperEvent.MODIFIED, item);
     }
 
     /*
@@ -267,15 +257,4 @@ public final class ItemManager extends AbstractManager implements
         return hashCode;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
-     */
-    public void setApplicationContext(ApplicationContext arg0)
-            throws BeansException
-    {
-        this.applicationContext = arg0;
-
-    }
 }

@@ -21,6 +21,12 @@
 
 package net.sf.housekeeper.domain;
 
+import net.sf.housekeeper.event.HousekeeperEvent;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.util.Assert;
 
 /**
  * Supertype for all managers.
@@ -28,13 +34,17 @@ package net.sf.housekeeper.domain;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-abstract class AbstractManager
+abstract class AbstractManager implements ApplicationContextAware
 {
+
+    private static final String APP_CONTEXT_NOT_SET = "The applicationContext must be set before this method can be called.";
 
     /**
      * Flag indicating if any data has been changed.
      */
-    private boolean hasChanged;
+    private boolean             hasChanged;
+
+    private ApplicationContext  applicationContext;
 
     /**
      * Resets the status of the "has changed" attribute. After calling this,
@@ -55,13 +65,41 @@ abstract class AbstractManager
     {
         return hasChanged;
     }
-    
+
     /**
      * Set this manager to "has changed".
      */
     protected void setChanged()
     {
         hasChanged = true;
+    }
+
+    /**
+     * Creates and publishes a new {@link HousekeeperEvent}. The
+     * applicationContrext must be set before this method can be called.
+     * 
+     * @param eventType The type of the event. != null
+     * @param source The source fo the event. != null
+     */
+    protected void publishHousekeeperEvent(String eventType, Object source)
+    {
+        Assert.notNull(eventType);
+        Assert.notNull(source);
+        Assert.notNull(applicationContext, APP_CONTEXT_NOT_SET);
+
+        applicationContext
+                .publishEvent(new HousekeeperEvent(eventType, source));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
+    public final void setApplicationContext(ApplicationContext arg0)
+            throws BeansException
+    {
+        this.applicationContext = arg0;
     }
 
 }

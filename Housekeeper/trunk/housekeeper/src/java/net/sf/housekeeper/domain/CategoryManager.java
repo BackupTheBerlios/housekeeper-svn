@@ -30,9 +30,6 @@ import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.richclient.application.Application;
 import org.springframework.util.Assert;
 
@@ -42,17 +39,14 @@ import org.springframework.util.Assert;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class CategoryManager extends AbstractManager implements
-        ApplicationContextAware
+public final class CategoryManager extends AbstractManager
 {
 
-    private static final Log   LOG = LogFactory.getLog(CategoryManager.class);
+    private static final Log LOG = LogFactory.getLog(CategoryManager.class);
 
-    private ApplicationContext applicationContext;
+    private ArrayList        categories;
 
-    private ArrayList          categories;
-
-    private ItemManager        itemManager;
+    private ItemManager      itemManager;
 
     /**
      * Initializes this manager with a default set of categories.
@@ -95,8 +89,7 @@ public final class CategoryManager extends AbstractManager implements
         }
 
         setChanged();
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.ADDED, category));
+        publishHousekeeperEvent(HousekeeperEvent.ADDED, category);
     }
 
     /**
@@ -150,8 +143,7 @@ public final class CategoryManager extends AbstractManager implements
         }
 
         setChanged();
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.REMOVED, category));
+        publishHousekeeperEvent(HousekeeperEvent.REMOVED, category);
     }
 
     /**
@@ -165,21 +157,9 @@ public final class CategoryManager extends AbstractManager implements
 
         this.categories.clear();
         this.categories.addAll(categories);
-        
-        setChanged();
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.DATA_REPLACED, this));
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
-     */
-    public void setApplicationContext(ApplicationContext arg0)
-            throws BeansException
-    {
-        this.applicationContext = arg0;
+        setChanged();
+        publishHousekeeperEvent(HousekeeperEvent.DATA_REPLACED, this);
     }
 
     /**
@@ -206,14 +186,14 @@ public final class CategoryManager extends AbstractManager implements
         if (category.getParent() == null && !categories.contains(category))
         {
             categories.add(category);
-        } else if (category.getParent() != null && categories.contains(category))
+        } else if (category.getParent() != null
+                && categories.contains(category))
         {
             categories.remove(category);
         }
 
         setChanged();
-        applicationContext.publishEvent(new HousekeeperEvent(
-                HousekeeperEvent.DATA_REPLACED, this));
+        publishHousekeeperEvent(HousekeeperEvent.DATA_REPLACED, this);
     }
 
 }
