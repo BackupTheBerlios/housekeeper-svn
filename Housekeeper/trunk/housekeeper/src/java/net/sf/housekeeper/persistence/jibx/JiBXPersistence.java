@@ -64,7 +64,7 @@ public final class JiBXPersistence implements PersistenceService
         } catch (JiBXException e)
         {
             LogFactory.getLog(getClass()).error("Error while JiBIxing", e);
-            throw new IOException(e.getLocalizedMessage());
+            throw new IllegalArgumentException(e.getLocalizedMessage());
         }
     }
 

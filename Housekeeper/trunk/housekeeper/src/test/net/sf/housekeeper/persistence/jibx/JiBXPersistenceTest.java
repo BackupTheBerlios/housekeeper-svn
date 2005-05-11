@@ -25,9 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
-import net.sf.housekeeper.persistence.jibx.JiBXPersistence;
 import net.sf.housekeeper.testutils.DataGenerator;
 
 import org.custommonkey.xmlunit.XMLTestCase;
@@ -54,16 +52,15 @@ public final class JiBXPersistenceTest extends XMLTestCase
         persistence = new JiBXPersistence();
     }
 
-    /**
+    /*
      * Loads an XML file which contains data in the current file format version
      * and resaves it to another file. Then both XML files are compared for
      * equality.
      * 
      * @throws Exception if any error occurs.
-     */
+     *
     public void testLoadSaveXML() throws Exception
     {
-        /*
         //Read data from resources and parse it
         final InputStream dataStream = getClass()
                 .getResourceAsStream(DataGenerator.VERSION3_DATA);
@@ -86,8 +83,7 @@ public final class JiBXPersistenceTest extends XMLTestCase
 
         originalReader.close();
         savedReader.close();
-        */
-    }
+    }*/
 
     /**
      * Tests if an {@link IllegalArgumentException}is thrown if it is tried to
@@ -105,7 +101,7 @@ public final class JiBXPersistenceTest extends XMLTestCase
 
         try
         {
-            final Household household = persistence.loadData(dataStream);
+            persistence.loadData(dataStream);
         } catch (IllegalArgumentException e)
         {
             //Expected behaviour
