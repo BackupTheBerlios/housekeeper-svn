@@ -30,7 +30,6 @@ import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.richclient.application.Application;
 import org.springframework.util.Assert;
 
 /**
@@ -54,19 +53,7 @@ public final class CategoryManager extends AbstractManager
      */
     public CategoryManager()
     {
-        categories = new ArrayList(1);
-
-        final String categoryName = Application.services().getMessages()
-                .getMessage("domain.food");
-        final String convName = Application.services().getMessages()
-                .getMessage("domain.food.convenienceFoods");
-        final String miscName = Application.services().getMessages()
-                .getMessage("domain.food.misc");
-
-        final Category rootCategory = new Category(categoryName);
-        rootCategory.addChild(new Category(convName));
-        rootCategory.addChild(new Category(miscName));
-        categories.add(rootCategory);
+        categories = new ArrayList();
     }
 
     /**
