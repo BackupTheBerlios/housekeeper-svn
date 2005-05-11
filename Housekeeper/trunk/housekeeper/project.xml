@@ -14,7 +14,7 @@
   
   <!-- The version of the project under development, e.g.
        1.1, 1.2, 2.0-SNAPSHOT -->
-  <currentVersion>0.2.5</currentVersion>
+  <currentVersion>0.2.6-SNAPSHOT</currentVersion>
   
   <!-- details about the organization that 'owns' the project -->
   <organization>
@@ -193,19 +193,7 @@
             <jar.manifest.classpath>true</jar.manifest.classpath>
         </properties>
     </dependency>
-    
-	  <dependency>
-        <groupId>jdom</groupId>
-        <artifactId>jdom</artifactId>
-        <version>1.0</version>
-        <url>http://www.jdom.org</url>
-        <properties>
-            <jnlp.jar>true</jnlp.jar>
-            <category>shared</category>
-            <jar.manifest.classpath>true</jar.manifest.classpath>
-        </properties>
-    </dependency>
-    
+        
     <dependency>
         <groupId>jibx</groupId>
         <artifactId>jibx-run</artifactId>

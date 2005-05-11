@@ -3,6 +3,10 @@
         <title>Change history</title>
     </properties>
     <body>
+      <release version="0.2.6" date="under development">
+        <action dev="notizklotz" type="remove" issue="4007">Support for data created with 
+          Housekeeper 0.2.3 and below has been dropped.</action>
+      </release>
       <release version="0.2.5" date="2005-05-05">
         <action dev="notizklotz" type="add">User defined categories.</action>
         <action dev="notizklotz" type="add" issue="3522">Allow specification of

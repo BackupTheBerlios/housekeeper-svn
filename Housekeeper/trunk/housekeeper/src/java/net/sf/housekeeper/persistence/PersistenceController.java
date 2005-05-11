@@ -38,7 +38,6 @@ import org.springframework.context.ApplicationContextAware;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.event.HousekeeperEvent;
-import net.sf.housekeeper.persistence.jdom.JDOMPersistence;
 import net.sf.housekeeper.persistence.jibx.JiBXPersistence;
 
 /**
@@ -58,11 +57,6 @@ public final class PersistenceController implements ApplicationContextAware
     private final PersistenceService jibxPersistence;
 
     /**
-     * Persistence using JDOM.
-     */
-    private final PersistenceService jdomPersistence;
-
-    /**
      * File used for loading and saving
      */
     private File                     dataFile;
@@ -70,8 +64,7 @@ public final class PersistenceController implements ApplicationContextAware
     private ApplicationContext       applicationContext;
 
     /**
-     * Initializes the persistence service to use, which is currently fixed to
-     * {@link JDOMPersistence}.
+     * Initializes the persistence service to use.
      *  
      */
     public PersistenceController()
@@ -102,7 +95,6 @@ public final class PersistenceController implements ApplicationContextAware
         LOG.info("Using data file: " + dataFile);
 
         jibxPersistence = new JiBXPersistence();
-        jdomPersistence = new JDOMPersistence();
     }
 
     /**
@@ -122,18 +114,7 @@ public final class PersistenceController implements ApplicationContextAware
         final InputStream dataStream = new BufferedInputStream(
                 new FileInputStream(dataFile));
 
-        Household savedHousehold;
-        try
-        {
-            savedHousehold = jdomPersistence.loadData(dataStream);
-        } catch (UnsupportedFileVersionException e)
-        {
-            dataStream.close();
-
-            final InputStream newStream = new BufferedInputStream(
-                    new FileInputStream(dataFile));
-            savedHousehold = jibxPersistence.loadData(newStream);
-        }
+        Household savedHousehold = jibxPersistence.loadData(dataStream);
 
         currentDomain.replaceAll(savedHousehold);
 

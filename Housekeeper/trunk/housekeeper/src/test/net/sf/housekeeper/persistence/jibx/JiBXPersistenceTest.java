@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.persistence.jdom;
+package net.sf.housekeeper.persistence.jibx;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,21 +27,21 @@ import java.io.InputStream;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
+import net.sf.housekeeper.persistence.jibx.JiBXPersistence;
 import net.sf.housekeeper.testutils.DataGenerator;
 
 import org.custommonkey.xmlunit.XMLTestCase;
-import org.jdom.Element;
 
 /**
- * Tests if XML files are not changed semantically on load/save.
+ * Tests loading and saving of XML files with JiBX.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class JDOMPersistenceTest extends XMLTestCase
+public final class JiBXPersistenceTest extends XMLTestCase
 {
 
-    private JDOMPersistence     jdomPersistence;
+    private JiBXPersistence     persistence;
 
     /*
      * (non-Javadoc)
@@ -51,7 +51,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        jdomPersistence = new JDOMPersistence();
+        persistence = new JiBXPersistence();
     }
 
     /**
@@ -105,7 +105,7 @@ public final class JDOMPersistenceTest extends XMLTestCase
 
         try
         {
-            final Household household = jdomPersistence.loadData(dataStream);
+            final Household household = persistence.loadData(dataStream);
         } catch (IllegalArgumentException e)
         {
             //Expected behaviour
@@ -113,49 +113,6 @@ public final class JDOMPersistenceTest extends XMLTestCase
         }
         fail("Loading a file which is not even an XML file"
                 + "must throw an IllegalArgumentException");
-    }
-
-    /**
-     * Tests correct handling of a too low document version.
-     */
-    public void testVersionTooLow()
-    {
-        final int tooLow = jdomPersistence.minVersion() - 1;
-        checkUnsupportedVersion(tooLow);
-    }
-
-    /**
-     * Tests correct handling of a too high document version.
-     */
-    public void testVersionTooHigh()
-    {
-        final int tooHigh = jdomPersistence.maxVersion() + 1;
-        checkUnsupportedVersion(tooHigh);
-    }
-
-    /**
-     * Creates an empty document root Element including version information.
-     * Then it tests for correct Exception handling.
-     * 
-     * @param version Version which is not supported by the persistence service.
-     */
-    private void checkUnsupportedVersion(final int version)
-    {
-        final Element root = new Element(JDOMPersistence.ROOT_ELEMENT);
-        root
-                .setAttribute(JDOMPersistence.FILE_VERSION_ATTRIBUTE, ""
-                        + version);
-
-        try
-        {
-            jdomPersistence.convertToDomain(root);
-        } catch (UnsupportedFileVersionException e)
-        {
-            assertEquals(version, e.getVersion());
-            return;
-        }
-        fail("Must throw UnsupportedFileVersionException if version "
-                + "is not supported.");
     }
 
     /**
