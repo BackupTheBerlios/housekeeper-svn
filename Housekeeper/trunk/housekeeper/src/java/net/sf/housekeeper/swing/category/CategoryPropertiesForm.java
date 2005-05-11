@@ -30,10 +30,13 @@ import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
 
 /**
- * @author
+ * A form for editing the properties of a
+ * {@link net.sf.housekeeper.domain.Category}.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class CategoryPropertiesForm extends AbstractForm
+public final class CategoryPropertiesForm extends AbstractForm
 {
 
     /**

@@ -33,7 +33,9 @@ import org.springframework.richclient.application.ViewDescriptor;
 
 
 /**
- * @author
+ * Supports multiple views.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public class MultipleViewsPageDescriptor implements PageDescriptor

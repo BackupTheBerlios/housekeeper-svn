@@ -26,10 +26,14 @@ import org.springframework.richclient.application.PageDescriptor;
 import org.springframework.richclient.application.support.DefaultApplicationWindow;
 
 /**
- * @author
+ * An {@link org.springframework.richclient.application.ApplicationWindow} using
+ * {@link net.sf.housekeeper.swing.page.HousekeeperApplicationPage}s.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class HousekeeperApplicationWindow extends DefaultApplicationWindow
+public final class HousekeeperApplicationWindow extends
+        DefaultApplicationWindow
 {
 
     protected ApplicationPage createPage(PageDescriptor descriptor)
