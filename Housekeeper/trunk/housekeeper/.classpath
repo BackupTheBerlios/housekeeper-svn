@@ -19,7 +19,7 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/jibx/jars/jibx-run-beta3c.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/jibx/jars/jibx-run-1.0rc0.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/toedter/jars/jcalendar-1.2.2.jar">
   </classpathentry>
@@ -39,7 +39,7 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/easymock/jars/easymock-1.1.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/jibx/jars/jibx-bind-beta3c.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/jibx/jars/jibx-bind-1.0rc0.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/bcel/jars/bcel-5.1.jar">
   </classpathentry>

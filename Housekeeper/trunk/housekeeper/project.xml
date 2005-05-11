@@ -197,7 +197,7 @@
     <dependency>
         <groupId>jibx</groupId>
         <artifactId>jibx-run</artifactId>
-        <version>beta3c</version>
+        <version>1.0rc0</version>
         <url>http://www.jibx.org</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>
@@ -307,7 +307,7 @@
     <dependency>
         <groupId>jibx</groupId>
         <artifactId>jibx-bind</artifactId>
-        <version>beta3c</version>
+        <version>1.0rc0</version>
         <url>http://www.jibx.org</url>
     </dependency>
     
