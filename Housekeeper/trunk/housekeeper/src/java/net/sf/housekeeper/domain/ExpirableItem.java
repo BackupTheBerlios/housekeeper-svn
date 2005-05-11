@@ -24,9 +24,9 @@ package net.sf.housekeeper.domain;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.springframework.util.ToStringCreator;
-
 import net.sf.housekeeper.util.DateUtils;
+
+import org.springframework.core.ToStringCreator;
 
 /**
  * An item which can have an expiry date.
@@ -164,6 +164,6 @@ public class ExpirableItem extends Item
      */
     public String toString()
     {
-        return ToStringCreator.propertiesToString(this);
+        return new ToStringCreator(this).toString();
     }
 }

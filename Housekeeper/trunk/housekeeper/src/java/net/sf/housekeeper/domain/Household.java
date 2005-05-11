@@ -21,7 +21,7 @@
 
 package net.sf.housekeeper.domain;
 
-import org.springframework.util.ToStringCreator;
+import org.springframework.core.ToStringCreator;
 
 /**
  * A container for a Housekeeper domain.
@@ -126,6 +126,6 @@ public final class Household
      */
     public String toString()
     {
-        return ToStringCreator.propertiesToString(this);
+        return new ToStringCreator(this).toString();
     }
 }

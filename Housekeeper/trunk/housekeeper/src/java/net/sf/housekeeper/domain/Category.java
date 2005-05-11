@@ -26,8 +26,8 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.core.ToStringCreator;
 import org.springframework.util.Assert;
-import org.springframework.util.ToStringCreator;
 
 /**
  * A category for an {@link net.sf.housekeeper.domain.Item}.
@@ -309,6 +309,6 @@ public final class Category
      */
     public String toString()
     {
-        return ToStringCreator.propertiesToString(this);
+        return new ToStringCreator(this).toString();
     }
 }

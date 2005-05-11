@@ -21,7 +21,7 @@
 
 package net.sf.housekeeper.domain;
 
-import org.springframework.util.ToStringCreator;
+import org.springframework.core.ToStringCreator;
 
 /**
  * An arbitrary item.
@@ -215,7 +215,7 @@ public class Item
      */
     public String toString()
     {
-        return ToStringCreator.propertiesToString(this);
+        return new ToStringCreator(this).toString();
     }
 
 }

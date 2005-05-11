@@ -46,7 +46,6 @@ import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.event.HousekeeperEvent;
-import net.sf.housekeeper.swing.util.CustomTableUtils;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.context.ApplicationEvent;
@@ -62,6 +61,7 @@ import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.ColumnToSort;
 import org.springframework.richclient.table.SortableTableModel;
+import org.springframework.richclient.table.TableUtils;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
@@ -113,8 +113,8 @@ public final class ItemsTableView extends AbstractView implements
 
     private JTable createTable(ItemsTableModel model)
     {
-        final JTable table = CustomTableUtils
-                .createStandardSortableTable(model);
+        JTable table = new JTable(model);
+        TableUtils.attachSorter(table);
 
         final SortableTableModel sortableModel = (SortableTableModel) table
                 .getModel();

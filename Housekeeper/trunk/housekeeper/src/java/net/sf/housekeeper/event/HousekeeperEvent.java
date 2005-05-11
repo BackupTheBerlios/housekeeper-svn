@@ -22,7 +22,7 @@
 package net.sf.housekeeper.event;
 
 import org.springframework.context.ApplicationEvent;
-import org.springframework.util.ToStringCreator;
+import org.springframework.core.ToStringCreator;
 
 /**
  * Events about domain object changes.
@@ -118,7 +118,7 @@ public class HousekeeperEvent extends ApplicationEvent
      */
     public String toString()
     {
-        return new ToStringCreator(this).appendProperties().toString();
+        return new ToStringCreator(this).toString();
     }
 
 }
