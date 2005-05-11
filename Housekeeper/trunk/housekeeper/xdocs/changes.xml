@@ -4,6 +4,7 @@
     </properties>
     <body>
       <release version="0.2.6" date="under development">
+        <action dev="notizklotz" type="remove" issue="4011">There aren't any default categories anymore.</action>
         <action dev="notizklotz" type="remove" issue="4007">Support for data created with 
           Housekeeper 0.2.3 and below has been dropped.</action>
       </release>
