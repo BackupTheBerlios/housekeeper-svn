@@ -23,8 +23,12 @@ package net.sf.housekeeper.testutils;
 
 import java.util.Calendar;
 
+import org.easymock.MockControl;
+import org.springframework.context.ApplicationContext;
+
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.domain.ItemManager;
 
 /**
  * A Factory for various domain objects and XML documents.
@@ -120,5 +124,19 @@ public final class DataGenerator
         final ExpirableItem item = new ExpirableItem(itemName, null, null);
 
         return item;
+    }
+    
+    /**
+     * Creates an empty ItemManager with mocked dependencies.
+     * 
+     * @return != null
+     */
+    public static ItemManager createEmptyItemManager()
+    {
+        MockControl control = MockControl.createNiceControl(ApplicationContext.class);
+        ApplicationContext mock = (ApplicationContext) control.getMock();
+        ItemManager manager = new ItemManager();
+        manager.setApplicationContext(mock);
+        return manager;
     }
 }

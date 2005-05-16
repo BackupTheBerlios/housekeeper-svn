@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.housekeeper.event.HousekeeperEvent;
+import net.sf.housekeeper.event.SupplyEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +90,7 @@ public final class ItemManager extends AbstractManager
             LOG.debug("Added: " + item);
         }
 
-        publishHousekeeperEvent(HousekeeperEvent.ADDED, item);
+        publishEvent(new SupplyEvent(SupplyEvent.ADDED, item));
     }
 
     /**
@@ -182,7 +182,7 @@ public final class ItemManager extends AbstractManager
             LOG.debug("Removed: " + item);
         }
 
-        publishHousekeeperEvent(HousekeeperEvent.REMOVED, item);
+        publishEvent(new SupplyEvent(SupplyEvent.REMOVED, item));
     }
 
     /**
@@ -197,9 +197,7 @@ public final class ItemManager extends AbstractManager
         items.addAll(newItems);
         setChanged();
 
-        LOG.debug("Replaced all food objects");
-
-        publishHousekeeperEvent(HousekeeperEvent.DATA_REPLACED, this);
+        LOG.debug("Replaced all items");
     }
 
     /**
@@ -218,9 +216,9 @@ public final class ItemManager extends AbstractManager
             LOG.debug("Updated food: " + item);
         }
 
-        publishHousekeeperEvent(HousekeeperEvent.MODIFIED, item);
+        publishEvent(new SupplyEvent(SupplyEvent.MODIFIED, item));
     }
-
+    
     /*
      * (non-Javadoc)
      * 

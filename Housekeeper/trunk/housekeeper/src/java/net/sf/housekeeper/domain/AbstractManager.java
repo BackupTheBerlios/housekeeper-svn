@@ -74,23 +74,6 @@ abstract class AbstractManager implements ApplicationContextAware
         hasChanged = true;
     }
 
-    /**
-     * Creates and publishes a new {@link HousekeeperEvent}. The
-     * applicationContrext must be set before this method can be called.
-     * 
-     * @param eventType The type of the event. != null
-     * @param source The source fo the event. != null
-     */
-    protected void publishHousekeeperEvent(String eventType, Object source)
-    {
-        Assert.notNull(eventType);
-        Assert.notNull(source);
-        Assert.notNull(applicationContext, APP_CONTEXT_NOT_SET);
-
-        applicationContext
-                .publishEvent(new HousekeeperEvent(eventType, source));
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -100,6 +83,18 @@ abstract class AbstractManager implements ApplicationContextAware
             throws BeansException
     {
         this.applicationContext = arg0;
+    }
+    
+    /**
+     * Publishes a new HousekeeperEvent.
+     * 
+     * @param event The event to publish. != null
+     */
+    protected final void publishEvent(HousekeeperEvent event)
+    {
+        Assert.notNull(applicationContext, APP_CONTEXT_NOT_SET);
+        
+        applicationContext.publishEvent(event);
     }
 
 }

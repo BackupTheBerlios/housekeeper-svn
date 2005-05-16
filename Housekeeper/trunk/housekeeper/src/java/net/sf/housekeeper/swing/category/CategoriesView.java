@@ -33,6 +33,7 @@ import javax.swing.event.TreeSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.CategoryManager;
+import net.sf.housekeeper.event.CategoryEvent;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
@@ -59,16 +60,16 @@ public final class CategoriesView extends AbstractView implements
         ApplicationListener
 {
 
-    private static final Log                 LOG             = LogFactory
-                                                                     .getLog(CategoriesView.class);
+    private static final Log              LOG             = LogFactory
+                                                                  .getLog(CategoriesView.class);
 
-    private CategoryManager                  categoryManager;
+    private CategoryManager               categoryManager;
 
-    private CategoryTree                     tree;
+    private CategoryTree                  tree;
 
-    private final PropertyCommandExecutor    propertyCommand = new PropertyCommandExecutor();
+    private final PropertyCommandExecutor propertyCommand = new PropertyCommandExecutor();
 
-    private final DeleteCommandExecutor      deleteCommand   = new DeleteCommandExecutor();
+    private final DeleteCommandExecutor   deleteCommand   = new DeleteCommandExecutor();
 
     /**
      * Sets the category manager to be used.
@@ -117,11 +118,10 @@ public final class CategoriesView extends AbstractView implements
         {
             source = cat;
         }
-        getApplicationContext()
-                .publishEvent(
-                              new HousekeeperEvent(
-                                      HousekeeperEvent.CATEGORY_SELECTED,
-                                      source));
+        getApplicationContext().publishEvent(
+                                             new CategoryEvent(
+                                                     CategoryEvent.SELECTED,
+                                                     source));
     }
 
     /*
@@ -135,18 +135,17 @@ public final class CategoriesView extends AbstractView implements
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
             LOG.debug("Received event: " + le.getEventType());
-            
+
             if (le.objectIs(Category.class))
             {
                 if (le.isEventType(HousekeeperEvent.ADDED))
                 {
-                        tree.addCategory((Category) e.getSource());
+                    tree.addCategory((Category) e.getSource());
                 } else if (le.isEventType(HousekeeperEvent.REMOVED))
                 {
                     tree.removeCategory((Category) e.getSource());
                 }
-            }
-            else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
+            } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
             {
                 refresh();
             }

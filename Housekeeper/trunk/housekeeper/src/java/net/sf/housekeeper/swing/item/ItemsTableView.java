@@ -29,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -44,7 +43,9 @@ import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.Item;
 import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.event.CategoryEvent;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.springframework.binding.form.FormModel;
@@ -58,7 +59,6 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.forms.SwingFormModel;
-import org.springframework.richclient.table.BeanTableModel;
 import org.springframework.richclient.table.ColumnToSort;
 import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
@@ -96,9 +96,7 @@ public final class ItemsTableView extends AbstractView implements
      */
     protected JComponent createControl()
     {
-        tableModel = new ItemsTableModel(new ArrayList(),
-                getApplicationContext());
-        itemsTable = createTable(tableModel);
+        init(getApplicationContext());
 
         final JPanel panel = new JPanel();
         //Without that, the tables won't grow and shrink with the window's
@@ -106,9 +104,14 @@ public final class ItemsTableView extends AbstractView implements
         panel.setLayout(new GridLayout());
         panel.add(new JScrollPane(itemsTable));
 
-        refresh();
-
         return panel;
+    }
+
+    void init(MessageSource messageSource)
+    {
+        tableModel = new ItemsTableModel(new ArrayList(), messageSource);
+        itemsTable = createTable(tableModel);
+        refresh();
     }
 
     private JTable createTable(ItemsTableModel model)
@@ -175,7 +178,8 @@ public final class ItemsTableView extends AbstractView implements
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
 
-            if (le.isEventType(HousekeeperEvent.CATEGORY_SELECTED))
+            if (le instanceof CategoryEvent
+                    && le.isEventType(HousekeeperEvent.SELECTED))
             {
                 final Category cat;
                 if (le.getSource() instanceof Category)
@@ -193,8 +197,7 @@ public final class ItemsTableView extends AbstractView implements
                         setCategory(cat);
                     }
                 });
-            } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED)
-                    || le.getSource() instanceof ExpirableItem)
+            } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
             {
                 SwingUtilities.invokeLater(new Runnable() {
 
@@ -258,6 +261,17 @@ public final class ItemsTableView extends AbstractView implements
         this.itemManager = manager;
     }
 
+    boolean modelContains(Item item)
+    {
+        final boolean exists = tableModel.rowOf(item) != -1;
+        return exists;
+    }
+
+    void addItem(Item item)
+    {
+        tableModel.addRow(item);
+    }
+
     private void refresh()
     {
         tableModel.clear();
@@ -288,32 +302,6 @@ public final class ItemsTableView extends AbstractView implements
             }
 
         }
-    }
-
-    private final class ItemsTableModel extends BeanTableModel
-    {
-
-        private ItemsTableModel(List rows, MessageSource messages)
-        {
-            super(ExpirableItem.class, rows, messages);
-            setRowNumbers(false);
-        }
-
-        protected String[] createColumnPropertyNames()
-        {
-            return new String[] { "name", "description", "expiry" };
-        }
-
-        protected boolean isCellEditableInternal(Object row, int columnIndex)
-        {
-            return false;
-        }
-
-        protected Class[] createColumnClasses()
-        {
-            return new Class[] { String.class, String.class, Date.class };
-        }
-
     }
 
     private class DeleteCommandExecutor extends AbstractActionCommandExecutor
