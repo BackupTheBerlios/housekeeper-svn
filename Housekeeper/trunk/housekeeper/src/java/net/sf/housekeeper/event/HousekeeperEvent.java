@@ -54,17 +54,23 @@ public class HousekeeperEvent extends ApplicationEvent
      * Event type if something has been modified.
      */
     public static final String MODIFIED      = "housekeeperEvent.MODIFIED";
-    
+
     /**
      * Event type if data has been replaced.
      */
     public static final String DATA_REPLACED = "houskeeperEvent.DATA_REPLACED";
 
     /**
+     * Object which specifies a null source.
+     */
+    public static final Object NULL_OBJECT   = new Object();
+
+    /**
      * Creates a new event.
      * 
      * @param eventType The type of this event.
-     * @param source The source of this event.
+     * @param source The source of this event != null. Use {@link #NULL_OBJECT}
+     *            to define a null source.
      */
     public HousekeeperEvent(String eventType, Object source)
     {
@@ -90,6 +96,16 @@ public class HousekeeperEvent extends ApplicationEvent
     }
 
     /**
+     * Returns if the source is null.
+     * 
+     * @return True if the source is null or false otherwise.
+     */
+    public boolean objectIsNotNull()
+    {
+        return getSource() == NULL_OBJECT;
+    }
+
+    /**
      * Returns true, if <code>type<code> is identical to this event's type.
      * 
      * @param type The type to test. 
@@ -99,8 +115,7 @@ public class HousekeeperEvent extends ApplicationEvent
     {
         return type == eventType;
     }
-    
-    
+
     /**
      * Returns the type of this event.
      * 
