@@ -102,7 +102,7 @@ public class HousekeeperEvent extends ApplicationEvent
      */
     public boolean objectIsNotNull()
     {
-        return getSource() == NULL_OBJECT;
+        return !(getSource() == NULL_OBJECT);
     }
 
     /**
