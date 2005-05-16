@@ -113,7 +113,7 @@ public final class CategoriesView extends AbstractView implements
         final Object source;
         if (cat == null)
         {
-            source = new Object();
+            source = CategoryEvent.NULL_OBJECT;
         } else
         {
             source = cat;

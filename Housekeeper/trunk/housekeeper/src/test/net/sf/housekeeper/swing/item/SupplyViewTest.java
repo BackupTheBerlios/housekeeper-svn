@@ -39,17 +39,14 @@ public class SupplyViewTest extends TestCase
 {
     
     private ItemsTableView view;
-    
-    private ItemManager manager;
-    
+
     protected void setUp()
     {
         view = new ItemsTableView();
         MockControl mockControl = MockControl.createNiceControl(MessageSource.class);
-        MessageSource messageSorceMock = (MessageSource)mockControl.getMock();
+        MessageSource messageSourceMock = (MessageSource)mockControl.getMock();
         mockControl.replay();
-        view.init(messageSorceMock);
-        manager = DataGenerator.createEmptyItemManager();
+        view.initTable(messageSourceMock);
     }
     
     public void testRemoveItem()
@@ -60,6 +57,6 @@ public class SupplyViewTest extends TestCase
         view.addItem(item);
         view.onApplicationEvent(event);
         
-        assertFalse(view.modelContains(item));
+        assertFalse(!view.modelContains(item));
     }
 }

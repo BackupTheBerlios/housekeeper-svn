@@ -47,6 +47,7 @@ import net.sf.housekeeper.domain.Item;
 import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.event.CategoryEvent;
 import net.sf.housekeeper.event.HousekeeperEvent;
+import net.sf.housekeeper.event.SupplyEvent;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.context.ApplicationEvent;
@@ -96,7 +97,9 @@ public final class ItemsTableView extends AbstractView implements
      */
     protected JComponent createControl()
     {
-        init(getApplicationContext());
+        initTable(getApplicationContext());
+        configureTable(itemsTable);
+        refresh();
 
         final JPanel panel = new JPanel();
         //Without that, the tables won't grow and shrink with the window's
@@ -107,16 +110,14 @@ public final class ItemsTableView extends AbstractView implements
         return panel;
     }
 
-    void init(MessageSource messageSource)
+    void initTable(MessageSource messageSource)
     {
         tableModel = new ItemsTableModel(new ArrayList(), messageSource);
-        itemsTable = createTable(tableModel);
-        refresh();
+        itemsTable = new JTable(tableModel);
     }
 
-    private JTable createTable(ItemsTableModel model)
+    private void configureTable(JTable table)
     {
-        JTable table = new JTable(model);
         TableUtils.attachSorter(table);
 
         final SortableTableModel sortableModel = (SortableTableModel) table
@@ -134,7 +135,6 @@ public final class ItemsTableView extends AbstractView implements
         table.addMouseListener(new DoubleClickListener());
         assignDateColumnRenderer(table, 2);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-        return table;
     }
 
     /*
@@ -178,11 +178,14 @@ public final class ItemsTableView extends AbstractView implements
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
 
-            if (le instanceof CategoryEvent
+            if (le instanceof SupplyEvent)
+            {
+                setCategory(category);
+            } else if (le instanceof CategoryEvent
                     && le.isEventType(HousekeeperEvent.SELECTED))
             {
                 final Category cat;
-                if (le.getSource() instanceof Category)
+                if (le.objectIsNotNull())
                 {
                     cat = (Category) le.getSource();
                 } else
