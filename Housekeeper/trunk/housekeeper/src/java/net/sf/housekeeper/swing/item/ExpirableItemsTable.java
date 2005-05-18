@@ -49,7 +49,7 @@ import org.springframework.util.Assert;
  */
 public final class ExpirableItemsTable extends JTable
 {
-    private ItemsTableModel tableModel;
+    private ExpirableItemsTableModel tableModel;
     
     /**
      * Creates a new list.
@@ -62,7 +62,7 @@ public final class ExpirableItemsTable extends JTable
         Assert.notNull(rows);
         Assert.notNull(messageSource);
         
-        tableModel = new ItemsTableModel(rows, messageSource);
+        tableModel = new ExpirableItemsTableModel(rows, messageSource);
         setModel(tableModel);
         TableUtils.attachSorter(this);
         

@@ -29,11 +29,24 @@ import net.sf.housekeeper.domain.ExpirableItem;
 import org.springframework.context.MessageSource;
 import org.springframework.richclient.table.BeanTableModel;
 
-
-final class ItemsTableModel extends BeanTableModel
+/**
+ * A {@link javax.swing.table.TableModel}for
+ * {@link net.sf.housekeeper.domain.ExpirableItem}s.
+ * 
+ * @author Adrian Gygax
+ * @version $Revision$, $Date$
+ */
+final class ExpirableItemsTableModel extends BeanTableModel
 {
 
-    ItemsTableModel(List rows, MessageSource messages)
+    /**
+     * Creates a new model.
+     * 
+     * @param rows A list of {@link ExpirableItem}s to show in the table. !=
+     *            null
+     * @param messages The message source to get the column titles from. != null
+     */
+    ExpirableItemsTableModel(List rows, MessageSource messages)
     {
         super(ExpirableItem.class, rows, messages);
         setRowNumbers(false);
