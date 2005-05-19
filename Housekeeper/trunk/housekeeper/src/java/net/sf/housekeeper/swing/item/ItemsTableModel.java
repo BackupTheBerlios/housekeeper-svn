@@ -21,20 +21,19 @@
 
 package net.sf.housekeeper.swing.item;
 
-import java.util.Date;
-
-import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.Item;
 
 import org.springframework.context.MessageSource;
+import org.springframework.richclient.table.BeanTableModel;
 
 /**
  * A {@link javax.swing.table.TableModel}for
- * {@link net.sf.housekeeper.domain.ExpirableItem}s.
+ * {@link net.sf.housekeeper.domain.Item}s.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class ExpirableItemsTableModel extends ItemsTableModel
+public class ItemsTableModel extends BeanTableModel
 {
 
     /**
@@ -42,19 +41,36 @@ public class ExpirableItemsTableModel extends ItemsTableModel
      * 
      * @param messages The message source to get the column titles from. != null
      */
-    public ExpirableItemsTableModel(MessageSource messages)
+    public ItemsTableModel(MessageSource messages)
     {
-        super(ExpirableItem.class, messages);
+        this(Item.class, messages);
+    }
+    
+    /**
+     * Creates a new model.
+     * 
+     * @param beanClass The class of the bean to display. != null
+     * @param messages The message source to get the column titles from. != null
+     */
+    protected ItemsTableModel(Class beanClass, MessageSource messages)
+    {
+        super(beanClass, messages);
+        setRowNumbers(false);
     }
 
     protected String[] createColumnPropertyNames()
     {
-        return new String[] { "name", "description", "expiry" };
+        return new String[] { "name", "description"};
+    }
+
+    protected boolean isCellEditableInternal(Object row, int columnIndex)
+    {
+        return false;
     }
 
     protected Class[] createColumnClasses()
     {
-        return new Class[] { String.class, String.class, Date.class };
+        return new Class[] { String.class, String.class };
     }
 
 }

@@ -60,7 +60,6 @@ public final class Household
     {
         this.supplyManager = supplyManager;
         this.categoryManager = categoryManager;
-
     }
 
     /**

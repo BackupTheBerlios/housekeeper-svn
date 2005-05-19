@@ -42,6 +42,7 @@ import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.event.CategoryEvent;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.event.SupplyEvent;
+import net.sf.housekeeper.swing.util.SortableTable;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.context.ApplicationEvent;
@@ -65,7 +66,7 @@ public final class ItemsTableView extends AbstractView implements
         ApplicationListener
 {
 
-    private ExpirableItemsTable                         itemsTable;
+    private SortableTable                         itemsTable;
 
     private final EditCommandExecutor      editExecutor      = new EditCommandExecutor();
 
@@ -84,7 +85,7 @@ public final class ItemsTableView extends AbstractView implements
      */
     protected JComponent createControl()
     {
-        setItemsTable(new ExpirableItemsTable(getApplicationContext()));
+        setItemsTable(TableFactory.createExpirableItemsTable(getApplicationContext()));
         configureTable(itemsTable);
         refresh();
 
@@ -97,7 +98,7 @@ public final class ItemsTableView extends AbstractView implements
         return panel;
     }
     
-    void setItemsTable(ExpirableItemsTable table)
+    void setItemsTable(SortableTable table)
     {
         this.itemsTable = table;
     }
@@ -248,7 +249,7 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpirableItem selectedItem = itemsTable.getSelected();
+            final ExpirableItem selectedItem = (ExpirableItem)itemsTable.getSelected();
             itemManager.remove(selectedItem);
         }
     }
@@ -262,7 +263,7 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpirableItem selectedItem = itemsTable.getSelected();
+            final ExpirableItem selectedItem = (ExpirableItem)itemsTable.getSelected();
             itemManager.duplicate(selectedItem);
         }
     }
@@ -275,7 +276,7 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpirableItem foodObject = itemsTable.getSelected();
+            final ExpirableItem foodObject = (ExpirableItem)itemsTable.getSelected();
             final FormModel formModel = SwingFormModel
                     .createFormModel(foodObject);
             final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
