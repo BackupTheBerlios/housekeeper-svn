@@ -23,9 +23,9 @@ package net.sf.housekeeper.swing.category;
 
 import javax.swing.JComponent;
 
+import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.CategoryManager;
 
-import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
 
@@ -40,14 +40,15 @@ public final class CategoryPropertiesForm extends AbstractForm
 {
 
     /**
-     * Creates a new Form using the given model.
+     * Creates a new Form.
      * 
-     * @param formModel The model to use. Must not be null.
+     * @param object The model to use. Must not be null.
      */
-    public CategoryPropertiesForm(final FormModel formModel)
+    public CategoryPropertiesForm(Category object)
     {
-        super(formModel, "categoryPropertiesForm");
-
+        super(object);
+        setId("categoryPropertiesForm");
+        
         final CategoryManager catMan = (CategoryManager) getApplicationContext()
                 .getBean("categoryManager");
         getFormModel().registerCustomEditor(

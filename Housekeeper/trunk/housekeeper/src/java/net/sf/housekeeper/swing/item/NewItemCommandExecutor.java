@@ -25,11 +25,9 @@ import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.ItemManager;
 
-import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.util.Assert;
 
 /**
@@ -67,9 +65,8 @@ public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
 
         final ExpirableItem foodObject = new ExpirableItem();
         foodObject.setCategory(Category.getSelectedCategory());
-        final FormModel formModel = SwingFormModel.createFormModel(foodObject);
         final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
-                formModel);
+                foodObject);
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                 dialogPage) {
@@ -81,7 +78,7 @@ public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
 
             protected boolean onFinish()
             {
-                formModel.commit();
+                form.commit();
                 supplyManager.add(foodObject);
                 return true;
             }

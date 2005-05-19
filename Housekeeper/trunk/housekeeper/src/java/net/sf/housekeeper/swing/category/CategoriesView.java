@@ -38,7 +38,6 @@ import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.binding.form.FormModel;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.application.PageComponentContext;
@@ -47,7 +46,6 @@ import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 /**
@@ -214,10 +212,8 @@ public final class CategoriesView extends AbstractView implements
             final Category newCategory = tree.getSelectedCategory();
             final Category oldParent = newCategory.getParent();
             
-            final FormModel formModel = SwingFormModel
-                    .createFormModel(newCategory);
             final CategoryPropertiesForm form = new CategoryPropertiesForm(
-                    formModel);
+                    newCategory);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                     form, getWindowControl()) {
@@ -229,7 +225,7 @@ public final class CategoriesView extends AbstractView implements
 
                 protected boolean onFinish()
                 {
-                    formModel.commit();
+                    form.commit();
                     categoryManager.update(newCategory);
                     return true;
                 }

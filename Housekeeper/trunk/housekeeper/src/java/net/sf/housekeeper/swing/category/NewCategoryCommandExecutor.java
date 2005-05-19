@@ -24,11 +24,9 @@ package net.sf.housekeeper.swing.category;
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.CategoryManager;
 
-import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.forms.SwingFormModel;
 import org.springframework.util.Assert;
 
 /**
@@ -62,8 +60,7 @@ public final class NewCategoryCommandExecutor extends
         final Category parentCategory = Category.getSelectedCategory();
         newCategory.setParent(parentCategory);
 
-        final FormModel formModel = SwingFormModel.createFormModel(newCategory);
-        final CategoryPropertiesForm form = new CategoryPropertiesForm(formModel);
+        final CategoryPropertiesForm form = new CategoryPropertiesForm(newCategory);
 
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
@@ -76,7 +73,7 @@ public final class NewCategoryCommandExecutor extends
 
             protected boolean onFinish()
             {
-                formModel.commit();
+                form.commit();
                 categoryManager.add(newCategory);
                 return true;
             }

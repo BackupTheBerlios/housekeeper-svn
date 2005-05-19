@@ -27,10 +27,10 @@ import java.text.SimpleDateFormat;
 import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.CategoryManager;
+import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.swing.category.CategoryChooserEditor;
 import net.sf.housekeeper.swing.util.CalendarDateChooserEditor;
 
-import org.springframework.binding.form.FormModel;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
 
@@ -45,13 +45,14 @@ public final class ExpirableItemPropertiesForm extends AbstractForm
 {
 
     /**
-     * Creates a new Form using the given model.
+     * Creates a new Form.
      * 
-     * @param formModel The model to use. Must not be null.
+     * @param object The item to create the form for. Must not be null.
      */
-    public ExpirableItemPropertiesForm(final FormModel formModel)
+    public ExpirableItemPropertiesForm(final ExpirableItem object)
     {
-        super(formModel, "itemPropertiesForm");
+        super(object);
+        setId("itemPropertiesForm");
         final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
                 .getDateInstance(DateFormat.SHORT);
         final String formatPattern = dateFormat.toPattern();
