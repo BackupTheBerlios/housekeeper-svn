@@ -144,6 +144,11 @@ public final class CategoriesView extends AbstractView implements
                 } else if (le.isEventType(HousekeeperEvent.REMOVED))
                 {
                     tree.removeCategory((Category) e.getSource());
+                } else if (le.isEventType(HousekeeperEvent.MODIFIED))
+                {
+                    tree.removeCategory((Category) e.getSource());
+                    tree.addCategory((Category) e.getSource());
+                    tree.setSelectedCategory((Category) e.getSource());
                 }
             } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
             {
@@ -207,7 +212,8 @@ public final class CategoriesView extends AbstractView implements
         public void execute()
         {
             final Category newCategory = tree.getSelectedCategory();
-
+            final Category oldParent = newCategory.getParent();
+            
             final FormModel formModel = SwingFormModel
                     .createFormModel(newCategory);
             final CategoryPropertiesForm form = new CategoryPropertiesForm(
