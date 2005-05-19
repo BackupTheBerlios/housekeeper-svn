@@ -38,7 +38,7 @@ import org.springframework.util.Assert;
 public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
 {
 
-    private ItemManager itemManager;
+    private ItemManager supplyManager;
 
     /**
      * Creates a new executor which is always enabled.
@@ -54,15 +54,15 @@ public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
      * 
      * @param itemManager != null
      */
-    public void setItemManager(final ItemManager itemManager)
+    public void setSupplyManager(final ItemManager itemManager)
     {
         Assert.notNull(itemManager);
-        this.itemManager = itemManager;
+        this.supplyManager = itemManager;
     }
 
     public void execute()
     {
-        Assert.notNull(itemManager,
+        Assert.notNull(supplyManager,
                        "itemManager must be set for proper operation.");
 
         final ExpirableItem foodObject = new ExpirableItem();
@@ -82,7 +82,7 @@ public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
             protected boolean onFinish()
             {
                 formModel.commit();
-                itemManager.add(foodObject);
+                supplyManager.add(foodObject);
                 return true;
             }
         };

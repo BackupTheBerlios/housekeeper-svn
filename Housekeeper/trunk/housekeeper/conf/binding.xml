@@ -33,7 +33,7 @@
   
   <mapping name="household" class="net.sf.housekeeper.domain.Household">
     <value style="attribute" name="version" field="version"/>
-    <structure field="itemManager"/>
+    <structure field="supplyManager"/>
     <structure field="categoryManager"/>
   </mapping>
   

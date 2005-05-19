@@ -45,7 +45,7 @@ public final class CategoryManager extends AbstractManager
 
     private ArrayList        categories;
 
-    private ItemManager      itemManager;
+    private ItemManager      supplyManager;
 
     /**
      * Initializes this manager with a default set of categories.
@@ -113,7 +113,7 @@ public final class CategoryManager extends AbstractManager
 
         final Category parent = category.getParent();
 
-        final Iterator iter = itemManager.getItemsForCategory(category)
+        final Iterator iter = supplyManager.getItemsForCategory(category)
                 .iterator();
         while (iter.hasNext())
         {
@@ -154,9 +154,9 @@ public final class CategoryManager extends AbstractManager
      * 
      * @param im The manager.
      */
-    public void setItemManager(ItemManager im)
+    public void setSupplyManager(ItemManager im)
     {
-        this.itemManager = im;
+        this.supplyManager = im;
     }
 
     /**

@@ -32,7 +32,7 @@ import org.springframework.core.ToStringCreator;
 public final class Household
 {
 
-    private final ItemManager     itemManager;
+    private final ItemManager     supplyManager;
 
     private final CategoryManager categoryManager;
 
@@ -52,13 +52,13 @@ public final class Household
     /**
      * Creates a new domain using an existing {@link ItemManager}.
      * 
-     * @param itemManager The manager for food objects. Must not be null.
+     * @param supplyManager The manager for food objects. Must not be null.
      * @param categoryManager The manager for categories. Must not be null.
      */
-    public Household(final ItemManager itemManager,
+    public Household(final ItemManager supplyManager,
             final CategoryManager categoryManager)
     {
-        this.itemManager = itemManager;
+        this.supplyManager = supplyManager;
         this.categoryManager = categoryManager;
 
     }
@@ -68,9 +68,9 @@ public final class Household
      * 
      * @return The manager. Is not null.
      */
-    public ItemManager getItemManager()
+    public ItemManager getSupplyManager()
     {
-        return itemManager;
+        return supplyManager;
     }
 
     /**
@@ -81,7 +81,7 @@ public final class Household
      */
     public void replaceAll(final Household domain)
     {
-        itemManager.replaceAll(domain.getItemManager().getAllItems());
+        supplyManager.replaceAll(domain.getSupplyManager().getAllItems());
         categoryManager.replaceAll(domain.getCategoryManager()
                 .getTopLevelCategories());
     }
@@ -104,7 +104,7 @@ public final class Household
      */
     public boolean hasChanged()
     {
-        final boolean hasChanged = itemManager.hasChanged()
+        final boolean hasChanged = supplyManager.hasChanged()
                 || categoryManager.hasChanged();
         return hasChanged;
     }
@@ -115,7 +115,7 @@ public final class Household
      */
     public void resetChangedStatus()
     {
-        itemManager.resetChangedStatus();
+        supplyManager.resetChangedStatus();
         categoryManager.resetChangedStatus();
     }
 

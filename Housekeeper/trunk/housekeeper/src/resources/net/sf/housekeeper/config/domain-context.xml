@@ -12,7 +12,7 @@
     <property name="viewProperties">
       <map>
         <entry key="itemManager">
-          <ref local="itemManager"/>
+          <ref local="supplyManager"/>
         </entry>
       </map>
 		</property>
@@ -34,18 +34,18 @@
     
   <bean id="household"
 		class="net.sf.housekeeper.domain.Household">
-    <constructor-arg><ref local="itemManager"/></constructor-arg>
+    <constructor-arg><ref local="supplyManager"/></constructor-arg>
     <constructor-arg><ref local="categoryManager"/></constructor-arg>
 	</bean>
   
   <bean id="categoryManager"
 		class="net.sf.housekeeper.domain.CategoryManager">
-    <property name="itemManager">
-      <ref local="itemManager"/>
+    <property name="supplyManager">
+      <ref local="supplyManager"/>
 		</property>
 	</bean>
   
-  <bean id="itemManager"
+  <bean id="supplyManager"
 		class="net.sf.housekeeper.domain.ItemManager">
 	</bean>
   
