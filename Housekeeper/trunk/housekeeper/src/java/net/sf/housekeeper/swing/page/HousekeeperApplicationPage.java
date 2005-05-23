@@ -27,6 +27,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.JSplitPane;
+
 import net.sf.housekeeper.swing.util.UIFSplitPane;
 
 import org.springframework.richclient.application.ApplicationWindow;
@@ -47,6 +50,8 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
 {
 
     private final UIFSplitPane rootSplitPane;
+    
+    private final UIFSplitPane rightSplitPane;
 
     /**
      * Creates a new page
@@ -62,6 +67,14 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
         rootSplitPane.setDividerLocation(200);
         rootSplitPane.setOneTouchExpandable(false);
         rootSplitPane.setDividerSize(3);
+        rootSplitPane.setBorder(BorderFactory.createEmptyBorder());
+        
+        rightSplitPane = new UIFSplitPane(JSplitPane.VERTICAL_SPLIT);
+        rightSplitPane.setDividerLocation(300);
+        rightSplitPane.setOneTouchExpandable(false);
+        rightSplitPane.setDividerSize(3);
+        rightSplitPane.setBorder(BorderFactory.createEmptyBorder());
+        rightSplitPane.setResizeWeight(0.5d);
 
         addPageComponentListener(new PageComponentListener() {
 
@@ -91,6 +104,7 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
             }
         });
         
+        rootSplitPane.setRightComponent(rightSplitPane);
         getControl().add(rootSplitPane);
     }
 
@@ -136,7 +150,10 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
 
         if (componentID.equals("supplyView"))
         {
-            rootSplitPane.setRightComponent(pageControl);
+            rightSplitPane.setLeftComponent(pageControl);
+        } else if (componentID.equals("shoppingListView"))
+        {
+            rightSplitPane.setRightComponent(pageControl);
         } else if (componentID.equals("categoryView"))
         {
             rootSplitPane.setLeftComponent(pageControl);

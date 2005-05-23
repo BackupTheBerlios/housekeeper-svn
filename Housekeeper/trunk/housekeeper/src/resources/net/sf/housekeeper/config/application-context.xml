@@ -113,6 +113,7 @@
     <property name="views"> 
       <list>
         <ref bean="supplyView"/>
+        <ref bean="shoppingListView"/>
         <ref bean="categoryView"/>
       </list> 
     </property> 

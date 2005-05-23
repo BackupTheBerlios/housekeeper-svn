@@ -19,42 +19,36 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.swing.item;
+package net.sf.housekeeper.domain;
 
-import java.util.Date;
-
-import net.sf.housekeeper.domain.ExpirableItem;
-
-import org.springframework.context.MessageSource;
 
 /**
- * A {@link javax.swing.table.TableModel}for
- * {@link net.sf.housekeeper.domain.ExpirableItem}s.
- * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class ExpirableItemsTableModel extends ItemsTableModel
+public class ShoppingListItem
 {
-
+    
+    private int quantity;
+    
+    public ShoppingListItem()
+    {
+        quantity = 1;
+    }
+    
     /**
-     * Creates a new model.
-     * 
-     * @param messages The message source to get the column titles from. != null
+     * @return Returns the quantity.
      */
-    public ExpirableItemsTableModel(MessageSource messages)
+    public int getQuantity()
     {
-        super(ExpirableItem.class, messages);
+        return quantity;
     }
-
-    protected String[] createColumnPropertyNames()
+    
+    /**
+     * @param quantity The quantity to set.
+     */
+    public void setQuantity(int quantity)
     {
-        return new String[] { "name", "description", "expiry" };
+        this.quantity = quantity;
     }
-
-    protected Class[] createColumnClasses()
-    {
-        return new Class[] { String.class, String.class, Date.class };
-    }
-
 }

@@ -108,7 +108,7 @@
   <bean id="newItemCommand" 
 		class="org.springframework.richclient.command.TargetableActionCommand">
     <property name="commandExecutor">
-      <bean class="net.sf.housekeeper.swing.item.NewItemCommandExecutor">
+      <bean class="net.sf.housekeeper.swing.item.supply.NewItemCommandExecutor">
         <property name="supplyManager">
           <ref bean="supplyManager"/>
         </property>

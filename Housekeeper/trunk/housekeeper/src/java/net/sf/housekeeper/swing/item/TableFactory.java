@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import net.sf.housekeeper.swing.item.supply.ExpirableItemsTableModel;
 import net.sf.housekeeper.swing.util.SortableTable;
 import net.sf.housekeeper.util.ExpiryDateComparator;
 

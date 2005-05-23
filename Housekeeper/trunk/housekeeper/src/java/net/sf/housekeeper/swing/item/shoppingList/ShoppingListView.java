@@ -19,7 +19,7 @@
  * http://housekeeper.sourceforge.net
  */
 
-package net.sf.housekeeper.swing.item;
+package net.sf.housekeeper.swing.item.shoppingList;
 
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -38,8 +38,11 @@ import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.ShoppingListItem;
+import net.sf.housekeeper.domain.ShoppingListManager;
 import net.sf.housekeeper.domain.SupplyManager;
 import net.sf.housekeeper.event.HousekeeperEvent;
+import net.sf.housekeeper.swing.item.TableFactory;
 import net.sf.housekeeper.swing.util.SortableTable;
 
 import org.springframework.context.ApplicationEvent;
@@ -53,16 +56,16 @@ import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 /**
- * A view for the display of all items on hand.
+ * A view for the display of all items on the shopping list.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ItemsTableView extends AbstractView implements
+public final class ShoppingListView extends AbstractView implements
         ApplicationListener
 {
 
-    private SortableTable                         itemsTable;
+    private SortableTable                  itemsTable;
 
     private final EditCommandExecutor      editExecutor      = new EditCommandExecutor();
 
@@ -70,10 +73,10 @@ public final class ItemsTableView extends AbstractView implements
 
     private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
 
-    private SupplyManager                    itemManager;
+    private ShoppingListManager            itemManager;
 
     private Category                       category;
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -81,7 +84,8 @@ public final class ItemsTableView extends AbstractView implements
      */
     protected JComponent createControl()
     {
-        setItemsTable(TableFactory.createExpirableItemsTable(getApplicationContext()));
+        setItemsTable(TableFactory
+                .createItemsTable(getApplicationContext()));
         configureTable(itemsTable);
         refresh();
 
@@ -93,7 +97,7 @@ public final class ItemsTableView extends AbstractView implements
 
         return panel;
     }
-    
+
     void setItemsTable(SortableTable table)
     {
         this.itemsTable = table;
@@ -150,7 +154,7 @@ public final class ItemsTableView extends AbstractView implements
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
 
-            if (le.objectIs(ExpirableItem.class))
+            if (le.objectIs(ShoppingListItem.class))
             {
                 setCategory(category);
             } else if (le.objectIs(Category.class)
@@ -197,13 +201,12 @@ public final class ItemsTableView extends AbstractView implements
         return convCommandGroup.createPopupMenu();
     }
 
-
     /**
      * Sets the manager which holds the data to display.
      * 
      * @param manager
      */
-    public void setItemManager(final SupplyManager manager)
+    public void setItemManager(final ShoppingListManager manager)
     {
         this.itemManager = manager;
     }
@@ -245,7 +248,8 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpirableItem selectedItem = (ExpirableItem)itemsTable.getSelected();
+            final ShoppingListItem selectedItem = (ShoppingListItem) itemsTable
+                    .getSelected();
             itemManager.remove(selectedItem);
         }
     }
@@ -259,8 +263,9 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpirableItem selectedItem = (ExpirableItem)itemsTable.getSelected();
-            itemManager.duplicate(selectedItem);
+            final ExpirableItem selectedItem = (ExpirableItem) itemsTable
+                    .getSelected();
+            //itemManager.duplicate(selectedItem);
         }
     }
 
@@ -272,8 +277,9 @@ public final class ItemsTableView extends AbstractView implements
 
         public void execute()
         {
-            final ExpirableItem foodObject = (ExpirableItem)itemsTable.getSelected();
-            final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
+            final ShoppingListItem foodObject = (ShoppingListItem) itemsTable
+                    .getSelected();
+            final ShoppingListItemPropertiesForm form = new ShoppingListItemPropertiesForm(
                     foodObject);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(

@@ -7,12 +7,26 @@
   <bean id="supplyView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 	<property name="viewClass">
-			<value>net.sf.housekeeper.swing.item.ItemsTableView</value>
+			<value>net.sf.housekeeper.swing.item.supply.SupplyView</value>
 	</property>
     <property name="viewProperties">
       <map>
         <entry key="itemManager">
           <ref local="supplyManager"/>
+        </entry>
+      </map>
+	</property>
+  </bean>
+  
+  <bean id="shoppingListView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+	<property name="viewClass">
+			<value>net.sf.housekeeper.swing.item.shoppingList.ShoppingListView</value>
+	</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="itemManager">
+          <ref local="shoppingListManager"/>
         </entry>
       </map>
 	</property>
@@ -43,6 +57,10 @@
     <property name="supplyManager">
       <ref local="supplyManager"/>
     </property>
+  </bean>
+  
+  <bean id="shoppingListManager"
+		class="net.sf.housekeeper.domain.ShoppingListManager">
   </bean>
   
   <bean id="supplyManager"
