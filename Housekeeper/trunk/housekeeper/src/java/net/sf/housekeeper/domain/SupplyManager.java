@@ -34,18 +34,18 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Holds a list of items and provides operations to add, delete and change an
- * {@link net.sf.housekeeper.domain.Item}.
+ * {@link ExpirableItem}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ItemManager extends AbstractManager
+public final class SupplyManager extends AbstractManager
 {
 
     /**
      * Log to be used for this class.
      */
-    private static final Log LOG = LogFactory.getLog(ItemManager.class);
+    private static final Log LOG = LogFactory.getLog(SupplyManager.class);
 
     /**
      * Holds a list of all managed items.
@@ -56,31 +56,31 @@ public final class ItemManager extends AbstractManager
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
      * returns <code>false</code>.
      */
-    public ItemManager()
+    public SupplyManager()
     {
         this(new ArrayList());
     }
 
     /**
-     * Creates a new manager with an existing list of {@link Item}s.
+     * Creates a new manager with an existing list of {@link ExpirableItem}s.
      * Afterwards, {@link #hasChanged()}returns <code>false</code>.
      * 
-     * @param items A list of {@link Item}s. The types of the elements the
+     * @param items A list of {@link ExpirableItem}s. The types of the elements the
      *            collection are NOT checked by this method.
      */
-    public ItemManager(final Collection items)
+    public SupplyManager(final Collection items)
     {
         this.items = new ArrayList(items);
         resetChangedStatus();
     }
 
     /**
-     * Adds an {@link Item}object to the list. After execution,
+     * Adds an {@link ExpirableItem}object to the list. After execution,
      * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to add to the supply.
      */
-    public void add(final Item item)
+    public void add(final ExpirableItem item)
     {
         items.add(item);
         setChanged();
@@ -91,18 +91,6 @@ public final class ItemManager extends AbstractManager
         }
 
         publishEvent(new SupplyEvent(SupplyEvent.ADDED, item));
-    }
-
-    /**
-     * Duplicates the provided item and adds it to the to the list. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
-     * 
-     * @param item The item to be duplicated.
-     */
-    public void duplicate(final Item item)
-    {
-        final Item clonedItem = new Item(item);
-        add(clonedItem);
     }
 
     /**
@@ -167,12 +155,12 @@ public final class ItemManager extends AbstractManager
     }
 
     /**
-     * Removes a {@link Item}object from the supply. Afterwards,
+     * Removes a {@link ExpirableItem}object from the supply. Afterwards,
      * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to remove from the supply.
      */
-    public void remove(final Item item)
+    public void remove(final ExpirableItem item)
     {
         items.remove(item);
         setChanged();
@@ -201,13 +189,13 @@ public final class ItemManager extends AbstractManager
     }
 
     /**
-     * Updates an item in this manager. If you change a {@link Item}object you
+     * Updates an item in this manager. If you change a object you
      * MUST call this method so Observers can be notified of the update.
      * Afterwards, {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item The item which should be updated.
      */
-    public void update(final Item item)
+    public void update(final ExpirableItem item)
     {
         setChanged();
 
@@ -238,7 +226,7 @@ public final class ItemManager extends AbstractManager
         {
             return false;
         }
-        ItemManager castedObj = (ItemManager) o;
+        SupplyManager castedObj = (SupplyManager) o;
         return this.items == null ? castedObj.items == null : this.items
                 .equals(castedObj.items);
     }

@@ -23,7 +23,7 @@ package net.sf.housekeeper.swing.item;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.SupplyManager;
 
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
@@ -36,7 +36,7 @@ import org.springframework.util.Assert;
 public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
 {
 
-    private ItemManager supplyManager;
+    private SupplyManager supplyManager;
 
     /**
      * Creates a new executor which is always enabled.
@@ -48,11 +48,11 @@ public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
     }
 
     /**
-     * Sets the {@link ItemManager}for adding newly created items.
+     * Sets the {@link SupplyManager}for adding newly created items.
      * 
      * @param itemManager != null
      */
-    public void setSupplyManager(final ItemManager itemManager)
+    public void setSupplyManager(final SupplyManager itemManager)
     {
         Assert.notNull(itemManager);
         this.supplyManager = itemManager;

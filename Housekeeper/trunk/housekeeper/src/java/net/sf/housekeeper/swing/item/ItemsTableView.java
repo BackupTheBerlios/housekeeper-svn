@@ -38,7 +38,7 @@ import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.SupplyManager;
 import net.sf.housekeeper.event.CategoryEvent;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.event.SupplyEvent;
@@ -72,7 +72,7 @@ public final class ItemsTableView extends AbstractView implements
 
     private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
 
-    private ItemManager                    itemManager;
+    private SupplyManager                    itemManager;
 
     private Category                       category;
     
@@ -205,7 +205,7 @@ public final class ItemsTableView extends AbstractView implements
      * 
      * @param manager
      */
-    public void setItemManager(final ItemManager manager)
+    public void setItemManager(final SupplyManager manager)
     {
         this.itemManager = manager;
     }

@@ -21,7 +21,7 @@
       item-type="net.sf.housekeeper.domain.Category"/>
   </mapping>
   
-  <mapping name="supply" class="net.sf.housekeeper.domain.ItemManager">
+  <mapping name="supply" class="net.sf.housekeeper.domain.SupplyManager">
     <collection field="items" 
       item-type="net.sf.housekeeper.domain.ExpirableItem"/>
   </mapping>

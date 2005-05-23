@@ -28,7 +28,7 @@ import org.springframework.context.ApplicationContext;
 
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.SupplyManager;
 
 /**
  * A Factory for various domain objects and XML documents.
@@ -127,15 +127,15 @@ public final class DataGenerator
     }
     
     /**
-     * Creates an empty ItemManager with mocked dependencies.
+     * Creates an empty SupplyManager with mocked dependencies.
      * 
      * @return != null
      */
-    public static ItemManager createEmptyItemManager()
+    public static SupplyManager createEmptyItemManager()
     {
         MockControl control = MockControl.createNiceControl(ApplicationContext.class);
         ApplicationContext mock = (ApplicationContext) control.getMock();
-        ItemManager manager = new ItemManager();
+        SupplyManager manager = new SupplyManager();
         manager.setApplicationContext(mock);
         return manager;
     }

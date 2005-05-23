@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import junit.framework.TestCase;
 
 /**
- * Tests {@link net.sf.housekeeper.domain.ItemManager}.
+ * Tests {@link net.sf.housekeeper.domain.SupplyManager}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 public class ItemManagerTest extends TestCase
 {
 
-    private ItemManager manager;
+    private SupplyManager manager;
     private MockControl control;
     private ApplicationContext mock;
     
@@ -27,7 +27,7 @@ public class ItemManagerTest extends TestCase
     {
         control = MockControl.createNiceControl(ApplicationContext.class);
         mock = (ApplicationContext) control.getMock();
-        manager = new ItemManager();
+        manager = new SupplyManager();
         manager.setApplicationContext(mock);
     }
     

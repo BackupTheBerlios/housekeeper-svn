@@ -45,7 +45,7 @@ public final class CategoryManager extends AbstractManager
 
     private ArrayList        categories;
 
-    private ItemManager      supplyManager;
+    private SupplyManager      supplyManager;
 
     /**
      * Initializes this manager with a default set of categories.
@@ -154,7 +154,7 @@ public final class CategoryManager extends AbstractManager
      * 
      * @param im The manager.
      */
-    public void setSupplyManager(ItemManager im)
+    public void setSupplyManager(SupplyManager im)
     {
         this.supplyManager = im;
     }

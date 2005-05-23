@@ -46,7 +46,7 @@
   </bean>
   
   <bean id="supplyManager"
-		class="net.sf.housekeeper.domain.ItemManager">
+		class="net.sf.housekeeper.domain.SupplyManager">
   </bean>
   
   <bean id="persistenceController"
