@@ -86,14 +86,18 @@ abstract class AbstractManager implements ApplicationContextAware
     }
     
     /**
-     * Publishes a new HousekeeperEvent.
+     * Creates and publishes a new {@link HousekeeperEvent}.
      * 
-     * @param event The event to publish. != null
+     * @param eventType The type of the event. != null
+     * @param source The source fo the event. != null
      */
-    protected final void publishEvent(HousekeeperEvent event)
+    protected final void publishEvent(String eventType, Object source)
     {
         Assert.notNull(applicationContext, APP_CONTEXT_NOT_SET);
-        
+        Assert.notNull(eventType);
+        Assert.notNull(source);
+
+        HousekeeperEvent event = new HousekeeperEvent(eventType, source);
         applicationContext.publishEvent(event);
     }
 

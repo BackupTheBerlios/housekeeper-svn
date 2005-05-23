@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.housekeeper.event.CategoryEvent;
+import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -76,7 +76,7 @@ public final class CategoryManager extends AbstractManager
         }
 
         setChanged();
-        publishEvent(CategoryEvent.ADDED, category);
+        publishEvent(HousekeeperEvent.ADDED, category);
     }
 
     /**
@@ -130,7 +130,7 @@ public final class CategoryManager extends AbstractManager
         }
 
         setChanged();
-        publishEvent(CategoryEvent.REMOVED, category);
+        publishEvent(HousekeeperEvent.REMOVED, category);
     }
 
     /**
@@ -179,21 +179,7 @@ public final class CategoryManager extends AbstractManager
         }
 
         setChanged();
-        publishEvent(CategoryEvent.MODIFIED, category);
-    }
-    
-    /**
-     * Creates and publishes a new {@link CategoryEvent}.
-     * 
-     * @param eventType The type of the event. != null
-     * @param source The source fo the event. != null
-     */
-    private void publishEvent(String eventType, Category source)
-    {
-        Assert.notNull(eventType);
-        Assert.notNull(source);
-
-        publishEvent(new CategoryEvent(eventType, source));
+        publishEvent(HousekeeperEvent.MODIFIED, category);
     }
 
 }

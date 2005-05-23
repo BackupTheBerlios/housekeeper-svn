@@ -60,17 +60,12 @@ public class HousekeeperEvent extends ApplicationEvent
      */
     public static final String DATA_REPLACED = "houskeeperEvent.DATA_REPLACED";
 
-    /**
-     * Object which specifies a null source.
-     */
-    public static final Object NULL_OBJECT   = new Object();
 
     /**
      * Creates a new event.
      * 
      * @param eventType The type of this event.
-     * @param source The source of this event != null. Use {@link #NULL_OBJECT}
-     *            to define a null source.
+     * @param source The source of this event != null.
      */
     public HousekeeperEvent(String eventType, Object source)
     {
@@ -93,16 +88,6 @@ public class HousekeeperEvent extends ApplicationEvent
         {
             return false;
         }
-    }
-
-    /**
-     * Returns if the source is null.
-     * 
-     * @return True if the source is null or false otherwise.
-     */
-    public boolean objectIsNotNull()
-    {
-        return !(getSource() == NULL_OBJECT);
     }
 
     /**

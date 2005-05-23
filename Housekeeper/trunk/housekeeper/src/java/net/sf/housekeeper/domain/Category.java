@@ -38,6 +38,11 @@ import org.springframework.util.Assert;
 public final class Category
 {
 
+    /**
+     * Category instance which can be used to express "no category".
+     */
+    public static final Category NULL_OBJECT = new Category();
+    
     private static Category selectedCategory;
 
     /**

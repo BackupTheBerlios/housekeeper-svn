@@ -39,9 +39,7 @@ import javax.swing.event.ListSelectionListener;
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.SupplyManager;
-import net.sf.housekeeper.event.CategoryEvent;
 import net.sf.housekeeper.event.HousekeeperEvent;
-import net.sf.housekeeper.event.SupplyEvent;
 import net.sf.housekeeper.swing.util.SortableTable;
 
 import org.springframework.context.ApplicationEvent;
@@ -152,14 +150,14 @@ public final class ItemsTableView extends AbstractView implements
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
 
-            if (le instanceof SupplyEvent)
+            if (le.objectIs(ExpirableItem.class))
             {
                 setCategory(category);
-            } else if (le instanceof CategoryEvent
+            } else if (le.objectIs(Category.class)
                     && le.isEventType(HousekeeperEvent.SELECTED))
             {
                 final Category cat;
-                if (le.objectIsNotNull())
+                if (le.getSource() != Category.NULL_OBJECT)
                 {
                     cat = (Category) le.getSource();
                 } else

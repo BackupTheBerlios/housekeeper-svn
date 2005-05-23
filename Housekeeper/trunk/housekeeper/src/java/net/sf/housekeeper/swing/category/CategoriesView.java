@@ -33,7 +33,6 @@ import javax.swing.event.TreeSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.CategoryManager;
-import net.sf.housekeeper.event.CategoryEvent;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
@@ -111,14 +110,14 @@ public final class CategoriesView extends AbstractView implements
         final Object source;
         if (cat == null)
         {
-            source = CategoryEvent.NULL_OBJECT;
+            source = Category.NULL_OBJECT;
         } else
         {
             source = cat;
         }
         getApplicationContext().publishEvent(
-                                             new CategoryEvent(
-                                                     CategoryEvent.SELECTED,
+                                             new HousekeeperEvent(
+                                                     HousekeeperEvent.SELECTED,
                                                      source));
     }
 
@@ -211,7 +210,7 @@ public final class CategoriesView extends AbstractView implements
         {
             final Category newCategory = tree.getSelectedCategory();
             final Category oldParent = newCategory.getParent();
-            
+
             final CategoryPropertiesForm form = new CategoryPropertiesForm(
                     newCategory);
 

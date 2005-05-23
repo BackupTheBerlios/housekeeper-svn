@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.housekeeper.event.SupplyEvent;
+import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +90,7 @@ public final class SupplyManager extends AbstractManager
             LOG.debug("Added: " + item);
         }
 
-        publishEvent(new SupplyEvent(SupplyEvent.ADDED, item));
+        publishEvent(HousekeeperEvent.ADDED, item);
     }
 
     /**
@@ -170,7 +170,7 @@ public final class SupplyManager extends AbstractManager
             LOG.debug("Removed: " + item);
         }
 
-        publishEvent(new SupplyEvent(SupplyEvent.REMOVED, item));
+        publishEvent(HousekeeperEvent.REMOVED, item);
     }
 
     /**
@@ -204,7 +204,7 @@ public final class SupplyManager extends AbstractManager
             LOG.debug("Updated food: " + item);
         }
 
-        publishEvent(new SupplyEvent(SupplyEvent.MODIFIED, item));
+        publishEvent(HousekeeperEvent.MODIFIED, item);
     }
     
     /*
