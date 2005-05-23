@@ -26,11 +26,15 @@ package net.sf.housekeeper.domain;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class ShoppingListItem
+public class ShoppingListItem extends Item
 {
     
     private int quantity;
     
+    /**
+     * Creates a new item with a quantity of 1.
+     *
+     */
     public ShoppingListItem()
     {
         quantity = 1;

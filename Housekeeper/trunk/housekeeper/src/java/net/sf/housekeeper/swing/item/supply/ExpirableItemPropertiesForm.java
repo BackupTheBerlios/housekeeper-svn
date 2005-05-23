@@ -48,7 +48,7 @@ public final class ExpirableItemPropertiesForm extends AbstractForm
     public ExpirableItemPropertiesForm(final ExpirableItem object)
     {
         super(object);
-        setId("shoppingListItemPropertiesForm");
+        setId("expirableItemPropertiesForm");
 
         final CategoryManager catMan = (CategoryManager) getApplicationContext()
                 .getBean("categoryManager");

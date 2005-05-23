@@ -37,10 +37,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.domain.ShoppingListManager;
-import net.sf.housekeeper.domain.SupplyManager;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.swing.item.TableFactory;
 import net.sf.housekeeper.swing.util.SortableTable;
@@ -263,7 +261,7 @@ public final class ShoppingListView extends AbstractView implements
 
         public void execute()
         {
-            final ExpirableItem selectedItem = (ExpirableItem) itemsTable
+            final ShoppingListItem selectedItem = (ShoppingListItem) itemsTable
                     .getSelected();
             //itemManager.duplicate(selectedItem);
         }

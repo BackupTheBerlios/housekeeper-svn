@@ -21,15 +21,11 @@
 
 package net.sf.housekeeper.swing.item.shoppingList;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.swing.category.CategoryChooserEditor;
-import net.sf.housekeeper.swing.util.CalendarDateChooserEditor;
 
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
@@ -53,14 +49,6 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
     {
         super(object);
         setId("itemPropertiesForm");
-        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
-                .getDateInstance(DateFormat.SHORT);
-        final String formatPattern = dateFormat.toPattern();
-
-        getFormModel().registerCustomEditor(
-                                            "expiry",
-                                            new CalendarDateChooserEditor(
-                                                    formatPattern));
 
         final CategoryManager catMan = (CategoryManager) getApplicationContext()
                 .getBean("categoryManager");
@@ -82,8 +70,6 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("description");
-        formBuilder.row();
-        formBuilder.add("expiry");
         formBuilder.row();
         formBuilder.add("category");
         return formBuilder.getForm();

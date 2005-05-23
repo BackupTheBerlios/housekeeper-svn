@@ -32,6 +32,7 @@
       <list>
         <ref local="newCategoryCommand"/>
         <ref local="newItemCommand"/>
+        <ref local="newShoppingListItemCommand"/>
         <value>separator</value>
         <value>duplicateCommand</value>
         <value>propertiesCommand</value>
@@ -77,6 +78,7 @@
     <property name="members">
       <list>
         <ref local="newItemCommand"/>
+        <ref local="newShoppingListItemCommand"/>
         <ref local="newCategoryCommand"/>
       </list>
     </property>
@@ -116,7 +118,18 @@
     </property>
   </bean>
   
-    <bean id="newCategoryCommand" 
+  <bean id="newShoppingListItemCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+    <property name="commandExecutor">
+      <bean class="net.sf.housekeeper.swing.item.shoppingList.NewItemCommandExecutor">
+        <property name="manager">
+          <ref bean="shoppingListManager"/>
+        </property>
+      </bean>
+    </property>
+  </bean>
+  
+  <bean id="newCategoryCommand" 
 		class="org.springframework.richclient.command.TargetableActionCommand">
     <property name="commandExecutor">
       <bean class="net.sf.housekeeper.swing.category.NewCategoryCommandExecutor">
