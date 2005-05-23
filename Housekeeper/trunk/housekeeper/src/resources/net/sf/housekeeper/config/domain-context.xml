@@ -4,53 +4,53 @@
 
 <beans>
 
-	<bean id="supplyView"
+  <bean id="supplyView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-		<property name="viewClass">
+	<property name="viewClass">
 			<value>net.sf.housekeeper.swing.item.ItemsTableView</value>
-		</property>
+	</property>
     <property name="viewProperties">
       <map>
         <entry key="itemManager">
           <ref local="supplyManager"/>
         </entry>
       </map>
-		</property>
-	</bean>
+	</property>
+  </bean>
   
   <bean id="categoryView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-		<property name="viewClass">
-			<value>net.sf.housekeeper.swing.category.CategoriesView</value>
-		</property>
+    <property name="viewClass">
+      <value>net.sf.housekeeper.swing.category.CategoriesView</value>
+    </property>
     <property name="viewProperties">
       <map>
         <entry key="categoryManager">
           <ref local="categoryManager"/>
         </entry>
       </map>
-		</property>
-	</bean>
+    </property>
+  </bean>
     
   <bean id="household"
 		class="net.sf.housekeeper.domain.Household">
     <constructor-arg><ref local="supplyManager"/></constructor-arg>
     <constructor-arg><ref local="categoryManager"/></constructor-arg>
-	</bean>
+  </bean>
   
   <bean id="categoryManager"
 		class="net.sf.housekeeper.domain.CategoryManager">
     <property name="supplyManager">
       <ref local="supplyManager"/>
-		</property>
-	</bean>
+    </property>
+  </bean>
   
   <bean id="supplyManager"
 		class="net.sf.housekeeper.domain.ItemManager">
-	</bean>
+  </bean>
   
   <bean id="persistenceController"
 		class="net.sf.housekeeper.persistence.PersistenceController">
-	</bean>
+  </bean>
 
 </beans>
