@@ -37,8 +37,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
+import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.domain.ShoppingListItem;
-import net.sf.housekeeper.domain.ShoppingListManager;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.swing.item.TableFactory;
 import net.sf.housekeeper.swing.util.SortableTable;
@@ -71,7 +71,7 @@ public final class ShoppingListView extends AbstractView implements
 
     private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
 
-    private ShoppingListManager            itemManager;
+    private ItemManager            itemManager;
 
     private Category                       category;
 
@@ -204,7 +204,7 @@ public final class ShoppingListView extends AbstractView implements
      * 
      * @param manager
      */
-    public void setItemManager(final ShoppingListManager manager)
+    public void setItemManager(final ItemManager manager)
     {
         this.itemManager = manager;
     }

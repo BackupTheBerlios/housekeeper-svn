@@ -38,7 +38,7 @@ import javax.swing.event.ListSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.SupplyManager;
+import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.swing.item.TableFactory;
 import net.sf.housekeeper.swing.util.SortableTable;
@@ -71,7 +71,7 @@ public final class SupplyView extends AbstractView implements
 
     private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
 
-    private SupplyManager                    itemManager;
+    private ItemManager                    itemManager;
 
     private Category                       category;
     
@@ -204,7 +204,7 @@ public final class SupplyView extends AbstractView implements
      * 
      * @param manager
      */
-    public void setItemManager(final SupplyManager manager)
+    public void setItemManager(final ItemManager manager)
     {
         this.itemManager = manager;
     }

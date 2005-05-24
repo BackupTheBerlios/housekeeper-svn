@@ -34,18 +34,18 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Holds a list of items and provides operations to add, delete and change an
- * {@link ExpirableItem}.
+ * {@link Item}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class SupplyManager extends AbstractManager
+public final class ItemManager extends AbstractManager
 {
 
     /**
      * Log to be used for this class.
      */
-    private static final Log LOG = LogFactory.getLog(SupplyManager.class);
+    private static final Log LOG = LogFactory.getLog(ItemManager.class);
 
     /**
      * Holds a list of all managed items.
@@ -56,31 +56,19 @@ public final class SupplyManager extends AbstractManager
      * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
      * returns <code>false</code>.
      */
-    public SupplyManager()
+    public ItemManager()
     {
-        this(new ArrayList());
-    }
-
-    /**
-     * Creates a new manager with an existing list of {@link ExpirableItem}s.
-     * Afterwards, {@link #hasChanged()}returns <code>false</code>.
-     * 
-     * @param items A list of {@link ExpirableItem}s. The types of the elements the
-     *            collection are NOT checked by this method.
-     */
-    public SupplyManager(final Collection items)
-    {
-        this.items = new ArrayList(items);
+        this.items = new ArrayList();
         resetChangedStatus();
     }
 
     /**
-     * Adds an {@link ExpirableItem}object to the list. After execution,
+     * Adds an object to the list. After execution,
      * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to add to the supply.
      */
-    public void add(final ExpirableItem item)
+    public void add(final Item item)
     {
         items.add(item);
         setChanged();
@@ -144,7 +132,7 @@ public final class SupplyManager extends AbstractManager
         final Iterator allItemsIter = items.iterator();
         while (allItemsIter.hasNext())
         {
-            final ExpirableItem item = (ExpirableItem) allItemsIter.next();
+            final Item item = (ExpirableItem) allItemsIter.next();
             final boolean isOfCategory = category.contains(item.getCategory());
             if (isOfCategory)
             {
@@ -155,12 +143,12 @@ public final class SupplyManager extends AbstractManager
     }
 
     /**
-     * Removes a {@link ExpirableItem}object from the supply. Afterwards,
+     * Removes an object from the supply. Afterwards,
      * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item the item to remove from the supply.
      */
-    public void remove(final ExpirableItem item)
+    public void remove(final Item item)
     {
         items.remove(item);
         setChanged();
@@ -195,7 +183,7 @@ public final class SupplyManager extends AbstractManager
      * 
      * @param item The item which should be updated.
      */
-    public void update(final ExpirableItem item)
+    public void update(final Item item)
     {
         setChanged();
 
@@ -226,7 +214,7 @@ public final class SupplyManager extends AbstractManager
         {
             return false;
         }
-        SupplyManager castedObj = (SupplyManager) o;
+        ItemManager castedObj = (ItemManager) o;
         return this.items == null ? castedObj.items == null : this.items
                 .equals(castedObj.items);
     }

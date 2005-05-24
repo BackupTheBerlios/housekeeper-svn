@@ -60,11 +60,11 @@
   </bean>
   
   <bean id="shoppingListManager"
-		class="net.sf.housekeeper.domain.ShoppingListManager">
+		class="net.sf.housekeeper.domain.ItemManager">
   </bean>
   
   <bean id="supplyManager"
-		class="net.sf.housekeeper.domain.SupplyManager">
+		class="net.sf.housekeeper.domain.ItemManager">
   </bean>
   
   <bean id="persistenceController"

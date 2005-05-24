@@ -32,7 +32,7 @@ import org.springframework.core.ToStringCreator;
 public final class Household
 {
 
-    private final SupplyManager     supplyManager;
+    private final ItemManager     supplyManager;
 
     private final CategoryManager categoryManager;
 
@@ -46,16 +46,16 @@ public final class Household
      */
     public Household()
     {
-        this(new SupplyManager(), new CategoryManager());
+        this(new ItemManager(), new CategoryManager());
     }
 
     /**
-     * Creates a new domain using an existing {@link SupplyManager}.
+     * Creates a new domain using an existing {@link ItemManager}.
      * 
      * @param supplyManager The manager for food objects. Must not be null.
      * @param categoryManager The manager for categories. Must not be null.
      */
-    public Household(final SupplyManager supplyManager,
+    public Household(final ItemManager supplyManager,
             final CategoryManager categoryManager)
     {
         this.supplyManager = supplyManager;
@@ -67,7 +67,7 @@ public final class Household
      * 
      * @return The manager. Is not null.
      */
-    public SupplyManager getSupplyManager()
+    public ItemManager getSupplyManager()
     {
         return supplyManager;
     }
