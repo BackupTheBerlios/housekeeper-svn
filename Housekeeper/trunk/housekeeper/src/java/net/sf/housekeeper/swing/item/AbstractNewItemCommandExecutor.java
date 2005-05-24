@@ -56,7 +56,6 @@ public abstract class AbstractNewItemCommandExecutor extends AbstractActionComma
      */
     public void setManager(final ItemManager itemManager)
     {
-        Assert.notNull(itemManager);
         this.supplyManager = itemManager;
     }
 
