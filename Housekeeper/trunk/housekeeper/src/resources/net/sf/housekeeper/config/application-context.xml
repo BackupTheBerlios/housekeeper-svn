@@ -122,5 +122,17 @@
   <bean id="applicationWindowPrototype"
     class="net.sf.housekeeper.swing.page.HousekeeperApplicationWindow"
     singleton="false"/> 
+    
+  <bean id="propertyEditorRegistry" 
+    class="org.springframework.richclient.application.support.DefaultPropertyEditorRegistry"> 
+    <property name="propertyEditors"> 
+      <list> 
+        <props> 
+          <prop key="objectClass">java.util.Date</prop> 
+          <prop key="propertyEditorClass">net.sf.housekeeper.swing.util.CalendarDateChooserEditor</prop> 
+        </props>
+      </list> 
+    </property> 
+  </bean>
 
 </beans>

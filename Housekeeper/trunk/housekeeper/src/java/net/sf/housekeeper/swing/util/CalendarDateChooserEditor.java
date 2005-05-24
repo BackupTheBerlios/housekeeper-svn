@@ -22,6 +22,7 @@
 package net.sf.housekeeper.swing.util;
 
 import java.awt.Component;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -44,14 +45,16 @@ public final class CalendarDateChooserEditor extends CustomDateEditor
     private DisableableJDateChooser dateChooser = new DisableableJDateChooser();
 
     /**
-     * Creates a new editor with a specific date format.
-     * 
-     * @param format The format for the date.
+     * Creates a new editor with a short date format.
      */
-    public CalendarDateChooserEditor(String format)
+    public CalendarDateChooserEditor()
     {
-        super(new SimpleDateFormat(format), true);
-        dateChooser.setDateFormatString(format);
+        super(SimpleDateFormat.getDateInstance(DateFormat.SHORT), true);
+
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
+                .getDateInstance(DateFormat.SHORT);
+        final String formatPattern = dateFormat.toPattern();
+        dateChooser.setDateFormatString(formatPattern);
         dateChooser.addChangeListener(new ChangeListener() {
 
             public void stateChanged(ChangeEvent e)

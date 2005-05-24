@@ -21,15 +21,11 @@
 
 package net.sf.housekeeper.swing.item.supply;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.swing.category.CategoryChooserEditor;
-import net.sf.housekeeper.swing.util.CalendarDateChooserEditor;
 
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
@@ -53,15 +49,6 @@ public final class ExpirableItemPropertiesForm extends AbstractForm
     {
         super(object);
         setId("expirableItemPropertiesForm");
-
-        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
-                .getDateInstance(DateFormat.SHORT);
-        final String formatPattern = dateFormat.toPattern();
-
-        getFormModel().registerCustomEditor(
-                                            "expiry",
-                                            new CalendarDateChooserEditor(
-                                                    formatPattern));
 
         final CategoryManager catMan = (CategoryManager) getApplicationContext()
                 .getBean("categoryManager");
