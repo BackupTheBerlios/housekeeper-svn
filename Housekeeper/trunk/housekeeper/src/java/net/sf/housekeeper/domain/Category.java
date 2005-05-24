@@ -48,7 +48,7 @@ public final class Category
     /**
      * Returns the currently selected Category. Needed as a workaround until
      * CommandExecutors can be registered as ApplicationEvent listeners. Then,
-     * NewItemCommandExecutor can listen for selection changes itself.
+     * AbstractNewItemCommandExecutor can listen for selection changes itself.
      * 
      * @return -
      */

@@ -21,69 +21,27 @@
 
 package net.sf.housekeeper.swing.item.supply;
 
-import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.Item;
+import net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor;
 
-import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
-import org.springframework.richclient.dialog.FormBackedDialogPage;
-import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.util.Assert;
+import org.springframework.richclient.forms.Form;
 
 /**
- * Shows a dialog for adding a new item.
+ * Shows a dialog for adding a new supply item.
  */
-public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
+public final class NewItemCommandExecutor extends AbstractNewItemCommandExecutor
 {
 
-    private ItemManager supplyManager;
-
-    /**
-     * Creates a new executor which is always enabled.
-     *  
-     */
-    public NewItemCommandExecutor()
-    {
-        setEnabled(true);
-    }
-
-    /**
-     * Sets the {@link ItemManager}for adding newly created items.
+    /*
+     * (non-Javadoc)
      * 
-     * @param itemManager != null
+     * @see net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor#createForm(net.sf.housekeeper.domain.Item)
      */
-    public void setSupplyManager(final ItemManager itemManager)
+    protected Form createForm(Item object)
     {
-        Assert.notNull(itemManager);
-        this.supplyManager = itemManager;
-    }
-
-    public void execute()
-    {
-        Assert.notNull(supplyManager,
-                       "itemManager must be set for proper operation.");
-
-        final ExpirableItem foodObject = new ExpirableItem();
-        foodObject.setCategory(Category.getSelectedCategory());
         final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
-                foodObject);
-        final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
-        final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                dialogPage) {
-
-            protected void onAboutToShow()
-            {
-                setEnabled(true);
-            }
-
-            protected boolean onFinish()
-            {
-                form.commit();
-                supplyManager.add(foodObject);
-                return true;
-            }
-        };
-        dialog.showDialog();
+                (ExpirableItem) object);
+        return form;
     }
-
 }
