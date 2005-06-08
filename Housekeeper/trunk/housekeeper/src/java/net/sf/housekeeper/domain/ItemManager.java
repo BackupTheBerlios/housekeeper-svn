@@ -132,7 +132,7 @@ public final class ItemManager extends AbstractManager
         final Iterator allItemsIter = items.iterator();
         while (allItemsIter.hasNext())
         {
-            final Item item = (ExpirableItem) allItemsIter.next();
+            final Item item = (Item) allItemsIter.next();
             final boolean isOfCategory = category.contains(item.getCategory());
             if (isOfCategory)
             {
