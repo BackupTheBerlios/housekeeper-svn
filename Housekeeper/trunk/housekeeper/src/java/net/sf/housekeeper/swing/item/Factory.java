@@ -27,40 +27,30 @@ import java.text.SimpleDateFormat;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.Item;
+import net.sf.housekeeper.swing.item.shoppingList.ItemPropertiesForm;
+import net.sf.housekeeper.swing.item.supply.ExpirableItemPropertiesForm;
 import net.sf.housekeeper.swing.item.supply.ExpirableItemsTableModel;
 import net.sf.housekeeper.swing.util.SortableTable;
 import net.sf.housekeeper.util.ExpiryDateComparator;
 
 import org.springframework.context.MessageSource;
+import org.springframework.richclient.forms.Form;
 import org.springframework.richclient.table.BaseTableModel;
 import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;
 
 /**
- * Creates tables for {@link net.sf.housekeeper.domain.Item}s and its
- * subclasses.
+ * Creates various objects related to items.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class TableFactory
+public final class Factory
 {
 
     private static final int EXPIRY_DATE_COLUMN = 2;
-
-    /**
-     * Creates a table showing {@link net.sf.housekeeper.domain.Item}s.
-     * 
-     * @param columnNameProvider
-     * @return != null
-     */
-    public static SortableTable createItemsTable(
-                                                 final MessageSource columnNameProvider)
-    {
-        final BaseTableModel model = new ItemsTableModel(columnNameProvider);
-        final SortableTable table = new SortableTable(model);
-        return table;
-    }
 
     /**
      * Creates a table showing {@link net.sf.housekeeper.domain.ExpirableItem}s.
@@ -84,6 +74,37 @@ public final class TableFactory
         assignDateColumnRenderer(table, EXPIRY_DATE_COLUMN);
         return table;
     }
+    
+    /**
+     * Creates the appropriate form an item.
+     * 
+     * @param item The item to create the form for.
+     * @return != null.
+     */
+    public static Form createForm(final Item item) {
+        if(item.getClass().equals(ExpirableItem.class))
+        {
+            return new ExpirableItemPropertiesForm((ExpirableItem)item);
+            
+        } else {
+            return new ItemPropertiesForm(item);
+        }
+
+    }
+    
+    /**
+     * Creates a table showing {@link net.sf.housekeeper.domain.Item}s.
+     * 
+     * @param columnNameProvider
+     * @return != null
+     */
+    public static SortableTable createItemsTable(
+                                                 final MessageSource columnNameProvider)
+    {
+        final BaseTableModel model = new ItemsTableModel(columnNameProvider);
+        final SortableTable table = new SortableTable(model);
+        return table;
+    }
 
     private static void assignDateColumnRenderer(JTable table, int column)
     {
@@ -93,4 +114,5 @@ public final class TableFactory
                 dateFormat);
         table.getColumnModel().getColumn(column).setCellRenderer(dateRenderer);
     }
+
 }

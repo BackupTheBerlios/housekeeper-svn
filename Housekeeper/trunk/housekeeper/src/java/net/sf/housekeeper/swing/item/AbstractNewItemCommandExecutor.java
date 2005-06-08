@@ -24,7 +24,6 @@ package net.sf.housekeeper.swing.item;
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.Item;
 import net.sf.housekeeper.domain.ItemManager;
-import net.sf.housekeeper.domain.ShoppingListItem;
 
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
@@ -64,7 +63,7 @@ public abstract class AbstractNewItemCommandExecutor extends AbstractActionComma
         Assert.notNull(supplyManager,
                        "itemManager must be set for proper operation.");
 
-        final ShoppingListItem foodObject = new ShoppingListItem();
+        final Item foodObject = createItem();
         foodObject.setCategory(Category.getSelectedCategory());
         final Form form = createForm(
                 foodObject);
@@ -94,5 +93,12 @@ public abstract class AbstractNewItemCommandExecutor extends AbstractActionComma
      * @return != null
      */
     protected abstract Form createForm(Item object);
+    
+    /**
+     * Callback method to provide an new instance of the specific Item object.
+     * 
+     * @return != null
+     */
+    protected abstract Item createItem();
 
 }

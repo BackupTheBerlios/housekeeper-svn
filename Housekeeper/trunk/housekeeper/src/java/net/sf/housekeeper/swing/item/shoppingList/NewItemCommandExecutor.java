@@ -46,4 +46,12 @@ public final class NewItemCommandExecutor extends
         return form;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor#createItem()
+     */
+    protected Item createItem()
+    {
+        return new ShoppingListItem();
+    }
+
 }

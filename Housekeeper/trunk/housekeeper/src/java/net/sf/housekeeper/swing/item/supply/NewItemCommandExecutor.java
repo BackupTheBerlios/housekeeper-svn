@@ -44,4 +44,14 @@ public final class NewItemCommandExecutor extends AbstractNewItemCommandExecutor
                 (ExpirableItem) object);
         return form;
     }
+
+    /* (non-Javadoc)
+     * @see net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor#createItem()
+     */
+    protected Item createItem()
+    {
+        return new ExpirableItem();
+    }
+    
+    
 }

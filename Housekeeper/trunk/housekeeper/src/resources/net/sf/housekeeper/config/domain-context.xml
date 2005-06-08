@@ -7,12 +7,27 @@
   <bean id="supplyView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 	<property name="viewClass">
-			<value>net.sf.housekeeper.swing.item.supply.SupplyView</value>
+	  <value>net.sf.housekeeper.swing.item.ItemsView</value>
 	</property>
     <property name="viewProperties">
       <map>
         <entry key="itemManager">
           <ref local="supplyManager"/>
+        </entry>
+        <entry key="itemClass">
+          <value>net.sf.housekeeper.domain.ExpirableItem</value>
+        </entry>
+        <entry key="table">
+          <bean id="expirableItemTable"
+		        class="net.sf.housekeeper.swing.item.Factory"
+                factory-method="createExpirableItemsTable">
+                <constructor-arg type="org.springframework.context.MessageSource"><ref bean="messageSource"/></constructor-arg>
+          </bean>
+        </entry>
+        <entry key="customPopupMenuEntries">
+          <list>
+            <value>newItemCommand</value>
+          </list>
         </entry>
       </map>
 	</property>
@@ -21,12 +36,27 @@
   <bean id="shoppingListView"
 		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
 	<property name="viewClass">
-			<value>net.sf.housekeeper.swing.item.shoppingList.ShoppingListView</value>
+	  <value>net.sf.housekeeper.swing.item.ItemsView</value>
 	</property>
     <property name="viewProperties">
       <map>
         <entry key="itemManager">
           <ref local="shoppingListManager"/>
+        </entry>
+        <entry key="itemClass">
+          <value>net.sf.housekeeper.domain.ShoppingListItem</value>
+        </entry>
+        <entry key="table">
+          <bean id="itemTable"
+		        class="net.sf.housekeeper.swing.item.Factory"
+                factory-method="createItemsTable">
+                <constructor-arg type="org.springframework.context.MessageSource"><ref bean="messageSource"/></constructor-arg>
+          </bean>
+        </entry>
+        <entry key="customPopupMenuEntries">
+          <list>
+            <value>newShoppingListItemCommand</value>
+          </list>
         </entry>
       </map>
 	</property>
