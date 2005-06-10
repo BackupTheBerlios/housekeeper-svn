@@ -38,7 +38,7 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.util.Assert;
 
 /**
- * 
+ * Moves a selected shopping list item to the supply.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -55,6 +55,9 @@ public final class BuyItemsCommandExecutor extends
 
     private HighLevelManager  highLevelManager;
 
+    /**
+     *
+     */
     public BuyItemsCommandExecutor()
     {
         setEnabled(true);

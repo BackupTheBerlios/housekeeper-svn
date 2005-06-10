@@ -177,7 +177,12 @@ public class ItemsView extends AbstractView implements ApplicationListener
     {
         this.table = table;
     }
-        
+    
+    /**
+     * Returns the selected item in this view.
+     * 
+     * @return The selected item or null if none is selected.
+     */
     public Item getSelectedItem()
     {
         return (Item)table.getSelected();
