@@ -29,7 +29,8 @@ import javax.swing.table.TableCellRenderer;
 
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Item;
-import net.sf.housekeeper.swing.item.shoppingList.ItemPropertiesForm;
+import net.sf.housekeeper.domain.ShoppingListItem;
+import net.sf.housekeeper.swing.item.shoppingList.ShoppingListItemPropertiesForm;
 import net.sf.housekeeper.swing.item.shoppingList.ShoppingListTableModel;
 import net.sf.housekeeper.swing.item.supply.ExpirableItemPropertiesForm;
 import net.sf.housekeeper.swing.item.supply.ExpirableItemsTableModel;
@@ -88,7 +89,7 @@ public final class Factory
             return new ExpirableItemPropertiesForm((ExpirableItem)item);
             
         } else {
-            return new ItemPropertiesForm(item);
+            return new ShoppingListItemPropertiesForm((ShoppingListItem)item);
         }
 
     }

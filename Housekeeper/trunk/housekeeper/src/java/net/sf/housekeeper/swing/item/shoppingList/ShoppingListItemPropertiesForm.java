@@ -31,8 +31,8 @@ import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
 
 /**
- * A Form for editing the properties of an
- * {@link net.sf.housekeeper.domain.ExpirableItem}object.
+ * A Form for editing the properties of a
+ * {@link net.sf.housekeeper.domain.ShoppingListItem}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -52,11 +52,11 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
 
         final CategoryManager catMan = (CategoryManager) getApplicationContext()
                 .getBean("categoryManager");
-        
+
         getFormModel().registerCustomEditor(
                                             "category",
-                                            new CategoryChooserEditor(
-                                                    catMan.getTopLevelCategories()));
+                                            new CategoryChooserEditor(catMan
+                                                    .getTopLevelCategories()));
     }
 
     /*
@@ -67,6 +67,8 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
     protected JComponent createFormControl()
     {
         TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
+        formBuilder.add("quantity");
+        formBuilder.row();
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("description");
