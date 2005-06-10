@@ -30,6 +30,7 @@ import javax.swing.table.TableCellRenderer;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Item;
 import net.sf.housekeeper.swing.item.shoppingList.ItemPropertiesForm;
+import net.sf.housekeeper.swing.item.shoppingList.ShoppingListTableModel;
 import net.sf.housekeeper.swing.item.supply.ExpirableItemPropertiesForm;
 import net.sf.housekeeper.swing.item.supply.ExpirableItemsTableModel;
 import net.sf.housekeeper.swing.util.SortableTable;
@@ -101,7 +102,7 @@ public final class Factory
     public static SortableTable createShoppingListItemsTable(
                                                  final MessageSource columnNameProvider)
     {
-        final BaseTableModel model = new ItemsTableModel(columnNameProvider);
+        final BaseTableModel model = new ShoppingListTableModel(columnNameProvider);
         final SortableTable table = new SortableTable(model);
         return table;
     }
