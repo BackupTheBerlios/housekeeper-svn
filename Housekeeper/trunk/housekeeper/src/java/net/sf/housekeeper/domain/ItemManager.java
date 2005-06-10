@@ -63,8 +63,8 @@ public final class ItemManager extends AbstractManager
     }
 
     /**
-     * Adds an object to the list. After execution,
-     * {@link #hasChanged()}returns <code>true</code>.
+     * Adds an object to the list. After execution, {@link #hasChanged()}
+     * returns <code>true</code>.
      * 
      * @param item the item to add to the supply.
      */
@@ -80,6 +80,21 @@ public final class ItemManager extends AbstractManager
 
         publishEvent(HousekeeperEvent.ADDED, item);
     }
+    
+    /**
+     * Adds a collection of items.
+     * 
+     * @param items The items to add.
+     */
+    public void addAll(final Collection items)
+    {
+        final Iterator iter = items.iterator();
+        while (iter.hasNext())
+        {
+            Item element = (Item) iter.next();
+            add(element);
+        }
+    }
 
     /**
      * Duplicates the provided item and adds it to the to the list. Afterwards,
@@ -92,7 +107,7 @@ public final class ItemManager extends AbstractManager
         final ExpirableItem clonedItem = new ExpirableItem(item);
         add(clonedItem);
     }
-    
+
     /**
      * Duplicates the provided item and adds it to the to the list. Afterwards,
      * {@link #hasChanged()}returns <code>true</code>.
@@ -155,14 +170,20 @@ public final class ItemManager extends AbstractManager
     }
 
     /**
-     * Removes an object from the supply. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
+     * Removes an object from the supply. Afterwards, {@link #hasChanged()}
+     * returns <code>true</code>.
      * 
      * @param item the item to remove from the supply.
+     * @throws IllegalArgumentException if the item to be removed doesn't exist.
      */
-    public void remove(final Item item)
+    public void remove(final Item item) throws IllegalArgumentException
     {
-        items.remove(item);
+        final boolean itemExisted = items.remove(item);
+        if (itemExisted == false)
+        {
+            throw new IllegalArgumentException("Item doesn't exist: " + item);
+        }
+
         setChanged();
 
         if (LOG.isDebugEnabled())
@@ -173,6 +194,16 @@ public final class ItemManager extends AbstractManager
         publishEvent(HousekeeperEvent.REMOVED, item);
     }
 
+    /**
+     * Tests if an item exists.
+     * 
+     * @param item != null.
+     * @return True, if the item exists, false otherwise.
+     */
+    public boolean exists(final Item item) {
+        return items.contains(item);
+    }
+    
     /**
      * Clears the list of items and replaces it with a new one. Afterwards,
      * {@link #hasChanged()}returns <code>true</code>.
@@ -189,9 +220,9 @@ public final class ItemManager extends AbstractManager
     }
 
     /**
-     * Updates an item in this manager. If you change a object you
-     * MUST call this method so Observers can be notified of the update.
-     * Afterwards, {@link #hasChanged()}returns <code>true</code>.
+     * Updates an item in this manager. If you change an object you MUST call
+     * this method so Observers can be notified of the update. Afterwards,
+     * {@link #hasChanged()}returns <code>true</code>.
      * 
      * @param item The item which should be updated.
      */
@@ -207,40 +238,23 @@ public final class ItemManager extends AbstractManager
         publishEvent(HousekeeperEvent.MODIFIED, item);
     }
     
-    /*
-     * (non-Javadoc)
+    /**
+     * Tries to find an item with a given name.
      * 
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @param name != null
+     * @return The first item with the given name or null if none exists.
      */
-    public boolean equals(Object o)
-    {
-        if (this == o)
+    public Item findItemWithName(String name) {
+        final Iterator iter = items.iterator();
+        while (iter.hasNext())
         {
-            return true;
+            Item element = (Item) iter.next();
+            if (element.getName().equals(name))
+            {
+                return element;
+            }
         }
-        if (o == null)
-        {
-            return false;
-        }
-        if (o.getClass() != getClass())
-        {
-            return false;
-        }
-        ItemManager castedObj = (ItemManager) o;
-        return this.items == null ? castedObj.items == null : this.items
-                .equals(castedObj.items);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode()
-    {
-        int hashCode = 1;
-        hashCode = 31 * hashCode + (items == null ? 0 : items.hashCode());
-        return hashCode;
+        return null;
     }
 
 }

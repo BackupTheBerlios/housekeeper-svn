@@ -24,6 +24,7 @@ package net.sf.housekeeper.swing.item;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +82,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
     private ItemManager                    itemManager;
 
     private SortableTable                  table;
+    
+    private final PropertyChangeSupport       propertyChangeSupport = new PropertyChangeSupport(this);
 
     /*
      * (non-Javadoc)
@@ -173,6 +176,11 @@ public class ItemsView extends AbstractView implements ApplicationListener
     public void setTable(SortableTable table)
     {
         this.table = table;
+    }
+        
+    public Item getSelectedItem()
+    {
+        return (Item)table.getSelected();
     }
 
     /*
@@ -346,12 +354,12 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private final class TableSelectionListener implements ListSelectionListener
     {
-
         public void valueChanged(ListSelectionEvent e)
         {
             if (!e.getValueIsAdjusting())
             {
                 updateActionEnablement();
+                propertyChangeSupport.firePropertyChange("selection", null, table.getSelected());
             }
 
         }

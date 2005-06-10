@@ -47,14 +47,15 @@
           <value>net.sf.housekeeper.domain.ShoppingListItem</value>
         </entry>
         <entry key="table">
-          <bean id="itemTable"
+          <bean id="shoppingListTable"
 		        class="net.sf.housekeeper.swing.item.Factory"
-                factory-method="createItemsTable">
+                factory-method="createShoppingListItemsTable">
                 <constructor-arg type="org.springframework.context.MessageSource"><ref bean="messageSource"/></constructor-arg>
           </bean>
         </entry>
         <entry key="customPopupMenuEntries">
           <list>
+            <value>buyItemsCommand</value>
             <value>newShoppingListItemCommand</value>
           </list>
         </entry>
@@ -95,6 +96,16 @@
   
   <bean id="supplyManager"
 		class="net.sf.housekeeper.domain.ItemManager">
+  </bean>
+  
+  <bean id="highLevelManager"
+		class="net.sf.housekeeper.domain.HighLevelManager">
+	<property name="supplyManager">
+      <ref local="supplyManager"/>
+    </property>
+    <property name="shoppingListManager">
+      <ref local="shoppingListManager"/>
+    </property>
   </bean>
   
   <bean id="persistenceController"

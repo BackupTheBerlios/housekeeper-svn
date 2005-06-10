@@ -55,6 +55,16 @@ public class ExpirableItem extends Item
     {
         super();
     }
+    
+    /**
+     * Creates a clone of an existing item. The expiry date is not set.
+     * 
+     * @param original The item to be cloned.
+     */
+    public ExpirableItem(Item original)
+    {
+        super(original);
+    }
 
     /**
      * Creates a new item as a deep copy of an existing ExpirableItem object.

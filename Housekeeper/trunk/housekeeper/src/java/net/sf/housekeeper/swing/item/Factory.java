@@ -98,7 +98,7 @@ public final class Factory
      * @param columnNameProvider
      * @return != null
      */
-    public static SortableTable createItemsTable(
+    public static SortableTable createShoppingListItemsTable(
                                                  final MessageSource columnNameProvider)
     {
         final BaseTableModel model = new ItemsTableModel(columnNameProvider);
