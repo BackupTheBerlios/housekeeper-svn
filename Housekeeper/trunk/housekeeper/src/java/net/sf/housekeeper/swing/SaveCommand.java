@@ -16,7 +16,7 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
  * Copyright 2003-2004, The Housekeeper Project
- * http://housekeeper.sourceforge.net
+ * http://housekeeper.berlios.de
  */
 
 package net.sf.housekeeper.swing;
