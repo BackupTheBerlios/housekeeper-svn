@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+  <bean id="windowCommandManager" 
+    class="org.springframework.richclient.application.support.ApplicationWindowCommandManager">
+    <property name="sharedCommandIds">
+      <list>
+        <value>duplicateCommand</value>
+        <value>propertiesCommand</value>
+        <value>deleteCommand</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="menuBar" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <ref bean="fileMenu"/>
+        <ref bean="editMenu"/>
+        <value>glue</value>
+        <ref bean="helpMenu"/>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="toolBar" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <ref local="newCategoryCommand"/>
+        <ref local="newItemCommand"/>
+        <ref local="newShoppingListItemCommand"/>
+        <ref local="buyItemsCommand"/>
+        <value>separator</value>
+        <value>duplicateCommand</value>
+        <value>propertiesCommand</value>
+        <value>deleteCommand</value>
+      </list>
+    </property>
+  </bean>
+  
+  <!-- Menus -->
+  <bean id="fileMenu" 
+    class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <ref local="newMenu"/>
+        <value>separator</value>
+        <bean 
+          class="net.sf.housekeeper.swing.LoadCommand">
+          <property name="household">
+            <ref bean="household"/>
+          </property>
+          <property name="persistenceController">
+            <ref bean="persistenceController"/>
+          </property>
+        </bean>
+        <bean 
+          class="net.sf.housekeeper.swing.SaveCommand">
+          <property name="household">
+            <ref bean="household"/>
+          </property>
+          <property name="persistenceController">
+            <ref bean="persistenceController"/>
+          </property>
+        </bean>
+        <value>separator</value>
+        <bean 
+          class="org.springframework.richclient.command.support.ExitCommand"/>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="newMenu" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <ref local="newItemCommand"/>
+        <ref local="newShoppingListItemCommand"/>
+        <ref local="newCategoryCommand"/>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="editMenu" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <value>duplicateCommand</value>
+        <value>propertiesCommand</value>
+        <value>deleteCommand</value>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="helpMenu" 
+		class="org.springframework.richclient.command.CommandGroupFactoryBean">
+    <property name="members">
+      <list>
+        <ref bean="aboutCommand"/>
+      </list>
+    </property>
+  </bean>
+  
+  
+  <!-- Commands -->
+
+  <bean id="newItemCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+    <property name="commandExecutor">
+      <bean class="net.sf.housekeeper.swing.item.supply.NewItemCommandExecutor">
+        <property name="manager">
+          <ref bean="supplyManager"/>
+        </property>
+      </bean>
+    </property>
+  </bean>
+  
+  <bean id="newShoppingListItemCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+    <property name="commandExecutor">
+      <bean class="net.sf.housekeeper.swing.item.shoppingList.NewItemCommandExecutor">
+        <property name="manager">
+          <ref bean="shoppingListManager"/>
+        </property>
+      </bean>
+    </property>
+  </bean>
+  
+  <bean id="newCategoryCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+    <property name="commandExecutor">
+      <bean class="net.sf.housekeeper.swing.category.NewCategoryCommandExecutor">
+        <property name="categoryManager">
+          <ref bean="categoryManager"/>
+        </property>
+      </bean>
+    </property>
+  </bean>
+  
+  <bean id="buyItemsCommand" 
+		class="org.springframework.richclient.command.TargetableActionCommand">
+    <property name="commandExecutor">
+      <bean class="net.sf.housekeeper.swing.item.shoppingList.BuyItemsCommandExecutor">
+        <property name="highLevelManager">
+          <ref bean="highLevelManager"/>
+        </property>
+        <property name="viewDescriptor">
+          <ref bean="shoppingListView"/>
+        </property>
+      </bean>
+    </property>
+  </bean>
+  
+  <bean id="aboutCommand" 
+		class="org.springframework.richclient.command.support.AboutCommand">
+    <property name="aboutTextPath">
+      <value>net/sf/housekeeper/about.html</value>
+    </property>
+  </bean>
+  
+</beans>

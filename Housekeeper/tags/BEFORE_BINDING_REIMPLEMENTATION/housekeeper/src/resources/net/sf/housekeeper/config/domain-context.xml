@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+  <bean id="supplyView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+	<property name="viewClass">
+	  <value>net.sf.housekeeper.swing.item.ItemsView</value>
+	</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="itemManager">
+          <ref local="supplyManager"/>
+        </entry>
+        <entry key="itemClass">
+          <value>net.sf.housekeeper.domain.ExpirableItem</value>
+        </entry>
+        <entry key="table">
+          <bean id="expirableItemTable"
+		        class="net.sf.housekeeper.swing.item.Factory"
+                factory-method="createExpirableItemsTable">
+                <constructor-arg type="org.springframework.context.MessageSource"><ref bean="messageSource"/></constructor-arg>
+          </bean>
+        </entry>
+        <entry key="customPopupMenuEntries">
+          <list>
+            <value>newItemCommand</value>
+          </list>
+        </entry>
+      </map>
+	</property>
+  </bean>
+  
+  <bean id="shoppingListView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+	<property name="viewClass">
+	  <value>net.sf.housekeeper.swing.item.ItemsView</value>
+	</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="itemManager">
+          <ref local="shoppingListManager"/>
+        </entry>
+        <entry key="itemClass">
+          <value>net.sf.housekeeper.domain.ShoppingListItem</value>
+        </entry>
+        <entry key="table">
+          <bean id="shoppingListTable"
+		        class="net.sf.housekeeper.swing.item.Factory"
+                factory-method="createShoppingListItemsTable">
+                <constructor-arg type="org.springframework.context.MessageSource"><ref bean="messageSource"/></constructor-arg>
+          </bean>
+        </entry>
+        <entry key="customPopupMenuEntries">
+          <list>
+            <value>buyItemsCommand</value>
+            <value>newShoppingListItemCommand</value>
+          </list>
+        </entry>
+      </map>
+	</property>
+  </bean>
+  
+  <bean id="categoryView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+    <property name="viewClass">
+      <value>net.sf.housekeeper.swing.category.CategoriesView</value>
+    </property>
+    <property name="viewProperties">
+      <map>
+        <entry key="categoryManager">
+          <ref local="categoryManager"/>
+        </entry>
+      </map>
+    </property>
+  </bean>
+    
+  <bean id="household"
+		class="net.sf.housekeeper.domain.Household">
+    <constructor-arg><ref local="supplyManager"/></constructor-arg>
+    <constructor-arg><ref local="categoryManager"/></constructor-arg>
+  </bean>
+  
+  <bean id="categoryManager"
+		class="net.sf.housekeeper.domain.CategoryManager">
+    <property name="supplyManager">
+      <ref local="supplyManager"/>
+    </property>
+  </bean>
+  
+  <bean id="shoppingListManager"
+		class="net.sf.housekeeper.domain.ItemManager">
+  </bean>
+  
+  <bean id="supplyManager"
+		class="net.sf.housekeeper.domain.ItemManager">
+  </bean>
+  
+  <bean id="highLevelManager"
+		class="net.sf.housekeeper.domain.HighLevelManager">
+	<property name="supplyManager">
+      <ref local="supplyManager"/>
+    </property>
+    <property name="shoppingListManager">
+      <ref local="shoppingListManager"/>
+    </property>
+  </bean>
+  
+  <bean id="persistenceController"
+		class="net.sf.housekeeper.persistence.PersistenceController">
+  </bean>
+
+</beans>
