@@ -1,0 +1,1 @@
+conf/jibx_binding_v5.xml
