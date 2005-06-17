@@ -62,6 +62,8 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("description");
+        formBuilder.row();
+        formBuilder.add("category");
         return formBuilder.getForm();
     }
 

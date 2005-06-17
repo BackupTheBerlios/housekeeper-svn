@@ -98,6 +98,24 @@ public final class CategoryManager extends AbstractManager
     {
         return categories.iterator();
     }
+    
+    /**
+     * Returns a list of all categories.
+     * 
+     * @return != null
+     */
+    public List getAllCategories()
+    {
+        final ArrayList allCats = new ArrayList();
+        final Iterator topLevelCats = getTopLevelCategoriesIterator();
+        while (topLevelCats.hasNext())
+        {
+            Category element = (Category) topLevelCats.next();
+            final List c = element.getRecursiveCategories();
+            allCats.addAll(c);
+        }
+        return allCats;
+    }
 
     /**
      * Removes a category. All items of that category are reassigned to that

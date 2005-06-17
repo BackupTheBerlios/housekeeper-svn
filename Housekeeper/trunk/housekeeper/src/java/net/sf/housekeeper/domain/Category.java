@@ -22,9 +22,9 @@
 package net.sf.housekeeper.domain;
 
 import java.rmi.server.UID;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.util.Assert;
 
@@ -41,8 +41,8 @@ public final class Category
      * Category instance which can be used to express "no category".
      */
     public static final Category NULL_OBJECT = new Category();
-    
-    private static Category selectedCategory;
+
+    private static Category      selectedCategory;
 
     /**
      * Returns the currently selected Category. Needed as a workaround until
@@ -66,16 +66,16 @@ public final class Category
         Category.selectedCategory = selectedCategory;
     }
 
-    private LinkedHashSet children;
+    private ArrayList    children;
 
-    private final String  id;
+    private final String id;
 
-    private String        name;
+    private String       name;
 
-    private Category      parent;
+    private Category     parent;
 
     /**
-     * Creates a new object with no name and children.
+     * Creates a new category with no name and children.
      */
     public Category()
     {
@@ -83,16 +83,17 @@ public final class Category
     }
 
     /**
-     * Creates a new object with no children.
+     * Creates a new category with no children.
      * 
      * @param name The name for the category. Must not be null.
      */
     public Category(final String name)
     {
         Assert.notNull(name);
+
         this.id = new UID().toString();
         this.name = name;
-        this.children = new LinkedHashSet();
+        this.children = new ArrayList();
     }
 
     /**
@@ -173,11 +174,22 @@ public final class Category
     }
 
     /**
-     * @return Returns the children.
+     * Retuns a list of all recursive children. The first element of the list is
+     * this object.
+     * 
+     * @return != null
      */
-    public Set getChildren()
+    public List getRecursiveCategories()
     {
-        return children;
+        final ArrayList categories = new ArrayList();
+        categories.add(this);
+        final Iterator iter = getChildrenIterator();
+        while (iter.hasNext())
+        {
+            Category element = (Category) iter.next();
+            categories.addAll(element.getRecursiveCategories());
+        }
+        return categories;
     }
 
     /**
@@ -314,7 +326,8 @@ public final class Category
     public String toString()
     {
         final StringBuffer buffer = new StringBuffer();
-        if (parent != null) {
+        if (parent != null)
+        {
             buffer.append(parent.toString());
         }
 

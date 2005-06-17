@@ -126,17 +126,31 @@
       <bean id="binderSelectionStrategy" 
         class="net.sf.housekeeper.swing.binding.ConfigurableBinderSelectionStrategy">
         <property name="bindersForPropertyTypes">
-            <map>
-                <entry>
-                    <key>
-                        <value type="java.lang.Class"> 
+          <map>
+            <entry>
+              <key>
+                <value type="java.lang.Class"> 
                             java.util.Date</value>
-                    </key>
-                    <bean 
-                        class="net.sf.housekeeper.swing.binding.CustomDatePickerBinder">
-                    </bean>
-                </entry>
-            </map>
+              </key>
+              <bean 
+                class="net.sf.housekeeper.swing.binding.CustomDatePickerBinder">
+              </bean>
+            </entry>
+
+            
+            <entry>
+              <key>
+                <value type="java.lang.Class"> 
+                    net.sf.housekeeper.domain.Category</value>
+              </key>
+              <bean 
+                 class="net.sf.housekeeper.swing.binding.CategoryBinder">
+                 <property name="categoryManager">
+                    <ref bean="categoryManager"/>
+                 </property>
+              </bean>
+            </entry>
+          </map>
         </property>
     </bean>
 

@@ -58,6 +58,8 @@ public final class CategoryPropertiesForm extends AbstractForm
     {
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("name");
+        formBuilder.row();
+        formBuilder.add("parent");
         return formBuilder.getForm();
     }
 

@@ -62,6 +62,8 @@ public final class ExpirableItemPropertiesForm extends AbstractForm
         formBuilder.add("description");
         formBuilder.row();
         formBuilder.add("expiry");
+        formBuilder.row();
+        formBuilder.add("category");
         return formBuilder.getForm();
     }
 
