@@ -41,7 +41,7 @@ public final class Household
     /**
      * The version to be used in the XML file.
      */
-    public final int              version = 5;
+    public final String              version = "5";
 
     /**
      * Creates a new domain with no data.

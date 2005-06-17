@@ -30,11 +30,10 @@ import net.sf.housekeeper.persistence.PersistenceService;
 import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 
 import org.apache.commons.logging.LogFactory;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IMarshallingContext;
+import org.jibx.extras.BindingSelector;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
+import org.springframework.util.Assert;
 
 /**
  * Provides persistence using XML and the JiBX data mapper.
@@ -45,6 +44,23 @@ import org.jibx.runtime.JiBXException;
 public final class JiBXPersistence implements PersistenceService
 {
 
+    /**
+     * The supported versions with the latest one first.
+     */
+    private static final String[] VERSION_TEXTS          = { "5", "4" };
+
+    /**
+     * The bindings related to the version texts.
+     */
+    private static final String[] VERSION_BINDINGS       = { "jibx_binding_v5",
+            "jibx_binding_v4"                           };
+
+    private static final String   VERSION_ATTRIBUTE_NAME = "version";
+
+    private static final String   WRONG_VERSION_MESSAGE  = "The version attribute of Household must be equal to the latest supported version";
+
+    private static final String   ENCODING               = "UTF-8";
+
     /*
      * (non-Javadoc)
      * 
@@ -53,17 +69,19 @@ public final class JiBXPersistence implements PersistenceService
     public Household loadData(InputStream dataStream) throws IOException,
             UnsupportedFileVersionException, IllegalArgumentException
     {
+
         try
         {
-            IBindingFactory bfact = BindingDirectory
-                    .getFactory(Household.class);
-            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-            Household obj = (Household) uctx
-                    .unmarshalDocument(dataStream, null);
+            BindingSelector select = new BindingSelector(null,
+                    VERSION_ATTRIBUTE_NAME, VERSION_TEXTS, VERSION_BINDINGS);
+            IUnmarshallingContext context = select.getContext();
+            context.setDocument(dataStream, null);
+            Household obj = (Household) select
+                    .unmarshalVersioned(Household.class);
             return obj;
         } catch (JiBXException e)
         {
-            LogFactory.getLog(getClass()).error("Error while JiBIxing", e);
+            LogFactory.getLog(getClass()).error("Error while JiBXing", e);
             throw new IllegalArgumentException(e.getLocalizedMessage());
         }
     }
@@ -77,16 +95,19 @@ public final class JiBXPersistence implements PersistenceService
     public void saveData(Household household, OutputStream dataStream)
             throws IOException
     {
+        Assert.isTrue(household.version.equals(VERSION_TEXTS[0]),
+                      WRONG_VERSION_MESSAGE);
+
         try
         {
-            IBindingFactory bfact = BindingDirectory
-                    .getFactory(Household.class);
-            IMarshallingContext mctx = bfact.createMarshallingContext();
-            mctx.setIndent(2);
-            mctx.marshalDocument(household, "UTF-8", Boolean.TRUE, dataStream);
+            BindingSelector select = new BindingSelector(null,
+                    VERSION_ATTRIBUTE_NAME, VERSION_TEXTS, VERSION_BINDINGS);
+            select.setIndent(2);
+            select.setOutput(dataStream, ENCODING);
+            select.marshalVersioned(household, VERSION_TEXTS[0]);
         } catch (JiBXException e)
         {
-            LogFactory.getLog(getClass()).error("Error while JiBIxing", e);
+            LogFactory.getLog(getClass()).error("Error while JiBXing", e);
             throw new IOException(e.getLocalizedMessage());
         }
 
@@ -109,7 +130,7 @@ public final class JiBXPersistence implements PersistenceService
      */
     public int maxVersion()
     {
-        return 4;
+        return 5;
     }
 
 }

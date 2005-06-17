@@ -207,6 +207,18 @@
     </dependency>
     
     <dependency>
+        <groupId>jibx</groupId>
+        <artifactId>jibx-extras</artifactId>
+        <version>1.0rc0</version>
+        <url>http://www.jibx.org</url>
+        <properties>
+            <jnlp.jar>true</jnlp.jar>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
         <groupId>toedter</groupId>
         <artifactId>jcalendar</artifactId>
         <version>1.2.2</version>

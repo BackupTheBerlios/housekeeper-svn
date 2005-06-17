@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<binding>
+  
+  <mapping class="net.sf.housekeeper.domain.Item" abstract="true">
+    <value name="name" field="name" usage="optional"/>
+    <value name="description" field="description" usage="optional"/>
+    <value name="category" field="category" ident="ref" usage="optional"/>
+  </mapping>
+  
+  <mapping name="expirableItem" class="net.sf.housekeeper.domain.ExpirableItem" 
+    extends="net.sf.housekeeper.domain.Item">
+    <structure map-as="net.sf.housekeeper.domain.Item"/>
+    <value name="expiry" field="expiry" usage="optional"/>
+  </mapping>
+    
+  <mapping name="category" class="net.sf.housekeeper.domain.Category">
+    <value name="id" field="id" ident="def" style="attribute"/>
+    <value name="name" field="name" usage="optional"/>
+    <value name="parent" field="parent" ident="ref" usage="optional"/>
+    <collection field="children" ident="ref" 
+      item-type="net.sf.housekeeper.domain.Category"/>
+  </mapping>
+  
+  <mapping name="household" class="net.sf.housekeeper.domain.Household">
+    <value style="attribute" name="version" field="version"/>
+    <structure name="supply" field="supplyManager">
+      <collection field="items" 
+         item-type="net.sf.housekeeper.domain.ExpirableItem"/>
+    </structure>
+    <structure name="categories" field="categoryManager">
+      <collection field="categories" 
+         item-type="net.sf.housekeeper.domain.Category"/>
+    </structure>
+  </mapping>
+  
+</binding>
