@@ -98,13 +98,23 @@ public final class CategoryManager extends AbstractManager
     {
         return categories.iterator();
     }
-    
+
     /**
      * Returns a list of all categories.
      * 
      * @return != null
      */
     public List getAllCategories()
+    {
+        return getAllCategoriesExcept(null);
+    }
+    
+    /**
+     * Returns a list of all categories excluding a category and its children.
+     * 
+     * @return != null
+     */
+    public List getAllCategoriesExcept(Category discardedCategory)
     {
         final ArrayList allCats = new ArrayList();
         final Iterator topLevelCats = getTopLevelCategoriesIterator();
@@ -114,7 +124,13 @@ public final class CategoryManager extends AbstractManager
             final List c = element.getRecursiveCategories();
             allCats.addAll(c);
         }
-        return allCats;
+        if (discardedCategory != null)
+        {
+            final List discCats = discardedCategory.getRecursiveCategories();
+            allCats.removeAll(discCats);
+        }
+
+        return Collections.unmodifiableList(allCats);
     }
 
     /**
