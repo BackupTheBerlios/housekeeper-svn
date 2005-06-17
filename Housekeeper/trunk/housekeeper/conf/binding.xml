@@ -13,6 +13,12 @@
     <value name="expiry" field="expiry" usage="optional"/>
   </mapping>
   
+  <mapping name="shoppingListItem" class="net.sf.housekeeper.domain.ShoppingListItem" 
+    extends="net.sf.housekeeper.domain.Item">
+    <structure map-as="net.sf.housekeeper.domain.Item"/>
+    <value name="quantity" field="quantity"/>
+  </mapping>
+  
   <mapping name="category" class="net.sf.housekeeper.domain.Category">
     <value name="id" field="id" ident="def" style="attribute"/>
     <value name="name" field="name" usage="optional"/>
@@ -21,20 +27,20 @@
       item-type="net.sf.housekeeper.domain.Category"/>
   </mapping>
   
-  <mapping name="supply" class="net.sf.housekeeper.domain.ItemManager">
-    <collection field="items" 
-      item-type="net.sf.housekeeper.domain.ExpirableItem"/>
-  </mapping>
-  
-  <mapping name="categories" class="net.sf.housekeeper.domain.CategoryManager">
-    <collection field="categories" 
-      item-type="net.sf.housekeeper.domain.Category"/>
-  </mapping>
-  
   <mapping name="household" class="net.sf.housekeeper.domain.Household">
     <value style="attribute" name="version" field="version"/>
-    <structure field="supplyManager"/>
-    <structure field="categoryManager"/>
+    <structure name="supply" field="supplyManager">
+      <collection field="items" 
+         item-type="net.sf.housekeeper.domain.ExpirableItem"/>
+    </structure>
+    <structure name="shoppingList" field="shoppingListManager">
+      <collection field="items" 
+         item-type="net.sf.housekeeper.domain.ShoppingListItem"/>
+    </structure>
+    <structure name="categories" field="categoryManager">
+      <collection field="categories" 
+         item-type="net.sf.housekeeper.domain.Category"/>
+    </structure>
   </mapping>
   
 </binding>

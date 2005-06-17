@@ -81,6 +81,7 @@
 		class="net.sf.housekeeper.domain.Household">
     <constructor-arg><ref local="supplyManager"/></constructor-arg>
     <constructor-arg><ref local="categoryManager"/></constructor-arg>
+    <constructor-arg><ref local="shoppingListManager"/></constructor-arg>
   </bean>
   
   <bean id="categoryManager"

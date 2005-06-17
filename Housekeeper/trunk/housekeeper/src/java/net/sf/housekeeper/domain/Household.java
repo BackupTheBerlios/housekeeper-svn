@@ -36,30 +36,40 @@ public final class Household
 
     private final CategoryManager categoryManager;
 
+    private final ItemManager     shoppingListManager;
+
     /**
      * The version to be used in the XML file.
      */
-    public final int              version = 4;
+    public final int              version = 5;
 
     /**
      * Creates a new domain with no data.
      */
     public Household()
     {
-        this(new ItemManager(), new CategoryManager());
+        this(new ItemManager(), new CategoryManager(), new ItemManager());
     }
 
     /**
-     * Creates a new domain using an existing {@link ItemManager}.
+     * Creates a new domain using existing managers.
      * 
-     * @param supplyManager The manager for food objects. Must not be null.
-     * @param categoryManager The manager for categories. Must not be null.
+     * @param supplyManager != null
+     * @param categoryManager != null
+     * @param shoppingListManager != null
      */
     public Household(final ItemManager supplyManager,
-            final CategoryManager categoryManager)
+            final CategoryManager categoryManager,
+            final ItemManager shoppingListManager)
     {
         this.supplyManager = supplyManager;
         this.categoryManager = categoryManager;
+        this.shoppingListManager = shoppingListManager;
+    }
+
+    public ItemManager getShoppingListManager()
+    {
+        return shoppingListManager;
     }
 
     /**
@@ -83,6 +93,8 @@ public final class Household
         supplyManager.replaceAll(domain.getSupplyManager().getAllItems());
         categoryManager.replaceAll(domain.getCategoryManager()
                 .getTopLevelCategories());
+        shoppingListManager.replaceAll(domain.getShoppingListManager()
+                .getAllItems());
     }
 
     /**
@@ -104,7 +116,8 @@ public final class Household
     public boolean hasChanged()
     {
         final boolean hasChanged = supplyManager.hasChanged()
-                || categoryManager.hasChanged();
+                || categoryManager.hasChanged()
+                || shoppingListManager.hasChanged();
         return hasChanged;
     }
 
@@ -116,6 +129,7 @@ public final class Household
     {
         supplyManager.resetChangedStatus();
         categoryManager.resetChangedStatus();
+        shoppingListManager.resetChangedStatus();
     }
 
     /*
