@@ -24,7 +24,6 @@ package net.sf.housekeeper.swing.category;
 import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.CategoryManager;
 
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
@@ -48,13 +47,6 @@ public final class CategoryPropertiesForm extends AbstractForm
     {
         super(object);
         setId("categoryPropertiesForm");
-        
-        final CategoryManager catMan = (CategoryManager) getApplicationContext()
-                .getBean("categoryManager");
-        getFormModel().registerCustomEditor(
-                                            "parent",
-                                            new CategoryChooserEditor(catMan
-                                                    .getTopLevelCategories()));
     }
 
     /*
@@ -64,10 +56,8 @@ public final class CategoryPropertiesForm extends AbstractForm
      */
     protected JComponent createFormControl()
     {
-        TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
+        TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("name");
-        formBuilder.row();
-        formBuilder.add("parent");
         return formBuilder.getForm();
     }
 

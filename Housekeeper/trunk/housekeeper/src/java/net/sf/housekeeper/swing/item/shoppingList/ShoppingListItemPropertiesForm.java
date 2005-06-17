@@ -23,9 +23,7 @@ package net.sf.housekeeper.swing.item.shoppingList;
 
 import javax.swing.JComponent;
 
-import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ShoppingListItem;
-import net.sf.housekeeper.swing.category.CategoryChooserEditor;
 
 import org.springframework.richclient.form.builder.TableFormBuilder;
 import org.springframework.richclient.forms.AbstractForm;
@@ -49,14 +47,6 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
     {
         super(object);
         setId("itemPropertiesForm");
-
-        final CategoryManager catMan = (CategoryManager) getApplicationContext()
-                .getBean("categoryManager");
-
-        getFormModel().registerCustomEditor(
-                                            "category",
-                                            new CategoryChooserEditor(catMan
-                                                    .getTopLevelCategories()));
     }
 
     /*
@@ -66,14 +56,12 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
      */
     protected JComponent createFormControl()
     {
-        TableFormBuilder formBuilder = new TableFormBuilder(getFormModel());
+        TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("quantity");
         formBuilder.row();
         formBuilder.add("name");
         formBuilder.row();
         formBuilder.add("description");
-        formBuilder.row();
-        formBuilder.add("category");
         return formBuilder.getForm();
     }
 

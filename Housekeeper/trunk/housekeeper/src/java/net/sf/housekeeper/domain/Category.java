@@ -314,6 +314,13 @@ public final class Category
      */
     public String toString()
     {
-        return new ToStringCreator(this).toString();
+        final StringBuffer buffer = new StringBuffer();
+        if (parent != null) {
+            buffer.append(parent.toString());
+        }
+
+        buffer.append("/");
+        buffer.append(getName());
+        return buffer.toString();
     }
 }
