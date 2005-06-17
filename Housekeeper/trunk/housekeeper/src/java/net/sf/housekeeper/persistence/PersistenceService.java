@@ -45,13 +45,11 @@ public interface PersistenceService
      * @param dataStream A stream with the data which should be parsed.
      * @return A Household object holding the loaded data.
      * @throws IOException If the data couldn't be retrieved.
-     * @throws UnsupportedFileVersionException if the version or format of the
-     *             data source is not supported.
      * @throws IllegalArgumentException if the given file is not a valid
      *             Housekeeper file.
      */
     Household loadData(final InputStream dataStream) throws IOException,
-            UnsupportedFileVersionException, IllegalArgumentException;
+            IllegalArgumentException;
 
     /**
      * Saves all domain objects of the given household persistently.
@@ -63,19 +61,4 @@ public interface PersistenceService
     void saveData(final Household household, final OutputStream dataStream)
             throws IOException;
 
-    /**
-     * Specifies the lowest document version which is supported.
-     * 
-     * @return Documents of at least this version can be processed by this
-     *         service.
-     */
-    int minVersion();
-    
-    /**
-     * Specifies the highest document version which is supported.
-     * 
-     * @return Documents of at most this version can be processed by this
-     *         service.
-     */
-    int maxVersion();
 }

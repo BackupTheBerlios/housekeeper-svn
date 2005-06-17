@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 import net.sf.housekeeper.testutils.DataGenerator;
 
 import org.custommonkey.xmlunit.XMLTestCase;
@@ -88,12 +87,8 @@ public final class JiBXPersistenceTest extends XMLTestCase
     /**
      * Tests if an {@link IllegalArgumentException}is thrown if it is tried to
      * parse a stream which is not a valid Housekeeper document.
-     * 
-     * @throws IOException
-     * @throws UnsupportedFileVersionException
      */
-    public void testLoadNotAnXmlFile() throws IOException,
-            UnsupportedFileVersionException
+    public void testLoadNotAnXmlFile() throws IOException
     {
         //Read data from resources and parse it
         final InputStream dataStream = getClass()

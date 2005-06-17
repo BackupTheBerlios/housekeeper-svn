@@ -103,11 +103,9 @@ public final class PersistenceController implements ApplicationContextAware
      * 
      * @param currentDomain The domain which shall be replaced with another.
      * @throws IOException If the data couldn't be retrieved.
-     * @throws UnsupportedFileVersionException if the version or format of the
-     *             data source is not supported.
      */
     public void replaceDomainWithSaved(final Household currentDomain)
-            throws IOException, UnsupportedFileVersionException
+            throws IOException
     {
         LOG.info("Loading data from: " + dataFile);
 

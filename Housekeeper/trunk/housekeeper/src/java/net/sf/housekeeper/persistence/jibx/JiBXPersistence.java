@@ -27,7 +27,6 @@ import java.io.OutputStream;
 
 import net.sf.housekeeper.domain.Household;
 import net.sf.housekeeper.persistence.PersistenceService;
-import net.sf.housekeeper.persistence.UnsupportedFileVersionException;
 
 import org.apache.commons.logging.LogFactory;
 import org.jibx.extras.BindingSelector;
@@ -67,7 +66,7 @@ public final class JiBXPersistence implements PersistenceService
      * @see net.sf.housekeeper.persistence.PersistenceService#loadData(java.io.InputStream)
      */
     public Household loadData(InputStream dataStream) throws IOException,
-            UnsupportedFileVersionException, IllegalArgumentException
+            IllegalArgumentException
     {
 
         try
@@ -111,26 +110,6 @@ public final class JiBXPersistence implements PersistenceService
             throw new IOException(e.getLocalizedMessage());
         }
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.persistence.PersistenceService#minVersion()
-     */
-    public int minVersion()
-    {
-        return 4;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.housekeeper.persistence.PersistenceService#maxVersion()
-     */
-    public int maxVersion()
-    {
-        return 5;
     }
 
 }
