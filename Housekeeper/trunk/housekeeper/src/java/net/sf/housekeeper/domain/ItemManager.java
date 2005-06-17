@@ -102,21 +102,14 @@ public final class ItemManager extends AbstractManager
      * 
      * @param item The item to be duplicated.
      */
-    public void duplicate(final ExpirableItem item)
-    {
-        final ExpirableItem clonedItem = new ExpirableItem(item);
-        add(clonedItem);
-    }
-
-    /**
-     * Duplicates the provided item and adds it to the to the list. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
-     * 
-     * @param item The item to be duplicated.
-     */
     public void duplicate(final Item item)
     {
-        final Item clonedItem = new Item(item);
+        final Item clonedItem;
+        if (item instanceof ExpirableItem) {
+            clonedItem = new ExpirableItem((ExpirableItem)item);
+        } else {
+            throw new IllegalArgumentException();
+        }
         add(clonedItem);
     }
 
