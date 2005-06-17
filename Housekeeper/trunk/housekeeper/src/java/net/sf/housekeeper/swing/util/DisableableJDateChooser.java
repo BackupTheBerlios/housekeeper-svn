@@ -22,6 +22,8 @@
 package net.sf.housekeeper.swing.util;
 
 import java.awt.Component;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.Box;
@@ -34,7 +36,8 @@ import javax.swing.event.ChangeListener;
 import com.toedter.calendar.JDateChooser;
 
 /**
- * A date chooser which supports null dates.
+ * A date chooser which supports null dates. By default, a date is presented in
+ * the short format of the current locale.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -64,6 +67,11 @@ public final class DisableableJDateChooser extends JPanel
         add(chooser);
         add(Box.createHorizontalStrut(5));
         add(enableBox);
+
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat
+                .getDateInstance(DateFormat.SHORT);
+        final String formatPattern = dateFormat.toPattern();
+        chooser.setDateFormatString(formatPattern);
     }
 
     /**
