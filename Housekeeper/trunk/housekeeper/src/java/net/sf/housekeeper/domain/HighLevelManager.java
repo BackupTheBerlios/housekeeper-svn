@@ -23,7 +23,6 @@ package net.sf.housekeeper.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.util.Assert;
 
@@ -57,43 +56,45 @@ public final class HighLevelManager
     }
 
     /**
+     * Creates {@link ExpirableItem}s in the correct quantity from a
+     * {@link ShoppingListItem}and adds them to the supply. Also, the
+     * SupplyItem is removed from the ShoppingList.
      * 
      * @param boughtItem != null. Must exist in the shopping list.
      * @throws IllegalArgumentException if the item isn't on the shopping list.
      */
-    public void buy(ShoppingListItem boughtItem)
+    public void buy(ShoppingListItem boughtItem, ExpirableItem itemPrototype)
             throws IllegalArgumentException
     {
-        Assert.notNull(boughtItem);
         Assert.notNull(supplyManager);
         Assert.notNull(shoppingListManager);
 
+        Assert.notNull(boughtItem);
+        Assert.notNull(itemPrototype);
+
         shoppingListManager.remove(boughtItem);
-        final Collection shoppingListItems = createSupplyItems(boughtItem, null);
+        final Collection shoppingListItems = createSupplyItems(boughtItem
+                .getQuantity(), itemPrototype);
         supplyManager.addAll(shoppingListItems);
     }
 
     /**
-     * Creates {@link ExpirableItem}s from a {@link ShoppingListItem}.
+     * Creates a number of {@link ExpirableItem}s.
      * 
-     * @param shoppingListItem != null
-     * @param expiry The expiry date for the newly created items.
+     * @param prototype A prototype for the items to create. != null
+     * @param quantity The number of items to create. > 0
      * @return The created {@link ExpirableItem}s. != null
      */
-    public Collection createSupplyItems(
-                                        final ShoppingListItem shoppingListItem,
-                                        final Date expiry)
+    public Collection createSupplyItems(final int quantity,
+                                        final ExpirableItem prototype)
     {
-        final int numberOfItems = shoppingListItem.getQuantity();
-        final ArrayList createdItems = new ArrayList(numberOfItems);
+        final ArrayList createdItems = new ArrayList(quantity);
+        createdItems.add(prototype);
 
-        for (int i = 0; i < numberOfItems; i++)
+        for (int i = 1; i < quantity; i++)
         {
-            final ExpirableItem item = new ExpirableItem(shoppingListItem);
-            item.setExpiry(expiry);
-            createdItems.add(item);
+            createdItems.add(new ExpirableItem(prototype));
         }
-
         return createdItems;
     }
 }

@@ -23,9 +23,11 @@ package net.sf.housekeeper.swing.item.shoppingList;
 
 import java.util.Collection;
 
+import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.HighLevelManager;
 import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.swing.item.ItemsView;
+import net.sf.housekeeper.swing.item.supply.ExpirableItemPropertiesForm;
 
 import org.springframework.core.closure.support.AbstractConstraint;
 import org.springframework.richclient.application.ApplicationWindow;
@@ -35,6 +37,7 @@ import org.springframework.richclient.application.ViewDescriptor;
 import org.springframework.richclient.application.config.ApplicationWindowAware;
 import org.springframework.richclient.application.support.AbstractApplicationPage;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.util.Assert;
 
 /**
@@ -56,7 +59,7 @@ public final class BuyItemsCommandExecutor extends
     private HighLevelManager  highLevelManager;
 
     /**
-     *
+     *  
      */
     public BuyItemsCommandExecutor()
     {
@@ -97,7 +100,27 @@ public final class BuyItemsCommandExecutor extends
                 .getSelectedItem();
         if (selectedItem != null)
         {
-            highLevelManager.buy(selectedItem);
+            final ExpirableItem itemPrototype = new ExpirableItem(selectedItem);
+            final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
+                    itemPrototype);
+            final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
+                    form, null) {
+
+                protected void onAboutToShow()
+                {
+                    setEnabled(true);
+                }
+
+                protected boolean onFinish()
+                {
+                    form.commit();
+                    highLevelManager.buy(selectedItem, itemPrototype);
+                    return true;
+                }
+            };
+            dialog.showDialog();
+
+            
         }
 
     }

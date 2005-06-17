@@ -21,11 +21,8 @@
 
 package net.sf.housekeeper.domain;
 
-import java.util.Collection;
-import java.util.Date;
-
-import net.sf.housekeeper.testutils.DataGenerator;
 import junit.framework.TestCase;
+import net.sf.housekeeper.testutils.DataGenerator;
 
 /**
  * Tests for {@link net.sf.housekeeper.domain.HighLevelManager}.
@@ -52,14 +49,14 @@ public final class HighLevelManagerTest extends TestCase
     public void testBuy()
     {
         shoppingListManager.add(item);
-        highLevelManager.buy(item);
+        highLevelManager.buy(item, new ExpirableItem());
 
         final boolean itemWasRemovedFromShoppingList = !shoppingListManager
                 .exists(item);
         assertTrue(itemWasRemovedFromShoppingList);
-        final boolean itemAddedToSupply = supplyManager
-                .findItemWithName(TESTITEM_NAME) != null;
-        assertTrue(itemAddedToSupply);
+        final boolean correctNumberOfItems = supplyManager
+                .getAllItems().size() == item.getQuantity();
+        assertTrue(correctNumberOfItems);
     }
 
     /**
@@ -70,28 +67,12 @@ public final class HighLevelManagerTest extends TestCase
     {
         try
         {
-            highLevelManager.buy(item);
+            highLevelManager.buy(item, new ExpirableItem());
             fail("IllegalArgumentException must be thrown if item doesn't exist in shopping list");
         } catch (IllegalArgumentException e)
         {
             //expected behaviour
         }
-    }
-
-    /**
-     * Tests if
-     * {@link HighLevelManager#createSupplyItems(ShoppingListItem, Date)}
-     * creates the correct number of objects.
-     */
-    public void testCreateSupplyItems()
-    {
-        final int quantity = 3;
-        item.setQuantity(quantity);
-        final Date date = new Date();
-        final Collection createdItems = highLevelManager
-                .createSupplyItems(item, date);
-
-        assertEquals(createdItems.size(), quantity);
     }
 
     /*
