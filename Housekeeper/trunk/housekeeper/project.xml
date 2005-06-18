@@ -358,6 +358,14 @@
         <type>plugin</type>
     </dependency>
     
+    <dependency>
+        <groupId>clover</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+        <version>1.9.1</version>
+        <url>http://maven.apache.org/reference/plugins/clover/</url>
+        <type>plugin</type>
+    </dependency>
+    
   </dependencies>
   
   <!-- build information for the project -->
@@ -395,6 +403,7 @@
 	<report>maven-changes-plugin</report>
 	<report>maven-license-plugin</report>
     <report>maven-javadoc-plugin</report>
+    <report>maven-clover-plugin</report>
     <!-- <report>maven-jdepend-plugin</report>-->
     <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
