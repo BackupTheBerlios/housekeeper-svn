@@ -23,12 +23,12 @@ package net.sf.housekeeper.swing;
 
 import java.io.FileNotFoundException;
 
-import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.persistence.PersistenceController;
+import net.sf.housekeeper.persistence.ImportExportController;
 import net.sf.housekeeper.swing.util.ErrorDialog;
 
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
+import org.springframework.util.Assert;
 
 /**
  * Command for loading data from persistent storage.
@@ -39,11 +39,9 @@ import org.springframework.richclient.command.support.ApplicationWindowAwareComm
 public final class LoadCommand extends ApplicationWindowAwareCommand
 {
 
-    private static final String ID = "loadCommand";
+    private static final String    ID = "loadCommand";
 
-    private Household     household;
-    
-    private PersistenceController persistenceController;
+    private ImportExportController importExportController;
 
     /**
      * Creates a new LoadCommand.
@@ -52,27 +50,16 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
     {
         super(ID);
     }
-    
+
     /**
-     * Sets the household property.
-     * 
-     * @param household the value to set.
+     * @param importExportController The importExportController to set.
      */
-    public void setHousehold(Household household)
+    public void setImportExportController(
+                                          ImportExportController importExportController)
     {
-        this.household = household;
+        this.importExportController = importExportController;
     }
-    
-    /**
-     * Sets the persistenceController property.
-     * 
-     * @param controller the value to set.
-     */
-    public void setPersistenceController(PersistenceController controller)
-    {
-        this.persistenceController = controller;
-    }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -80,21 +67,18 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
      */
     protected void doExecuteCommand()
     {
+        Assert.notNull(importExportController);
+        
         try
         {
-            persistenceController.replaceDomainWithSaved(household);
+            importExportController.importData();
             LogFactory.getLog(getClass()).info("Data sucessfully loaded");
         } catch (FileNotFoundException exception)
         {
-            //If called during startup, the application window is not yet
-            //initialized. So we can check for that to not show the "no data
-            //found" error on startup.
-            if (getApplicationWindow().getControl() != null)
-            {
-                final ErrorDialog dialog = new ErrorDialog(
-                        "gui.mainFrame.nodata", exception);
-                dialog.showDialog();
-            }
+
+            final ErrorDialog dialog = new ErrorDialog("gui.mainFrame.nodata",
+                    exception);
+            dialog.showDialog();
         } catch (Exception exception)
         {
             final ErrorDialog dialog = new ErrorDialog(exception);

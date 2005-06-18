@@ -23,12 +23,11 @@ package net.sf.housekeeper.testutils;
 
 import java.util.Calendar;
 
+import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.ItemManager;
+
 import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
-
-import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.domain.ItemManager;
 
 /**
  * A Factory for various domain objects and XML documents.
@@ -74,21 +73,6 @@ public final class DataGenerator
     private DataGenerator()
     {
 
-    }
-
-    /**
-     * Creates a {@link Household}object which is populated with a complex and
-     * a simple {@link ExpirableItem}.
-     * 
-     * @return Not null.
-     */
-    public static Household createHousehold()
-    {
-        final Household household = new Household();
-        household.getSupplyManager().add(createComplexItem());
-        household.getSupplyManager().add(createSimpleItem());
-
-        return household;
     }
 
     /**

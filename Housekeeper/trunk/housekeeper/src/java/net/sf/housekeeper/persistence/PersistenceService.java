@@ -25,8 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import net.sf.housekeeper.domain.Household;
-
 /**
  * PersistenceServices are able to store and load domain objects from/to a
  * persistence data source. Examples for such a service are mapping objects to

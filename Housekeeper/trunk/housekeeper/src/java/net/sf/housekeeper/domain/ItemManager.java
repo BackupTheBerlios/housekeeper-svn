@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.housekeeper.event.HousekeeperEventPublisher;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
@@ -39,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ItemManager extends AbstractManager
+public final class ItemManager extends HousekeeperEventPublisher
 {
 
     /**
@@ -59,7 +60,6 @@ public final class ItemManager extends AbstractManager
     public ItemManager()
     {
         this.items = new ArrayList();
-        resetChangedStatus();
     }
 
     /**
@@ -71,7 +71,6 @@ public final class ItemManager extends AbstractManager
     public void add(final Item item)
     {
         items.add(item);
-        setChanged();
 
         if (LOG.isDebugEnabled())
         {
@@ -177,8 +176,6 @@ public final class ItemManager extends AbstractManager
             throw new IllegalArgumentException("Item doesn't exist: " + item);
         }
 
-        setChanged();
-
         if (LOG.isDebugEnabled())
         {
             LOG.debug("Removed: " + item);
@@ -207,7 +204,6 @@ public final class ItemManager extends AbstractManager
     {
         items.clear();
         items.addAll(newItems);
-        setChanged();
 
         LOG.debug("Replaced all items");
     }
@@ -221,8 +217,6 @@ public final class ItemManager extends AbstractManager
      */
     public void update(final Item item)
     {
-        setChanged();
-
         if (LOG.isDebugEnabled())
         {
             LOG.debug("Updated food: " + item);

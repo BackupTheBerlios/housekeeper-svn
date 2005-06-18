@@ -19,9 +19,7 @@
  * http://housekeeper.berlios.de
  */
 
-package net.sf.housekeeper.domain;
-
-import net.sf.housekeeper.event.HousekeeperEvent;
+package net.sf.housekeeper.event;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -29,50 +27,17 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
 /**
- * Supertype for all managers.
+ * Convenience super class for classes which publish
+ * {@link net.sf.housekeeper.event.HousekeeperEvent}s.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-abstract class AbstractManager implements ApplicationContextAware
+public abstract class HousekeeperEventPublisher implements
+        ApplicationContextAware
 {
 
-    private static final String APP_CONTEXT_NOT_SET = "The applicationContext must be set before this method can be called.";
-
-    /**
-     * Flag indicating if any data has been changed.
-     */
-    private boolean             hasChanged;
-
     private ApplicationContext  applicationContext;
-
-    /**
-     * Resets the status of the "has changed" attribute. After calling this,
-     * {@link #hasChanged()}returns false.
-     */
-    public void resetChangedStatus()
-    {
-        hasChanged = false;
-    }
-
-    /**
-     * Returns true if any data has been changed since the last call to
-     * {@link #resetChangedStatus()}.
-     * 
-     * @return True if any dat has changed, false otherwise.
-     */
-    public boolean hasChanged()
-    {
-        return hasChanged;
-    }
-
-    /**
-     * Set this manager to "has changed".
-     */
-    protected void setChanged()
-    {
-        hasChanged = true;
-    }
 
     /*
      * (non-Javadoc)
@@ -84,7 +49,7 @@ abstract class AbstractManager implements ApplicationContextAware
     {
         this.applicationContext = arg0;
     }
-    
+
     /**
      * Creates and publishes a new {@link HousekeeperEvent}.
      * 
@@ -93,7 +58,7 @@ abstract class AbstractManager implements ApplicationContextAware
      */
     protected final void publishEvent(String eventType, Object source)
     {
-        Assert.notNull(applicationContext, APP_CONTEXT_NOT_SET);
+        Assert.notNull(applicationContext);
         Assert.notNull(eventType);
         Assert.notNull(source);
 

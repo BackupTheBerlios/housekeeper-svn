@@ -23,13 +23,18 @@ package net.sf.housekeeper.swing;
 
 import java.io.IOException;
 
-import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.persistence.PersistenceController;
+import net.sf.housekeeper.event.HousekeeperEvent;
+import net.sf.housekeeper.persistence.ImportExportController;
 import net.sf.housekeeper.swing.util.ErrorDialog;
+import net.sf.housekeeper.util.ApplicationEventHelper;
 
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.command.ActionCommand;
 import org.springframework.richclient.command.support.ActionCommandInterceptorAdapter;
+import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
+import org.springframework.util.Assert;
 
 /**
  * Command for saving data to persistent storage.
@@ -37,17 +42,16 @@ import org.springframework.richclient.command.support.ActionCommandInterceptorAd
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class SaveCommand extends ActionCommand
+public final class SaveCommand extends ApplicationWindowAwareCommand implements
+        ApplicationListener
 {
 
-    private static final String   ID = "saveCommand";
+    private static final String    ID = "saveCommand";
 
-    private Household             household;
+    private Exception              exception;
 
-    private PersistenceController persistenceController;
-
-    private Exception             exception;
-
+    private ImportExportController importExportController;
+    
     /**
      * Creates a new Command for saving. If the action fails, an error dialog is
      * shown.
@@ -55,30 +59,52 @@ public final class SaveCommand extends ActionCommand
     public SaveCommand()
     {
         super(ID);
+        setEnabled(false);
 
         addCommandInterceptor(new ErrorInterceptor());
     }
 
-    /**
-     * Sets the household property.
+    /*
+     * (non-Javadoc)
      * 
-     * @param household the value to set.
+     * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
      */
-    public void setHousehold(Household household)
+    public void onApplicationEvent(ApplicationEvent arg0)
     {
-        this.household = household;
+        if (arg0 instanceof HousekeeperEvent)
+        {
+            final HousekeeperEvent e = (HousekeeperEvent) arg0;
+            if (e.isEventType(HousekeeperEvent.DATA_REPLACED))
+            {
+                setEnabled(false);
+            } else if (e.isEventType(HousekeeperEvent.ADDED)
+                    || e.isEventType(HousekeeperEvent.MODIFIED)
+                    || e.isEventType(HousekeeperEvent.REMOVED))
+            {
+                setEnabled(true);
+            }
+        }
+
     }
 
     /**
-     * Sets the persistenceController property.
-     * 
-     * @param controller the value to set.
+     * @param importExportController The importExportController to set.
      */
-    public void setPersistenceController(PersistenceController controller)
+    public void setImportExportController(
+                                          ImportExportController importExportController)
     {
-        this.persistenceController = controller;
+        this.importExportController = importExportController;
     }
 
+    
+    /**
+     * @param eventHelper The eventHelper to set.
+     */
+    public void setEventHelper(ApplicationEventHelper eventHelper)
+    {
+        eventHelper.addListener(this);
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -86,9 +112,11 @@ public final class SaveCommand extends ActionCommand
      */
     protected void doExecuteCommand()
     {
+        Assert.notNull(importExportController);
         try
         {
-            persistenceController.saveDomainData(household);
+            importExportController.exportData();
+            setEnabled(false);
         } catch (IOException e)
         {
             exception = e;

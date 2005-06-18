@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import net.sf.housekeeper.domain.Household;
+import net.sf.housekeeper.persistence.Household;
 import net.sf.housekeeper.persistence.PersistenceService;
 
 import org.apache.commons.logging.LogFactory;

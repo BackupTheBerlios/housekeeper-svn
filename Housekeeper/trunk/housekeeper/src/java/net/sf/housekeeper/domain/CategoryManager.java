@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.housekeeper.event.HousekeeperEventPublisher;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
@@ -38,7 +39,7 @@ import org.springframework.util.Assert;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class CategoryManager extends AbstractManager
+public final class CategoryManager extends HousekeeperEventPublisher
 {
 
     private static final Log LOG = LogFactory.getLog(CategoryManager.class);
@@ -75,7 +76,6 @@ public final class CategoryManager extends AbstractManager
             category.getParent().addChild(category);
         }
 
-        setChanged();
         publishEvent(HousekeeperEvent.ADDED, category);
     }
 
@@ -163,7 +163,6 @@ public final class CategoryManager extends AbstractManager
             parent.removeChild(category);
         }
 
-        setChanged();
         publishEvent(HousekeeperEvent.REMOVED, category);
     }
 
@@ -178,8 +177,6 @@ public final class CategoryManager extends AbstractManager
 
         this.categories.clear();
         this.categories.addAll(categories);
-
-        setChanged();
     }
 
     /**
@@ -212,7 +209,6 @@ public final class CategoryManager extends AbstractManager
             categories.remove(category);
         }
 
-        setChanged();
         publishEvent(HousekeeperEvent.MODIFIED, category);
     }
 

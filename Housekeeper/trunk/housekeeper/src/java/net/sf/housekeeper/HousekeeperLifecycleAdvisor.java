@@ -23,11 +23,6 @@ package net.sf.housekeeper;
 
 import javax.swing.JOptionPane;
 
-import net.sf.housekeeper.domain.Household;
-
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor;
 import org.springframework.richclient.command.ActionCommand;
@@ -41,10 +36,8 @@ import org.springframework.richclient.command.ActionCommand;
  * @version $Revision$, $Date$
  */
 public final class HousekeeperLifecycleAdvisor extends
-        DefaultApplicationLifecycleAdvisor implements BeanFactoryAware
+        DefaultApplicationLifecycleAdvisor
 {
-
-    private BeanFactory beanFactory;
 
     /**
      * Ask if user wants to save before exiting.
@@ -53,11 +46,12 @@ public final class HousekeeperLifecycleAdvisor extends
     {
         boolean exit = true;
 
-        final Household household = (Household) beanFactory
-                .getBean("household");
+        final ActionCommand saveCommand = window.getCommandManager()
+                .getActionCommand("saveCommand");
+        
         //Only show dialog for saving before exiting if any data has been
         // changed
-        if (household.hasChanged())
+        if (saveCommand.isEnabled())
         {
             final String question = getApplicationServices().getMessages()
                     .getMessage("gui.mainFrame.saveModificationsQuestion");
@@ -67,9 +61,7 @@ public final class HousekeeperLifecycleAdvisor extends
             //If user choses yes try to save. If that fails do not exit.
             if (option == JOptionPane.YES_OPTION)
             {
-                ActionCommand command = window.getCommandManager()
-                        .getActionCommand("saveCommand");
-                command.execute();
+                saveCommand.execute();
 
             } else if (option == JOptionPane.CANCEL_OPTION)
             {
@@ -89,23 +81,13 @@ public final class HousekeeperLifecycleAdvisor extends
         window.getControl().toFront();
         super.onWindowOpened(window);
     }
-    
 
     public void onCommandsCreated(ApplicationWindow window)
     {
         ActionCommand command = window.getCommandManager()
-        .getActionCommand("loadCommand");
+                .getActionCommand("loadCommand");
         command.execute();
         super.onCommandsCreated(window);
     }
-    
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.beans.factory.BeanFactoryAware#setBeanFactory(org.springframework.beans.factory.BeanFactory)
-     */
-    public void setBeanFactory(BeanFactory arg0) throws BeansException
-    {
-        this.beanFactory = arg0;
-    }
+
 }

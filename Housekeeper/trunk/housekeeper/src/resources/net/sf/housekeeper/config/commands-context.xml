@@ -51,20 +51,17 @@
         <value>separator</value>
         <bean 
           class="net.sf.housekeeper.swing.LoadCommand">
-          <property name="household">
-            <ref bean="household"/>
-          </property>
-          <property name="persistenceController">
-            <ref bean="persistenceController"/>
+          <property name="importExportController">
+            <ref bean="importExportController"/>
           </property>
         </bean>
         <bean 
           class="net.sf.housekeeper.swing.SaveCommand">
-          <property name="household">
-            <ref bean="household"/>
+          <property name="importExportController">
+            <ref bean="importExportController"/>
           </property>
-          <property name="persistenceController">
-            <ref bean="persistenceController"/>
+          <property name="eventHelper">
+            <ref bean="applicationEventHelper"/>
           </property>
         </bean>
         <value>separator</value>

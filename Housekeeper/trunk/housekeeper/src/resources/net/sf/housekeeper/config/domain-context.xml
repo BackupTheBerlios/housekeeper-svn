@@ -76,14 +76,7 @@
       </map>
     </property>
   </bean>
-    
-  <bean id="household"
-		class="net.sf.housekeeper.domain.Household">
-    <constructor-arg><ref local="supplyManager"/></constructor-arg>
-    <constructor-arg><ref local="categoryManager"/></constructor-arg>
-    <constructor-arg><ref local="shoppingListManager"/></constructor-arg>
-  </bean>
-  
+
   <bean id="categoryManager"
 		class="net.sf.housekeeper.domain.CategoryManager">
     <property name="supplyManager">
@@ -109,8 +102,28 @@
     </property>
   </bean>
   
+  <bean id="importExportController"
+		class="net.sf.housekeeper.persistence.ImportExportController">
+	<property name="supplyManager">
+      <ref local="supplyManager"/>
+    </property>
+    <property name="shoppingListManager">
+      <ref local="shoppingListManager"/>
+    </property>
+    <property name="categoryManager">
+      <ref local="categoryManager"/>
+    </property>
+    <property name="persistenceController">
+      <ref local="persistenceController"/>
+    </property>
+  </bean>
+  
   <bean id="persistenceController"
 		class="net.sf.housekeeper.persistence.PersistenceController">
+  </bean>
+  
+  <bean id="applicationEventHelper"
+		class="net.sf.housekeeper.util.ApplicationEventHelper">
   </bean>
 
 </beans>

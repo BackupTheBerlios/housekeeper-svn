@@ -21,15 +21,13 @@
       item-type="net.sf.housekeeper.domain.Category"/>
   </mapping>
   
-  <mapping name="household" class="net.sf.housekeeper.domain.Household">
+  <mapping name="household" class="net.sf.housekeeper.persistence.Household">
     <value style="attribute" name="version" field="version"/>
-    <structure name="supply" field="supplyManager">
-      <collection field="items" 
-         item-type="net.sf.housekeeper.domain.ExpirableItem"/>
+    <structure name="supply">
+      <collection field="supply"/>
     </structure>
-    <structure name="categories" field="categoryManager">
-      <collection field="categories" 
-         item-type="net.sf.housekeeper.domain.Category"/>
+    <structure name="categories">
+      <collection field="categories"/>
     </structure>
   </mapping>
   

@@ -30,25 +30,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-
-import net.sf.housekeeper.domain.Household;
-import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.persistence.jibx.JiBXPersistence;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
- * Provides methods to replace or store domain objects in a
- * {@link net.sf.housekeeper.domain.Household}using the default
+ * Provides methods to replace or store domain objects using the default
  * {@link net.sf.housekeeper.persistence.PersistenceService}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class PersistenceController implements ApplicationContextAware
+public final class PersistenceController
 {
 
     private static final Log         LOG = LogFactory
@@ -60,8 +54,6 @@ public final class PersistenceController implements ApplicationContextAware
      * File used for loading and saving
      */
     private File                     dataFile;
-
-    private ApplicationContext       applicationContext;
 
     /**
      * Initializes the persistence service to use.
@@ -98,13 +90,11 @@ public final class PersistenceController implements ApplicationContextAware
     }
 
     /**
-     * Loads the saved data using the default {@link PersistenceService}and
-     * then replaces all domain objects in a {@link Household}.
+     * Loads the saved data using the default {@link PersistenceService}.
      * 
-     * @param currentDomain The domain which shall be replaced with another.
      * @throws IOException If the data couldn't be retrieved.
      */
-    public void replaceDomainWithSaved(final Household currentDomain)
+    public Household load()
             throws IOException
     {
         LOG.info("Loading data from: " + dataFile);
@@ -113,50 +103,26 @@ public final class PersistenceController implements ApplicationContextAware
                 new FileInputStream(dataFile));
 
         Household savedHousehold = jibxPersistence.loadData(dataStream);
-
-        currentDomain.replaceAll(savedHousehold);
-
-        //The data has not been changed by the user.
-        currentDomain.resetChangedStatus();
-
-        if (applicationContext != null)
-        {
-            applicationContext.publishEvent(new HousekeeperEvent(
-                    HousekeeperEvent.DATA_REPLACED, currentDomain));
-        }
+        return savedHousehold;
     }
 
     /**
-     * Persistently saves the current domain objects using the default
+     * Persistently saves domain objects using the default
      * {@link PersistenceService}.
      * 
-     * @param currentDomain The domain which shall be saved.
+     * @param domain The domain which shall be saved.
      * @throws IOException If the data couldn't be stored.
      */
-    public void saveDomainData(final Household currentDomain)
+    public void save(final Household domain)
             throws IOException
     {
         LOG.info("Saving data to: " + dataFile);
 
         final OutputStream dataStream = new BufferedOutputStream(
                 new FileOutputStream(dataFile));
-        jibxPersistence.saveData(currentDomain, dataStream);
+        jibxPersistence.saveData(domain, dataStream);
         dataStream.flush();
         dataStream.close();
-
-        //The data now has been saved.
-        currentDomain.resetChangedStatus();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
-     */
-    public void setApplicationContext(ApplicationContext arg0)
-            throws BeansException
-    {
-        this.applicationContext = arg0;
     }
 
 }
