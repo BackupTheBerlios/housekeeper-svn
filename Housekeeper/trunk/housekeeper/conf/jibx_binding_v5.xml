@@ -30,16 +30,13 @@
   <mapping name="household" class="net.sf.housekeeper.domain.Household">
     <value style="attribute" name="version" field="version"/>
     <structure name="supply" field="supplyManager">
-      <collection field="items" 
-         item-type="net.sf.housekeeper.domain.ExpirableItem"/>
+      <collection field="items"/>
     </structure>
     <structure name="shoppingList" field="shoppingListManager">
-      <collection field="items" 
-         item-type="net.sf.housekeeper.domain.ShoppingListItem"/>
+      <collection field="items"/>
     </structure>
     <structure name="categories" field="categoryManager">
-      <collection field="categories" 
-         item-type="net.sf.housekeeper.domain.Category"/>
+      <collection field="categories"/>
     </structure>
   </mapping>
   
