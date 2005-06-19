@@ -54,8 +54,7 @@ public final class ItemManager extends HousekeeperEventPublisher
     private final ArrayList  items;
 
     /**
-     * Creates a new manager with no entries. Afterwards, {@link #hasChanged()}
-     * returns <code>false</code>.
+     * Creates a new manager with no entries.
      */
     public ItemManager()
     {
@@ -63,8 +62,7 @@ public final class ItemManager extends HousekeeperEventPublisher
     }
 
     /**
-     * Adds an object to the list. After execution, {@link #hasChanged()}
-     * returns <code>true</code>.
+     * Adds an object to the list.
      * 
      * @param item the item to add to the supply.
      */
@@ -96,8 +94,7 @@ public final class ItemManager extends HousekeeperEventPublisher
     }
 
     /**
-     * Duplicates the provided item and adds it to the to the list. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
+     * Duplicates the provided item and adds it to the to the list.
      * 
      * @param item The item to be duplicated.
      */
@@ -162,8 +159,7 @@ public final class ItemManager extends HousekeeperEventPublisher
     }
 
     /**
-     * Removes an object from the supply. Afterwards, {@link #hasChanged()}
-     * returns <code>true</code>.
+     * Removes an object from the supply.
      * 
      * @param item the item to remove from the supply.
      * @throws IllegalArgumentException if the item to be removed doesn't exist.
@@ -195,8 +191,7 @@ public final class ItemManager extends HousekeeperEventPublisher
     }
     
     /**
-     * Clears the list of items and replaces it with a new one. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
+     * Clears the list of items and replaces it with a new one.
      * 
      * @param newItems The new items. Must not be null.
      */
@@ -210,8 +205,7 @@ public final class ItemManager extends HousekeeperEventPublisher
 
     /**
      * Updates an item in this manager. If you change an object you MUST call
-     * this method so Observers can be notified of the update. Afterwards,
-     * {@link #hasChanged()}returns <code>true</code>.
+     * this method so Observers can be notified of the update.
      * 
      * @param item The item which should be updated.
      */
