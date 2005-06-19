@@ -109,6 +109,7 @@
     
   <!-- any mailing lists for the project -->
   <mailingLists>
+  <!--
     <mailingList>
         <name>housekeeper-announce</name>
         <subscribe>
@@ -120,7 +121,7 @@
         <archive>
             http://lists.berlios.de/pipermail/housekeeper-announce
         </archive>
-    </mailingList>
+    </mailingList>-->
     <mailingList>
         <name>housekeeper-devel</name>
         <subscribe>
