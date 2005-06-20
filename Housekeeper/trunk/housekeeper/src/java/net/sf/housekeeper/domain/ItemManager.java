@@ -43,6 +43,8 @@ import org.apache.commons.logging.LogFactory;
 public final class ItemManager extends HousekeeperEventPublisher
 {
 
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
     /**
      * Log to be used for this class.
      */
@@ -217,6 +219,24 @@ public final class ItemManager extends HousekeeperEventPublisher
         }
 
         publishEvent(HousekeeperEvent.MODIFIED, item);
+    }
+    
+    /**
+     * Returns all items in a textual representation.
+     * 
+     * @return != null
+     */
+    public String getItemsAsText()
+    {
+        final Iterator items = iterator();
+        StringBuffer buffer = new StringBuffer();
+        while (items.hasNext())
+        {
+            ShoppingListItem element = (ShoppingListItem) items.next();
+            buffer.append(element.toString());
+            buffer.append(LINE_SEPARATOR);
+        }
+        return buffer.toString();
     }
     
     /**

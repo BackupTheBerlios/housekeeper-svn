@@ -21,25 +21,24 @@
 
 package net.sf.housekeeper.domain;
 
-
 /**
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
 public class ShoppingListItem extends Item
 {
-    
+
     private int quantity;
-    
+
     /**
      * Creates a new item with a quantity of 1.
-     *
+     *  
      */
     public ShoppingListItem()
     {
         quantity = 1;
     }
-    
+
     /**
      * @return Returns the quantity.
      */
@@ -47,12 +46,34 @@ public class ShoppingListItem extends Item
     {
         return quantity;
     }
-    
+
     /**
      * @param quantity The quantity to set.
      */
     public void setQuantity(int quantity)
     {
         this.quantity = quantity;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        final StringBuffer buffer = new StringBuffer();
+
+        buffer.append(getQuantity());
+        buffer.append(" ");
+        buffer.append(getName());
+        String desc = getDescription();
+        if (desc != null) {
+            buffer.append(" (");
+            buffer.append(desc);
+            buffer.append(")");
+        }
+
+        return buffer.toString();
     }
 }

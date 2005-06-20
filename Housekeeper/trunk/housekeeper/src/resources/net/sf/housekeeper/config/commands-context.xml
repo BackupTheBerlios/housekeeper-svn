@@ -66,6 +66,13 @@
         </bean>
         <value>separator</value>
         <bean 
+          class="net.sf.housekeeper.swing.ExportShoppingListCommand">
+          <property name="shoppingListManager">
+            <ref bean="shoppingListManager"/>
+          </property>
+        </bean>
+        <value>separator</value>
+        <bean 
           class="org.springframework.richclient.command.support.ExitCommand"/>
       </list>
     </property>
