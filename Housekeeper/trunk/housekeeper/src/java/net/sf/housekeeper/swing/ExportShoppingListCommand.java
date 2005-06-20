@@ -21,43 +21,66 @@
 
 package net.sf.housekeeper.swing;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
+import java.util.Locale;
 
 import javax.swing.JFileChooser;
 
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.persistence.ImportExportController;
+import net.sf.housekeeper.swing.util.ErrorDialog;
 
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceAware;
+import org.springframework.richclient.command.ActionCommand;
+import org.springframework.richclient.command.support.ActionCommandInterceptorAdapter;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
 
 /**
- * @author
+ * Lets the user select a file and exports the current shopping list.
+ * 
+ * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public class ExportShoppingListCommand extends ApplicationWindowAwareCommand
+public final class ExportShoppingListCommand extends
+        ApplicationWindowAwareCommand implements MessageSourceAware
 {
 
-    private ItemManager shoppingListManager;
+    private ImportExportController importExportController;
 
-    /**
-     *  
-     */
+    private Exception              exception;
+
+    private final JFileChooser     chooser;
+    
+    private MessageSource messageSource;
+
     public ExportShoppingListCommand()
     {
         super("exportShoppingListCommand");
+        setEnabled(true);
+
+        
+        chooser = new JFileChooser();
+        chooser.setSelectedFile(new File("shopping_list.txt"));
+
+        addCommandInterceptor(new ErrorInterceptor());
     }
 
     /**
-     * @param shoppingListManager The shoppingListManager to set.
+     * @param importExportController The importExportController to set.
      */
-    public void setShoppingListManager(ItemManager shoppingListManager)
+    public void setImportExportController(
+                                          ImportExportController importExportController)
     {
-        this.shoppingListManager = shoppingListManager;
+        this.importExportController = importExportController;
     }
 
+    private String getMessage(final String code)
+    {
+        return messageSource.getMessage(code, null, code, Locale.getDefault());
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -65,26 +88,53 @@ public class ExportShoppingListCommand extends ApplicationWindowAwareCommand
      */
     protected void doExecuteCommand()
     {
-        final JFileChooser chooser = new JFileChooser();
         final int returnVal = chooser.showSaveDialog(getApplicationWindow()
                 .getControl());
 
         if (returnVal == JFileChooser.APPROVE_OPTION)
-            ;
         {
-            final String itemsAsText = shoppingListManager.getItemsAsText();
+            final File file = chooser.getSelectedFile();
             try
             {
-                final File file = chooser.getSelectedFile();
-                final Writer writer = new BufferedWriter(new FileWriter(file,
-                        false));
-                writer.write(itemsAsText);
-                writer.close();
+                importExportController.exportShoppingListAsText(file);
+                final String message=getMessage("exportSuccessful");
+                getApplicationWindow().getStatusBar()
+                        .setMessage(message + file);
             } catch (IOException e)
             {
-                e.printStackTrace();
+                exception = e;
             }
         }
+    }
+
+    private class ErrorInterceptor extends ActionCommandInterceptorAdapter
+    {
+
+        public void postExecution(ActionCommand arg0)
+        {
+            if (exception != null)
+            {
+                LogFactory.getLog(getClass()).error("Could not export data",
+                                                    exception);
+                final ErrorDialog dialog = new ErrorDialog(
+                        "gui.mainFrame.saveError", exception);
+                dialog.showDialog();
+                exception = null;
+            } else
+            {
+                LogFactory.getLog(getClass())
+                        .info("Data successfully exported");
+            }
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see org.springframework.context.MessageSourceAware#setMessageSource(org.springframework.context.MessageSource)
+     */
+    public void setMessageSource(MessageSource arg0)
+    {
+        this.messageSource = arg0;
+        
     }
 
 }

@@ -67,8 +67,11 @@
         <value>separator</value>
         <bean 
           class="net.sf.housekeeper.swing.ExportShoppingListCommand">
-          <property name="shoppingListManager">
-            <ref bean="shoppingListManager"/>
+          <property name="importExportController">
+            <ref bean="importExportController"/>
+          </property>
+          <property name="messageSource">
+            <ref bean="messageSource"/>
           </property>
         </bean>
         <value>separator</value>

@@ -21,7 +21,11 @@
 
 package net.sf.housekeeper.persistence;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ItemManager;
@@ -91,6 +95,22 @@ public final class ImportExportController implements ApplicationContextAware
             applicationContext.publishEvent(new HousekeeperEvent(
                     HousekeeperEvent.DATA_REPLACED, this));
         }
+    }
+
+    /**
+     * Exports the shopping list to a text file.
+     * 
+     * @param outputFile The file to export to. != null
+     * @throws IOException if the file could not be saved.
+     */
+    public void exportShoppingListAsText(File outputFile) throws IOException
+    {
+        final String itemsAsText = shoppingListManager.getItemsAsText();
+
+        final Writer writer = new BufferedWriter(new FileWriter(outputFile,
+                false));
+        writer.write(itemsAsText);
+        writer.close();
     }
 
     /*
