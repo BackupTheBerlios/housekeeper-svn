@@ -46,7 +46,7 @@ public final class ExpirableItemPropertiesForm extends AbstractForm
     public ExpirableItemPropertiesForm(final ExpirableItem object)
     {
         super(object);
-        setId("expirableItemPropertiesForm");
+        setId("itemPropertiesForm");
     }
 
     /*
