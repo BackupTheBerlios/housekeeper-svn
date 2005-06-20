@@ -47,20 +47,19 @@ public final class ExportShoppingListCommand extends
         ApplicationWindowAwareCommand implements MessageSourceAware
 {
 
-    private ImportExportController importExportController;
+    private final JFileChooser     chooser;
 
     private Exception              exception;
 
-    private final JFileChooser     chooser;
-    
-    private MessageSource messageSource;
+    private ImportExportController importExportController;
+
+    private MessageSource          messageSource;
 
     public ExportShoppingListCommand()
     {
         super("exportShoppingListCommand");
         setEnabled(true);
 
-        
         chooser = new JFileChooser();
         chooser.setSelectedFile(new File("shopping_list.txt"));
 
@@ -76,11 +75,17 @@ public final class ExportShoppingListCommand extends
         this.importExportController = importExportController;
     }
 
-    private String getMessage(final String code)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.context.MessageSourceAware#setMessageSource(org.springframework.context.MessageSource)
+     */
+    public void setMessageSource(MessageSource arg0)
     {
-        return messageSource.getMessage(code, null, code, Locale.getDefault());
+        this.messageSource = arg0;
+
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -97,7 +102,7 @@ public final class ExportShoppingListCommand extends
             try
             {
                 importExportController.exportShoppingListAsText(file);
-                final String message=getMessage("exportSuccessful");
+                final String message = getMessage("exportSuccessful");
                 getApplicationWindow().getStatusBar()
                         .setMessage(message + file);
             } catch (IOException e)
@@ -105,6 +110,11 @@ public final class ExportShoppingListCommand extends
                 exception = e;
             }
         }
+    }
+
+    private String getMessage(final String code)
+    {
+        return messageSource.getMessage(code, null, code, Locale.getDefault());
     }
 
     private class ErrorInterceptor extends ActionCommandInterceptorAdapter
@@ -120,21 +130,8 @@ public final class ExportShoppingListCommand extends
                         "gui.mainFrame.saveError", exception);
                 dialog.showDialog();
                 exception = null;
-            } else
-            {
-                LogFactory.getLog(getClass())
-                        .info("Data successfully exported");
             }
         }
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.context.MessageSourceAware#setMessageSource(org.springframework.context.MessageSource)
-     */
-    public void setMessageSource(MessageSource arg0)
-    {
-        this.messageSource = arg0;
-        
     }
 
 }
