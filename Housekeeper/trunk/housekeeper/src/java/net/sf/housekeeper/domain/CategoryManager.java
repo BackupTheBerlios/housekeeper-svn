@@ -26,8 +26,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.housekeeper.event.HousekeeperEventPublisher;
 import net.sf.housekeeper.event.HousekeeperEvent;
+import net.sf.housekeeper.event.HousekeeperEventPublisher;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,7 +44,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
 
     private static final Log LOG = LogFactory.getLog(CategoryManager.class);
 
-    private ArrayList        categories;
+    private List        categories;
 
     private ItemManager      supplyManager;
 
@@ -54,7 +54,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
      */
     public CategoryManager()
     {
-        categories = new ArrayList();
+        categories = new ArrayList(5);
     }
 
     /**
@@ -118,9 +118,11 @@ public final class CategoryManager extends HousekeeperEventPublisher
     {
         final ArrayList allCats = new ArrayList();
         final Iterator topLevelCats = getTopLevelCategoriesIterator();
+
         while (topLevelCats.hasNext())
         {
             Category element = (Category) topLevelCats.next();
+            
             final List c = element.getRecursiveCategories();
             allCats.addAll(c);
         }
@@ -129,7 +131,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
             final List discCats = discardedCategory.getRecursiveCategories();
             allCats.removeAll(discCats);
         }
-
+        
         return Collections.unmodifiableList(allCats);
     }
 
@@ -191,15 +193,20 @@ public final class CategoryManager extends HousekeeperEventPublisher
     }
 
     /**
-     * Updates the a Category.
+     * Updates a Category. A reference to the old parent must be provided so
+     * the old parent's reference to the category can be removed.
      * 
      * @param category != null.
+     * @param oldParent The previous parent of the category.
      */
-    public void update(Category category)
+    public void update(Category category, Category oldParent)
     {
         Assert.notNull(category);
 
-        //cleanupRootCategories();
+        if (oldParent != null && !category.getParent().equals(oldParent)) {
+            oldParent.removeChild(category);
+        }
+        
         if (category.getParent() == null && !categories.contains(category))
         {
             categories.add(category);

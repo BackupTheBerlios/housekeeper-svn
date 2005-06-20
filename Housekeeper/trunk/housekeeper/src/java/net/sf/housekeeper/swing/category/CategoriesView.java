@@ -23,7 +23,7 @@ package net.sf.housekeeper.swing.category;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
@@ -101,7 +101,7 @@ public final class CategoriesView extends AbstractView implements
     {
         LOG.debug("Refreshing view");
 
-        final List cats = categoryManager.getTopLevelCategories();
+        final Collection cats = categoryManager.getTopLevelCategories();
         tree.setCategories(cats);
     }
 
@@ -131,7 +131,6 @@ public final class CategoriesView extends AbstractView implements
         if (e instanceof HousekeeperEvent)
         {
             final HousekeeperEvent le = (HousekeeperEvent) e;
-            LOG.debug("Received event: " + le.getEventType());
 
             if (le.objectIs(Category.class))
             {
@@ -225,7 +224,7 @@ public final class CategoriesView extends AbstractView implements
                 protected boolean onFinish()
                 {
                     form.commit();
-                    categoryManager.update(newCategory);
+                    categoryManager.update(newCategory, oldParent);
                     return true;
                 }
             };

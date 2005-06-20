@@ -68,8 +68,7 @@ public final class ImportExportController implements ApplicationContextAware
         Assert.notNull(supplyManager);
 
         final Household household = new Household(supplyManager.getAllItems(),
-                shoppingListManager.getAllItems(), categoryManager
-                        .getAllCategories());
+                shoppingListManager.getAllItems(), categoryManager.getTopLevelCategories());
         persistenceController.save(household);
     }
 

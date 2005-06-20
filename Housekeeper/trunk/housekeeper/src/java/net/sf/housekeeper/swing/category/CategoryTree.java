@@ -21,9 +21,9 @@
 
 package net.sf.housekeeper.swing.category;
 
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -46,7 +46,7 @@ public final class CategoryTree extends JTree
 {
     private final String rootNodeTitle;
     
-    private List categories;
+    private Collection categories;
 
     /**
      * Creates an empty tree. The root node has a default label.
@@ -155,7 +155,7 @@ public final class CategoryTree extends JTree
      * 
      * @param categories != null
      */
-    public void setCategories(final List categories)
+    public void setCategories(final Collection categories)
     {
         Assert.notNull(categories);
 

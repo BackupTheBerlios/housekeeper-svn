@@ -21,7 +21,7 @@
 
 package net.sf.housekeeper.domain;
 
-import java.rmi.server.UID;
+import java.rmi.dgc.VMID;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -90,10 +90,9 @@ public final class Category
     public Category(final String name)
     {
         Assert.notNull(name);
-
-        this.id = new UID().toString();
+        this.id = new VMID().toString();
         this.name = name;
-        this.children = new ArrayList();
+        this.children = new ArrayList(5);
     }
 
     /**
@@ -106,28 +105,6 @@ public final class Category
     {
         child.parent = this;
         children.add(child);
-    }
-
-    /**
-     * Sets the parent of this Category. The object is removed from its old
-     * parent and added as a child to its new parent.
-     * 
-     * @param newParent The new parent or null if this category should become a
-     *            root category.
-     */
-    public void changeParent(Category newParent)
-    {
-        if (this.parent != newParent)
-        {
-            if (this.parent != null)
-            {
-                this.parent.removeChild(this);
-            }
-            if (newParent != null)
-            {
-                newParent.addChild(this);
-            }
-        }
     }
 
     /**
@@ -289,7 +266,6 @@ public final class Category
         Assert.notNull(child);
 
         children.remove(child);
-        child.parent = null;
     }
 
     /**
@@ -315,7 +291,7 @@ public final class Category
                 .isTrue(!isChild(newParent),
                         "Currently, a category's parent cannot be set to one of its current children");
 
-        changeParent(newParent);
+        this.parent = newParent;
     }
 
     /*
