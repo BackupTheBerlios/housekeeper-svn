@@ -24,6 +24,9 @@
     <property name="startingPageId">
       <value>initialPageLayout</value>
     </property>
+    <property name="importExportController">
+      <ref bean="importExportController"/>
+    </property>
   </bean>
   
   <bean id="applicationDescriptor" 

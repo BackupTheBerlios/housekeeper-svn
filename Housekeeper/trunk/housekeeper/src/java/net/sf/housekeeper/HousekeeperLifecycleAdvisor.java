@@ -21,9 +21,15 @@
 
 package net.sf.housekeeper;
 
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
+import net.sf.housekeeper.persistence.ImportExportController;
+
+import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.application.ApplicationWindow;
+import org.springframework.richclient.application.config.ApplicationWindowConfigurer;
 import org.springframework.richclient.application.config.DefaultApplicationLifecycleAdvisor;
 import org.springframework.richclient.command.ActionCommand;
 
@@ -39,6 +45,8 @@ public final class HousekeeperLifecycleAdvisor extends
         DefaultApplicationLifecycleAdvisor
 {
 
+    private ImportExportController importExportController;
+
     /**
      * Ask if user wants to save before exiting.
      */
@@ -48,7 +56,7 @@ public final class HousekeeperLifecycleAdvisor extends
 
         final ActionCommand saveCommand = window.getCommandManager()
                 .getActionCommand("saveCommand");
-        
+
         //Only show dialog for saving before exiting if any data has been
         // changed
         if (saveCommand.isEnabled())
@@ -82,12 +90,30 @@ public final class HousekeeperLifecycleAdvisor extends
         super.onWindowOpened(window);
     }
 
-    public void onCommandsCreated(ApplicationWindow window)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.richclient.application.config.ApplicationLifecycleAdvisor#onPreWindowOpen(org.springframework.richclient.application.config.ApplicationWindowConfigurer)
+     */
+    public void onPreWindowOpen(ApplicationWindowConfigurer configurer)
     {
-        ActionCommand command = window.getCommandManager()
-                .getActionCommand("loadCommand");
-        command.execute();
-        super.onCommandsCreated(window);
+        try
+        {
+            importExportController.importData();
+        } catch (IOException e)
+        {
+            LogFactory.getLog(getClass())
+                    .info("No saved data found, starting with no objects loaded");
+        }
+        super.onPreWindowOpen(configurer);
     }
 
+    /**
+     * @param importExportController The importExportController to set.
+     */
+    public void setImportExportController(
+                                          ImportExportController importExportController)
+    {
+        this.importExportController = importExportController;
+    }
 }
