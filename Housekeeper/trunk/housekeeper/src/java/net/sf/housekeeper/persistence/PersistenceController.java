@@ -65,15 +65,8 @@ public final class PersistenceController
                 .getProperty("net.sf.housekeeper.persistence.datafile");
         if (customDataFile != null)
         {
-            LOG.debug("Trying to use custom data file at: " + customDataFile);
-            final File customFile = new File(customDataFile);
-            if (customFile.canRead())
-            {
-                dataFile = customFile;
-            }
-        }
-
-        if (dataFile == null)
+            dataFile = new File(customDataFile);
+        } else
         {
             final String homeDirString = System.getProperty("user.home");
             final File hkDir = new File(homeDirString, ".housekeeper");
@@ -94,8 +87,7 @@ public final class PersistenceController
      * 
      * @throws IOException If the data couldn't be retrieved.
      */
-    public Household load()
-            throws IOException
+    public Household load() throws IOException
     {
         LOG.info("Loading data from: " + dataFile);
 
@@ -113,8 +105,7 @@ public final class PersistenceController
      * @param domain The domain which shall be saved.
      * @throws IOException If the data couldn't be stored.
      */
-    public void save(final Household domain)
-            throws IOException
+    public void save(final Household domain) throws IOException
     {
         LOG.info("Saving data to: " + dataFile);
 
