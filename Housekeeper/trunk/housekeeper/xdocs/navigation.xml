@@ -4,6 +4,8 @@
   <title>Housekeeper - The household management software</title>
   <body>
     <links>
+      <item name="News" 
+        href="http://developer.berlios.de/news/?group_id=3180" />
       <item name="Downloads" 
         href="http://developer.berlios.de/project/showfiles.php?group_id=3180" />
       <item name="BerliOS Project Site" 
