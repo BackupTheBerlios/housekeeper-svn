@@ -7,6 +7,8 @@
         <action dev="notizklotz" type="add">Export shopping list as text file.</action>
         <action dev="notizklotz" type="add">Shopping list feature added.</action>
         <action dev="notizklotz" type="update" issue="4305">Simplified category selection in item editor dialog.</action>
+        <action dev="notizklotz" type="update">Application window title doesn't
+               show the version number anymore. It can still be found in the about dialog.</action>
         <action dev="notizklotz" type="fix" issue="4318">"Save" command is now only enabled if data has changed.</action>
         <action dev="notizklotz" type="remove" issue="4011">There aren't any default categories anymore.</action>
         <action dev="notizklotz" type="remove" issue="4007">Support for data created with 
