@@ -100,14 +100,9 @@ public final class ItemManager extends HousekeeperEventPublisher
      * 
      * @param item The item to be duplicated.
      */
-    public void duplicate(final Item item)
+    public void duplicate(final ExpirableItem item)
     {
-        final Item clonedItem;
-        if (item instanceof ExpirableItem) {
-            clonedItem = new ExpirableItem((ExpirableItem)item);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        final Item clonedItem = new ExpirableItem(item);
         add(clonedItem);
     }
 

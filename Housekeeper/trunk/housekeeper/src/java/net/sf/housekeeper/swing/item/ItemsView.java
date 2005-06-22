@@ -218,7 +218,13 @@ public class ItemsView extends AbstractView implements ApplicationListener
     {
         context.register(GlobalCommandIds.DELETE, deleteExecutor);
         context.register(GlobalCommandIds.PROPERTIES, editExecutor);
-        context.register("duplicateCommand", duplicateExecutor);
+        
+        //TODO Quick Fix for #004362
+        if (itemClass.equals(ExpirableItem.class))
+        {
+            context.register("duplicateCommand", duplicateExecutor);
+        }
+
     }
 
     private void configureTable(JTable table)
@@ -235,7 +241,12 @@ public class ItemsView extends AbstractView implements ApplicationListener
     {
         final List commands = new ArrayList();
         commands.addAll(customPopupMenuEntries);
-        commands.add("duplicateCommand");
+        //TODO Quick Fix for #004362
+        if (itemClass.equals(ExpirableItem.class))
+        {
+            commands.add("duplicateCommand");
+        }
+
         commands.add(GlobalCommandIds.PROPERTIES);
         commands.add(GlobalCommandIds.DELETE);
 
@@ -303,7 +314,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
         public void execute()
         {
-            final Item selectedItem = getSelectedItem();
+            final ExpirableItem selectedItem = (ExpirableItem)getSelectedItem();
             itemManager.duplicate(selectedItem);
         }
     }
