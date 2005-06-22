@@ -3,8 +3,11 @@
         <title>Change history</title>
     </properties>
     <body>
-      <release version="0.2.6" date="under development">
-        <action dev="notizklotz" type="add">Shopping list added.</action>
+      <release version="0.2.6" date="2005-06-22">
+        <action dev="notizklotz" type="add">Export shopping list as text file.</action>
+        <action dev="notizklotz" type="add">Shopping list feature added.</action>
+        <action dev="notizklotz" type="update" issue="4305">Simplified category selection in item editor dialog.</action>
+        <action dev="notizklotz" type="fix" issue="4318">"Save" command is now only enabled if data has changed.</action>
         <action dev="notizklotz" type="remove" issue="4011">There aren't any default categories anymore.</action>
         <action dev="notizklotz" type="remove" issue="4007">Support for data created with 
           Housekeeper 0.2.3 and below has been dropped.</action>
