@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import net.sf.housekeeper.domain.CategoryManager;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.ItemManagerImpl;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.springframework.beans.BeansException;
@@ -51,9 +51,9 @@ public final class ImportExportController implements ApplicationContextAware
 
     private PersistenceController persistenceController;
 
-    private ItemManager           shoppingListManager;
+    private ItemManagerImpl           shoppingListManager;
 
-    private ItemManager           supplyManager;
+    private ItemManagerImpl           supplyManager;
 
     /**
      * Exports all data.
@@ -144,7 +144,7 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * @param shoppingListManager The shoppingListManager to set.
      */
-    public void setShoppingListManager(ItemManager shoppingListManager)
+    public void setShoppingListManager(ItemManagerImpl shoppingListManager)
     {
         this.shoppingListManager = shoppingListManager;
     }
@@ -152,7 +152,7 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * @param supplyManager The supplyManager to set.
      */
-    public void setSupplyManager(ItemManager supplyManager)
+    public void setSupplyManager(ItemManagerImpl supplyManager)
     {
         this.supplyManager = supplyManager;
     }

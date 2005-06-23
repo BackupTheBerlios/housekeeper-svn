@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 public class ItemManagerTest extends TestCase
 {
 
-    private ItemManager manager;
+    private ItemManagerImpl manager;
     private MockControl control;
     private ApplicationContext mock;
     
@@ -27,7 +27,7 @@ public class ItemManagerTest extends TestCase
     {
         control = MockControl.createNiceControl(ApplicationContext.class);
         mock = (ApplicationContext) control.getMock();
-        manager = new ItemManager();
+        manager = new ItemManagerImpl();
         manager.setApplicationContext(mock);
     }
     

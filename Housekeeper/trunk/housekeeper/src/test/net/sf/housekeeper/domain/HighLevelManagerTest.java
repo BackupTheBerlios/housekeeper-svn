@@ -39,9 +39,9 @@ public final class HighLevelManagerTest extends TestCase
 
     private ShoppingListItem    item;
 
-    private ItemManager         shoppingListManager;
+    private ItemManagerImpl         shoppingListManager;
 
-    private ItemManager         supplyManager;
+    private ItemManagerImpl         supplyManager;
 
     /**
      * Tests a normal buy scenario.

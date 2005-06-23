@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.ItemManagerImpl;
 
 import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
@@ -118,9 +118,9 @@ public final class DataGenerator
      * 
      * @return != null
      */
-    public static ItemManager createEmptyItemManager()
+    public static ItemManagerImpl createEmptyItemManager()
     {
-        ItemManager manager = new ItemManager();
+        ItemManagerImpl manager = new ItemManagerImpl();
         manager.setApplicationContext(createApplicationContextMock());
         return manager;
     }

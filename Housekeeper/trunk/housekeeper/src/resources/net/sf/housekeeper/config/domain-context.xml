@@ -85,11 +85,11 @@
   </bean>
   
   <bean id="shoppingListManager"
-		class="net.sf.housekeeper.domain.ItemManager">
+		class="net.sf.housekeeper.domain.ItemManagerImpl">
   </bean>
   
   <bean id="supplyManager"
-		class="net.sf.housekeeper.domain.ItemManager">
+		class="net.sf.housekeeper.domain.ItemManagerImpl">
   </bean>
   
   <bean id="highLevelManager"

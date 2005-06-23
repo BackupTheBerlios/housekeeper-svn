@@ -41,7 +41,7 @@ import javax.swing.event.ListSelectionListener;
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Item;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.ItemManagerImpl;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.swing.util.SortableTable;
 
@@ -79,7 +79,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private Class                          itemClass;
 
-    private ItemManager                    itemManager;
+    private ItemManagerImpl                    itemManager;
 
     private SortableTable                  table;
     
@@ -163,7 +163,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
      * 
      * @param manager
      */
-    public void setItemManager(final ItemManager manager)
+    public void setItemManager(final ItemManagerImpl manager)
     {
         this.itemManager = manager;
     }
