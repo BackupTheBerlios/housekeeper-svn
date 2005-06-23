@@ -23,6 +23,7 @@ package net.sf.housekeeper.testutils;
 
 import java.util.Calendar;
 
+import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.ItemManager;
 
@@ -59,7 +60,7 @@ public final class DataGenerator
      * Test data for document version 3.
      */
     public static final String  VERSION3_DATA        = prefix + "data_v3.xml";
-    
+
     /**
      * Test data for document version 4.
      */
@@ -76,7 +77,8 @@ public final class DataGenerator
     }
 
     /**
-     * Creates a {@link ExpirableItem}object which has all attributes set to a value.
+     * Creates a {@link ExpirableItem}object which has all attributes set to a
+     * value.
      * 
      * @return Not null.
      */
@@ -91,7 +93,8 @@ public final class DataGenerator
         final int year = 2004;
         itemDate.set(year, month, day, 15, 22);
 
-        final ExpirableItem item = new ExpirableItem(itemName, itemQuantity, itemDate.getTime());
+        final ExpirableItem item = new ExpirableItem(itemName, itemQuantity,
+                itemDate.getTime());
 
         return item;
     }
@@ -109,7 +112,7 @@ public final class DataGenerator
 
         return item;
     }
-    
+
     /**
      * Creates an empty ItemManager with mocked dependencies.
      * 
@@ -117,10 +120,28 @@ public final class DataGenerator
      */
     public static ItemManager createEmptyItemManager()
     {
-        MockControl control = MockControl.createNiceControl(ApplicationContext.class);
-        ApplicationContext mock = (ApplicationContext) control.getMock();
         ItemManager manager = new ItemManager();
-        manager.setApplicationContext(mock);
+        manager.setApplicationContext(createApplicationContextMock());
         return manager;
+    }
+
+    /**
+     * Creates an empty ItemManager with mocked dependencies.
+     * 
+     * @return != null
+     */
+    public static CategoryManager createEmptyCategoryManager()
+    {
+        CategoryManager manager = new CategoryManager();
+        manager.setApplicationContext(createApplicationContextMock());
+        return manager;
+    }
+
+    public static ApplicationContext createApplicationContextMock()
+    {
+        MockControl control = MockControl
+                .createNiceControl(ApplicationContext.class);
+        ApplicationContext mock = (ApplicationContext) control.getMock();
+        return mock;
     }
 }

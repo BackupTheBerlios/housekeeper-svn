@@ -66,6 +66,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
     public void add(final Category category)
     {
         Assert.notNull(category);
+        Assert.isTrue(!categories.contains(category));
 
         final boolean isRoot = category.getParent() == null;
         if (isRoot)
@@ -202,21 +203,40 @@ public final class CategoryManager extends HousekeeperEventPublisher
     public void update(Category category, Category oldParent)
     {
         Assert.notNull(category);
-
-        if (oldParent != null && !category.getParent().equals(oldParent)) {
+        final Category newParent = category.getParent();
+        
+        //Remove catgory from old parent
+        if (oldParent != null && !newParent.equals(oldParent)) {
             oldParent.removeChild(category);
         }
         
-        if (category.getParent() == null && !categories.contains(category))
+        //Add category to new parent
+        if (newParent != null)
+        {
+            newParent.addChild(category);
+        }
+        
+        //Add/Remove category from the list of root categories
+        if (newParent == null && !categories.contains(category))
         {
             categories.add(category);
-        } else if (category.getParent() != null
+        } else if (newParent != null
                 && categories.contains(category))
         {
             categories.remove(category);
         }
 
+        //Publish events
+        if (oldParent != null)
+        {
+            publishEvent(HousekeeperEvent.MODIFIED, oldParent);
+        }
+        if (category.getParent() != null)
+        {
+            publishEvent(HousekeeperEvent.MODIFIED, newParent);
+        }
         publishEvent(HousekeeperEvent.MODIFIED, category);
+
     }
 
 }

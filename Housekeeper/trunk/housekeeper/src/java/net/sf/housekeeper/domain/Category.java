@@ -24,6 +24,7 @@ package net.sf.housekeeper.domain;
 import java.rmi.dgc.VMID;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.util.Assert;
@@ -66,7 +67,7 @@ public final class Category
         Category.selectedCategory = selectedCategory;
     }
 
-    private ArrayList    children;
+    private LinkedHashSet    children;
 
     private final String id;
 
@@ -92,7 +93,7 @@ public final class Category
         Assert.notNull(name);
         this.id = new VMID().toString();
         this.name = name;
-        this.children = new ArrayList(5);
+        this.children = new LinkedHashSet();
     }
 
     /**
@@ -103,13 +104,15 @@ public final class Category
      */
     public void addChild(final Category child)
     {
+        Assert.isTrue(!this.equals(child));
+        
         child.parent = this;
         children.add(child);
     }
 
     /**
-     * Tests if a category either equals this category or is a children of this
-     * category.
+     * Tests if a category either equals this category or is a child of this
+     * category or a sub-category of any depth.
      * 
      * @param cat The category to test.
      * @return True, if cat is conatained in this category. False otherwise.
@@ -195,6 +198,11 @@ public final class Category
         return name;
     }
 
+    public int getNumberOfChildren()
+    {
+        return children.size();
+    }
+    
     /**
      * Returns the parent of this category.
      * 
@@ -228,12 +236,12 @@ public final class Category
     }
 
     /**
-     * Tests if a given category is a child of this category.
+     * Tests if a given category is a direct child of this category.
      * 
      * @param probableChild The category to test if it is a child.
      * @return True, if it is a child. False otherwise.
      */
-    public boolean isChild(Category probableChild)
+    public boolean hasChild(Category probableChild)
     {
         final Iterator iter = getChildrenIterator();
         while (iter.hasNext())
@@ -266,6 +274,7 @@ public final class Category
         Assert.notNull(child);
 
         children.remove(child);
+        child.parent = null;
     }
 
     /**
@@ -288,7 +297,7 @@ public final class Category
                 .isTrue(newParent != this,
                         "A category cannot be its own parent!");
         Assert
-                .isTrue(!isChild(newParent),
+                .isTrue(!hasChild(newParent),
                         "Currently, a category's parent cannot be set to one of its current children");
 
         this.parent = newParent;
