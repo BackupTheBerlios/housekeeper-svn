@@ -43,17 +43,19 @@ import org.apache.commons.logging.LogFactory;
 public final class ItemManager extends HousekeeperEventPublisher
 {
 
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final String LINE_SEPARATOR = System
+                                                       .getProperty("line.separator");
 
     /**
      * Log to be used for this class.
      */
-    private static final Log LOG = LogFactory.getLog(ItemManager.class);
+    private static final Log    LOG            = LogFactory
+                                                       .getLog(ItemManager.class);
 
     /**
      * Holds a list of all managed items.
      */
-    private final ArrayList  items;
+    private final ArrayList     items;
 
     /**
      * Creates a new manager with no entries.
@@ -79,7 +81,7 @@ public final class ItemManager extends HousekeeperEventPublisher
 
         publishEvent(HousekeeperEvent.ADDED, item);
     }
-    
+
     /**
      * Adds a collection of items.
      * 
@@ -128,8 +130,8 @@ public final class ItemManager extends HousekeeperEventPublisher
     }
 
     /**
-     * Returns all items of a specific category. If category is null, then all
-     * items are returned.
+     * Returns all items of a specific category and its sub-categories. If
+     * category is null, then all items are returned.
      * 
      * @param category The category of the items.
      * @return The items which match the category.
@@ -153,6 +155,24 @@ public final class ItemManager extends HousekeeperEventPublisher
             }
         }
         return categoryItems;
+    }
+
+    /**
+     * Reassigns all items of a category and its subcategories to another
+     * category.
+     * 
+     * @param oldCategory The current category.
+     * @param newCategory The new category to assign the items to.
+     */
+    public void reassignToCategory(Category oldCategory, Category newCategory)
+    {
+        final Iterator iter = getItemsForCategory(oldCategory).iterator();
+        while (iter.hasNext())
+        {
+            Item element = (Item) iter.next();
+            element.setCategory(newCategory);
+            update(element);
+        }
     }
 
     /**
@@ -183,10 +203,11 @@ public final class ItemManager extends HousekeeperEventPublisher
      * @param item != null.
      * @return True, if the item exists, false otherwise.
      */
-    public boolean exists(final Item item) {
+    public boolean exists(final Item item)
+    {
         return items.contains(item);
     }
-    
+
     /**
      * Clears the list of items and replaces it with a new one.
      * 
@@ -210,12 +231,12 @@ public final class ItemManager extends HousekeeperEventPublisher
     {
         if (LOG.isDebugEnabled())
         {
-            LOG.debug("Updated food: " + item);
+            LOG.debug("Updated item: " + item);
         }
 
         publishEvent(HousekeeperEvent.MODIFIED, item);
     }
-    
+
     /**
      * Returns all items in a textual representation.
      * 
@@ -233,14 +254,15 @@ public final class ItemManager extends HousekeeperEventPublisher
         }
         return buffer.toString();
     }
-    
+
     /**
      * Tries to find an item with a given name.
      * 
      * @param name != null
      * @return The first item with the given name or null if none exists.
      */
-    public Item findItemWithName(String name) {
+    public Item findItemWithName(String name)
+    {
         final Iterator iter = items.iterator();
         while (iter.hasNext())
         {

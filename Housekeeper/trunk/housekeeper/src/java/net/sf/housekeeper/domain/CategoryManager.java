@@ -44,7 +44,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
 
     private static final Log LOG = LogFactory.getLog(CategoryManager.class);
 
-    private List        categories;
+    private List             categories;
 
     private ItemManager      supplyManager;
 
@@ -59,14 +59,26 @@ public final class CategoryManager extends HousekeeperEventPublisher
 
     /**
      * Adds a category. If parent == null, then category is added as a new top
-     * level category.
+     * level category. This method doesn't allow multiple adds per call. A
+     * category must not have any children when added.
      * 
-     * @param category The category to add.
+     * @param category != null. category.isLeaf() == true. Must not exist
+     *            already.
+     * @throws IllegalArgumentException if the category already exists.
      */
-    public void add(final Category category)
+    public void add(final Category category) throws IllegalArgumentException
     {
         Assert.notNull(category);
-        Assert.isTrue(!categories.contains(category));
+        if (categories.contains(category))
+        {
+            throw new IllegalArgumentException("Category already exists: "
+                    + category);
+        }
+        if (!category.isLeaf())
+        {
+            throw new IllegalArgumentException("Category must be a leaf: "
+                    + category);
+        }
 
         final boolean isRoot = category.getParent() == null;
         if (isRoot)
@@ -109,7 +121,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
     {
         return getAllCategoriesExcept(null);
     }
-    
+
     /**
      * Returns a list of all categories excluding a category and its children.
      * 
@@ -123,7 +135,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
         while (topLevelCats.hasNext())
         {
             Category element = (Category) topLevelCats.next();
-            
+
             final List c = element.getRecursiveCategories();
             allCats.addAll(c);
         }
@@ -132,7 +144,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
             final List discCats = discardedCategory.getRecursiveCategories();
             allCats.removeAll(discCats);
         }
-        
+
         return Collections.unmodifiableList(allCats);
     }
 
@@ -150,13 +162,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
 
         final Category parent = category.getParent();
 
-        final Iterator iter = supplyManager.getItemsForCategory(category)
-                .iterator();
-        while (iter.hasNext())
-        {
-            Item element = (Item) iter.next();
-            element.setCategory(parent);
-        }
+        supplyManager.reassignToCategory(category, parent);
 
         if (parent == null)
         {
@@ -194,8 +200,8 @@ public final class CategoryManager extends HousekeeperEventPublisher
     }
 
     /**
-     * Updates a Category. A reference to the old parent must be provided so
-     * the old parent's reference to the category can be removed.
+     * Updates a Category. A reference to the old parent must be provided so the
+     * old parent's reference to the category can be removed.
      * 
      * @param category != null.
      * @param oldParent The previous parent of the category.
@@ -204,24 +210,24 @@ public final class CategoryManager extends HousekeeperEventPublisher
     {
         Assert.notNull(category);
         final Category newParent = category.getParent();
-        
+
         //Remove catgory from old parent
-        if (oldParent != null && !newParent.equals(oldParent)) {
+        if (oldParent != null && !newParent.equals(oldParent))
+        {
             oldParent.removeChild(category);
         }
-        
+
         //Add category to new parent
         if (newParent != null)
         {
             newParent.addChild(category);
         }
-        
+
         //Add/Remove category from the list of root categories
         if (newParent == null && !categories.contains(category))
         {
             categories.add(category);
-        } else if (newParent != null
-                && categories.contains(category))
+        } else if (newParent != null && categories.contains(category))
         {
             categories.remove(category);
         }

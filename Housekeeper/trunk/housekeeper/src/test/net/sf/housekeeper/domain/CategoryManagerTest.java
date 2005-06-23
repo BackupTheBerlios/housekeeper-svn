@@ -48,6 +48,62 @@ public final class CategoryManagerTest extends TestCase
         super.setUp();
     }
     
+    public void testAddExisting()
+    {
+        final Category c = new Category();
+        manager.add(c);
+        try
+        {
+            manager.add(c);
+            fail("Must throw exception");
+        } catch (IllegalArgumentException e)
+        {
+            //Expected
+            return;
+        }
+    }
+    
+    public void testAdd()
+    {
+        final Category root = new Category();
+        final Category child = new Category();
+        
+        manager.add(root);
+        child.setParent(root);
+        manager.add(child);
+        
+        Assert.assertTrue(manager.getTopLevelCategories().contains(root));
+        Assert.assertFalse(manager.getTopLevelCategories().contains(child));
+        Assert.assertTrue(manager.getAllCategories().contains(root));
+        Assert.assertTrue(manager.getAllCategories().contains(child));
+    }
+    
+    public void testAddNonLeafCategory()
+    {
+        final Category root = new Category();
+        final Category child = new Category();
+        root.addChild(child);
+        
+        try
+        {
+            manager.add(root);
+            fail("Must throw exception");
+        } catch (IllegalArgumentException e)
+        {
+            return;
+        }
+    }
+    
+    public void testRemoveRoot()
+    {
+        final Category root = new Category();
+        manager.add(root);
+        manager.remove(root);
+        
+        Assert.assertTrue(!manager.getAllCategories().contains(root));
+        Assert.assertTrue(!manager.getTopLevelCategories().contains(root));
+    }
+    
     public void testUpdate()
     {
         final Category oldParent = new Category();
