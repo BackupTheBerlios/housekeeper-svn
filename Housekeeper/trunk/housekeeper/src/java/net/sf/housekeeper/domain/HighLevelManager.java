@@ -35,14 +35,14 @@ import org.springframework.util.Assert;
 public final class HighLevelManager
 {
 
-    private ItemManagerImpl supplyManager;
+    private ItemManager supplyManager;
 
-    private ItemManagerImpl shoppingListManager;
+    private ItemManager shoppingListManager;
 
     /**
      * @param shoppingListManager The shoppingListManager to set.
      */
-    public void setShoppingListManager(ItemManagerImpl shoppingListManager)
+    public void setShoppingListManager(ItemManager shoppingListManager)
     {
         this.shoppingListManager = shoppingListManager;
     }
@@ -50,7 +50,7 @@ public final class HighLevelManager
     /**
      * @param supplyManager The supplyManager to set.
      */
-    public void setSupplyManager(ItemManagerImpl supplyManager)
+    public void setSupplyManager(ItemManager supplyManager)
     {
         this.supplyManager = supplyManager;
     }

@@ -46,7 +46,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
 
     private List             categories;
 
-    private ItemManagerImpl      supplyManager;
+    private ItemManager      supplyManager;
 
     /**
      * Initializes this manager with a default set of categories.
@@ -194,7 +194,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * 
      * @param im The manager.
      */
-    public void setSupplyManager(ItemManagerImpl im)
+    public void setSupplyManager(ItemManager im)
     {
         this.supplyManager = im;
     }

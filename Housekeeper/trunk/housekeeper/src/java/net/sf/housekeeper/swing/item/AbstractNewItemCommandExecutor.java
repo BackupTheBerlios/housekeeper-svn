@@ -23,7 +23,7 @@ package net.sf.housekeeper.swing.item;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.Item;
-import net.sf.housekeeper.domain.ItemManagerImpl;
+import net.sf.housekeeper.domain.ItemManager;
 
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
 public abstract class AbstractNewItemCommandExecutor extends AbstractActionCommandExecutor
 {
 
-    private ItemManagerImpl supplyManager;
+    private ItemManager supplyManager;
 
     /**
      * Creates a new executor which is always enabled.
@@ -53,7 +53,7 @@ public abstract class AbstractNewItemCommandExecutor extends AbstractActionComma
      * 
      * @param itemManager != null
      */
-    public void setManager(final ItemManagerImpl itemManager)
+    public void setManager(final ItemManager itemManager)
     {
         this.supplyManager = itemManager;
     }
