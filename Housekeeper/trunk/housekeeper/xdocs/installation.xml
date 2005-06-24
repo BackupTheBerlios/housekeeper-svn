@@ -6,7 +6,7 @@
   <body>
     <section name="Prerequisites">
       <ol>
-        <li> Housekeeper is compatible with these <b>operating systems</b>:
+        <li><b>Operating systems</b>:
           <ul> 
             <li>Windows 95/98/ME/2000/XP</li>
             <li>Macintosh OS X</li> 
@@ -15,7 +15,7 @@
             <li>Any other OS where a Java Runtime Environment 1.4.2 is available.</li>
           </ul>
         </li>
-        <li>Housekeeper requires a <b>Java Runtime Environment (JRE) 1.4.2 or higher</b>.
+        <li><b>Java Runtime Environment (JRE) 1.4.2 or higher</b>.
           <ul> 
             <li><b>Windows</b> users can <a href="http://www.java.com">get a free 
                JRE at java.com</a>. Click on "Java Software Download" on the right for 
@@ -28,9 +28,9 @@
           </ul> 
        </li>
       </ol>
-		</section>
+      </section>
     
-    <section 
+      <section 
         name="Automatic download and installation with Webstart">
        <p>The 
         easiest way to install Housekeeper is using <a 
@@ -38,19 +38,6 @@
         <p> <a 
         href="http://ftp.berlios.de/pub/housekeeper/webstart/housekeeper.jnlp"> 
         Download and install Housekeeper with Webstart now!</a> </p>
-        <p>
-        Benefits are:
-         <ul>
-          <li>Automatic download and installation.</li>
-          <li>Creation of desktop icon and program menu entry. </li>
-          <li>Automatic update of Housekeeper. If you start Housekeeper 
-        and you are connected to the Internet, Webstart checks if there is an 
-        update to Housekeeper. If so, the new version is automatically 
-        downloaded and installed. (You can disable this behaviour)</li> 
-        <li>Donwloads only those parts which changed when updating.</li>
-          <li>Webstart already comes with Java.</li>
-          </ul>
-          </p>
       </section> 
       
       <section name="Manual download and installation"> <p>If you don't want 
