@@ -25,6 +25,7 @@ import java.util.Calendar;
 
 import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.domain.ItemManagerImpl;
 
 import org.easymock.MockControl;
@@ -134,6 +135,7 @@ public final class DataGenerator
     {
         CategoryManager manager = new CategoryManager();
         manager.setApplicationContext(createApplicationContextMock());
+        manager.setSupplyManager(createItemManagerMock());
         return manager;
     }
 
@@ -142,6 +144,14 @@ public final class DataGenerator
         MockControl control = MockControl
                 .createNiceControl(ApplicationContext.class);
         ApplicationContext mock = (ApplicationContext) control.getMock();
+        return mock;
+    }
+    
+    public static ItemManager createItemManagerMock()
+    {
+        MockControl control = MockControl
+                .createNiceControl(ItemManager.class);
+        ItemManager mock = (ItemManager) control.getMock();
         return mock;
     }
 }

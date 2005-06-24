@@ -212,7 +212,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
         final Category newParent = category.getParent();
 
         //Remove catgory from old parent
-        if (oldParent != null && !newParent.equals(oldParent))
+        if (oldParent != null && !oldParent.equals(newParent))
         {
             oldParent.removeChild(category);
         }

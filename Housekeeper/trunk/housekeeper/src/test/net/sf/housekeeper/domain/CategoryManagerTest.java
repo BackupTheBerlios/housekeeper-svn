@@ -104,13 +104,45 @@ public final class CategoryManagerTest extends TestCase
         Assert.assertTrue(!manager.getTopLevelCategories().contains(root));
     }
     
-    public void testUpdate()
+    public void testRemoveNonRoot()
+    {
+        final Category root = new Category();
+        manager.add(root);
+        final Category child = new Category();
+        root.addChild(child);
+        manager.add(child);
+        
+        manager.remove(child);
+        
+        Assert.assertTrue(!manager.getAllCategories().contains(child));
+    }
+    
+    public void testRecursiveRemove()
+    {
+        final Category root = new Category();
+        manager.add(root);
+        final Category child = new Category();
+        root.addChild(child);
+        manager.add(child);
+        
+        manager.remove(root);
+        
+        Assert.assertTrue(!manager.getAllCategories().contains(child));
+    }
+    
+    public void testUpdateParentNonNullToNonNull()
     {
         final Category oldParent = new Category();
         final Category newParent = new Category();
         final Category child = new Category();
         
+        //Setup
+        manager.add(oldParent);
+        manager.add(newParent);
         oldParent.addChild(child);
+        manager.add(child);
+        
+        
         child.setParent(newParent);
         manager.update(child, oldParent);
         
@@ -118,4 +150,40 @@ public final class CategoryManagerTest extends TestCase
         Assert.assertTrue(newParent.hasChild(child));
         Assert.assertTrue(child.getParent() == newParent);
     }
+    
+    public void testUpdateParentNonNullToNull()
+    {
+        final Category oldParent = new Category();
+        final Category child = new Category();
+        
+        //Setup
+        manager.add(oldParent);
+        oldParent.addChild(child);
+        manager.add(child);
+        
+        child.setParent(null);
+        manager.update(child, oldParent);
+
+        Assert.assertFalse(oldParent.hasChild(child));
+        Assert.assertTrue(child.getParent() == null);
+        Assert.assertTrue(manager.getTopLevelCategories().contains(child));
+    }
+    
+    public void testUpdateParentNullToNonNull()
+    {
+        final Category newParent = new Category();
+        final Category child = new Category();
+        
+        //Setup
+        manager.add(newParent);
+        manager.add(child);
+        
+        child.setParent(newParent);
+        manager.update(child, null);
+
+        Assert.assertTrue(newParent.hasChild(child));
+        Assert.assertTrue(child.getParent() == newParent);
+        Assert.assertFalse(manager.getTopLevelCategories().contains(child));
+    }
+
 }
