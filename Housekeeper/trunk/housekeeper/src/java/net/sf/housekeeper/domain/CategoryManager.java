@@ -232,17 +232,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
             categories.remove(category);
         }
 
-        //Publish events
-        if (oldParent != null)
-        {
-            publishEvent(HousekeeperEvent.MODIFIED, oldParent);
-        }
-        if (category.getParent() != null)
-        {
-            publishEvent(HousekeeperEvent.MODIFIED, newParent);
-        }
+        //publish events
         publishEvent(HousekeeperEvent.MODIFIED, category);
-
     }
-
 }
