@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Download and installation</title>
+  </properties>
+  <body>
+    <section name="Prerequisites">
+      <ol>
+        <li> Housekeeper is compatible with these <b>operating systems</b>:
+          <ul> 
+            <li>Windows 95/98/ME/2000/XP</li>
+            <li>Macintosh OS X</li> 
+            <li>Linux</li>
+            <li>Solaris</li>
+            <li>Any other OS where a Java Runtime Environment 1.4.2 is available.</li>
+          </ul>
+        </li>
+        <li>Housekeeper requires a <b>Java Runtime Environment (JRE) 1.4.2 or higher</b>.
+          <ul> 
+            <li><b>Windows</b> users can <a href="http://www.java.com">get a free 
+               JRE at java.com</a>. Click on "Java Software Download" on the right for 
+        installation instructions.</li>
+            <li><b>Linux</b> users probably can install 
+          Java with the software package manager tool of their distribution (for 
+          example YaST or APT). Alternatively, you can <a href="http://www.java.com">get a free 
+               JRE at java.com</a>.</li>
+            <li><b>Mac OS X</b> already comes with Java installed. Just make sure to always have the latest system updates installed.</li>
+          </ul> 
+       </li>
+      </ol>
+		</section>
+    
+    <section 
+        name="Automatic download and installation with Webstart">
+       <p>The 
+        easiest way to install Housekeeper is using <a 
+        href="http://java.sun.com/j2se/1.5.0/docs/guide/javaws/developersguide/faq.html">Webstart</a>. </p>
+        <p> <a 
+        href="http://ftp.berlios.de/pub/housekeeper/webstart/housekeeper.jnlp"> 
+        Download and install Housekeeper with Webstart now!</a> </p>
+        <p>
+        Benefits are:
+         <ul>
+          <li>Automatic download and installation.</li>
+          <li>Creation of desktop icon and program menu entry. </li>
+          <li>Automatic update of Housekeeper. If you start Housekeeper 
+        and you are connected to the Internet, Webstart checks if there is an 
+        update to Housekeeper. If so, the new version is automatically 
+        downloaded and installed. (You can disable this behaviour)</li> 
+        <li>Donwloads only those parts which changed when updating.</li>
+          <li>Webstart already comes with Java.</li>
+          </ul>
+          </p>
+      </section> 
+      
+      <section name="Manual download and installation"> <p>If you don't want 
+        or can't use Webstart, you can download Housekeeper as an archive and 
+        install it yourself: <ol> <li>Download Housekeeper <a 
+        href="http://developer.berlios.de/project/showfiles.php?group_id=3180"> 
+        here!</a> Pick the <code>.zip</code> file for Windows or the 
+        <code>.tar.gz</code> file for any other platform.</li> <li>Decompress 
+        the ZIP or GZ archive to the location you want Housekeeper to be 
+        installed. <p>If you are upgrading from an older version of Housekeeper 
+        please make sure to remove that version completely by deleting the 
+        folder before copying the new version to the same location. Your 
+        household data will not be deleted by this action because it is saved 
+        in the user's home directory, not in the application's 
+        directory.</p></li> <li>Start Housekeeper by double-clicking on 
+        <code>housekeeper-VERSION.jar</code>, where "VERSION" is the version 
+        number of Housekeeper.</li> <li>If that doesn't work start Housekeeper 
+        by double-clicking on <code>housekeeper.bat</code> when running on 
+        Windows or use <code>housekeeper.sh</code> on any other platform.</li> 
+        </ol> </p>
+      </section> 
+   </body> 
+</document>
