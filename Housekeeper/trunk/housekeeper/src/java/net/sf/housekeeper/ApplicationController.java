@@ -52,7 +52,7 @@ public final class ApplicationController
     {
         final int jreVersion = JdkVersion.getMajorJavaVersion();
         final int minVersion = JdkVersion.JAVA_14;
-        if (jreVersion < JdkVersion.JAVA_14)
+        if (jreVersion < minVersion)
         {
             LogFactory.getLog(ApplicationController.class)
                     .fatal("You need at least JRE 1.4 to run Housekeeper!");

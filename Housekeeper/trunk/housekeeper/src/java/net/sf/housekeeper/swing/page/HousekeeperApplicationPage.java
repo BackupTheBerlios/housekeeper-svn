@@ -35,7 +35,6 @@ import net.sf.housekeeper.swing.util.UIFSplitPane;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.application.PageComponent;
 import org.springframework.richclient.application.PageComponentListener;
-import org.springframework.richclient.application.PageComponentPane;
 import org.springframework.richclient.application.PageDescriptor;
 import org.springframework.richclient.application.support.DefaultApplicationPage;
 import org.springframework.richclient.control.SimpleInternalFrame;
@@ -115,9 +114,6 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
      */
     protected boolean giveFocusTo(PageComponent pageComponent)
     {
-        PageComponentPane pane = pageComponent.getContext().getPane();
-        //pane.requestFocusInWindow();
-
         fireFocusGained(pageComponent);
 
         return true;

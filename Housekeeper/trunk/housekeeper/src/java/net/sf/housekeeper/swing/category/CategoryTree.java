@@ -77,7 +77,6 @@ public final class CategoryTree extends JTree
         renderer.setLeafIcon(null);
         setCellRenderer(renderer);
 
-        final boolean showRootNode = rootNodeTitle != null;
         setRootVisible(true);
     }
 

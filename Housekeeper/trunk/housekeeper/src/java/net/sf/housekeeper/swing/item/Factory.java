@@ -68,7 +68,6 @@ public final class Factory
                 columnNameProvider);
         final SortableTable table = new SortableTable(model);
 
-        final int expiryDateColumn = EXPIRY_DATE_COLUMN;
         final SortableTableModel sortableModel = table.getSortableTableModel();
         sortableModel.setComparator(EXPIRY_DATE_COLUMN,
                                     new ExpiryDateComparator());
