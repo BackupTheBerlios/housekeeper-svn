@@ -44,6 +44,9 @@ import org.springframework.util.Assert;
  */
 public final class CategoryTree extends JTree
 {
+
+    private static final long serialVersionUID = 4420378953674731257L;
+
     private final String rootNodeTitle;
     
     private Collection categories;

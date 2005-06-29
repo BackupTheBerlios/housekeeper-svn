@@ -38,6 +38,8 @@ import org.springframework.context.MessageSource;
 public class ExpirableItemsTableModel extends ItemsTableModel
 {
 
+    private static final long serialVersionUID = 1280008004521981778L;
+
     /**
      * Creates a new model.
      * 

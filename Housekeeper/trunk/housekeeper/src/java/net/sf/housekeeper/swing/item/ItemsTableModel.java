@@ -36,6 +36,8 @@ import org.springframework.richclient.table.BeanTableModel;
 public class ItemsTableModel extends BeanTableModel
 {
 
+    private static final long serialVersionUID = -4389726992143848974L;
+
     /**
      * Creates a new model.
      * 

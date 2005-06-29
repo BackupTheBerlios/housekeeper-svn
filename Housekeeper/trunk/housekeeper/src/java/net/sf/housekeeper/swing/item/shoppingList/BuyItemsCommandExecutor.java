@@ -140,6 +140,8 @@ public final class BuyItemsCommandExecutor extends
     {
         return (PageComponent) new AbstractConstraint() {
 
+            private static final long serialVersionUID = -5022322885507003473L;
+
             public boolean test(Object arg)
             {
                 if (arg instanceof View)

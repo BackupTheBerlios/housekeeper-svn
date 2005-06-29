@@ -45,6 +45,8 @@ import com.toedter.calendar.JDateChooser;
 public final class DisableableJDateChooser extends JPanel
 {
 
+    private static final long serialVersionUID = 2955454255628454712L;
+
     private final JDateChooser chooser   = new JDateChooser();
 
     private final JCheckBox    enableBox = new JCheckBox();

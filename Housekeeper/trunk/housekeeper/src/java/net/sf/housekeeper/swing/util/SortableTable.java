@@ -40,6 +40,9 @@ import org.springframework.util.Assert;
  */
 public final class SortableTable extends JTable
 {
+
+    private static final long serialVersionUID = -1472613748365642350L;
+    
     private BaseTableModel lowestModel;
     
     /**

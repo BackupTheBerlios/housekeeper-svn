@@ -37,6 +37,8 @@ import net.sf.housekeeper.swing.item.ItemsTableModel;
 public final class ShoppingListTableModel extends ItemsTableModel
 {
 
+    private static final long serialVersionUID = -4714266963861989063L;
+
     /**
      * @param messages
      */

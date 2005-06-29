@@ -33,6 +33,8 @@ import org.springframework.core.ToStringCreator;
 public class HousekeeperEvent extends ApplicationEvent
 {
 
+    private static final long serialVersionUID = -6856493303326984655L;
+
     private final String       eventType;
 
     /**
