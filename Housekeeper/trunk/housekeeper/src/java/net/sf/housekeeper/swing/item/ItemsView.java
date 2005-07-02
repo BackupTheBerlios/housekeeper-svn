@@ -285,7 +285,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
         public void execute()
         {
-            final ExpirableItem selectedItem = (ExpirableItem) table
+            final Item selectedItem = (Item) table
                     .getSelected();
             itemManager.remove(selectedItem);
         }
