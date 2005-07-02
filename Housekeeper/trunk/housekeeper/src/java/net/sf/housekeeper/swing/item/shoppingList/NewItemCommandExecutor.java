@@ -25,7 +25,7 @@ import net.sf.housekeeper.domain.Item;
 import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor;
 
-import org.springframework.richclient.forms.Form;
+import org.springframework.richclient.form.Form;
 
 /**
  * Shows a dialog for adding a new item to a shopping list.

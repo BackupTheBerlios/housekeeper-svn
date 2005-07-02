@@ -25,8 +25,8 @@ import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.ExpirableItem;
 
+import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-import org.springframework.richclient.forms.AbstractForm;
 
 /**
  * A Form for editing the properties of an

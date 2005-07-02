@@ -12,7 +12,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/jibx/jars/jibx-run-1.0rc0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jibx/jars/jibx-extras-1.0rc0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/toedter/jars/jcalendar-1.2.2.jar"/>
-	<classpathentry sourcepath="SPRING" kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-20050617.jar"/>
+	<classpathentry sourcepath="/SPRING" kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-20050702.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/spring/jars/spring-richclient-resources-20050131.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-core-1.2.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-context-1.2.1.jar"/>

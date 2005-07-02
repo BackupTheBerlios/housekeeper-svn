@@ -44,6 +44,7 @@ import org.springframework.richclient.application.support.AbstractView;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
+import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
@@ -215,7 +216,7 @@ public final class CategoriesView extends AbstractView implements
                     newCategory);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                    form, getWindowControl()) {
+                    new FormBackedDialogPage(form)) {
 
                 protected void onAboutToShow()
                 {

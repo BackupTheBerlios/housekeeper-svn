@@ -28,7 +28,7 @@ import net.sf.housekeeper.domain.ItemManager;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.forms.Form;
+import org.springframework.richclient.form.Form;
 import org.springframework.util.Assert;
 
 /**

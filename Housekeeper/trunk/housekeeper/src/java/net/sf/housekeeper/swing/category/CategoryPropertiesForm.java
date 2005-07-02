@@ -25,8 +25,8 @@ import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.Category;
 
+import org.springframework.richclient.form.AbstractForm;
 import org.springframework.richclient.form.builder.TableFormBuilder;
-import org.springframework.richclient.forms.AbstractForm;
 
 /**
  * A form for editing the properties of a

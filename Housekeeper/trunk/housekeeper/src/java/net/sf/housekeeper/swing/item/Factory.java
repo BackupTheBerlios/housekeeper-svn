@@ -38,7 +38,7 @@ import net.sf.housekeeper.swing.util.SortableTable;
 import net.sf.housekeeper.util.ExpiryDateComparator;
 
 import org.springframework.context.MessageSource;
-import org.springframework.richclient.forms.Form;
+import org.springframework.richclient.form.Form;
 import org.springframework.richclient.table.BaseTableModel;
 import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.renderer.DateTimeTableCellRenderer;

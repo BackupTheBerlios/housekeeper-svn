@@ -54,7 +54,7 @@ import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
-import org.springframework.richclient.forms.Form;
+import org.springframework.richclient.form.Form;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 import org.springframework.util.Assert;
 
