@@ -92,7 +92,7 @@ public final class CategoryBinder extends AbstractBinder
         ComboBoxBinding binding = new ComboBoxBinding((JComboBox) control,
                 formModel, formPropertyPath);
 
-        final List categories = catMan.getAllCategories();
+        final List categories = catMan.getAllCategoriesInclusiveNull();
 
         binding.setSelectableItemsHolder(new ValueHolder(categories));
         return binding;

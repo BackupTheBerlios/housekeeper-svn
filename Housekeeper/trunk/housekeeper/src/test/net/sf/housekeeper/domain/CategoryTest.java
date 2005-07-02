@@ -156,5 +156,12 @@ public final class CategoryTest extends TestCase
         Assert.assertFalse(isChild);
         Assert.assertNull(child.getParent());
     }
+    
+    public void testSetParentToNull()
+    {
+        category.setParent(Category.NULL_OBJECT);
+        
+        Assert.assertNull(category.getParent());
+    }
 
 }

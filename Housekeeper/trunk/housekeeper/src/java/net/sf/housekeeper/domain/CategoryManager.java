@@ -121,6 +121,19 @@ public final class CategoryManager extends HousekeeperEventPublisher
     {
         return getAllCategoriesExcept(null);
     }
+    
+    /**
+     * Returns a list of all categories inclusive the null object for
+     * categories. ({@link Category#NULL_OBJECT}).
+     * 
+     * @return != null
+     */
+    public List getAllCategoriesInclusiveNull()
+    {
+        final List l = getAllCategories();
+        l.add(Category.NULL_OBJECT);
+        return l;
+    }
 
     /**
      * Returns a list of all categories excluding a category and its children.
@@ -145,7 +158,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
             allCats.removeAll(discCats);
         }
 
-        return Collections.unmodifiableList(allCats);
+        return allCats;
     }
 
     /**

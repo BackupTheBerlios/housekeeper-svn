@@ -112,6 +112,10 @@ public class Item
      */
     public void setCategory(Category category)
     {
+        if (category == Category.NULL_OBJECT)
+        {
+            category = null;
+        }
         this.category = category;
     }
 

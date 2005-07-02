@@ -307,6 +307,10 @@ public final class Category
                 .isTrue(!hasChild(newParent),
                         "Currently, a category's parent cannot be set to one of its current children");
 
+        if (newParent == Category.NULL_OBJECT)
+        {
+            newParent = null;
+        }
         this.parent = newParent;
     }
 
@@ -317,6 +321,11 @@ public final class Category
      */
     public String toString()
     {
+        if (this == NULL_OBJECT)
+        {
+            return "";
+        }
+        
         final StringBuffer buffer = new StringBuffer();
         if (parent != null)
         {
