@@ -41,7 +41,8 @@ public final class ShoppingListItemPropertiesForm extends AbstractForm
     /**
      * Creates a new Form.
      * 
-     * @param object The item to create the form for. Must not be null.
+     * @param object
+     *            The item to create the form for. Must not be null.
      */
     public ShoppingListItemPropertiesForm(final ShoppingListItem object)
     {

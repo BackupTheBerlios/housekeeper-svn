@@ -43,7 +43,7 @@ public final class Category
      */
     public static final Category NULL_OBJECT = new Category();
 
-    private static Category      selectedCategory;
+    private static Category selectedCategory;
 
     /**
      * Returns the currently selected Category. Needed as a workaround until
@@ -67,13 +67,13 @@ public final class Category
         Category.selectedCategory = selectedCategory;
     }
 
-    private LinkedHashSet    children;
+    private LinkedHashSet children;
 
     private final String id;
 
-    private String       name;
+    private String name;
 
-    private Category     parent;
+    private Category parent;
 
     /**
      * Creates a new category with no name and children.
@@ -86,7 +86,8 @@ public final class Category
     /**
      * Creates a new category with no children.
      * 
-     * @param name The name for the category. Must not be null.
+     * @param name
+     *            The name for the category. Must not be null.
      */
     public Category(final String name)
     {
@@ -100,12 +101,13 @@ public final class Category
      * Adds a child category and sets the "parent" property of that object to
      * this category.
      * 
-     * @param child The child to add. Must not be null.
+     * @param child
+     *            The child to add. Must not be null.
      */
     public void addChild(final Category child)
     {
         Assert.isTrue(!this.equals(child));
-        
+
         child.parent = this;
         children.add(child);
     }
@@ -114,7 +116,8 @@ public final class Category
      * Tests if a category either equals this category or is a child of this
      * category or a sub-category of any depth.
      * 
-     * @param cat The category to test.
+     * @param cat
+     *            The category to test.
      * @return True, if cat is conatained in this category. False otherwise.
      */
     public boolean contains(Category cat)
@@ -202,7 +205,7 @@ public final class Category
     {
         return children.size();
     }
-    
+
     /**
      * Returns the parent of this category.
      * 
@@ -238,7 +241,8 @@ public final class Category
     /**
      * Tests if a given category is a direct child of this category.
      * 
-     * @param probableChild The category to test if it is a child.
+     * @param probableChild
+     *            The category to test if it is a child.
      * @return True, if it is a child. False otherwise.
      */
     public boolean hasChild(Category probableChild)
@@ -267,7 +271,8 @@ public final class Category
     /**
      * Removes a child.
      * 
-     * @param child != null
+     * @param child !=
+     *            null
      */
     public void removeChild(Category child)
     {
@@ -278,7 +283,8 @@ public final class Category
     }
 
     /**
-     * @param name The name to set.
+     * @param name
+     *            The name to set.
      */
     public void setName(String name)
     {
@@ -288,8 +294,9 @@ public final class Category
     /**
      * Sets the parent of this Category.
      * 
-     * @param newParent The new parent or null if this category should become a
-     *            root category.
+     * @param newParent
+     *            The new parent or null if this category should become a root
+     *            category.
      */
     public void setParent(Category newParent)
     {

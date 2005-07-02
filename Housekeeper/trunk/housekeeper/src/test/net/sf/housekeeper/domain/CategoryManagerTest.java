@@ -25,7 +25,6 @@ import net.sf.housekeeper.testutils.DataGenerator;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-
 /**
  * Tests for {@link net.sf.housekeeper.domain.CategoryManager}.
  * 
@@ -36,18 +35,19 @@ public final class CategoryManagerTest extends TestCase
 {
 
     private CategoryManager manager;
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception
     {
         manager = DataGenerator.createEmptyCategoryManager();
-        
+
         super.setUp();
     }
-    
+
     public void testAddExisting()
     {
         final Category c = new Category();
@@ -58,32 +58,32 @@ public final class CategoryManagerTest extends TestCase
             fail("Must throw exception");
         } catch (IllegalArgumentException e)
         {
-            //Expected
+            // Expected
             return;
         }
     }
-    
+
     public void testAdd()
     {
         final Category root = new Category();
         final Category child = new Category();
-        
+
         manager.add(root);
         child.setParent(root);
         manager.add(child);
-        
+
         Assert.assertTrue(manager.getTopLevelCategories().contains(root));
         Assert.assertFalse(manager.getTopLevelCategories().contains(child));
         Assert.assertTrue(manager.getAllCategories().contains(root));
         Assert.assertTrue(manager.getAllCategories().contains(child));
     }
-    
+
     public void testAddNonLeafCategory()
     {
         final Category root = new Category();
         final Category child = new Category();
         root.addChild(child);
-        
+
         try
         {
             manager.add(root);
@@ -93,17 +93,17 @@ public final class CategoryManagerTest extends TestCase
             return;
         }
     }
-    
+
     public void testRemoveRoot()
     {
         final Category root = new Category();
         manager.add(root);
         manager.remove(root);
-        
+
         Assert.assertTrue(!manager.getAllCategories().contains(root));
         Assert.assertTrue(!manager.getTopLevelCategories().contains(root));
     }
-    
+
     public void testRemoveNonRoot()
     {
         final Category root = new Category();
@@ -111,12 +111,12 @@ public final class CategoryManagerTest extends TestCase
         final Category child = new Category();
         root.addChild(child);
         manager.add(child);
-        
+
         manager.remove(child);
-        
+
         Assert.assertTrue(!manager.getAllCategories().contains(child));
     }
-    
+
     public void testRecursiveRemove()
     {
         final Category root = new Category();
@@ -124,43 +124,42 @@ public final class CategoryManagerTest extends TestCase
         final Category child = new Category();
         root.addChild(child);
         manager.add(child);
-        
+
         manager.remove(root);
-        
+
         Assert.assertTrue(!manager.getAllCategories().contains(child));
     }
-    
+
     public void testUpdateParentNonNullToNonNull()
     {
         final Category oldParent = new Category();
         final Category newParent = new Category();
         final Category child = new Category();
-        
-        //Setup
+
+        // Setup
         manager.add(oldParent);
         manager.add(newParent);
         oldParent.addChild(child);
         manager.add(child);
-        
-        
+
         child.setParent(newParent);
         manager.update(child, oldParent);
-        
+
         Assert.assertFalse(oldParent.contains(child));
         Assert.assertTrue(newParent.hasChild(child));
         Assert.assertTrue(child.getParent() == newParent);
     }
-    
+
     public void testUpdateParentNonNullToNull()
     {
         final Category oldParent = new Category();
         final Category child = new Category();
-        
-        //Setup
+
+        // Setup
         manager.add(oldParent);
         oldParent.addChild(child);
         manager.add(child);
-        
+
         child.setParent(null);
         manager.update(child, oldParent);
 
@@ -168,16 +167,16 @@ public final class CategoryManagerTest extends TestCase
         Assert.assertTrue(child.getParent() == null);
         Assert.assertTrue(manager.getTopLevelCategories().contains(child));
     }
-    
+
     public void testUpdateParentNullToNonNull()
     {
         final Category newParent = new Category();
         final Category child = new Category();
-        
-        //Setup
+
+        // Setup
         manager.add(newParent);
         manager.add(child);
-        
+
         child.setParent(newParent);
         manager.update(child, null);
 

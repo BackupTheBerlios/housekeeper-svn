@@ -35,39 +35,40 @@ public class HousekeeperEvent extends ApplicationEvent
 
     private static final long serialVersionUID = -6856493303326984655L;
 
-    private final String       eventType;
+    private final String eventType;
 
     /**
      * Event type if a category gets selected by the user.
      */
-    public static final String SELECTED      = "housekeeperEvent.SELECTED";
+    public static final String SELECTED = "housekeeperEvent.SELECTED";
 
     /**
      * Event type if somehting has been added.
      */
-    public static final String ADDED         = "houskeeperEvent.ADDED";
+    public static final String ADDED = "houskeeperEvent.ADDED";
 
     /**
      * Event type if something has been added.
      */
-    public static final String REMOVED       = "houskeeperEvent.REMOVED";
+    public static final String REMOVED = "houskeeperEvent.REMOVED";
 
     /**
      * Event type if something has been modified.
      */
-    public static final String MODIFIED      = "housekeeperEvent.MODIFIED";
+    public static final String MODIFIED = "housekeeperEvent.MODIFIED";
 
     /**
      * Event type if data has been replaced.
      */
     public static final String DATA_REPLACED = "houskeeperEvent.DATA_REPLACED";
 
-
     /**
      * Creates a new event.
      * 
-     * @param eventType The type of this event.
-     * @param source The source of this event != null.
+     * @param eventType
+     *            The type of this event.
+     * @param source
+     *            The source of this event != null.
      */
     public HousekeeperEvent(String eventType, Object source)
     {
@@ -78,7 +79,8 @@ public class HousekeeperEvent extends ApplicationEvent
     /**
      * Returns true if the object os of the specified class.
      * 
-     * @param clazz The class to test against.
+     * @param clazz
+     *            The class to test against.
      * @return True, if the class matches, false otherwise.
      */
     public boolean objectIs(Class clazz)

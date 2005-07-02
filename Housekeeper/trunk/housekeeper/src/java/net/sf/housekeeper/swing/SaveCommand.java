@@ -46,12 +46,12 @@ public final class SaveCommand extends ApplicationWindowAwareCommand implements
         ApplicationListener
 {
 
-    private static final String    ID = "saveCommand";
+    private static final String ID = "saveCommand";
 
-    private Exception              exception;
+    private Exception exception;
 
     private ImportExportController importExportController;
-    
+
     /**
      * Creates a new Command for saving. If the action fails, an error dialog is
      * shown.
@@ -88,23 +88,24 @@ public final class SaveCommand extends ApplicationWindowAwareCommand implements
     }
 
     /**
-     * @param importExportController The importExportController to set.
+     * @param importExportController
+     *            The importExportController to set.
      */
     public void setImportExportController(
-                                          ImportExportController importExportController)
+            ImportExportController importExportController)
     {
         this.importExportController = importExportController;
     }
 
-    
     /**
-     * @param eventHelper The eventHelper to set.
+     * @param eventHelper
+     *            The eventHelper to set.
      */
     public void setEventHelper(ApplicationEventHelper eventHelper)
     {
         eventHelper.addListener(this);
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -132,7 +133,7 @@ public final class SaveCommand extends ApplicationWindowAwareCommand implements
             if (exception != null)
             {
                 LogFactory.getLog(getClass()).error("Could not save data",
-                                                    exception);
+                        exception);
                 final ErrorDialog dialog = new ErrorDialog(
                         "gui.mainFrame.saveError", exception);
                 dialog.showDialog();

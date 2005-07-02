@@ -44,13 +44,12 @@ public final class CategoryManager extends HousekeeperEventPublisher
 
     private static final Log LOG = LogFactory.getLog(CategoryManager.class);
 
-    private List             categories;
+    private List categories;
 
-    private ItemManager      supplyManager;
+    private ItemManager supplyManager;
 
     /**
      * Initializes this manager with a default set of categories.
-     *  
      */
     public CategoryManager()
     {
@@ -62,9 +61,10 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * level category. This method doesn't allow multiple adds per call. A
      * category must not have any children when added.
      * 
-     * @param category != null. category.isLeaf() == true. Must not exist
-     *            already.
-     * @throws IllegalArgumentException if the category already exists.
+     * @param category !=
+     *            null. category.isLeaf() == true. Must not exist already.
+     * @throws IllegalArgumentException
+     *             if the category already exists.
      */
     public void add(final Category category) throws IllegalArgumentException
     {
@@ -152,7 +152,8 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * Removes a category. All items of that category are reassigned to that
      * category's parent to assure referential integrity.
      * 
-     * @param category != null
+     * @param category !=
+     *            null
      */
     public void remove(Category category)
     {
@@ -178,7 +179,8 @@ public final class CategoryManager extends HousekeeperEventPublisher
     /**
      * Replaces all categories with other ones.
      * 
-     * @param categories The categories. Must not be null.
+     * @param categories
+     *            The categories. Must not be null.
      */
     public void replaceAll(final List categories)
     {
@@ -192,7 +194,8 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * Sets the itemManager. Needed for assuring referential integerity when
      * deleting a category.
      * 
-     * @param im The manager.
+     * @param im
+     *            The manager.
      */
     public void setSupplyManager(ItemManager im)
     {
@@ -203,27 +206,29 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * Updates a Category. A reference to the old parent must be provided so the
      * old parent's reference to the category can be removed.
      * 
-     * @param category != null.
-     * @param oldParent The previous parent of the category.
+     * @param category !=
+     *            null.
+     * @param oldParent
+     *            The previous parent of the category.
      */
     public void update(Category category, Category oldParent)
     {
         Assert.notNull(category);
         final Category newParent = category.getParent();
 
-        //Remove catgory from old parent
+        // Remove catgory from old parent
         if (oldParent != null && !oldParent.equals(newParent))
         {
             oldParent.removeChild(category);
         }
 
-        //Add category to new parent
+        // Add category to new parent
         if (newParent != null)
         {
             newParent.addChild(category);
         }
 
-        //Add/Remove category from the list of root categories
+        // Add/Remove category from the list of root categories
         if (newParent == null && !categories.contains(category))
         {
             categories.add(category);
@@ -232,7 +237,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
             categories.remove(category);
         }
 
-        //publish events
+        // publish events
         publishEvent(HousekeeperEvent.MODIFIED, category);
     }
 }

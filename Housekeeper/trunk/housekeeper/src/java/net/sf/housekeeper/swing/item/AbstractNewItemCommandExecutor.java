@@ -34,14 +34,14 @@ import org.springframework.util.Assert;
 /**
  * Shows a dialog for adding a new item.
  */
-public abstract class AbstractNewItemCommandExecutor extends AbstractActionCommandExecutor
+public abstract class AbstractNewItemCommandExecutor extends
+        AbstractActionCommandExecutor
 {
 
     private ItemManager supplyManager;
 
     /**
      * Creates a new executor which is always enabled.
-     *  
      */
     public AbstractNewItemCommandExecutor()
     {
@@ -51,7 +51,8 @@ public abstract class AbstractNewItemCommandExecutor extends AbstractActionComma
     /**
      * Sets the {@link ItemManager}for adding newly created items.
      * 
-     * @param itemManager != null
+     * @param itemManager !=
+     *            null
      */
     public void setManager(final ItemManager itemManager)
     {
@@ -61,15 +62,15 @@ public abstract class AbstractNewItemCommandExecutor extends AbstractActionComma
     public void execute()
     {
         Assert.notNull(supplyManager,
-                       "itemManager must be set for proper operation.");
+                "itemManager must be set for proper operation.");
 
         final Item foodObject = createItem();
         foodObject.setCategory(Category.getSelectedCategory());
-        final Form form = createForm(
-                foodObject);
+        final Form form = createForm(foodObject);
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                dialogPage) {
+                dialogPage)
+        {
 
             protected void onAboutToShow()
             {
@@ -85,15 +86,16 @@ public abstract class AbstractNewItemCommandExecutor extends AbstractActionComma
         };
         dialog.showDialog();
     }
-    
+
     /**
      * Callback method to provide the actual form to show.
      * 
-     * @param object The object to create the form for.
+     * @param object
+     *            The object to create the form for.
      * @return != null
      */
     protected abstract Form createForm(Item object);
-    
+
     /**
      * Callback method to provide an new instance of the specific Item object.
      * 

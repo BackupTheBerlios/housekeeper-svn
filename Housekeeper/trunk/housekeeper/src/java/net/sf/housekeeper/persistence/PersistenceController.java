@@ -45,19 +45,18 @@ import org.apache.commons.logging.LogFactory;
 public final class PersistenceController
 {
 
-    private static final Log         LOG = LogFactory
-                                                 .getLog(PersistenceController.class);
+    private static final Log LOG = LogFactory
+            .getLog(PersistenceController.class);
 
     private final PersistenceService jibxPersistence;
 
     /**
      * File used for loading and saving
      */
-    private File                     dataFile;
+    private File dataFile;
 
     /**
      * Initializes the persistence service to use.
-     *  
      */
     public PersistenceController()
     {
@@ -71,7 +70,7 @@ public final class PersistenceController
             final String homeDirString = System.getProperty("user.home");
             final File hkDir = new File(homeDirString, ".housekeeper");
 
-            //Create directory for data if it doesn't exist.
+            // Create directory for data if it doesn't exist.
             hkDir.mkdir();
 
             dataFile = new File(hkDir, "data.xml");
@@ -85,7 +84,8 @@ public final class PersistenceController
     /**
      * Loads the saved data using the default {@link PersistenceService}.
      * 
-     * @throws IOException If the data couldn't be retrieved.
+     * @throws IOException
+     *             If the data couldn't be retrieved.
      */
     public Household load() throws IOException
     {
@@ -102,8 +102,10 @@ public final class PersistenceController
      * Persistently saves domain objects using the default
      * {@link PersistenceService}.
      * 
-     * @param domain The domain which shall be saved.
-     * @throws IOException If the data couldn't be stored.
+     * @param domain
+     *            The domain which shall be saved.
+     * @throws IOException
+     *             If the data couldn't be stored.
      */
     public void save(final Household domain) throws IOException
     {

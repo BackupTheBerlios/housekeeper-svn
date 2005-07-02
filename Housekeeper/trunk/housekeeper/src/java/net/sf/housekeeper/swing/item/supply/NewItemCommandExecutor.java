@@ -30,7 +30,8 @@ import org.springframework.richclient.form.Form;
 /**
  * Shows a dialog for adding a new supply item.
  */
-public final class NewItemCommandExecutor extends AbstractNewItemCommandExecutor
+public final class NewItemCommandExecutor extends
+        AbstractNewItemCommandExecutor
 {
 
     /*
@@ -45,13 +46,14 @@ public final class NewItemCommandExecutor extends AbstractNewItemCommandExecutor
         return form;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor#createItem()
      */
     protected Item createItem()
     {
         return new ExpirableItem();
     }
-    
-    
+
 }

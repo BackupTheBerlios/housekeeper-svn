@@ -34,7 +34,6 @@ import org.springframework.context.ApplicationContext;
 /**
  * A Factory for various domain objects and XML documents.
  * 
- * 
  * @author Adrian Gygax.
  * @version $Revision$, $Date$
  */
@@ -44,33 +43,32 @@ public final class DataGenerator
     /**
      * Prefix for the test data within the classpath.
      */
-    private static final String prefix               = "/net/sf/housekeeper/persistence/";
+    private static final String prefix = "/net/sf/housekeeper/persistence/";
 
     /**
      * A file which is not XML.
      */
-    public static final String  NOT_AN_XML_FILE      = prefix
-                                                             + "notAnXmlFile.xml";
+    public static final String NOT_AN_XML_FILE = prefix + "notAnXmlFile.xml";
 
     /**
      * Test data for document version 2.
      */
-    public static final String  VERSION2_DATA        = prefix + "data_v2.xml";
+    public static final String VERSION2_DATA = prefix + "data_v2.xml";
 
     /**
      * Test data for document version 3.
      */
-    public static final String  VERSION3_DATA        = prefix + "data_v3.xml";
+    public static final String VERSION3_DATA = prefix + "data_v3.xml";
 
     /**
      * Test data for document version 4.
      */
-    public static final String  VERSION4_DATA        = prefix + "data_v4.xml";
+    public static final String VERSION4_DATA = prefix + "data_v4.xml";
 
     /**
      * Test data for the current version.
      */
-    public static final String  CURRENT_VERSION_DATA = VERSION4_DATA;
+    public static final String CURRENT_VERSION_DATA = VERSION4_DATA;
 
     private DataGenerator()
     {
@@ -146,11 +144,10 @@ public final class DataGenerator
         ApplicationContext mock = (ApplicationContext) control.getMock();
         return mock;
     }
-    
+
     public static ItemManager createItemManagerMock()
     {
-        MockControl control = MockControl
-                .createNiceControl(ItemManager.class);
+        MockControl control = MockControl.createNiceControl(ItemManager.class);
         ItemManager mock = (ItemManager) control.getMock();
         return mock;
     }

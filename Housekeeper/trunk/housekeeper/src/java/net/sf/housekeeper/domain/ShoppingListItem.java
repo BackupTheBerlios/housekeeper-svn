@@ -32,7 +32,6 @@ public class ShoppingListItem extends Item
 
     /**
      * Creates a new item with a quantity of 1.
-     *  
      */
     public ShoppingListItem()
     {
@@ -48,7 +47,8 @@ public class ShoppingListItem extends Item
     }
 
     /**
-     * @param quantity The quantity to set.
+     * @param quantity
+     *            The quantity to set.
      */
     public void setQuantity(int quantity)
     {
@@ -68,7 +68,8 @@ public class ShoppingListItem extends Item
         buffer.append(" ");
         buffer.append(getName());
         String desc = getDescription();
-        if (desc != null) {
+        if (desc != null)
+        {
             buffer.append(" (");
             buffer.append(desc);
             buffer.append(")");

@@ -49,7 +49,7 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
 {
 
     private final UIFSplitPane rootSplitPane;
-    
+
     private final UIFSplitPane rightSplitPane;
 
     /**
@@ -67,7 +67,7 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
         rootSplitPane.setOneTouchExpandable(false);
         rootSplitPane.setDividerSize(3);
         rootSplitPane.setBorder(BorderFactory.createEmptyBorder());
-        
+
         rightSplitPane = new UIFSplitPane(JSplitPane.VERTICAL_SPLIT);
         rightSplitPane.setDividerLocation(300);
         rightSplitPane.setOneTouchExpandable(false);
@@ -75,7 +75,8 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
         rightSplitPane.setBorder(BorderFactory.createEmptyBorder());
         rightSplitPane.setResizeWeight(0.5d);
 
-        addPageComponentListener(new PageComponentListener() {
+        addPageComponentListener(new PageComponentListener()
+        {
 
             public void componentOpened(PageComponent component)
             {
@@ -102,7 +103,7 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
 
             }
         });
-        
+
         rootSplitPane.setRightComponent(rightSplitPane);
         getControl().add(rootSplitPane);
     }
@@ -131,7 +132,8 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
         final SimpleInternalFrame pageControl = (SimpleInternalFrame) pageComponent
                 .getContext().getPane().getControl();
         pageControl.setSelected(false);
-        addMouseListener(pageControl, new MouseAdapter() {
+        addMouseListener(pageControl, new MouseAdapter()
+        {
 
             public void mousePressed(MouseEvent e)
             {
@@ -161,11 +163,13 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
     /**
      * Adds a listener to a Component and all its children.
      * 
-     * @param comp The component.
-     * @param listener The listener.
+     * @param comp
+     *            The component.
+     * @param listener
+     *            The listener.
      */
     private void addMouseListener(final Component comp,
-                                  final MouseListener listener)
+            final MouseListener listener)
     {
         comp.addMouseListener(listener);
 

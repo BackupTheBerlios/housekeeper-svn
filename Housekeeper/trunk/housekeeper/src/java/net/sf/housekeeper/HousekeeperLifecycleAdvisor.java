@@ -57,7 +57,7 @@ public final class HousekeeperLifecycleAdvisor extends
         final ActionCommand saveCommand = window.getCommandManager()
                 .getActionCommand("saveCommand");
 
-        //Only show dialog for saving before exiting if any data has been
+        // Only show dialog for saving before exiting if any data has been
         // changed
         if (saveCommand.isEnabled())
         {
@@ -66,7 +66,7 @@ public final class HousekeeperLifecycleAdvisor extends
             final int option = JOptionPane.showConfirmDialog(window
                     .getControl(), question);
 
-            //If user choses yes try to save. If that fails do not exit.
+            // If user choses yes try to save. If that fails do not exit.
             if (option == JOptionPane.YES_OPTION)
             {
                 saveCommand.execute();
@@ -102,17 +102,18 @@ public final class HousekeeperLifecycleAdvisor extends
             importExportController.importData();
         } catch (IOException e)
         {
-            LogFactory.getLog(getClass())
-                    .info("No saved data found, starting with no objects loaded");
+            LogFactory.getLog(getClass()).info(
+                    "No saved data found, starting with no objects loaded");
         }
         super.onPreWindowOpen(configurer);
     }
 
     /**
-     * @param importExportController The importExportController to set.
+     * @param importExportController
+     *            The importExportController to set.
      */
     public void setImportExportController(
-                                          ImportExportController importExportController)
+            ImportExportController importExportController)
     {
         this.importExportController = importExportController;
     }

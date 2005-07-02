@@ -58,21 +58,21 @@ public final class CategoriesView extends AbstractView implements
         ApplicationListener
 {
 
-    private static final Log              LOG             = LogFactory
-                                                                  .getLog(CategoriesView.class);
+    private static final Log LOG = LogFactory.getLog(CategoriesView.class);
 
-    private CategoryManager               categoryManager;
+    private CategoryManager categoryManager;
 
-    private CategoryTree                  tree;
+    private CategoryTree tree;
 
     private final PropertyCommandExecutor propertyCommand = new PropertyCommandExecutor();
 
-    private final DeleteCommandExecutor   deleteCommand   = new DeleteCommandExecutor();
+    private final DeleteCommandExecutor deleteCommand = new DeleteCommandExecutor();
 
     /**
      * Sets the category manager to be used.
      * 
-     * @param manager the category manager to be used.
+     * @param manager
+     *            the category manager to be used.
      */
     public void setCategoryManager(CategoryManager manager)
     {
@@ -117,9 +117,7 @@ public final class CategoriesView extends AbstractView implements
             source = cat;
         }
         getApplicationContext().publishEvent(
-                                             new HousekeeperEvent(
-                                                     HousekeeperEvent.SELECTED,
-                                                     source));
+                new HousekeeperEvent(HousekeeperEvent.SELECTED, source));
     }
 
     /*
@@ -182,10 +180,10 @@ public final class CategoriesView extends AbstractView implements
     {
         CommandGroup convCommandGroup = getWindowCommandManager()
                 .createCommandGroup(
-                                    "categoryPopupCommandGroup",
-                                    new Object[] { "newCategoryCommand",
-                                            GlobalCommandIds.PROPERTIES,
-                                            GlobalCommandIds.DELETE });
+                        "categoryPopupCommandGroup",
+                        new Object[] { "newCategoryCommand",
+                                GlobalCommandIds.PROPERTIES,
+                                GlobalCommandIds.DELETE });
         return convCommandGroup.createPopupMenu();
     }
 
@@ -216,7 +214,8 @@ public final class CategoriesView extends AbstractView implements
                     newCategory);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                    new FormBackedDialogPage(form)) {
+                    new FormBackedDialogPage(form))
+            {
 
                 protected void onAboutToShow()
                 {
@@ -253,8 +252,8 @@ public final class CategoriesView extends AbstractView implements
             {
                 if (tree.getSelectedCategory().isLeaf())
                 {
-                    getWindowCommandManager()
-                            .getActionCommand("propertiesCommand").execute();
+                    getWindowCommandManager().getActionCommand(
+                            "propertiesCommand").execute();
                 }
             }
         }
@@ -274,7 +273,7 @@ public final class CategoriesView extends AbstractView implements
         protected boolean onAboutToShow(MouseEvent e)
         {
             final int row = tree.getRowForLocation((int) e.getPoint().getX(),
-                                                   (int) e.getPoint().getY());
+                    (int) e.getPoint().getY());
             tree.setSelectionRow(row);
             return super.onAboutToShow(e);
         }

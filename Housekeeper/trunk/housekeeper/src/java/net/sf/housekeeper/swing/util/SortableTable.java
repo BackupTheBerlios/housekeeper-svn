@@ -31,7 +31,6 @@ import org.springframework.richclient.table.SortableTableModel;
 import org.springframework.richclient.table.TableUtils;
 import org.springframework.util.Assert;
 
-
 /**
  * A table showing a list of {@link net.sf.housekeeper.domain.ExpirableItem}s.
  * 
@@ -42,36 +41,38 @@ public final class SortableTable extends JTable
 {
 
     private static final long serialVersionUID = -1472613748365642350L;
-    
+
     private BaseTableModel lowestModel;
-    
+
     /**
      * Creates a new list.
      * 
-     * @param model != null
+     * @param model !=
+     *            null
      */
     public SortableTable(BaseTableModel model)
     {
         Assert.notNull(model);
-        
+
         this.lowestModel = model;
         setModel(lowestModel);
-        
-        TableUtils.attachSorter(this);       
-        
+
+        TableUtils.attachSorter(this);
+
         setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
     }
-    
+
     /**
      * Sorts the table by a column.
      * 
-     * @param column The number of the column.
+     * @param column
+     *            The number of the column.
      */
     public void sortByColumn(int column)
     {
         getSortableTableModel().sortByColumn(new ColumnToSort(0, column));
     }
-    
+
     /**
      * Returns the sorting filter model.
      * 
@@ -79,9 +80,9 @@ public final class SortableTable extends JTable
      */
     public SortableTableModel getSortableTableModel()
     {
-        return (SortableTableModel)getModel();
+        return (SortableTableModel) getModel();
     }
-        
+
     /**
      * Returns the selected item.
      * 
@@ -99,7 +100,7 @@ public final class SortableTable extends JTable
 
         return null;
     }
-    
+
     /**
      * Returns if there is a selection.
      * 
@@ -109,11 +110,12 @@ public final class SortableTable extends JTable
     {
         return getSelectedRow() != -1;
     }
-    
+
     /**
      * Returns true if this table contains a specific object.
      * 
-     * @param object The object to test. != null
+     * @param object
+     *            The object to test. != null
      * @return True if the table contains this object. False otherwise.
      */
     public boolean contains(Object object)
@@ -125,17 +127,19 @@ public final class SortableTable extends JTable
     /**
      * Adds an object.
      * 
-     * @param object != null
+     * @param object !=
+     *            null
      */
     public void add(Object object)
     {
         lowestModel.addRow(object);
     }
-    
+
     /**
      * Removes an item.
      * 
-     * @param object != null
+     * @param object !=
+     *            null
      */
     public void remove(Object object)
     {
@@ -146,7 +150,8 @@ public final class SortableTable extends JTable
     /**
      * Replaces all objects in this table with other ones.
      * 
-     * @param objects A list of objects.
+     * @param objects
+     *            A list of objects.
      */
     public void replaceAll(List objects)
     {

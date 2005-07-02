@@ -19,10 +19,11 @@ public class ItemManagerTest extends TestCase
 {
 
     private ItemManagerImpl manager;
+
     private MockControl control;
+
     private ApplicationContext mock;
-    
-    
+
     protected void setUp() throws Exception
     {
         control = MockControl.createNiceControl(ApplicationContext.class);
@@ -30,10 +31,9 @@ public class ItemManagerTest extends TestCase
         manager = new ItemManagerImpl();
         manager.setApplicationContext(mock);
     }
-    
+
     /**
      * Tests if an added item is contained in the list.
-     *
      */
     public void testAdd()
     {
@@ -45,7 +45,6 @@ public class ItemManagerTest extends TestCase
 
     /**
      * Tests if supply list is not null.
-     *
      */
     public void testGetSupplyList()
     {
@@ -55,7 +54,6 @@ public class ItemManagerTest extends TestCase
 
     /**
      * Tests replacement of all items.
-     *
      */
     public void testReplaceAll()
     {
@@ -76,7 +74,6 @@ public class ItemManagerTest extends TestCase
 
     /**
      * Tests the removal of items.
-     *
      */
     public void testRemove()
     {

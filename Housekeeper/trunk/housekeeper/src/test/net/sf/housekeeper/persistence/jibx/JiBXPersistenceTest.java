@@ -38,7 +38,7 @@ import org.custommonkey.xmlunit.XMLTestCase;
 public final class JiBXPersistenceTest extends XMLTestCase
 {
 
-    private JiBXPersistence     persistence;
+    private JiBXPersistence persistence;
 
     /*
      * (non-Javadoc)
@@ -54,35 +54,21 @@ public final class JiBXPersistenceTest extends XMLTestCase
     /*
      * Loads an XML file which contains data in the current file format version
      * and resaves it to another file. Then both XML files are compared for
-     * equality.
-     * 
-     * @throws Exception if any error occurs.
-     *
-    public void testLoadSaveXML() throws Exception
-    {
-        //Read data from resources and parse it
-        final InputStream dataStream = getClass()
-                .getResourceAsStream(DataGenerator.VERSION3_DATA);
-        final Household household = jdomPersistence.loadData(dataStream);
-
-        //Save data to a temporary file
-        final File tempFile = createTempFile();
-        final OutputStream outputStream = new BufferedOutputStream(
-                new FileOutputStream(tempFile));
-        jdomPersistence.saveData(household, outputStream);
-        outputStream.flush();
-        outputStream.close();
-
-        //Reopen the two XML files and test for equality
-        final InputStream originalStream = getClass()
-                .getResourceAsStream(DataGenerator.VERSION3_DATA);
-        final Reader originalReader = new InputStreamReader(originalStream);
-        final Reader savedReader = new FileReader(tempFile);
-        assertXMLEqual(originalReader, savedReader);
-
-        originalReader.close();
-        savedReader.close();
-    }*/
+     * equality. @throws Exception if any error occurs. public void
+     * testLoadSaveXML() throws Exception { //Read data from resources and parse
+     * it final InputStream dataStream = getClass()
+     * .getResourceAsStream(DataGenerator.VERSION3_DATA); final Household
+     * household = jdomPersistence.loadData(dataStream); //Save data to a
+     * temporary file final File tempFile = createTempFile(); final OutputStream
+     * outputStream = new BufferedOutputStream( new FileOutputStream(tempFile));
+     * jdomPersistence.saveData(household, outputStream); outputStream.flush();
+     * outputStream.close(); //Reopen the two XML files and test for equality
+     * final InputStream originalStream = getClass()
+     * .getResourceAsStream(DataGenerator.VERSION3_DATA); final Reader
+     * originalReader = new InputStreamReader(originalStream); final Reader
+     * savedReader = new FileReader(tempFile); assertXMLEqual(originalReader,
+     * savedReader); originalReader.close(); savedReader.close(); }
+     */
 
     /**
      * Tests if an {@link IllegalArgumentException}is thrown if it is tried to
@@ -90,16 +76,16 @@ public final class JiBXPersistenceTest extends XMLTestCase
      */
     public void testLoadNotAnXmlFile() throws IOException
     {
-        //Read data from resources and parse it
-        final InputStream dataStream = getClass()
-                .getResourceAsStream(DataGenerator.NOT_AN_XML_FILE);
+        // Read data from resources and parse it
+        final InputStream dataStream = getClass().getResourceAsStream(
+                DataGenerator.NOT_AN_XML_FILE);
 
         try
         {
             persistence.loadData(dataStream);
         } catch (IllegalArgumentException e)
         {
-            //Expected behaviour
+            // Expected behaviour
             return;
         }
         fail("Loading a file which is not even an XML file"
@@ -110,7 +96,8 @@ public final class JiBXPersistenceTest extends XMLTestCase
      * Creates a temporary file which gets deleted on VM exit.
      * 
      * @return A file which didn't exist before.
-     * @throws IOException If any error occurs.
+     * @throws IOException
+     *             If any error occurs.
      */
     public File createTempFile() throws IOException
     {

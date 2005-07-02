@@ -21,15 +21,20 @@ import java.util.Map;
 import org.springframework.richclient.form.binding.Binder;
 import org.springframework.richclient.form.binding.swing.SwingBinderSelectionStrategy;
 
-/** 
+/**
  * @author Oliver Hutchison
  */
-public class ConfigurableBinderSelectionStrategy extends SwingBinderSelectionStrategy {
-    
-    public void setBindersForPropertyTypes(Map binders) {
-        for (Iterator i = binders.entrySet().iterator(); i.hasNext();) {
-            Map.Entry entry = (Map.Entry)i.next();
-            registerBinderForPropertyType((Class)entry.getKey(), (Binder)entry.getValue());
+public class ConfigurableBinderSelectionStrategy extends
+        SwingBinderSelectionStrategy
+{
+
+    public void setBindersForPropertyTypes(Map binders)
+    {
+        for (Iterator i = binders.entrySet().iterator(); i.hasNext();)
+        {
+            Map.Entry entry = (Map.Entry) i.next();
+            registerBinderForPropertyType((Class) entry.getKey(),
+                    (Binder) entry.getValue());
         }
     }
 }

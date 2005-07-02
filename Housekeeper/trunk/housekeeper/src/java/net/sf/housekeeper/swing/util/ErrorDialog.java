@@ -44,33 +44,36 @@ public final class ErrorDialog extends ApplicationDialog
 
     private static final String ERROR_MESSAGE_ID = "gui.error";
 
-    private static final String ERRORICON        = "OptionPane.errorIcon";
+    private static final String ERRORICON = "OptionPane.errorIcon";
 
-    private final String        message;
-    
+    private final String message;
+
     private final Exception exception;
 
     /**
      * Creates a dialog for showing an error message.
      * 
-     * @param messageID The ID of the message to show. Can be null.
-     * @param e The exception associated with the error. Can be null.
+     * @param messageID
+     *            The ID of the message to show. Can be null.
+     * @param e
+     *            The exception associated with the error. Can be null.
      */
     public ErrorDialog(final String messageID, final Exception e)
     {
         Assert.notNull(messageID);
         exception = e;
-        
+
         message = getMessage(messageID);
 
         final String title = getMessage(ERROR_MESSAGE_ID);
         setTitle(title);
     }
-    
+
     /**
      * Creates a dialog which gets the message from an Exception.
      * 
-     * @param e The exception to get the message from.
+     * @param e
+     *            The exception to get the message from.
      */
     public ErrorDialog(final Exception e)
     {
@@ -80,14 +83,17 @@ public final class ErrorDialog extends ApplicationDialog
     /**
      * Creates a dialog for showing an error message.
      * 
-     * @param messageID The ID of the message to show.
+     * @param messageID
+     *            The ID of the message to show.
      */
     public ErrorDialog(final String messageID)
     {
         this(messageID, null);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.dialog.ApplicationDialog#createDialogContentPane()
      */
     protected JComponent createDialogContentPane()
@@ -95,7 +101,7 @@ public final class ErrorDialog extends ApplicationDialog
         final TextAreaPane messagePane = new TextAreaPane();
         final Icon icon = UIManager.getIcon(ERRORICON);
         messagePane.setDefaultIcon(icon);
-        
+
         final StringBuffer messageBuffer = new StringBuffer();
         messageBuffer.append(message);
 
@@ -108,7 +114,8 @@ public final class ErrorDialog extends ApplicationDialog
             messageBuffer.append(exception.getLocalizedMessage());
         }
 
-        messagePane.setMessage(new Message(messageBuffer.toString(), Severity.ERROR));
+        messagePane.setMessage(new Message(messageBuffer.toString(),
+                Severity.ERROR));
         final JComponent paneConrol = messagePane.getControl();
         paneConrol.setPreferredSize(new Dimension(400, 100));
         return messagePane.getControl();

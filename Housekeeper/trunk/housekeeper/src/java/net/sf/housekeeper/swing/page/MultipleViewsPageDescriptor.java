@@ -31,7 +31,6 @@ import org.springframework.richclient.application.PageDescriptor;
 import org.springframework.richclient.application.PageLayoutBuilder;
 import org.springframework.richclient.application.ViewDescriptor;
 
-
 /**
  * Supports multiple views.
  * 
@@ -42,10 +41,12 @@ public class MultipleViewsPageDescriptor implements PageDescriptor
 {
 
     private String id;
-    
+
     private Collection views;
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.PageDescriptor#getId()
      */
     public String getId()
@@ -53,7 +54,9 @@ public class MultipleViewsPageDescriptor implements PageDescriptor
         return id;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.application.PageDescriptor#buildInitialLayout(org.springframework.richclient.application.PageLayoutBuilder)
      */
     public void buildInitialLayout(PageLayoutBuilder pageLayout)
@@ -61,12 +64,14 @@ public class MultipleViewsPageDescriptor implements PageDescriptor
         final Iterator viewIterator = views.iterator();
         while (viewIterator.hasNext())
         {
-            final ViewDescriptor desc = (ViewDescriptor)viewIterator.next();
+            final ViewDescriptor desc = (ViewDescriptor) viewIterator.next();
             pageLayout.addView(desc.getId());
-        }        
+        }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.core.DescribedElement#getDisplayName()
      */
     public String getDisplayName()
@@ -74,7 +79,9 @@ public class MultipleViewsPageDescriptor implements PageDescriptor
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.core.DescribedElement#getCaption()
      */
     public String getCaption()
@@ -82,7 +89,9 @@ public class MultipleViewsPageDescriptor implements PageDescriptor
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.core.DescribedElement#getDescription()
      */
     public String getDescription()
@@ -90,7 +99,9 @@ public class MultipleViewsPageDescriptor implements PageDescriptor
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.core.VisualizedElement#getImage()
      */
     public Image getImage()
@@ -98,27 +109,32 @@ public class MultipleViewsPageDescriptor implements PageDescriptor
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.core.VisualizedElement#getIcon()
      */
     public Icon getIcon()
     {
         return null;
     }
-    
+
     /**
-     * A collection of {@link org.springframework.richclient.application.ViewDescriptor}s.
+     * A collection of
+     * {@link org.springframework.richclient.application.ViewDescriptor}s.
      * 
      * @param descriptors
      */
-    public void setViews(Collection descriptors) {
+    public void setViews(Collection descriptors)
+    {
         views = descriptors;
     }
-    
+
     /**
      * @param id
      */
-    public void setId(String id) {
+    public void setId(String id)
+    {
         this.id = id;
     }
 

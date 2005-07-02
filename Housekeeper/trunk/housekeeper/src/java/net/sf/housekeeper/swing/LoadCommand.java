@@ -39,7 +39,7 @@ import org.springframework.util.Assert;
 public final class LoadCommand extends ApplicationWindowAwareCommand
 {
 
-    private static final String    ID = "loadCommand";
+    private static final String ID = "loadCommand";
 
     private ImportExportController importExportController;
 
@@ -52,10 +52,11 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
     }
 
     /**
-     * @param importExportController The importExportController to set.
+     * @param importExportController
+     *            The importExportController to set.
      */
     public void setImportExportController(
-                                          ImportExportController importExportController)
+            ImportExportController importExportController)
     {
         this.importExportController = importExportController;
     }
@@ -68,7 +69,7 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
     protected void doExecuteCommand()
     {
         Assert.notNull(importExportController);
-        
+
         try
         {
             importExportController.importData();

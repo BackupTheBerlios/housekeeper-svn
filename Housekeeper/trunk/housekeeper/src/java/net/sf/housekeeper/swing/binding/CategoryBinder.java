@@ -49,7 +49,6 @@ public final class CategoryBinder extends AbstractBinder
 
     /**
      * Creates a new binder.
-     *  
      */
     public CategoryBinder()
     {
@@ -59,7 +58,8 @@ public final class CategoryBinder extends AbstractBinder
     /**
      * Sets the manager to get the available categories from.
      * 
-     * @param catMan != null
+     * @param catMan !=
+     *            null
      */
     public void setCategoryManager(CategoryManager catMan)
     {
@@ -84,7 +84,7 @@ public final class CategoryBinder extends AbstractBinder
      *      java.util.Map)
      */
     protected Binding doBind(JComponent control, FormModel formModel,
-                             String formPropertyPath, Map context)
+            String formPropertyPath, Map context)
     {
         Assert.isTrue(control instanceof JComboBox, formPropertyPath);
         Assert.notNull(catMan);

@@ -48,30 +48,30 @@ public final class CategoryTree extends JTree
     private static final long serialVersionUID = 4420378953674731257L;
 
     private final String rootNodeTitle;
-    
+
     private Collection categories;
 
     /**
      * Creates an empty tree. The root node has a default label.
-     *  
      */
     public CategoryTree()
     {
         this("------");
 
     }
-    
+
     /**
      * Creates an empty tree.
      * 
-     * @param rootNodeTitle The title for the root node.
+     * @param rootNodeTitle
+     *            The title for the root node.
      */
     public CategoryTree(final String rootNodeTitle)
     {
         this.rootNodeTitle = rootNodeTitle;
-        
-        getSelectionModel()
-                .setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+
+        getSelectionModel().setSelectionMode(
+                TreeSelectionModel.SINGLE_TREE_SELECTION);
 
         final BeanTreeCellRenderer renderer = new BeanTreeCellRenderer(
                 Category.class, "name");
@@ -86,7 +86,8 @@ public final class CategoryTree extends JTree
     /**
      * Adds a category to this tree.
      * 
-     * @param category The category to add.
+     * @param category
+     *            The category to add.
      */
     public void addCategory(Category category)
     {
@@ -109,7 +110,7 @@ public final class CategoryTree extends JTree
 
             final DefaultMutableTreeNode node = createNode(category);
             getCastedModel().insertNodeInto(node, parentNode,
-                                            parentNode.getChildCount());
+                    parentNode.getChildCount());
         }
     }
 
@@ -155,7 +156,8 @@ public final class CategoryTree extends JTree
     /**
      * Show another list of objects in this tree.
      * 
-     * @param categories != null
+     * @param categories !=
+     *            null
      */
     public void setCategories(final Collection categories)
     {
@@ -168,8 +170,8 @@ public final class CategoryTree extends JTree
     /**
      * Sets the selection in this tree to <code>selectCategory</code>
      * 
-     * @param selectCategory The category to select or null to clear the
-     *            selection.
+     * @param selectCategory
+     *            The category to select or null to clear the selection.
      */
     public void setSelectedCategory(Category selectCategory)
     {

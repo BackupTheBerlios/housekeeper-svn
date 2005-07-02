@@ -26,7 +26,6 @@ import org.springframework.context.MessageSource;
 import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.swing.item.ItemsTableModel;
 
-
 /**
  * A {@link javax.swing.table.TableModel}for
  * {@link net.sf.housekeeper.domain.ShoppingListItem}s.
@@ -46,12 +45,12 @@ public final class ShoppingListTableModel extends ItemsTableModel
     {
         super(ShoppingListItem.class, messages);
     }
-    
+
     protected String[] createColumnPropertyNames()
     {
-        return new String[] { "quantity", "name", "description"};
+        return new String[] { "quantity", "name", "description" };
     }
-    
+
     protected Class[] createColumnClasses()
     {
         return new Class[] { Integer.class, String.class, String.class };

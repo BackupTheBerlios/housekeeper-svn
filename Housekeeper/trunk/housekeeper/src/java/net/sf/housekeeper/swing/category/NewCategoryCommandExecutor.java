@@ -40,7 +40,6 @@ public final class NewCategoryCommandExecutor extends
 
     /**
      * Creates a new executor which is always enabled.
-     *  
      */
     public NewCategoryCommandExecutor()
     {
@@ -60,11 +59,13 @@ public final class NewCategoryCommandExecutor extends
         final Category parentCategory = Category.getSelectedCategory();
         newCategory.setParent(parentCategory);
 
-        final CategoryPropertiesForm form = new CategoryPropertiesForm(newCategory);
+        final CategoryPropertiesForm form = new CategoryPropertiesForm(
+                newCategory);
 
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                dialogPage) {
+                dialogPage)
+        {
 
             protected void onAboutToShow()
             {
@@ -84,7 +85,8 @@ public final class NewCategoryCommandExecutor extends
     /**
      * Sets the {@link CategoryManager}for adding newly created categories.
      * 
-     * @param categoryManager != null
+     * @param categoryManager !=
+     *            null
      */
     public void setCategoryManager(CategoryManager categoryManager)
     {

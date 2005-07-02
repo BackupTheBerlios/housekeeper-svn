@@ -25,8 +25,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 /**
- * Comparator for expiry dates. Treats null values as being later than any
- * date.
+ * Comparator for expiry dates. Treats null values as being later than any date.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -34,7 +33,9 @@ import java.util.Date;
 public final class ExpiryDateComparator implements Comparator
 {
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     public int compare(Object o1, Object o2)
@@ -44,9 +45,9 @@ public final class ExpiryDateComparator implements Comparator
             return 0;
         }
 
-        //Null is treated as being greater as any non-null expiry date.
-        //This has the effect of displaying items without an expiry
-        //At the end of a least-expiry-first table of items.
+        // Null is treated as being greater as any non-null expiry date.
+        // This has the effect of displaying items without an expiry
+        // At the end of a least-expiry-first table of items.
         if (o1 == null)
         {
             return 1;

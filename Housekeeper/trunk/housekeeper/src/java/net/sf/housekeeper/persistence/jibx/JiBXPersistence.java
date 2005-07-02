@@ -46,19 +46,19 @@ public final class JiBXPersistence implements PersistenceService
     /**
      * The supported versions with the latest one first.
      */
-    private static final String[] VERSION_TEXTS          = { "5", "4" };
+    private static final String[] VERSION_TEXTS = { "5", "4" };
 
     /**
      * The bindings related to the version texts.
      */
-    private static final String[] VERSION_BINDINGS       = { "jibx_binding_v5",
-            "jibx_binding_v4"                           };
+    private static final String[] VERSION_BINDINGS = { "jibx_binding_v5",
+            "jibx_binding_v4" };
 
-    private static final String   VERSION_ATTRIBUTE_NAME = "version";
+    private static final String VERSION_ATTRIBUTE_NAME = "version";
 
-    private static final String   WRONG_VERSION_MESSAGE  = "The version attribute of Household must be equal to the latest supported version";
+    private static final String WRONG_VERSION_MESSAGE = "The version attribute of Household must be equal to the latest supported version";
 
-    private static final String   ENCODING               = "UTF-8";
+    private static final String ENCODING = "UTF-8";
 
     /*
      * (non-Javadoc)
@@ -95,7 +95,7 @@ public final class JiBXPersistence implements PersistenceService
             throws IOException
     {
         Assert.isTrue(household.version.equals(VERSION_TEXTS[0]),
-                      WRONG_VERSION_MESSAGE);
+                WRONG_VERSION_MESSAGE);
 
         try
         {

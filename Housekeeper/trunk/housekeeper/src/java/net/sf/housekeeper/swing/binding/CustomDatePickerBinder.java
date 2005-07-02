@@ -55,15 +55,17 @@ public final class CustomDatePickerBinder extends AbstractBinder
     }
 
     protected Binding doBind(JComponent control, FormModel formModel,
-                             String formPropertyPath, Map context)
+            String formPropertyPath, Map context)
     {
         final DisableableJDateChooser datePicker = (DisableableJDateChooser) control;
-        return new CustomBinding(formModel, formPropertyPath, Date.class) {
+        return new CustomBinding(formModel, formPropertyPath, Date.class)
+        {
 
             protected JComponent doBindControl()
             {
                 datePicker.setDate((Date) getValue());
-                datePicker.addChangeListener(new ChangeListener() {
+                datePicker.addChangeListener(new ChangeListener()
+                {
 
                     public void stateChanged(ChangeEvent e)
                     {

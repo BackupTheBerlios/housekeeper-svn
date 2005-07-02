@@ -29,8 +29,8 @@ public final class ExpiringItemTest extends TestCase
         final int year = 2004;
         itemDate.set(year, month, day, 15, 22);
 
-        final ExpirableItem item = new ExpirableItem(itemName, itemQuantity, itemDate
-                .getTime());
+        final ExpirableItem item = new ExpirableItem(itemName, itemQuantity,
+                itemDate.getTime());
 
         final Calendar returnedItemDate = Calendar.getInstance();
         returnedItemDate.setTime(item.getExpiry());
@@ -47,7 +47,6 @@ public final class ExpiringItemTest extends TestCase
 
     /**
      * Tests the setting of a normal expiry date.
-     *  
      */
     public void testSetExpiry()
     {
@@ -81,7 +80,7 @@ public final class ExpiringItemTest extends TestCase
      */
     public void testSetNormalName()
     {
-        //Test normal
+        // Test normal
         final ExpirableItem item = new ExpirableItem();
         final String name = "aname";
         item.setName(name);
@@ -100,7 +99,7 @@ public final class ExpiringItemTest extends TestCase
             fail("Item.setName(String) must not allow null as parameter");
         } catch (IllegalArgumentException e)
         {
-            //No code as the exception is expected be thrown.
+            // No code as the exception is expected be thrown.
         }
     }
 
@@ -132,44 +131,45 @@ public final class ExpiringItemTest extends TestCase
     {
         final ExpirableItem item = DataGenerator.createComplexItem();
         final ExpirableItem item2 = DataGenerator.createComplexItem();
-        
+
         final boolean itemEqualsItem2 = item.equals(item2);
         final boolean item2EqualsItem = item2.equals(item);
-        
-        assertTrue("Items are reported as not equal but they are.", itemEqualsItem2);
-        assertTrue("Items are reported as not equal but they are.", item2EqualsItem);
+
+        assertTrue("Items are reported as not equal but they are.",
+                itemEqualsItem2);
+        assertTrue("Items are reported as not equal but they are.",
+                item2EqualsItem);
     }
-    
+
     /**
      * Tests equals() to return false if two items are not equal.
-     *
      */
     public void testInequality()
     {
         final ExpirableItem item = DataGenerator.createComplexItem();
-        
+
         final ExpirableItem differentName = DataGenerator.createComplexItem();
         differentName.setName("OtherName");
         final boolean isEqualName = item.equals(differentName);
         assertFalse(isEqualName);
-        
-        final ExpirableItem differentQuantity = DataGenerator.createComplexItem();
+
+        final ExpirableItem differentQuantity = DataGenerator
+                .createComplexItem();
         differentQuantity.setDescription("OtherQuantity");
         final boolean isEqualQuantity = item.equals(differentQuantity);
         assertFalse(isEqualQuantity);
-        
+
         final ExpirableItem differentExpiry = DataGenerator.createComplexItem();
         differentExpiry.setExpiry(new Date(2));
         final boolean isEqualDifExpiry = item.equals(differentExpiry);
         assertFalse(isEqualDifExpiry);
-        
+
         final boolean equalsNull = item.equals(null);
         assertFalse(equalsNull);
     }
-    
+
     /**
      * Tests if an item gets cloned properly.
-     *
      */
     public void testClone()
     {

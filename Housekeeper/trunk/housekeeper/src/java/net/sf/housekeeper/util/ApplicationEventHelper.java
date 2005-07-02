@@ -44,7 +44,8 @@ public final class ApplicationEventHelper implements ApplicationListener
     /**
      * Add a listener to forward events to.
      * 
-     * @param listener != null
+     * @param listener !=
+     *            null
      */
     public void addListener(ApplicationListener listener)
     {

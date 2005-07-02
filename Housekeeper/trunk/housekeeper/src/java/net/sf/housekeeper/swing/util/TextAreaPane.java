@@ -53,9 +53,9 @@ public final class TextAreaPane extends AbstractControlFactory implements
         MessagePane, PropertyChangeListener
 {
 
-    private JTextArea               messageTextArea;
+    private JTextArea messageTextArea;
 
-    private Icon                    defaultIcon = EmptyIcon.SMALL;
+    private Icon defaultIcon = EmptyIcon.SMALL;
 
     private DefaultMessageAreaModel messageAreaModel;
 
@@ -156,7 +156,7 @@ public final class TextAreaPane extends AbstractControlFactory implements
     }
 
     public void addPropertyChangeListener(String propertyName,
-                                          PropertyChangeListener listener)
+            PropertyChangeListener listener)
     {
         messageAreaModel.addPropertyChangeListener(propertyName, listener);
     }
@@ -167,7 +167,7 @@ public final class TextAreaPane extends AbstractControlFactory implements
     }
 
     public void removePropertyChangeListener(String propertyName,
-                                             PropertyChangeListener listener)
+            PropertyChangeListener listener)
     {
         messageAreaModel.removePropertyChangeListener(propertyName, listener);
     }

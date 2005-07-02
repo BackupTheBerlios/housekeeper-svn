@@ -41,7 +41,8 @@ public final class CategoryPropertiesForm extends AbstractForm
     /**
      * Creates a new Form.
      * 
-     * @param object The model to use. Must not be null.
+     * @param object
+     *            The model to use. Must not be null.
      */
     public CategoryPropertiesForm(Category object)
     {

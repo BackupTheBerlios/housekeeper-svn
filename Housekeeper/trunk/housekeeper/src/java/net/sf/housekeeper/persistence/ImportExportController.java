@@ -45,20 +45,21 @@ import org.springframework.util.Assert;
 public final class ImportExportController implements ApplicationContextAware
 {
 
-    private ApplicationContext    applicationContext;
+    private ApplicationContext applicationContext;
 
-    private CategoryManager       categoryManager;
+    private CategoryManager categoryManager;
 
     private PersistenceController persistenceController;
 
-    private ItemManager           shoppingListManager;
+    private ItemManager shoppingListManager;
 
-    private ItemManager           supplyManager;
+    private ItemManager supplyManager;
 
     /**
      * Exports all data.
      * 
-     * @throws IOException if the data could not be saved.
+     * @throws IOException
+     *             if the data could not be saved.
      */
     public void exportData() throws IOException
     {
@@ -68,14 +69,16 @@ public final class ImportExportController implements ApplicationContextAware
         Assert.notNull(supplyManager);
 
         final Household household = new Household(supplyManager.getAllItems(),
-                shoppingListManager.getAllItems(), categoryManager.getTopLevelCategories());
+                shoppingListManager.getAllItems(), categoryManager
+                        .getTopLevelCategories());
         persistenceController.save(household);
     }
 
     /**
      * Replaces all data with saved ones.
      * 
-     * @throws IOException if the data could not be read.
+     * @throws IOException
+     *             if the data could not be read.
      */
     public void importData() throws IOException
     {
@@ -99,8 +102,10 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * Exports the shopping list to a text file.
      * 
-     * @param outputFile The file to export to. != null
-     * @throws IOException if the file could not be saved.
+     * @param outputFile
+     *            The file to export to. != null
+     * @throws IOException
+     *             if the file could not be saved.
      */
     public void exportShoppingListAsText(File outputFile) throws IOException
     {
@@ -125,7 +130,8 @@ public final class ImportExportController implements ApplicationContextAware
     }
 
     /**
-     * @param categoryManager The categoryManager to set.
+     * @param categoryManager
+     *            The categoryManager to set.
      */
     public void setCategoryManager(CategoryManager categoryManager)
     {
@@ -133,16 +139,18 @@ public final class ImportExportController implements ApplicationContextAware
     }
 
     /**
-     * @param persistenceController The persistenceController to set.
+     * @param persistenceController
+     *            The persistenceController to set.
      */
     public void setPersistenceController(
-                                         PersistenceController persistenceController)
+            PersistenceController persistenceController)
     {
         this.persistenceController = persistenceController;
     }
 
     /**
-     * @param shoppingListManager The shoppingListManager to set.
+     * @param shoppingListManager
+     *            The shoppingListManager to set.
      */
     public void setShoppingListManager(ItemManager shoppingListManager)
     {
@@ -150,7 +158,8 @@ public final class ImportExportController implements ApplicationContextAware
     }
 
     /**
-     * @param supplyManager The supplyManager to set.
+     * @param supplyManager
+     *            The supplyManager to set.
      */
     public void setSupplyManager(ItemManager supplyManager)
     {

@@ -67,23 +67,24 @@ import org.springframework.util.Assert;
 public class ItemsView extends AbstractView implements ApplicationListener
 {
 
-    private Category                       category;
+    private Category category;
 
-    private List                           customPopupMenuEntries;
+    private List customPopupMenuEntries;
 
-    private final DeleteCommandExecutor    deleteExecutor    = new DeleteCommandExecutor();
+    private final DeleteCommandExecutor deleteExecutor = new DeleteCommandExecutor();
 
     private final DuplicateCommandExecutor duplicateExecutor = new DuplicateCommandExecutor();
 
-    private final EditCommandExecutor      editExecutor      = new EditCommandExecutor();
+    private final EditCommandExecutor editExecutor = new EditCommandExecutor();
 
-    private Class                          itemClass;
+    private Class itemClass;
 
-    private ItemManager                    itemManager;
+    private ItemManager itemManager;
 
-    private SortableTable                  table;
-    
-    private final PropertyChangeSupport       propertyChangeSupport = new PropertyChangeSupport(this);
+    private SortableTable table;
+
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
+            this);
 
     /*
      * (non-Javadoc)
@@ -111,7 +112,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
                     cat = null;
                 }
 
-                SwingUtilities.invokeLater(new Runnable() {
+                SwingUtilities.invokeLater(new Runnable()
+                {
 
                     public void run()
                     {
@@ -120,7 +122,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
                 });
             } else if (le.isEventType(HousekeeperEvent.DATA_REPLACED))
             {
-                SwingUtilities.invokeLater(new Runnable() {
+                SwingUtilities.invokeLater(new Runnable()
+                {
 
                     public void run()
                     {
@@ -132,7 +135,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
     }
 
     /**
-     * @param customPopupMenuEntries The customPopupMenuEntries to set.
+     * @param customPopupMenuEntries
+     *            The customPopupMenuEntries to set.
      */
     public void setCustomPopupMenuEntries(List customPopupMenuEntries)
     {
@@ -140,7 +144,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
     }
 
     /**
-     * @param itemClass The itemClass to set.
+     * @param itemClass
+     *            The itemClass to set.
      */
     public void setItemClass(String itemClass)
     {
@@ -148,13 +153,12 @@ public class ItemsView extends AbstractView implements ApplicationListener
         {
             this.itemClass = Class.forName(itemClass);
             LogFactory.getLog(getClass()).debug(
-                                                "Listening for events related to class: "
-                                                        + this.itemClass
-                                                                .getName());
+                    "Listening for events related to class: "
+                            + this.itemClass.getName());
         } catch (ClassNotFoundException e)
         {
-            LogFactory.getLog(getClass())
-                    .error("Class to filter after set to null", e);
+            LogFactory.getLog(getClass()).error(
+                    "Class to filter after set to null", e);
         }
     }
 
@@ -171,13 +175,14 @@ public class ItemsView extends AbstractView implements ApplicationListener
     /**
      * Sets the table this view shall use.
      * 
-     * @param table != null
+     * @param table !=
+     *            null
      */
     public void setTable(SortableTable table)
     {
         this.table = table;
     }
-    
+
     /**
      * Returns the selected item in this view.
      * 
@@ -185,7 +190,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
      */
     public Item getSelectedItem()
     {
-        return (Item)table.getSelected();
+        return (Item) table.getSelected();
     }
 
     /*
@@ -201,7 +206,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
         refresh();
 
         final JPanel panel = new JPanel();
-        //Without that, the tables won't grow and shrink with the window's
+        // Without that, the tables won't grow and shrink with the window's
         // size.
         panel.setLayout(new GridLayout());
         panel.add(new JScrollPane(table));
@@ -218,8 +223,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
     {
         context.register(GlobalCommandIds.DELETE, deleteExecutor);
         context.register(GlobalCommandIds.PROPERTIES, editExecutor);
-        
-        //TODO Quick Fix for #004362
+
+        // TODO Quick Fix for #004362
         if (itemClass.equals(ExpirableItem.class))
         {
             context.register("duplicateCommand", duplicateExecutor);
@@ -229,10 +234,10 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private void configureTable(JTable table)
     {
-        table.getSelectionModel()
-                .addListSelectionListener(new TableSelectionListener());
-        table.getSelectionModel()
-                .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.getSelectionModel().addListSelectionListener(
+                new TableSelectionListener());
+        table.getSelectionModel().setSelectionMode(
+                ListSelectionModel.SINGLE_SELECTION);
         table.addMouseListener(new PopupTriggerListener(createContextMenu()));
         table.addMouseListener(new DoubleClickListener());
     }
@@ -241,7 +246,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
     {
         final List commands = new ArrayList();
         commands.addAll(customPopupMenuEntries);
-        //TODO Quick Fix for #004362
+        // TODO Quick Fix for #004362
         if (itemClass.equals(ExpirableItem.class))
         {
             commands.add("duplicateCommand");
@@ -252,7 +257,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
         CommandGroup convCommandGroup = getWindowCommandManager()
                 .createCommandGroup("tablePopupCommandGroup",
-                                    commands.toArray());
+                        commands.toArray());
         return convCommandGroup.createPopupMenu();
     }
 
@@ -285,8 +290,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
         public void execute()
         {
-            final Item selectedItem = (Item) table
-                    .getSelected();
+            final Item selectedItem = (Item) table.getSelected();
             itemManager.remove(selectedItem);
         }
     }
@@ -298,9 +302,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
         {
             if (e.getClickCount() == 2)
             {
-                getWindowCommandManager()
-                        .getActionCommand(GlobalCommandIds.PROPERTIES)
-                        .execute();
+                getWindowCommandManager().getActionCommand(
+                        GlobalCommandIds.PROPERTIES).execute();
             }
         }
     }
@@ -314,7 +317,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
         public void execute()
         {
-            final ExpirableItem selectedItem = (ExpirableItem)getSelectedItem();
+            final ExpirableItem selectedItem = (ExpirableItem) getSelectedItem();
             itemManager.duplicate(selectedItem);
         }
     }
@@ -331,7 +334,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
             final Form form = Factory.createForm(foodObject);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                    form, getWindowControl()) {
+                    form, getWindowControl())
+            {
 
                 protected void onAboutToShow()
                 {
@@ -375,7 +379,8 @@ public class ItemsView extends AbstractView implements ApplicationListener
             if (!e.getValueIsAdjusting())
             {
                 updateActionEnablement();
-                propertyChangeSupport.firePropertyChange("selection", null, table.getSelected());
+                propertyChangeSupport.firePropertyChange("selection", null,
+                        table.getSelected());
             }
 
         }

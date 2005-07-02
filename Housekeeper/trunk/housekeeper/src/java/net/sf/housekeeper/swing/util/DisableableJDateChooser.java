@@ -47,16 +47,17 @@ public final class DisableableJDateChooser extends JPanel
 
     private static final long serialVersionUID = 2955454255628454712L;
 
-    private final JDateChooser chooser   = new JDateChooser();
+    private final JDateChooser chooser = new JDateChooser();
 
-    private final JCheckBox    enableBox = new JCheckBox();
+    private final JCheckBox enableBox = new JCheckBox();
 
     /**
      * Creates a new instance.
      */
     public DisableableJDateChooser()
     {
-        enableBox.addChangeListener(new ChangeListener() {
+        enableBox.addChangeListener(new ChangeListener()
+        {
 
             public void stateChanged(ChangeEvent e)
             {
@@ -80,7 +81,8 @@ public final class DisableableJDateChooser extends JPanel
      * Sets the date. If the date is null, the date chooser is disabled and the
      * checkbox gets unselected.
      * 
-     * @param date The date to set.
+     * @param date
+     *            The date to set.
      */
     public void setDate(Date date)
     {
@@ -125,7 +127,8 @@ public final class DisableableJDateChooser extends JPanel
     /**
      * Adds a listener which gets notified if the chosen value changes.
      * 
-     * @param listener The listener to add
+     * @param listener
+     *            The listener to add
      */
     public void addChangeListener(final ChangeListener listener)
     {
@@ -136,8 +139,9 @@ public final class DisableableJDateChooser extends JPanel
     /**
      * Allows or disallows the setting of an expiry date.
      * 
-     * @param enabled If true setting of an expiry date is allowed, if false it
-     *            is not.
+     * @param enabled
+     *            If true setting of an expiry date is allowed, if false it is
+     *            not.
      */
     private void enableDate(final boolean enabled)
     {

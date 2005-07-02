@@ -62,7 +62,7 @@ public final class Factory
      * @return != null
      */
     public static SortableTable createExpirableItemsTable(
-                                                          final MessageSource columnNameProvider)
+            final MessageSource columnNameProvider)
     {
         final BaseTableModel model = new ExpirableItemsTableModel(
                 columnNameProvider);
@@ -70,29 +70,32 @@ public final class Factory
 
         final SortableTableModel sortableModel = table.getSortableTableModel();
         sortableModel.setComparator(EXPIRY_DATE_COLUMN,
-                                    new ExpiryDateComparator());
+                new ExpiryDateComparator());
         table.sortByColumn(EXPIRY_DATE_COLUMN);
         assignDateColumnRenderer(table, EXPIRY_DATE_COLUMN);
         return table;
     }
-    
+
     /**
      * Creates the appropriate form an item.
      * 
-     * @param item The item to create the form for.
+     * @param item
+     *            The item to create the form for.
      * @return != null.
      */
-    public static Form createForm(final Item item) {
-        if(item.getClass().equals(ExpirableItem.class))
+    public static Form createForm(final Item item)
+    {
+        if (item.getClass().equals(ExpirableItem.class))
         {
-            return new ExpirableItemPropertiesForm((ExpirableItem)item);
-            
-        } else {
-            return new ShoppingListItemPropertiesForm((ShoppingListItem)item);
+            return new ExpirableItemPropertiesForm((ExpirableItem) item);
+
+        } else
+        {
+            return new ShoppingListItemPropertiesForm((ShoppingListItem) item);
         }
 
     }
-    
+
     /**
      * Creates a table showing {@link net.sf.housekeeper.domain.Item}s.
      * 
@@ -100,9 +103,10 @@ public final class Factory
      * @return != null
      */
     public static SortableTable createShoppingListItemsTable(
-                                                 final MessageSource columnNameProvider)
+            final MessageSource columnNameProvider)
     {
-        final BaseTableModel model = new ShoppingListTableModel(columnNameProvider);
+        final BaseTableModel model = new ShoppingListTableModel(
+                columnNameProvider);
         final SortableTable table = new SortableTable(model);
         return table;
     }

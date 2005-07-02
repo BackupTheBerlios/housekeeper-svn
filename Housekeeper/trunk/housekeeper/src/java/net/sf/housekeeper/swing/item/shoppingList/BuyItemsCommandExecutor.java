@@ -50,13 +50,13 @@ public final class BuyItemsCommandExecutor extends
         AbstractActionCommandExecutor implements ApplicationWindowAware
 {
 
-    private ItemsView         itemsView;
+    private ItemsView itemsView;
 
     private ApplicationWindow window;
 
-    private ViewDescriptor    viewDescriptor;
+    private ViewDescriptor viewDescriptor;
 
-    private HighLevelManager  highLevelManager;
+    private HighLevelManager highLevelManager;
 
     /**
      *  
@@ -67,7 +67,8 @@ public final class BuyItemsCommandExecutor extends
     }
 
     /**
-     * @param viewDescriptor The viewDescriptor to set.
+     * @param viewDescriptor
+     *            The viewDescriptor to set.
      */
     public void setViewDescriptor(ViewDescriptor viewDescriptor)
     {
@@ -75,7 +76,8 @@ public final class BuyItemsCommandExecutor extends
     }
 
     /**
-     * @param highLevelManager The highLevelManager to set.
+     * @param highLevelManager
+     *            The highLevelManager to set.
      */
     public void setHighLevelManager(HighLevelManager highLevelManager)
     {
@@ -94,7 +96,7 @@ public final class BuyItemsCommandExecutor extends
         final AbstractApplicationPage page = (AbstractApplicationPage) window
                 .getPage();
         itemsView = (ItemsView) findPageComponent(page.getPageComponents(),
-                                                  viewDescriptor.getId());
+                viewDescriptor.getId());
 
         final ShoppingListItem selectedItem = (ShoppingListItem) itemsView
                 .getSelectedItem();
@@ -104,7 +106,8 @@ public final class BuyItemsCommandExecutor extends
             final ExpirableItemPropertiesForm form = new ExpirableItemPropertiesForm(
                     itemPrototype);
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
-                    form, null) {
+                    form, null)
+            {
 
                 protected void onAboutToShow()
                 {
@@ -120,7 +123,6 @@ public final class BuyItemsCommandExecutor extends
             };
             dialog.showDialog();
 
-            
         }
 
     }
@@ -136,9 +138,10 @@ public final class BuyItemsCommandExecutor extends
     }
 
     private PageComponent findPageComponent(final Collection pageComponents,
-                                            final String viewDescriptorId)
+            final String viewDescriptorId)
     {
-        return (PageComponent) new AbstractConstraint() {
+        return (PageComponent) new AbstractConstraint()
+        {
 
             private static final long serialVersionUID = -5022322885507003473L;
 

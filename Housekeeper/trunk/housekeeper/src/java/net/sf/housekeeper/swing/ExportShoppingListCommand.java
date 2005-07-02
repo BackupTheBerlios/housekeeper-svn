@@ -47,13 +47,13 @@ public final class ExportShoppingListCommand extends
         ApplicationWindowAwareCommand implements MessageSourceAware
 {
 
-    private final JFileChooser     chooser;
+    private final JFileChooser chooser;
 
-    private Exception              exception;
+    private Exception exception;
 
     private ImportExportController importExportController;
 
-    private MessageSource          messageSource;
+    private MessageSource messageSource;
 
     public ExportShoppingListCommand()
     {
@@ -67,10 +67,11 @@ public final class ExportShoppingListCommand extends
     }
 
     /**
-     * @param importExportController The importExportController to set.
+     * @param importExportController
+     *            The importExportController to set.
      */
     public void setImportExportController(
-                                          ImportExportController importExportController)
+            ImportExportController importExportController)
     {
         this.importExportController = importExportController;
     }
@@ -125,7 +126,7 @@ public final class ExportShoppingListCommand extends
             if (exception != null)
             {
                 LogFactory.getLog(getClass()).error("Could not export data",
-                                                    exception);
+                        exception);
                 final ErrorDialog dialog = new ErrorDialog(
                         "gui.mainFrame.saveError", exception);
                 dialog.showDialog();

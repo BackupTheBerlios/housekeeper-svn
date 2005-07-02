@@ -43,7 +43,8 @@ public class ExpirableItemsTableModel extends ItemsTableModel
     /**
      * Creates a new model.
      * 
-     * @param messages The message source to get the column titles from. != null
+     * @param messages
+     *            The message source to get the column titles from. != null
      */
     public ExpirableItemsTableModel(MessageSource messages)
     {

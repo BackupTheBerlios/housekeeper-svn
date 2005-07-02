@@ -41,19 +41,20 @@ import com.jgoodies.looks.plastic.PlasticTheme;
 public final class PlatformAwareUIConfigurer implements InitializingBean
 {
 
-    private static final String OS_NAME  = System.getProperty("os.name");
+    private static final String OS_NAME = System.getProperty("os.name");
 
     private UIManagerConfigurer configurer;
 
     private static final String MAC_OS_X = "Mac OS X";
 
-    private static final Log    LOG      = LogFactory
-                                                 .getLog(PlatformAwareUIConfigurer.class);
+    private static final Log LOG = LogFactory
+            .getLog(PlatformAwareUIConfigurer.class);
 
     /**
      * The configurer to use for selecting the L&F.
      * 
-     * @param configurer the configurer.
+     * @param configurer
+     *            the configurer.
      */
     public void setConfigurer(final UIManagerConfigurer configurer)
     {
@@ -64,7 +65,8 @@ public final class PlatformAwareUIConfigurer implements InitializingBean
      * The theme to use for the JGoodies L&F. If omitted, the default one is
      * used.
      * 
-     * @param theme != null.
+     * @param theme !=
+     *            null.
      */
     public void setTheme(PlasticTheme theme)
     {

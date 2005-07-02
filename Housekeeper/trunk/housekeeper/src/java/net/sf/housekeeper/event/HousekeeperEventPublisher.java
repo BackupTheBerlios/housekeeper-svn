@@ -37,7 +37,7 @@ public abstract class HousekeeperEventPublisher implements
         ApplicationContextAware
 {
 
-    private ApplicationContext  applicationContext;
+    private ApplicationContext applicationContext;
 
     /*
      * (non-Javadoc)
@@ -53,8 +53,10 @@ public abstract class HousekeeperEventPublisher implements
     /**
      * Creates and publishes a new {@link HousekeeperEvent}.
      * 
-     * @param eventType The type of the event. != null
-     * @param source The source fo the event. != null
+     * @param eventType
+     *            The type of the event. != null
+     * @param source
+     *            The source fo the event. != null
      */
     protected final void publishEvent(String eventType, Object source)
     {

@@ -35,13 +35,13 @@ public final class HighLevelManagerTest extends TestCase
 
     private static final String TESTITEM_NAME = "TestItem";
 
-    private HighLevelManager    highLevelManager;
+    private HighLevelManager highLevelManager;
 
-    private ShoppingListItem    item;
+    private ShoppingListItem item;
 
-    private ItemManager         shoppingListManager;
+    private ItemManager shoppingListManager;
 
-    private ItemManager         supplyManager;
+    private ItemManager supplyManager;
 
     /**
      * Tests a normal buy scenario.
@@ -54,8 +54,8 @@ public final class HighLevelManagerTest extends TestCase
         final boolean itemWasRemovedFromShoppingList = !shoppingListManager
                 .exists(item);
         assertTrue(itemWasRemovedFromShoppingList);
-        final boolean correctNumberOfItems = supplyManager
-                .getAllItems().size() == item.getQuantity();
+        final boolean correctNumberOfItems = supplyManager.getAllItems().size() == item
+                .getQuantity();
         assertTrue(correctNumberOfItems);
     }
 
@@ -71,7 +71,7 @@ public final class HighLevelManagerTest extends TestCase
             fail("IllegalArgumentException must be thrown if item doesn't exist in shopping list");
         } catch (IllegalArgumentException e)
         {
-            //expected behaviour
+            // expected behaviour
         }
     }
 
