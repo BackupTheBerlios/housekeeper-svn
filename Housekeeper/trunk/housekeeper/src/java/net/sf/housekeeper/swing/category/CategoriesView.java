@@ -46,6 +46,7 @@ import org.springframework.richclient.command.support.AbstractActionCommandExecu
 import org.springframework.richclient.command.support.GlobalCommandIds;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
 import org.springframework.richclient.dialog.TitledPageApplicationDialog;
+import org.springframework.richclient.tree.TreeUtils;
 import org.springframework.richclient.util.PopupMenuMouseListener;
 
 /**
@@ -93,6 +94,7 @@ public final class CategoriesView extends AbstractView implements
         tree.addMouseListener(new DoubleClickListener());
         tree.addMouseListener(new PopupTriggerListener(createContextMenu()));
         refresh();
+        TreeUtils.expandAll(tree, true);
 
         final JScrollPane scrollPane = new JScrollPane(tree);
         return scrollPane;
