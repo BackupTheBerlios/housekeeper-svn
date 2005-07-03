@@ -3,7 +3,14 @@
         <title>Change history</title>
     </properties>
     <body>
-      <release version="0.2.6" date="2005-06-22">
+      <release version="0.2.7" date="not yet">
+        <action dev="notizklotz" type="update" issue="4427">Category tree is fully expanded after startup.</action>
+        <action dev="notizklotz" type="fix" issue="3961">Assigning a category as its own parent is prevented.</action>
+        <action dev="notizklotz" type="fix" issue="3962">Assigning a category's child as its parent is prevented.</action>
+        <action dev="notizklotz" type="fix" issue="4367">Existing categories could not be changed to root categories.</action>
+        <action dev="notizklotz" type="fix" issue="4404">Items on the shopping list could not be deleted.</action>
+      </release>
+      <release version="0.2.6" date="2005-06-24">
         <action dev="notizklotz" type="add">Export shopping list as text file.</action>
         <action dev="notizklotz" type="add">Shopping list feature added.</action>
         <action dev="notizklotz" type="update" issue="4305">Simplified category selection in item editor dialog.</action>
