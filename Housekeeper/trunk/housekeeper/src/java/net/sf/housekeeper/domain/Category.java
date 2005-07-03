@@ -64,6 +64,10 @@ public final class Category
      */
     public static void setSelectedCategory(Category selectedCategory)
     {
+        if (selectedCategory == NULL_OBJECT)
+        {
+            selectedCategory = null;
+        }
         Category.selectedCategory = selectedCategory;
     }
 
@@ -93,8 +97,9 @@ public final class Category
     {
         Assert.notNull(name);
         this.id = new VMID().toString();
-        this.name = name;
         this.children = new LinkedHashSet();
+        
+        setName(name);
     }
 
     /**

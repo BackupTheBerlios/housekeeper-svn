@@ -88,6 +88,7 @@ public final class CategoryTest extends TestCase
     {
         final Category deepChild = new Category();
 
+        category.addChild(new Category("Dummy category"));
         category.addChild(child);
         child.addChild(deepChild);
 
@@ -163,5 +164,16 @@ public final class CategoryTest extends TestCase
         
         Assert.assertNull(category.getParent());
     }
+    
+    public void testSelectedCategory()
+    {
+        Category.setSelectedCategory(category);
+        assertEquals(category, Category.getSelectedCategory());
+    }
 
+    public void testSelectedCategoryNullObject()
+    {
+        Category.setSelectedCategory(Category.NULL_OBJECT);
+        assertNull(Category.getSelectedCategory());
+    }
 }
