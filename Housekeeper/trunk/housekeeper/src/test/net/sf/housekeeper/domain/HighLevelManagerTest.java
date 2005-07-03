@@ -48,6 +48,7 @@ public final class HighLevelManagerTest extends TestCase
      */
     public void testBuy()
     {
+        item.setQuantity(3);
         shoppingListManager.add(item);
         highLevelManager.buy(item, new ExpirableItem());
 

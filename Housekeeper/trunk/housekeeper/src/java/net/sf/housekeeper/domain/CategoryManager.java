@@ -130,8 +130,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
      */
     public List getAllCategoriesInclusiveNull()
     {
-        final List l = getAllCategories();
-        l.add(Category.NULL_OBJECT);
+        final List l = getAllCategoriesInclusiveNullExcept(null);
         return l;
     }
 

@@ -11,7 +11,7 @@ import junit.framework.TestCase;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class ExpiringItemTest extends TestCase
+public final class ExpirableItemTest extends TestCase
 {
 
     /**
@@ -178,4 +178,13 @@ public final class ExpiringItemTest extends TestCase
         assertEquals(clonedItem, originalItem);
     }
 
+    public void testExpiringItemItem()
+    {
+        final Item i = new Item();
+        final ExpirableItem expItem = new ExpirableItem(i);
+        
+        assertEquals(i.getName(), expItem.getName());
+        assertEquals(i.getDescription(), expItem.getDescription());
+        assertEquals(i.getCategory(), expItem.getCategory());
+    }
 }

@@ -21,6 +21,9 @@
 
 package net.sf.housekeeper.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.housekeeper.testutils.DataGenerator;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -183,6 +186,43 @@ public final class CategoryManagerTest extends TestCase
         Assert.assertTrue(newParent.hasChild(child));
         Assert.assertTrue(child.getParent() == newParent);
         Assert.assertFalse(manager.getTopLevelCategories().contains(child));
+    }
+    
+    public void testGetAllCategoriesInclusiveNull()
+    {
+        assertTrue(manager.getAllCategoriesInclusiveNull().contains(Category.NULL_OBJECT));
+    }
+    
+    public void testGetAllCategoriesExcept()
+    {
+        final Category a = new Category();
+        final Category b = new Category();
+        final Category child = new Category();
+        child.setParent(b);
+        manager.add(a);
+        manager.add(b);
+        manager.add(child);
+        
+        final List l = manager.getAllCategoriesExcept(b);
+        assertTrue(l.contains(a));
+        assertFalse(l.contains(b));
+        assertFalse(l.contains(child));
+    }
+    
+    public void testReplaceAll()
+    {
+        final Category a = new Category();
+        final Category b = new Category();
+        manager.add(a);
+        
+        final ArrayList newL = new ArrayList();
+        newL.add(b);
+        
+        manager.replaceAll(newL);
+        
+        final List l = manager.getAllCategoriesExcept(b);
+        assertFalse(l.contains(a));
+        assertTrue(l.contains(b));
     }
 
 }
