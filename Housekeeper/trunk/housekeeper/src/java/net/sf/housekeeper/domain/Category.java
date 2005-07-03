@@ -150,14 +150,22 @@ public final class Category
      * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object obj)
+    public boolean equals(Object o)
     {
-        if (obj == null)
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null)
+        {
+            return false;
+        }
+        if (o.getClass() != getClass())
         {
             return false;
         }
 
-        final Category otherCat = (Category) obj;
+        final Category otherCat = (Category) o;
         return this.id.equals(otherCat.getId());
     }
 
