@@ -60,7 +60,7 @@ public final class NewCategoryCommandExecutor extends
         newCategory.setParent(parentCategory);
 
         final CategoryPropertiesForm form = new CategoryPropertiesForm(
-                newCategory);
+                newCategory, categoryManager.getAllCategoriesInclusiveNull());
 
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(

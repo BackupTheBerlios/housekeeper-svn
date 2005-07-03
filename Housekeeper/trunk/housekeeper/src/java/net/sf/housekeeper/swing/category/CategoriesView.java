@@ -209,11 +209,11 @@ public final class CategoriesView extends AbstractView implements
 
         public void execute()
         {
-            final Category newCategory = tree.getSelectedCategory();
-            final Category oldParent = newCategory.getParent();
+            final Category category = tree.getSelectedCategory();
+            final Category oldParent = category.getParent();
 
             final CategoryPropertiesForm form = new CategoryPropertiesForm(
-                    newCategory);
+                    category, categoryManager.getAllCategoriesInclusiveNullExcept(category));
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                     new FormBackedDialogPage(form))
@@ -227,7 +227,7 @@ public final class CategoriesView extends AbstractView implements
                 protected boolean onFinish()
                 {
                     form.commit();
-                    categoryManager.update(newCategory, oldParent);
+                    categoryManager.update(category, oldParent);
                     return true;
                 }
             };

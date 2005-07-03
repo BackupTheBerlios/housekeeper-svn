@@ -21,11 +21,14 @@
 
 package net.sf.housekeeper.swing.category;
 
+import java.util.List;
+
 import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.Category;
 
 import org.springframework.richclient.form.AbstractForm;
+import org.springframework.richclient.form.binding.swing.SwingBindingFactory;
 import org.springframework.richclient.form.builder.TableFormBuilder;
 
 /**
@@ -38,16 +41,20 @@ import org.springframework.richclient.form.builder.TableFormBuilder;
 public final class CategoryPropertiesForm extends AbstractForm
 {
 
+    private final List possibleParents;
+    
     /**
      * Creates a new Form.
      * 
      * @param object
      *            The model to use. Must not be null.
      */
-    public CategoryPropertiesForm(Category object)
+    public CategoryPropertiesForm(Category object, List possibleParents)
     {
         super(object);
         setId("categoryPropertiesForm");
+        
+        this.possibleParents = possibleParents;
     }
 
     /*
@@ -60,7 +67,10 @@ public final class CategoryPropertiesForm extends AbstractForm
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("name");
         formBuilder.row();
-        formBuilder.add("parent");
+        SwingBindingFactory bindingFactory = (SwingBindingFactory)
+        getBindingFactory();
+        formBuilder.add(bindingFactory.createBoundComboBox("parent",
+        possibleParents));
         return formBuilder.getForm();
     }
 
