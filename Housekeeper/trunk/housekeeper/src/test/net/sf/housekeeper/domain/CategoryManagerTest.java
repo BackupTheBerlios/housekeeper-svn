@@ -220,7 +220,7 @@ public final class CategoryManagerTest extends TestCase
         
         manager.replaceAll(newL);
         
-        final List l = manager.getAllCategoriesExcept(b);
+        final List l = manager.getAllCategories();
         assertFalse(l.contains(a));
         assertTrue(l.contains(b));
     }
