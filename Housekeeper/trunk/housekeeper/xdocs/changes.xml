@@ -5,6 +5,7 @@
     <body>
       <release version="0.2.7" date="not yet">
         <action dev="notizklotz" type="update" issue="4427">Category tree is fully expanded after startup.</action>
+        <action dev="notizklotz" type="update" issue="4443">Resized shopping cart icon to the same size as the other icons.</action>
         <action dev="notizklotz" type="fix" issue="3961">Assigning a category as its own parent is prevented.</action>
         <action dev="notizklotz" type="fix" issue="3962">Assigning a category's child as its parent is prevented.</action>
         <action dev="notizklotz" type="fix" issue="4367">Existing categories could not be changed to root categories.</action>
