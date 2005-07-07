@@ -3,7 +3,7 @@
         <title>Change history</title>
     </properties>
     <body>
-      <release version="0.2.7" date="not yet">
+      <release version="0.2.7" date="2005-07-07">
         <action dev="notizklotz" type="update" issue="4427">Category tree is fully expanded after startup.</action>
         <action dev="notizklotz" type="update" issue="4443">Resized shopping cart icon to the same size as the other icons.</action>
         <action dev="notizklotz" type="fix" issue="3961">Assigning a category as its own parent is prevented.</action>
