@@ -20,7 +20,7 @@
             name="Screenshots"/>
         <item href="/installation.html" name="Installation" />
         <item href="/changes-report.html" name="Changelog" />
-        <!--<item href="/faq.html" name="FAQ" />-->
+        <item href="/faq.html" name="FAQ" />
     </menu>
     <search/>
   </body>
