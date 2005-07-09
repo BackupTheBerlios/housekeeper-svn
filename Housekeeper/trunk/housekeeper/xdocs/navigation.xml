@@ -22,6 +22,10 @@
         <item href="/changes-report.html" name="Changelog" />
         <item href="/faq.html" name="FAQ" />
     </menu>
+    <menu name="" type="footer">
+       <item name="BerliOS" href="http://developer.berlios.de"
+             img="http://developer.berlios.de/sflogo.php?group_id=3180&amp;type=1" />
+    </menu>
     <search/>
   </body>
 </project>

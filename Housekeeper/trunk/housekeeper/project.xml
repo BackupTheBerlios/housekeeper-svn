@@ -19,8 +19,8 @@
   <!-- details about the organization that 'owns' the project -->
   <organization>
     <name>The Housekeeper Project</name>
-    <url>http://developer.berlios.de/projects/housekeeper</url>
-    <logo>http://developer.berlios.de/sflogo.php?group_id=3180&amp;type=1</logo>
+    <url>http://housekeeper.berlios.de</url>
+    <logo>/images/housekeeper_project_banner.jpg</logo>
   </organization>
   
   <!-- the year the project started -->
@@ -28,7 +28,7 @@
   
   <package>net.sf.housekeeper</package>
   
-  <!-- <logo>http://maven.apache.org/images/maven.jpg</logo> -->
+  <logo>/images/none.png</logo>
   <description>Housekeeper helps you keeping track of any items (like food or drugs)
     in your household. You can specify expiry dates so you always
     have an overview of what you should use or rebuy in the near future. Also, shopping lists
