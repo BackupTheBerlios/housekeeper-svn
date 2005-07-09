@@ -25,6 +25,12 @@
     <menu name="" type="footer">
        <item name="BerliOS" href="http://developer.berlios.de"
              img="http://developer.berlios.de/sflogo.php?group_id=3180&amp;type=1" />
+       <!--<item name="Spring - java/j2ee Application Framework" href="http://www.springframework.org"
+             img="http://www.springframework.org/buttons/spring_clear.png" />
+       <item name="Code coverage by Clover" href="http://www.cenqua.com/clover/"
+             img="http://www.cenqua.com/clover/images/clovered1.gif" />-->
+       <item name="Hassle Free Cliparts" href="http://www.hasslefreeclipart.com/"
+             img="http://www.hasslefreeclipart.com/files/button_fish.gif" />
     </menu>
     <search/>
   </body>
