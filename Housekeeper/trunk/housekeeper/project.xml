@@ -380,6 +380,8 @@
   
   <!-- build information for the project -->
   <build>
+    <nagEmailAddress>phelan@localhost</nagEmailAddress>
+  
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
 
