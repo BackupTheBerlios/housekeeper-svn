@@ -333,7 +333,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
         public void execute()
         {
-            final Item foodObject = (Item) table.getSelected();
+            final Item foodObject = (Item) table.getSelected().get(0);
             final Form form = Factory.createForm(foodObject);
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
