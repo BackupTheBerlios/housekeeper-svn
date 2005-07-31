@@ -26,6 +26,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -33,7 +34,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -236,8 +236,6 @@ public class ItemsView extends AbstractView implements ApplicationListener
     {
         table.getSelectionModel().addListSelectionListener(
                 new TableSelectionListener());
-        table.getSelectionModel().setSelectionMode(
-                ListSelectionModel.SINGLE_SELECTION);
         table.addMouseListener(new PopupTriggerListener(createContextMenu()));
         table.addMouseListener(new DoubleClickListener());
     }
@@ -279,9 +277,10 @@ public class ItemsView extends AbstractView implements ApplicationListener
      */
     private void updateActionEnablement()
     {
-        boolean hasSelection = table.hasSelection();
-        duplicateExecutor.setEnabled(hasSelection);
-        editExecutor.setEnabled(hasSelection);
+        final boolean hasSelection = table.hasSelection();
+        final boolean hasSingleSelection = table.hasSelection();
+        duplicateExecutor.setEnabled(hasSingleSelection);
+        editExecutor.setEnabled(hasSingleSelection);
         deleteExecutor.setEnabled(hasSelection);
     }
 
@@ -290,8 +289,12 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
         public void execute()
         {
-            final Item selectedItem = (Item) table.getSelected();
-            itemManager.remove(selectedItem);
+            final Iterator i = table.getSelected().iterator();
+            while (i.hasNext())
+            {
+                Item element = (Item) i.next();
+                itemManager.remove(element);
+            }
         }
     }
 
@@ -367,7 +370,12 @@ public class ItemsView extends AbstractView implements ApplicationListener
         protected boolean onAboutToShow(MouseEvent e)
         {
             final int row = table.rowAtPoint(e.getPoint());
-            table.getSelectionModel().setSelectionInterval(row, row);
+
+            if (!table.isRowSelected(row))
+            {
+                table.getSelectionModel().setSelectionInterval(row, row);
+            }
+
             return super.onAboutToShow(e);
         }
     }

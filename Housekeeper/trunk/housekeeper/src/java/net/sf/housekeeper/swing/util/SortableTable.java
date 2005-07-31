@@ -21,7 +21,6 @@
 
 package net.sf.housekeeper.swing.util;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,27 +87,22 @@ public final class SortableTable extends JTable
     /**
      * Returns the selected items.
      * 
-     * @return {@link Collections#EMPTY_LIST} if there is no item selected.
+     * @return an empty list if there is no item selected.
      */
     public List getSelected()
     {
-        if (hasSelection())
+        final LinkedList selectedObjects = new LinkedList();
+        final int[] selectedRowIndexes = getSelectedRows();
+
+        for (int i = 0; i < selectedRowIndexes.length; i++)
         {
-            final LinkedList selectedObjects = new LinkedList();
-            final int[] selectedRowIndexes = getSelectedRows();
 
-            for (int i = 0; i < selectedRowIndexes.length; i++)
-            {
-
-                final int convertedRow = getSortableTableModel()
-                        .convertSortedIndexToDataIndex(selectedRowIndexes[i]);
-                selectedObjects.add(lowestModel.getRow(convertedRow));
-            }
-
-            return selectedObjects;
+            final int convertedRow = getSortableTableModel()
+                    .convertSortedIndexToDataIndex(selectedRowIndexes[i]);
+            selectedObjects.add(lowestModel.getRow(convertedRow));
         }
 
-        return Collections.EMPTY_LIST;
+        return selectedObjects;
     }
 
     /**
@@ -119,6 +113,16 @@ public final class SortableTable extends JTable
     public boolean hasMultipleSelection()
     {
         return getSelectedRowCount() > 1;
+    }
+
+    /**
+     * Returns true if only one object selected.
+     * 
+     * @return True, if there if only one object selected. False otherwise.
+     */
+    public boolean hasSingleSelection()
+    {
+        return getSelectedRowCount() == 1;
     }
 
     /**
