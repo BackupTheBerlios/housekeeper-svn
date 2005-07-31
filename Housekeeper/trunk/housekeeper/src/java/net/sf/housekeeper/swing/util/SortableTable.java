@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.swing.util;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -84,21 +86,39 @@ public final class SortableTable extends JTable
     }
 
     /**
-     * Returns the selected item.
+     * Returns the selected items.
      * 
-     * @return Null if none is selected.
+     * @return {@link Collections#EMPTY_LIST} if there is no item selected.
      */
-    public Object getSelected()
+    public List getSelected()
     {
         if (hasSelection())
         {
-            final int selectedRow = getSelectedRow();
-            final int convertedRow = getSortableTableModel()
-                    .convertSortedIndexToDataIndex(selectedRow);
-            return lowestModel.getRow(convertedRow);
+            final LinkedList selectedObjects = new LinkedList();
+            final int[] selectedRowIndexes = getSelectedRows();
+
+            for (int i = 0; i < selectedRowIndexes.length; i++)
+            {
+
+                final int convertedRow = getSortableTableModel()
+                        .convertSortedIndexToDataIndex(selectedRowIndexes[i]);
+                selectedObjects.add(lowestModel.getRow(convertedRow));
+            }
+
+            return selectedObjects;
         }
 
-        return null;
+        return Collections.EMPTY_LIST;
+    }
+
+    /**
+     * Returns true if there is more than one object selected.
+     * 
+     * @return true if there is more than one object selected. False otherwise.
+     */
+    public boolean hasMultipleSelection()
+    {
+        return getSelectedRowCount() > 1;
     }
 
     /**
