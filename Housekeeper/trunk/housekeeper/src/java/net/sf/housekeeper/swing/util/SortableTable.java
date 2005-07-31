@@ -102,13 +102,13 @@ public final class SortableTable extends JTable
     }
 
     /**
-     * Returns if there is a selection.
+     * Returns whether there is a selection.
      * 
      * @return True, if there is a selection. False otherwise.
      */
     public boolean hasSelection()
     {
-        return getSelectedRow() != -1;
+        return getSelectedRowCount() > 0;
     }
 
     /**
