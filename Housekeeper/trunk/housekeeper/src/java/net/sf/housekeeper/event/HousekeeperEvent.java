@@ -22,7 +22,7 @@
 package net.sf.housekeeper.event;
 
 import org.springframework.context.ApplicationEvent;
-import org.springframework.core.ToStringCreator;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * Events about domain object changes.

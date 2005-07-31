@@ -26,7 +26,7 @@ import java.util.Date;
 
 import net.sf.housekeeper.util.DateUtils;
 
-import org.springframework.core.ToStringCreator;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * An item which can have an expiry date.

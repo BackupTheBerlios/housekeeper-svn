@@ -21,7 +21,7 @@
 
 package net.sf.housekeeper.domain;
 
-import org.springframework.core.ToStringCreator;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * An arbitrary item.
