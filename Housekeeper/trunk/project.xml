@@ -52,10 +52,10 @@
        scm:<system>:<system specific connection string> -->
   <repository>
     <connection>
-      scm:cvs:pserver:anonymous@cvs.berlios.de:/cvsroot/housekeeper:housekeeper</connection>
+      scm:svn:svn://svn.berlios.de/housekeeper/Housekeeper/trunk</connection>
     <developerConnection>
-      scm:cvs:ext:${maven.username}@cvs.berlios.de:/cvsroot/housekeeper:housekeeper</developerConnection>
-    <url>http://cvs.berlios.de/cgi-bin/viewcvs.cgi/housekeeper</url>
+      scm:svn:svn+ssh://${maven.username}@svn.berlios.de/housekeeper/Housekeeper/trunk</developerConnection>
+    <url>http://svn.berlios.de/viewcvs/housekeeper</url>
   </repository>
   
   <versions>
