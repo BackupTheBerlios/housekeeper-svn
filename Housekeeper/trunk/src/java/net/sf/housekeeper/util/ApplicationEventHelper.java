@@ -39,7 +39,8 @@ import org.springframework.context.ApplicationListener;
 public final class ApplicationEventHelper implements ApplicationListener
 {
 
-    private final ArrayList listeners = new ArrayList(3);
+    private final ArrayList<ApplicationListener> listeners = new ArrayList<ApplicationListener>(
+            3);
 
     /**
      * Add a listener to forward events to.

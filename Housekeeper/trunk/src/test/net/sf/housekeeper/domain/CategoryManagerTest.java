@@ -215,7 +215,7 @@ public final class CategoryManagerTest extends TestCase
         final Category b = new Category();
         manager.add(a);
         
-        final ArrayList newL = new ArrayList();
+        final ArrayList<Category> newL = new ArrayList<Category>();
         newL.add(b);
         
         manager.replaceAll(newL);

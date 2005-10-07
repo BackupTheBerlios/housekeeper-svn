@@ -44,7 +44,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
 
     private static final Log LOG = LogFactory.getLog(CategoryManager.class);
 
-    private List categories;
+    private List<Category> categories;
 
     private ItemManager supplyManager;
 
@@ -53,7 +53,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
      */
     public CategoryManager()
     {
-        categories = new ArrayList(5);
+        categories = new ArrayList<Category>();
     }
 
     /**
@@ -97,7 +97,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * 
      * @return The categories. Not null.
      */
-    public List getTopLevelCategories()
+    public List<Category> getTopLevelCategories()
     {
         return Collections.unmodifiableList(categories);
     }
@@ -107,7 +107,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * 
      * @return != null.
      */
-    public Iterator getTopLevelCategoriesIterator()
+    public Iterator<Category> getTopLevelCategoriesIterator()
     {
         return categories.iterator();
     }
@@ -117,9 +117,10 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * 
      * @return != null
      */
-    public List getAllCategories()
+    public List<Category> getAllCategories()
     {
-        return getAllCategoriesExcept(null);
+        List<Category> allCategoriesExcept = getAllCategoriesExcept(null);
+        return allCategoriesExcept;
     }
 
     /**
@@ -128,9 +129,9 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * 
      * @return != null
      */
-    public List getAllCategoriesInclusiveNull()
+    public List<Category> getAllCategoriesInclusiveNull()
     {
-        final List l = getAllCategoriesInclusiveNullExcept(null);
+        final List<Category> l = getAllCategoriesInclusiveNullExcept(null);
         return l;
     }
 
@@ -140,9 +141,9 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * 
      * @return != null
      */
-    public List getAllCategoriesInclusiveNullExcept(Category discardedCategory)
+    public List<Category> getAllCategoriesInclusiveNullExcept(Category discardedCategory)
     {
-        final List l = getAllCategoriesExcept(discardedCategory);
+        final List<Category> l = getAllCategoriesExcept(discardedCategory);
         l.add(Category.NULL_OBJECT);
         return l;
     }
@@ -152,16 +153,16 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * 
      * @return != null
      */
-    public List getAllCategoriesExcept(Category discardedCategory)
+    public List<Category> getAllCategoriesExcept(Category discardedCategory)
     {
-        final ArrayList allCats = new ArrayList();
-        final Iterator topLevelCats = getTopLevelCategoriesIterator();
+        final ArrayList<Category> allCats = new ArrayList<Category>();
+        final Iterator<Category> topLevelCats = getTopLevelCategoriesIterator();
 
         while (topLevelCats.hasNext())
         {
-            Category element = (Category) topLevelCats.next();
+            Category element = topLevelCats.next();
 
-            final List c = element.getRecursiveCategories();
+            final List<Category> c = element.getRecursiveCategories();
             allCats.addAll(c);
         }
         if (discardedCategory != null)
@@ -207,7 +208,7 @@ public final class CategoryManager extends HousekeeperEventPublisher
      * @param categories
      *            The categories. Must not be null.
      */
-    public void replaceAll(final List categories)
+    public void replaceAll(final List<Category> categories)
     {
         Assert.notNull(categories);
 

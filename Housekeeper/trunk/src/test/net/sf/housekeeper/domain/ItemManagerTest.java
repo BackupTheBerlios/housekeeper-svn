@@ -60,7 +60,7 @@ public class ItemManagerTest extends TestCase
         final ExpirableItem oldItem = new ExpirableItem();
         manager.add(oldItem);
 
-        final Collection col = new ArrayList();
+        final Collection<Item> col = new ArrayList<Item>();
         final ExpirableItem newItem = new ExpirableItem();
         newItem.setName("NewItem");
         col.add(newItem);

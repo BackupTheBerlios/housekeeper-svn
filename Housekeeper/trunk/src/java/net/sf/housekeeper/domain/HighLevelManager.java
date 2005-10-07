@@ -91,10 +91,10 @@ public final class HighLevelManager
      *            The number of items to create. > 0
      * @return The created {@link ExpirableItem}s. != null
      */
-    public Collection createSupplyItems(final int quantity,
+    public Collection<ExpirableItem> createSupplyItems(final int quantity,
             final ExpirableItem prototype)
     {
-        final ArrayList createdItems = new ArrayList(quantity);
+        final ArrayList<ExpirableItem> createdItems = new ArrayList<ExpirableItem>(quantity);
         createdItems.add(prototype);
 
         for (int i = 1; i < quantity; i++)

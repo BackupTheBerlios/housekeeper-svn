@@ -69,7 +69,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private Category category;
 
-    private List customPopupMenuEntries;
+    private List<Object> customPopupMenuEntries;
 
     private final DeleteCommandExecutor deleteExecutor = new DeleteCommandExecutor();
 
@@ -138,7 +138,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
      * @param customPopupMenuEntries
      *            The customPopupMenuEntries to set.
      */
-    public void setCustomPopupMenuEntries(List customPopupMenuEntries)
+    public void setCustomPopupMenuEntries(List<Object> customPopupMenuEntries)
     {
         this.customPopupMenuEntries = customPopupMenuEntries;
     }
@@ -242,7 +242,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private JPopupMenu createContextMenu()
     {
-        final List commands = new ArrayList();
+        final List<Object> commands = new ArrayList<Object>();
         commands.addAll(customPopupMenuEntries);
         // TODO Quick Fix for #004362
         if (itemClass.equals(ExpirableItem.class))

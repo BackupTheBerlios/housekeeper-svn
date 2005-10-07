@@ -71,7 +71,7 @@ public final class Category
         Category.selectedCategory = selectedCategory;
     }
 
-    private LinkedHashSet children;
+    private LinkedHashSet<Category> children;
 
     private final String id;
 
@@ -97,7 +97,7 @@ public final class Category
     {
         Assert.notNull(name);
         this.id = new VMID().toString();
-        this.children = new LinkedHashSet();
+        this.children = new LinkedHashSet<Category>();
         
         setName(name);
     }
@@ -175,9 +175,9 @@ public final class Category
      * 
      * @return != null
      */
-    public List getRecursiveCategories()
+    public List<Category> getRecursiveCategories()
     {
-        final ArrayList categories = new ArrayList();
+        final ArrayList<Category> categories = new ArrayList<Category>();
         categories.add(this);
         final Iterator iter = getChildrenIterator();
         while (iter.hasNext())
@@ -193,7 +193,7 @@ public final class Category
      * 
      * @return An iterator for all children. Not null.
      */
-    public Iterator getChildrenIterator()
+    public Iterator<Category> getChildrenIterator()
     {
         return children.iterator();
     }

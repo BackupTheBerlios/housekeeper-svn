@@ -91,7 +91,7 @@ public final class SortableTable extends JTable
      */
     public List getSelected()
     {
-        final LinkedList selectedObjects = new LinkedList();
+        final LinkedList<Object> selectedObjects = new LinkedList<Object>();
         final int[] selectedRowIndexes = getSelectedRows();
 
         for (int i = 0; i < selectedRowIndexes.length; i++)

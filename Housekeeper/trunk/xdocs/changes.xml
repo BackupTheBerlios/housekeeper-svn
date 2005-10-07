@@ -3,7 +3,7 @@
         <title>Change history</title>
     </properties>
     <body>
-      <release version="0.3.0" date="late August">
+      <release version="0.3.0" date="not yet">
         <action dev="notizklotz" type="update" issue="4238">Multiple items can be deleted at once.</action>
       </release>
       <release version="0.2.7" date="2005-07-07">

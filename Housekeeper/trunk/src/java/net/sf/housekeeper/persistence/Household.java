@@ -24,6 +24,10 @@ package net.sf.housekeeper.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.housekeeper.domain.Category;
+import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.ShoppingListItem;
+
 /**
  * Representation of a household.
  * 
@@ -38,18 +42,20 @@ public class Household
      */
     public final String version = "5";
 
-    private ArrayList supply;
+    private ArrayList<ExpirableItem> supply;
 
-    private ArrayList shoppingList;
+    private ArrayList<ShoppingListItem> shoppingList;
 
-    private ArrayList categories;
+    private ArrayList<Category> categories;
 
     public Household()
     {
-        this(new ArrayList(), new ArrayList(), new ArrayList());
+        this(new ArrayList<ExpirableItem>(), new ArrayList<ShoppingListItem>(),
+                new ArrayList<Category>());
     }
 
-    public Household(List supply, List shoppingList, List categories)
+    public Household(List<ExpirableItem> supply,
+            List<ShoppingListItem> shoppingList, List<Category> categories)
     {
         setSupply(supply);
         setShoppingList(shoppingList);
@@ -59,7 +65,7 @@ public class Household
     /**
      * @return Returns the categories.
      */
-    public List getCategories()
+    public List<Category> getCategories()
     {
         return categories;
     }
@@ -68,15 +74,15 @@ public class Household
      * @param categories
      *            The categories to set.
      */
-    public void setCategories(List categories)
+    public void setCategories(List<Category> categories)
     {
-        this.categories = new ArrayList(categories);
+        this.categories = new ArrayList<Category>(categories);
     }
 
     /**
      * @return Returns the shoppingList.
      */
-    public List getShoppingList()
+    public List<ShoppingListItem> getShoppingList()
     {
         return shoppingList;
     }
@@ -85,15 +91,15 @@ public class Household
      * @param shoppingList
      *            The shoppingList to set.
      */
-    public void setShoppingList(List shoppingList)
+    public void setShoppingList(List<ShoppingListItem> shoppingList)
     {
-        this.shoppingList = new ArrayList(shoppingList);
+        this.shoppingList = new ArrayList<ShoppingListItem>(shoppingList);
     }
 
     /**
      * @return Returns the supply.
      */
-    public List getSupply()
+    public List<ExpirableItem> getSupply()
     {
         return supply;
     }
@@ -102,8 +108,8 @@ public class Household
      * @param supply
      *            The supply to set.
      */
-    public void setSupply(List supply)
+    public void setSupply(List<ExpirableItem> supply)
     {
-        this.supply = new ArrayList(supply);
+        this.supply = new ArrayList<ExpirableItem>(supply);
     }
 }
