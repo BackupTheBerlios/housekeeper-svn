@@ -5,6 +5,7 @@
     <body>
       <release version="0.3.0" date="not yet">
         <action dev="notizklotz" type="update" issue="4238">Multiple items can be deleted at once.</action>
+        <action dev="notizklotz" type="update">Minimum Java Runtime Environemnt changed to JRE 5.0</action>
       </release>
       <release version="0.2.7" date="2005-07-07">
         <action dev="notizklotz" type="update" issue="4427">Category tree is fully expanded after startup.</action>

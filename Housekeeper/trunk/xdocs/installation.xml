@@ -9,13 +9,13 @@
         <li><b>Operating systems</b>:
           <ul> 
             <li>Windows 95/98/ME/2000/XP</li>
-            <li>Macintosh OS X</li> 
+            <li>Macintosh OS X 10.4</li> 
             <li>Linux</li>
             <li>Solaris</li>
-            <li>Any other OS where a Java Runtime Environment 1.4.2 is available.</li>
+            <li>Any other OS where a Java Runtime Environment 5.0  is available.</li>
           </ul>
         </li>
-        <li><b>Java Runtime Environment (JRE) 1.4.2 or higher</b>.
+        <li><b>Java Runtime Environment (JRE) 5.0 or higher</b>.
           <ul> 
             <li><b>Windows</b> users can <a href="http://www.java.com">get a free 
                JRE at java.com</a>. Click on "Java Software Download" on the right for 
