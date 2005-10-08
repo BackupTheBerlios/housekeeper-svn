@@ -118,19 +118,6 @@
     
   <!-- any mailing lists for the project -->
   <mailingLists>
-  <!--
-    <mailingList>
-        <name>housekeeper-announce</name>
-        <subscribe>
-            http://lists.berlios.de/mailman/listinfo/housekeeper-announce
-        </subscribe>
-        <unsubscribe>
-            http://lists.berlios.de/mailman/listinfo/housekeeper-announce
-        </unsubscribe>
-        <archive>
-            http://lists.berlios.de/pipermail/housekeeper-announce
-        </archive>
-    </mailingList>-->
     <mailingList>
         <name>housekeeper-devel</name>
         <subscribe>
@@ -243,7 +230,7 @@
     <dependency>
         <groupId>spring</groupId>
         <artifactId>spring-richclient</artifactId>
-        <version>20050731</version>
+        <version>20051008</version>
         <url>http://www.springframework.org/spring-rcp.html</url>
         <properties>
             <jnlp.jar>true</jnlp.jar>

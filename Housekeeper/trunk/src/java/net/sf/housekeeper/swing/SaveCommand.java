@@ -25,7 +25,7 @@ import java.io.IOException;
 
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.persistence.ImportExportController;
-import net.sf.housekeeper.swing.util.ErrorDialog;
+import net.sf.housekeeper.swing.util.MessageFactory;
 import net.sf.housekeeper.util.ApplicationEventHelper;
 
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +34,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.richclient.command.ActionCommand;
 import org.springframework.richclient.command.support.ActionCommandInterceptorAdapter;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
+import org.springframework.richclient.dialog.MessageDialog;
 import org.springframework.util.Assert;
 
 /**
@@ -134,7 +135,7 @@ public final class SaveCommand extends ApplicationWindowAwareCommand implements
             {
                 LogFactory.getLog(getClass()).error("Could not save data",
                         exception);
-                final ErrorDialog dialog = new ErrorDialog(
+                final MessageDialog dialog = MessageFactory.INSTANCE.createErrorMessageDialog(
                         "gui.mainFrame.saveError", exception);
                 dialog.showDialog();
                 exception = null;

@@ -24,10 +24,11 @@ package net.sf.housekeeper.swing;
 import java.io.FileNotFoundException;
 
 import net.sf.housekeeper.persistence.ImportExportController;
-import net.sf.housekeeper.swing.util.ErrorDialog;
+import net.sf.housekeeper.swing.util.MessageFactory;
 
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
+import org.springframework.richclient.dialog.MessageDialog;
 import org.springframework.util.Assert;
 
 /**
@@ -77,12 +78,12 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
         } catch (FileNotFoundException exception)
         {
 
-            final ErrorDialog dialog = new ErrorDialog("gui.mainFrame.nodata",
+            final MessageDialog dialog = MessageFactory.INSTANCE.createErrorMessageDialog("gui.mainFrame.nodata",
                     exception);
             dialog.showDialog();
         } catch (Exception exception)
         {
-            final ErrorDialog dialog = new ErrorDialog(exception);
+            final MessageDialog dialog = MessageFactory.INSTANCE.createErrorMessageDialog(exception);
             dialog.showDialog();
         }
     }

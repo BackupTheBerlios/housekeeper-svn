@@ -28,7 +28,7 @@ import java.util.Locale;
 import javax.swing.JFileChooser;
 
 import net.sf.housekeeper.persistence.ImportExportController;
-import net.sf.housekeeper.swing.util.ErrorDialog;
+import net.sf.housekeeper.swing.util.MessageFactory;
 
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
@@ -36,6 +36,7 @@ import org.springframework.context.MessageSourceAware;
 import org.springframework.richclient.command.ActionCommand;
 import org.springframework.richclient.command.support.ActionCommandInterceptorAdapter;
 import org.springframework.richclient.command.support.ApplicationWindowAwareCommand;
+import org.springframework.richclient.dialog.MessageDialog;
 
 /**
  * Lets the user select a file and exports the current shopping list.
@@ -121,14 +122,17 @@ public final class ExportShoppingListCommand extends
     private class ErrorInterceptor extends ActionCommandInterceptorAdapter
     {
 
+        private static final String SAVE_ERROR_MESSAGE_ID = "gui.mainFrame.saveError";
+
         public void postExecution(ActionCommand arg0)
         {
             if (exception != null)
             {
                 LogFactory.getLog(getClass()).error("Could not export data",
                         exception);
-                final ErrorDialog dialog = new ErrorDialog(
-                        "gui.mainFrame.saveError", exception);
+                final MessageDialog dialog = MessageFactory.INSTANCE
+                        .createErrorMessageDialog(SAVE_ERROR_MESSAGE_ID,
+                                exception);
                 dialog.showDialog();
                 exception = null;
             }
