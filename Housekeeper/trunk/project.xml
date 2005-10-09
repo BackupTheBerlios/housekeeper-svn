@@ -216,18 +216,6 @@
     </dependency>
     
     <dependency>
-        <groupId>toedter</groupId>
-        <artifactId>jcalendar</artifactId>
-        <version>1.2.2</version>
-        <url>http://www.toedter.com/en/jcalendar/</url>
-        <properties>
-            <jnlp.jar>true</jnlp.jar>
-            <category>shared</category>
-            <jar.manifest.classpath>true</jar.manifest.classpath>
-        </properties>
-    </dependency>
-    
-    <dependency>
         <groupId>spring</groupId>
         <artifactId>spring-richclient</artifactId>
         <version>20051008</version>
@@ -293,6 +281,18 @@
         <version>20050722</version>
         <url>http://www.springframework.org</url>
         <properties>
+            <jnlp.jar>true</jnlp.jar>
+            <category>shared</category>
+            <jar.manifest.classpath>true</jar.manifest.classpath>
+        </properties>
+    </dependency>
+    
+    <dependency>
+    	<groupId>swingx</groupId>
+    	<artifactId>swingx</artifactId>
+    	<version>20051009</version>
+    	<url>https://swingx.dev.java.net</url>
+         <properties>
             <jnlp.jar>true</jnlp.jar>
             <category>shared</category>
             <jar.manifest.classpath>true</jar.manifest.classpath>
