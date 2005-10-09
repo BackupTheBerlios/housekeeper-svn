@@ -46,17 +46,16 @@ public final class ApplicationController
     /**
      * Starts the Housekeeper application with a Swing GUI.
      * 
-     * @param args
-     *            No parameters are used.
+     * @param args No parameters are used.
      */
     public static void main(final String[] args)
     {
         final int jreVersion = JdkVersion.getMajorJavaVersion();
-        final int minVersion = JdkVersion.JAVA_14;
+        final int minVersion = JdkVersion.JAVA_15;
         if (jreVersion < minVersion)
         {
             LogFactory.getLog(ApplicationController.class).fatal(
-                    "You need at least JRE 1.4 to run Housekeeper!");
+                    "You need at least JRE 5.0 to run Housekeeper!");
             System.exit(1);
         }
 
