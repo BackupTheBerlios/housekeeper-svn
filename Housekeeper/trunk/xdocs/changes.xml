@@ -1,141 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <document>
-    <properties>
-        <title>Change history</title>
-    </properties>
-    <body>
-      <release version="0.3.0" date="not yet">
-        <action dev="notizklotz" type="update" issue="4238">Multiple items can be deleted at once.</action>
-        <action dev="notizklotz" type="update">Minimum Java Runtime Environemnt changed to JRE 5.0</action>
-      </release>
-      <release version="0.2.7" date="2005-07-07">
-        <action dev="notizklotz" type="update" issue="4427">Category tree is fully expanded after startup.</action>
-        <action dev="notizklotz" type="update" issue="4443">Resized shopping cart icon to the same size as the other icons.</action>
-        <action dev="notizklotz" type="fix" issue="3961">Assigning a category as its own parent is prevented.</action>
-        <action dev="notizklotz" type="fix" issue="3962">Assigning a category's child as its parent is prevented.</action>
-        <action dev="notizklotz" type="fix" issue="4367">Existing categories could not be changed to root categories.</action>
-        <action dev="notizklotz" type="fix" issue="4404">Items on the shopping list could not be deleted.</action>
-      </release>
-      <release version="0.2.6" date="2005-06-24">
-        <action dev="notizklotz" type="add">Export shopping list as text file.</action>
-        <action dev="notizklotz" type="add">Shopping list feature added.</action>
-        <action dev="notizklotz" type="update" issue="4305">Simplified category selection in item editor dialog.</action>
-        <action dev="notizklotz" type="update">Application window title doesn't
-               show the version number anymore. It can still be found in the about dialog.</action>
-        <action dev="notizklotz" type="fix" issue="4318">"Save" command is now only enabled if data has changed.</action>
-        <action dev="notizklotz" type="remove" issue="4011">There aren't any default categories anymore.</action>
-        <action dev="notizklotz" type="remove" issue="4007">Support for data created with 
-          Housekeeper 0.2.3 and below has been dropped.</action>
-      </release>
-      <release version="0.2.5" date="2005-05-05">
-        <action dev="notizklotz" type="add">User defined categories.</action>
-        <action dev="notizklotz" type="add" issue="3522">Allow specification of
-          data file with command line parameter.</action>
-      </release>
-      <release version="0.2.4" date="2005-04-07">
-        <action dev="notizklotz" type="update" issue="3522">Use platform 
-          specific Look&amp;Feel.</action>
-        <action dev="notizklotz" type="update" issue="3620">Redesigned user 
-          interface to show only items of categories selected by the 
-          user.</action>
-        <action dev="notizklotz" type="update">Instead of individual buttons 
-          for creating items of different categories, the category of an item 
-          is set to the selected category.</action>
-        <action dev="notizklotz" type="add" issue="3495">Accept changes in food 
-          editor upon pressing enter.</action>
-        <action dev="notizklotz" type="fix" issue="3443">Button states not 
-          updated when removing all items.</action>
-        <action dev="notizklotz" type="fix" issue="3496">Select item beneath 
-          mouse cursor before popup menu is displayed.</action>
-        <action dev="notizklotz" type="fix" issue="3716">Unix start script 
-          works correctly if started from a file manager.</action>
-        <action dev="notizklotz" type="remove">Support for data created with 
-          Housekeeper 0.2.2 and below has been dropped.</action>
-      </release>
-      <release version="0.2.3" date="2005-03-01">
-        <action dev="notizklotz" type="add" issue="3441">The expiry date can 
-          now be selected using a calendar.</action>
-        <action dev="notizklotz" type="add">The tables now have 
-          a context menu for manipulating entries. </action>
-        <action dev="notizklotz" type="add">Double-clicking an 
-          entry in a table opens the editor for it. </action>
-        <action dev="notizklotz" type="add">Added a menu with the same actions 
-          as the toolbar.</action>
-        <action dev="notizklotz" type="add">Actions like 
-          deleting a food entry can now be executed by keyboard 
-          shortcuts.</action>
-        <action dev="notizklotz" type="add"> Show splash screen 
-          on startup.</action>
-        <action dev="notizklotz" type="update" 
-          issue="3432">Replaced the "quantity" attribute for food with a 
-          general "description" attribute.</action>
-        <action dev="notizklotz" type="update">Toolbar only 
-          shows icons.</action>
-        <action dev="notizklotz" type="update">Changed default Look and 
-          Feel.</action>
-      </release>
-      <release version="0.2.2" date="2005-01-27">
-        <action dev="notizklotz" type="add">Food items can now 
-          be added either to a list of convenience foods or miscellaneous 
-          food.</action>
-        <action dev="notizklotz" type="add">Added icons to the 
-          user interface.</action>
-        <action dev="notizklotz" type="fix"> Tables are resized 
-          if the window gets resized.</action>
-        <action dev="notizklotz" type="fix">The default window 
-          size has been changed to be more ergonomical.</action>
-      </release>
-      <release version="0.2.1" date="2005-01-02">
-        <action dev="notizklotz" type="add">German translations.</action>
-        <action dev="notizklotz" type="add">Support for multiple 
-          languages.</action>
-        <action dev="notizklotz" type="fix">Only ask the user 
-          if he wants to save the data before exiting if there have been any 
-          changes.</action>
-        <action dev="notizklotz" type="fix">Data is loaded 
-          automatically on application startup.</action>
-      </release>
-      <release version="0.2.0" date="2004-12-05">
-        <action dev="notizklotz" type="add">Added support for 
-          handling different file format versions. Future Housekeeper releases 
-          will now be able to open data generated with older application 
-          versions.</action>
-        <action dev="notizklotz" type="add">Ask user if he 
-          wants to save modifications before exiting the application.</action>
-        <action dev="notizklotz" type="fix">Fixed display 
-          problems when running under JRE 5.0.</action>
-        <action dev="notizklotz" type="fix">Items with no 
-          expiry date are now displayed after any item which has a specified 
-          expiry date in the default table sorting.</action>
-        <action dev="notizklotz" type="fix">Closing a dialog 
-          does now behave like pressing the Cancel button.</action>
-        <action dev="notizklotz" type="fix">Fixed a problem 
-          where actions on food items sometimes modified the wrong 
-          item.</action>
-        <action dev="notizklotz" type="fix">Food items are not 
-          forced to have an expiry date anymore.</action>
-      </release>
-      <release version="0.1.2a" date="2004-11-18">
-        <action dev="notizklotz" type="fix">Fixed application execution in 
-          Windows.</action>
-        <action dev="notizklotz" type="fix">Modified start script for Unix 
-          derivaties to enable application start from a file manager.</action>
-      </release>
-      <release version="0.1.2" date="2004-10-26">
-        <action dev="notizklotz" type="add"> Added logging 
-          component for display of messages in the console.</action>
-        <action dev="notizklotz" type="add"> Implemented robust 
-          persistence layer using JDOM for reading and writing XML. </action>
-      </release>
-      <release version="0.1.1" date="2004-07-07">
-        <action dev="notizklotz" type="add"> Added basic item management 
-          functionality. (Add, Delete, Modify, Duplicate) </action>
-        <action dev="notizklotz" type="add"> Items can be sorted by clicking on 
-          the table header. </action>
-        <action dev="notizklotz" type="add"> Simple saving and loading 
-          mechanism implemented. BUT: Files saved with this version will not be 
-          readable in the future anymore! </action>
-        <action dev="notizklotz" type="add"> Basic about dialog with 
-          information about the libraries which are used. </action>
-      </release>
-    </body>
-              </document>
+	<properties>
+		<title>Change history</title>
+	</properties>
+	<body>
+		<release date="not yet" version="0.3.0">
+			<action dev="notizklotz" issue="4238" type="update">Changed component for editing expiry dates.</action>
+			<action dev="notizklotz" issue="4238" type="update">Multiple items can be deleted at once.</action>
+			<action dev="notizklotz" type="update">Minimum Java Runtime Environemnt changed to JRE 5.0</action>
+		</release>
+		<release date="2005-07-07" version="0.2.7">
+			<action dev="notizklotz" issue="4427" type="update">Category tree is fully expanded after startup.</action>
+			<action dev="notizklotz" issue="4443" type="update">Resized shopping cart icon to the same size as the other icons.</action>
+			<action dev="notizklotz" issue="3961" type="fix">Assigning a category as its own parent is prevented.</action>
+			<action dev="notizklotz" issue="3962" type="fix">Assigning a category's child as its parent is prevented.</action>
+			<action dev="notizklotz" issue="4367" type="fix">Existing categories could not be changed to root categories.</action>
+			<action dev="notizklotz" issue="4404" type="fix">Items on the shopping list could not be deleted.</action>
+		</release>
+		<release date="2005-06-24" version="0.2.6">
+			<action dev="notizklotz" type="add">Export shopping list as text file.</action>
+			<action dev="notizklotz" type="add">Shopping list feature added.</action>
+			<action dev="notizklotz" issue="4305" type="update">Simplified category selection in item editor dialog.</action>
+			<action dev="notizklotz" type="update">Application window title doesn't                show the version number anymore. It can still be found in the about dialog.</action>
+			<action dev="notizklotz" issue="4318" type="fix">"Save" command is now only enabled if data has changed.</action>
+			<action dev="notizklotz" issue="4011" type="remove">There aren't any default categories anymore.</action>
+			<action dev="notizklotz" issue="4007" type="remove">Support for data created with            Housekeeper 0.2.3 and below has been dropped.</action>
+		</release>
+		<release date="2005-05-05" version="0.2.5">
+			<action dev="notizklotz" type="add">User defined categories.</action>
+			<action dev="notizklotz" issue="3522" type="add">Allow specification of           data file with command line parameter.</action>
+		</release>
+		<release date="2005-04-07" version="0.2.4">
+			<action dev="notizklotz" issue="3522" type="update">Use platform            specific Look&amp;Feel.</action>
+			<action dev="notizklotz" issue="3620" type="update">Redesigned user            interface to show only items of categories selected by the            user.</action>
+			<action dev="notizklotz" type="update">Instead of individual buttons            for creating items of different categories, the category of an item            is set to the selected category.</action>
+			<action dev="notizklotz" issue="3495" type="add">Accept changes in food            editor upon pressing enter.</action>
+			<action dev="notizklotz" issue="3443" type="fix">Button states not            updated when removing all items.</action>
+			<action dev="notizklotz" issue="3496" type="fix">Select item beneath            mouse cursor before popup menu is displayed.</action>
+			<action dev="notizklotz" issue="3716" type="fix">Unix start script            works correctly if started from a file manager.</action>
+			<action dev="notizklotz" type="remove">Support for data created with            Housekeeper 0.2.2 and below has been dropped.</action>
+		</release>
+		<release date="2005-03-01" version="0.2.3">
+			<action dev="notizklotz" issue="3441" type="add">The expiry date can            now be selected using a calendar.</action>
+			<action dev="notizklotz" type="add">The tables now have            a context menu for manipulating entries.</action>
+			<action dev="notizklotz" type="add">Double-clicking an            entry in a table opens the editor for it.</action>
+			<action dev="notizklotz" type="add">Added a menu with the same actions            as the toolbar.</action>
+			<action dev="notizklotz" type="add">Actions like            deleting a food entry can now be executed by keyboard            shortcuts.</action>
+			<action dev="notizklotz" type="add">Show splash screen            on startup.</action>
+			<action dev="notizklotz" issue="3432" type="update">Replaced the "quantity" attribute for food with a            general "description" attribute.</action>
+			<action dev="notizklotz" type="update">Toolbar only            shows icons.</action>
+			<action dev="notizklotz" type="update">Changed default Look and            Feel.</action>
+		</release>
+		<release date="2005-01-27" version="0.2.2">
+			<action dev="notizklotz" type="add">Food items can now            be added either to a list of convenience foods or miscellaneous            food.</action>
+			<action dev="notizklotz" type="add">Added icons to the            user interface.</action>
+			<action dev="notizklotz" type="fix">Tables are resized            if the window gets resized.</action>
+			<action dev="notizklotz" type="fix">The default window            size has been changed to be more ergonomical.</action>
+		</release>
+		<release date="2005-01-02" version="0.2.1">
+			<action dev="notizklotz" type="add">German translations.</action>
+			<action dev="notizklotz" type="add">Support for multiple            languages.</action>
+			<action dev="notizklotz" type="fix">Only ask the user            if he wants to save the data before exiting if there have been any            changes.</action>
+			<action dev="notizklotz" type="fix">Data is loaded            automatically on application startup.</action>
+		</release>
+		<release date="2004-12-05" version="0.2.0">
+			<action dev="notizklotz" type="add">Added support for            handling different file format versions. Future Housekeeper releases            will now be able to open data generated with older application            versions.</action>
+			<action dev="notizklotz" type="add">Ask user if he            wants to save modifications before exiting the application.</action>
+			<action dev="notizklotz" type="fix">Fixed display            problems when running under JRE 5.0.</action>
+			<action dev="notizklotz" type="fix">Items with no            expiry date are now displayed after any item which has a specified            expiry date in the default table sorting.</action>
+			<action dev="notizklotz" type="fix">Closing a dialog            does now behave like pressing the Cancel button.</action>
+			<action dev="notizklotz" type="fix">Fixed a problem            where actions on food items sometimes modified the wrong            item.</action>
+			<action dev="notizklotz" type="fix">Food items are not            forced to have an expiry date anymore.</action>
+		</release>
+		<release date="2004-11-18" version="0.1.2a">
+			<action dev="notizklotz" type="fix">Fixed application execution in            Windows.</action>
+			<action dev="notizklotz" type="fix">Modified start script for Unix            derivaties to enable application start from a file manager.</action>
+		</release>
+		<release date="2004-10-26" version="0.1.2">
+			<action dev="notizklotz" type="add">Added logging            component for display of messages in the console.</action>
+			<action dev="notizklotz" type="add">Implemented robust            persistence layer using JDOM for reading and writing XML.</action>
+		</release>
+		<release date="2004-07-07" version="0.1.1">
+			<action dev="notizklotz" type="add">Added basic item management            functionality. (Add, Delete, Modify, Duplicate)</action>
+			<action dev="notizklotz" type="add">Items can be sorted by clicking on            the table header.</action>
+			<action dev="notizklotz" type="add">Simple saving and loading            mechanism implemented. BUT: Files saved with this version will not be            readable in the future anymore!</action>
+			<action dev="notizklotz" type="add">Basic about dialog with            information about the libraries which are used.</action>
+		</release>
+	</body>
+</document>
