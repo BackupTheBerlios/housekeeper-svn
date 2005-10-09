@@ -180,6 +180,11 @@ public class ExpirableItem extends Item
      */
     public String toString()
     {
-        return new ToStringCreator(this).toString();
+        final ToStringCreator creator = new ToStringCreator(this);
+        creator.append(PROPERTYNAME_NAME, getName());
+        creator.append(PROPERTYNAME_DESCRIPTION, getDescription());
+        creator.append(PROPERTYNAME_CATEGORY, getCategory());
+        creator.append(PROPERTYNAME_EXPIRY, getExpiry());
+        return creator.toString();
     }
 }
