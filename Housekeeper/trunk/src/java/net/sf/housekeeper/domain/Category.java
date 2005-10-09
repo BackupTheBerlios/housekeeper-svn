@@ -21,11 +21,11 @@
 
 package net.sf.housekeeper.domain;
 
-import java.rmi.dgc.VMID;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.util.Assert;
 
@@ -96,7 +96,7 @@ public final class Category
     public Category(final String name)
     {
         Assert.notNull(name);
-        this.id = new VMID().toString();
+        this.id = UUID.randomUUID().toString();
         this.children = new LinkedHashSet<Category>();
         
         setName(name);
