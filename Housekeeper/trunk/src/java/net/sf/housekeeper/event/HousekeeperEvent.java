@@ -65,10 +65,8 @@ public class HousekeeperEvent extends ApplicationEvent
     /**
      * Creates a new event.
      * 
-     * @param eventType
-     *            The type of this event.
-     * @param source
-     *            The source of this event != null.
+     * @param eventType The type of this event.
+     * @param source The source of this event != null.
      */
     public HousekeeperEvent(String eventType, Object source)
     {
@@ -79,8 +77,7 @@ public class HousekeeperEvent extends ApplicationEvent
     /**
      * Returns true if the object os of the specified class.
      * 
-     * @param clazz
-     *            The class to test against.
+     * @param clazz The class to test against.
      * @return True, if the class matches, false otherwise.
      */
     public boolean objectIs(Class clazz)

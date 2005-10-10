@@ -79,8 +79,7 @@ public final class Factory
     /**
      * Creates the appropriate form an item.
      * 
-     * @param item
-     *            The item to create the form for.
+     * @param item The item to create the form for.
      * @return != null.
      */
     public static Form createForm(final Item item)

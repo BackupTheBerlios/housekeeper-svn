@@ -42,19 +42,25 @@ public class CustomDatePickerBinder extends AbstractBinder
         super(Date.class);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.richclient.form.binding.support.AbstractBinder#createControl(java.util.Map)
      */
     protected JComponent createControl(Map context)
     {
-        final JXDatePicker picker =  new JXDatePicker();
+        final JXDatePicker picker = new JXDatePicker();
         final DateFormat[] formats = { DateFormat.getDateInstance() };
         picker.setFormats(formats);
         return picker;
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.richclient.form.binding.support.AbstractBinder#doBind(javax.swing.JComponent, org.springframework.binding.form.FormModel, java.lang.String, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.richclient.form.binding.support.AbstractBinder#doBind(javax.swing.JComponent,
+     *      org.springframework.binding.form.FormModel, java.lang.String,
+     *      java.util.Map)
      */
     protected Binding doBind(JComponent control, FormModel formModel,
             String formPropertyPath, Map context)

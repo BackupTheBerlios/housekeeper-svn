@@ -41,8 +41,7 @@ public class ItemsTableModel extends BeanTableModel
     /**
      * Creates a new model.
      * 
-     * @param messages
-     *            The message source to get the column titles from. != null
+     * @param messages The message source to get the column titles from. != null
      */
     public ItemsTableModel(MessageSource messages)
     {
@@ -52,10 +51,8 @@ public class ItemsTableModel extends BeanTableModel
     /**
      * Creates a new model.
      * 
-     * @param beanClass
-     *            The class of the bean to display. != null
-     * @param messages
-     *            The message source to get the column titles from. != null
+     * @param beanClass The class of the bean to display. != null
+     * @param messages The message source to get the column titles from. != null
      */
     protected ItemsTableModel(Class beanClass, MessageSource messages)
     {

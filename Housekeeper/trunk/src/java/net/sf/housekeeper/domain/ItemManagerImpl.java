@@ -68,8 +68,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
     /**
      * Adds an object to the list.
      * 
-     * @param item
-     *            the item to add to the supply.
+     * @param item the item to add to the supply.
      */
     public void add(final Item item)
     {
@@ -86,8 +85,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
     /**
      * Adds a collection of items.
      * 
-     * @param items
-     *            The items to add.
+     * @param items The items to add.
      */
     public void addAll(final Collection items)
     {
@@ -102,8 +100,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
     /**
      * Duplicates the provided item and adds it to the to the list.
      * 
-     * @param item
-     *            The item to be duplicated.
+     * @param item The item to be duplicated.
      */
     public void duplicate(final ExpirableItem item)
     {
@@ -136,8 +133,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
      * Returns all items of a specific category and its sub-categories. If
      * category is null, then all items are returned.
      * 
-     * @param category
-     *            The category of the items.
+     * @param category The category of the items.
      * @return The items which match the category.
      */
     public List getItemsForCategory(final Category category)
@@ -165,10 +161,8 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
      * Reassigns all items of a category and its subcategories to another
      * category.
      * 
-     * @param oldCategory
-     *            The current category.
-     * @param newCategory
-     *            The new category to assign the items to.
+     * @param oldCategory The current category.
+     * @param newCategory The new category to assign the items to.
      */
     public void reassignToCategory(Category oldCategory, Category newCategory)
     {
@@ -184,10 +178,8 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
     /**
      * Removes an object from the supply.
      * 
-     * @param item
-     *            the item to remove from the supply.
-     * @throws IllegalArgumentException
-     *             if the item to be removed doesn't exist.
+     * @param item the item to remove from the supply.
+     * @throws IllegalArgumentException if the item to be removed doesn't exist.
      */
     public void remove(final Item item) throws IllegalArgumentException
     {
@@ -208,8 +200,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
     /**
      * Tests if an item exists.
      * 
-     * @param item !=
-     *            null.
+     * @param item != null.
      * @return True, if the item exists, false otherwise.
      */
     public boolean exists(final Item item)
@@ -220,8 +211,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
     /**
      * Clears the list of items and replaces it with a new one.
      * 
-     * @param newItems
-     *            The new items. Must not be null.
+     * @param newItems The new items. Must not be null.
      */
     public void replaceAll(final Collection newItems)
     {
@@ -235,8 +225,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
      * Updates an item in this manager. If you change an object you MUST call
      * this method so Observers can be notified of the update.
      * 
-     * @param item
-     *            The item which should be updated.
+     * @param item The item which should be updated.
      */
     public void update(final Item item)
     {
@@ -269,8 +258,7 @@ public final class ItemManagerImpl extends HousekeeperEventPublisher implements
     /**
      * Tries to find an item with a given name.
      * 
-     * @param name !=
-     *            null
+     * @param name != null
      * @return The first item with the given name or null if none exists.
      */
     public Item findItemWithName(String name)

@@ -74,8 +74,7 @@ public class Item
      * Creates a new item as a deep copy of an existing item. Note that the
      * "category" property is not deep copied.
      * 
-     * @param original
-     *            The item to be cloned.
+     * @param original The item to be cloned.
      */
     public Item(final Item original)
     {
@@ -87,10 +86,8 @@ public class Item
     /**
      * Creates a new item with the given attributes.
      * 
-     * @param name
-     *            The name of the item. Must not be null.
-     * @param description
-     *            A description for this item.
+     * @param name The name of the item. Must not be null.
+     * @param description A description for this item.
      */
     public Item(final String name, final String description)
     {
@@ -107,8 +104,7 @@ public class Item
     }
 
     /**
-     * @param category
-     *            The category to set.
+     * @param category The category to set.
      */
     public void setCategory(Category category)
     {
@@ -132,10 +128,8 @@ public class Item
     /**
      * Sets the name of this item.
      * 
-     * @param name
-     *            The name to set. Must not be null.
-     * @throws IllegalArgumentException
-     *             if name is null.
+     * @param name The name to set. Must not be null.
+     * @throws IllegalArgumentException if name is null.
      */
     public void setName(final String name)
     {
@@ -160,8 +154,7 @@ public class Item
     /**
      * Sets the description for this item.
      * 
-     * @param description
-     *            The descrption to set.
+     * @param description The descrption to set.
      */
     public void setDescription(final String description)
     {

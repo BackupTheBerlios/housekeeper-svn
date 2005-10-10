@@ -163,10 +163,8 @@ public final class HousekeeperApplicationPage extends DefaultApplicationPage
     /**
      * Adds a listener to a Component and all its children.
      * 
-     * @param comp
-     *            The component.
-     * @param listener
-     *            The listener.
+     * @param comp The component.
+     * @param listener The listener.
      */
     private void addMouseListener(final Component comp,
             final MouseListener listener)

@@ -135,8 +135,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
     }
 
     /**
-     * @param customPopupMenuEntries
-     *            The customPopupMenuEntries to set.
+     * @param customPopupMenuEntries The customPopupMenuEntries to set.
      */
     public void setCustomPopupMenuEntries(List<Object> customPopupMenuEntries)
     {
@@ -144,8 +143,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
     }
 
     /**
-     * @param itemClass
-     *            The itemClass to set.
+     * @param itemClass The itemClass to set.
      */
     public void setItemClass(String itemClass)
     {
@@ -175,8 +173,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
     /**
      * Sets the table this view shall use.
      * 
-     * @param table !=
-     *            null
+     * @param table != null
      */
     public void setTable(SortableTable table)
     {

@@ -84,8 +84,7 @@ public final class PersistenceController
     /**
      * Loads the saved data using the default {@link PersistenceService}.
      * 
-     * @throws IOException
-     *             If the data couldn't be retrieved.
+     * @throws IOException If the data couldn't be retrieved.
      */
     public Household load() throws IOException
     {
@@ -102,10 +101,8 @@ public final class PersistenceController
      * Persistently saves domain objects using the default
      * {@link PersistenceService}.
      * 
-     * @param domain
-     *            The domain which shall be saved.
-     * @throws IOException
-     *             If the data couldn't be stored.
+     * @param domain The domain which shall be saved.
+     * @throws IOException If the data couldn't be stored.
      */
     public void save(final Household domain) throws IOException
     {

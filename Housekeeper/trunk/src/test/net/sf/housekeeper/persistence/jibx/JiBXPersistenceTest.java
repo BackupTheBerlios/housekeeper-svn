@@ -96,8 +96,7 @@ public final class JiBXPersistenceTest extends XMLTestCase
      * Creates a temporary file which gets deleted on VM exit.
      * 
      * @return A file which didn't exist before.
-     * @throws IOException
-     *             If any error occurs.
+     * @throws IOException If any error occurs.
      */
     public File createTempFile() throws IOException
     {

@@ -40,8 +40,7 @@ public final class HighLevelManager
     private ItemManager shoppingListManager;
 
     /**
-     * @param shoppingListManager
-     *            The shoppingListManager to set.
+     * @param shoppingListManager The shoppingListManager to set.
      */
     public void setShoppingListManager(ItemManager shoppingListManager)
     {
@@ -49,8 +48,7 @@ public final class HighLevelManager
     }
 
     /**
-     * @param supplyManager
-     *            The supplyManager to set.
+     * @param supplyManager The supplyManager to set.
      */
     public void setSupplyManager(ItemManager supplyManager)
     {
@@ -62,10 +60,8 @@ public final class HighLevelManager
      * {@link ShoppingListItem}and adds them to the supply. Also, the
      * SupplyItem is removed from the ShoppingList.
      * 
-     * @param boughtItem !=
-     *            null. Must exist in the shopping list.
-     * @throws IllegalArgumentException
-     *             if the item isn't on the shopping list.
+     * @param boughtItem != null. Must exist in the shopping list.
+     * @throws IllegalArgumentException if the item isn't on the shopping list.
      */
     public void buy(ShoppingListItem boughtItem, ExpirableItem itemPrototype)
             throws IllegalArgumentException
@@ -85,16 +81,15 @@ public final class HighLevelManager
     /**
      * Creates a number of {@link ExpirableItem}s.
      * 
-     * @param prototype
-     *            A prototype for the items to create. != null
-     * @param quantity
-     *            The number of items to create. > 0
+     * @param prototype A prototype for the items to create. != null
+     * @param quantity The number of items to create. > 0
      * @return The created {@link ExpirableItem}s. != null
      */
     public Collection<ExpirableItem> createSupplyItems(final int quantity,
             final ExpirableItem prototype)
     {
-        final ArrayList<ExpirableItem> createdItems = new ArrayList<ExpirableItem>(quantity);
+        final ArrayList<ExpirableItem> createdItems = new ArrayList<ExpirableItem>(
+                quantity);
         createdItems.add(prototype);
 
         for (int i = 1; i < quantity; i++)

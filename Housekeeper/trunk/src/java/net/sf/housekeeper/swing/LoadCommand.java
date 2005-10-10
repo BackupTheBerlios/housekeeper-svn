@@ -53,8 +53,7 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
     }
 
     /**
-     * @param importExportController
-     *            The importExportController to set.
+     * @param importExportController The importExportController to set.
      */
     public void setImportExportController(
             ImportExportController importExportController)
@@ -78,12 +77,13 @@ public final class LoadCommand extends ApplicationWindowAwareCommand
         } catch (FileNotFoundException exception)
         {
 
-            final MessageDialog dialog = MessageFactory.INSTANCE.createErrorMessageDialog("gui.mainFrame.nodata",
-                    exception);
+            final MessageDialog dialog = MessageFactory.INSTANCE
+                    .createErrorMessageDialog("gui.mainFrame.nodata", exception);
             dialog.showDialog();
         } catch (Exception exception)
         {
-            final MessageDialog dialog = MessageFactory.INSTANCE.createErrorMessageDialog(exception);
+            final MessageDialog dialog = MessageFactory.INSTANCE
+                    .createErrorMessageDialog(exception);
             dialog.showDialog();
         }
     }

@@ -47,8 +47,7 @@ public class ShoppingListItem extends Item
     }
 
     /**
-     * @param quantity
-     *            The quantity to set.
+     * @param quantity The quantity to set.
      */
     public void setQuantity(int quantity)
     {

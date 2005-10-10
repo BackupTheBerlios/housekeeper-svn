@@ -99,11 +99,10 @@ public final class UIFSplitPane extends JSplitPane
      * Constructs a UIFSplitPane configured with the specified orientation and
      * no continuous layout.
      * 
-     * @param newOrientation
-     *            JSplitPane.HORIZONTAL_SPLIT or JSplitPane.VERTICAL_SPLIT
-     * @throws IllegalArgumentException
-     *             if orientation is not one of HORIZONTAL_SPLIT or
-     *             VERTICAL_SPLIT.
+     * @param newOrientation JSplitPane.HORIZONTAL_SPLIT or
+     *            JSplitPane.VERTICAL_SPLIT
+     * @throws IllegalArgumentException if orientation is not one of
+     *             HORIZONTAL_SPLIT or VERTICAL_SPLIT.
      */
     public UIFSplitPane(int newOrientation)
     {
@@ -114,15 +113,13 @@ public final class UIFSplitPane extends JSplitPane
      * Constructs a UIFSplitPane with the specified orientation and redrawing
      * style.
      * 
-     * @param newOrientation
-     *            JSplitPane.HORIZONTAL_SPLIT or JSplitPane.VERTICAL_SPLIT
-     * @param newContinuousLayout
-     *            a boolean, true for the components to redraw continuously as
-     *            the divider changes position, false to wait until the divider
-     *            position stops changing to redraw
-     * @throws IllegalArgumentException
-     *             if orientation is not one of HORIZONTAL_SPLIT or
-     *             VERTICAL_SPLIT
+     * @param newOrientation JSplitPane.HORIZONTAL_SPLIT or
+     *            JSplitPane.VERTICAL_SPLIT
+     * @param newContinuousLayout a boolean, true for the components to redraw
+     *            continuously as the divider changes position, false to wait
+     *            until the divider position stops changing to redraw
+     * @throws IllegalArgumentException if orientation is not one of
+     *             HORIZONTAL_SPLIT or VERTICAL_SPLIT
      */
     public UIFSplitPane(int newOrientation, boolean newContinuousLayout)
     {
@@ -133,19 +130,16 @@ public final class UIFSplitPane extends JSplitPane
      * Constructs a UIFSplitPane with the specified orientation and the given
      * componenents.
      * 
-     * @param orientation
-     *            JSplitPane.HORIZONTAL_SPLIT or JSplitPane.VERTICAL_SPLIT
-     * @param leftComponent
-     *            the Component that will appear on the left of a
+     * @param orientation JSplitPane.HORIZONTAL_SPLIT or
+     *            JSplitPane.VERTICAL_SPLIT
+     * @param leftComponent the Component that will appear on the left of a
      *            horizontally-split pane, or at the top of a vertically-split
      *            pane
-     * @param rightComponent
-     *            the Component that will appear on the right of a
+     * @param rightComponent the Component that will appear on the right of a
      *            horizontally-split pane, or at the bottom of a
      *            vertically-split pane
-     * @throws IllegalArgumentException
-     *             if orientation is not one of: HORIZONTAL_SPLIT or
-     *             VERTICAL_SPLIT
+     * @throws IllegalArgumentException if orientation is not one of:
+     *             HORIZONTAL_SPLIT or VERTICAL_SPLIT
      */
     public UIFSplitPane(int orientation, Component leftComponent,
             Component rightComponent)
@@ -157,23 +151,19 @@ public final class UIFSplitPane extends JSplitPane
      * Constructs a UIFSplitPane with the specified orientation, redrawing
      * style, and given components.
      * 
-     * @param orientation
-     *            JSplitPane.HORIZONTAL_SPLIT or JSplitPane.VERTICAL_SPLIT
-     * @param continuousLayout
-     *            a boolean, true for the components to redraw continuously as
-     *            the divider changes position, false to wait until the divider
-     *            position stops changing to redraw
-     * @param leftComponent
-     *            the Component that will appear on the left of a
+     * @param orientation JSplitPane.HORIZONTAL_SPLIT or
+     *            JSplitPane.VERTICAL_SPLIT
+     * @param continuousLayout a boolean, true for the components to redraw
+     *            continuously as the divider changes position, false to wait
+     *            until the divider position stops changing to redraw
+     * @param leftComponent the Component that will appear on the left of a
      *            horizontally-split pane, or at the top of a vertically-split
      *            pane
-     * @param rightComponent
-     *            the Component that will appear on the right of a
+     * @param rightComponent the Component that will appear on the right of a
      *            horizontally-split pane, or at the bottom of a
      *            vertically-split pane
-     * @throws IllegalArgumentException
-     *             if orientation is not one of HORIZONTAL_SPLIT or
-     *             VERTICAL_SPLIT
+     * @throws IllegalArgumentException if orientation is not one of
+     *             HORIZONTAL_SPLIT or VERTICAL_SPLIT
      */
     public UIFSplitPane(int orientation, boolean continuousLayout,
             Component leftComponent, Component rightComponent)
@@ -186,20 +176,17 @@ public final class UIFSplitPane extends JSplitPane
      * Constructs a UIFSplitPane, i.e. a JSplitPane that has no borders. Also
      * disabled the one touch exandable property.
      * 
-     * @param orientation
-     *            JSplitPane.HORIZONTAL_SPLIT or JSplitPane.VERTICAL_SPLIT
-     * @param leftComponent
-     *            the Component that will appear on the left of a
+     * @param orientation JSplitPane.HORIZONTAL_SPLIT or
+     *            JSplitPane.VERTICAL_SPLIT
+     * @param leftComponent the Component that will appear on the left of a
      *            horizontally-split pane, or at the top of a vertically-split
      *            pane
-     * @param rightComponent
-     *            the Component that will appear on the right of a
+     * @param rightComponent the Component that will appear on the right of a
      *            horizontally-split pane, or at the bottom of a
      *            vertically-split pane
      * @return != null
-     * @throws IllegalArgumentException
-     *             if orientation is not one of: HORIZONTAL_SPLIT or
-     *             VERTICAL_SPLIT
+     * @throws IllegalArgumentException if orientation is not one of:
+     *             HORIZONTAL_SPLIT or VERTICAL_SPLIT
      */
     public static UIFSplitPane createStrippedSplitPane(int orientation,
             Component leftComponent, Component rightComponent)
@@ -232,8 +219,7 @@ public final class UIFSplitPane extends JSplitPane
      * always show a divider border, and conversely, others will never show a
      * divider border.
      * 
-     * @param newVisibility
-     *            true for visible, false for invisible
+     * @param newVisibility true for visible, false for invisible
      */
     public void setDividerBorderVisible(boolean newVisibility)
     {

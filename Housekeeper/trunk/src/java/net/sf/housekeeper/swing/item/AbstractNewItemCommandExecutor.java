@@ -51,8 +51,7 @@ public abstract class AbstractNewItemCommandExecutor extends
     /**
      * Sets the {@link ItemManager}for adding newly created items.
      * 
-     * @param itemManager !=
-     *            null
+     * @param itemManager != null
      */
     public void setManager(final ItemManager itemManager)
     {
@@ -90,8 +89,7 @@ public abstract class AbstractNewItemCommandExecutor extends
     /**
      * Callback method to provide the actual form to show.
      * 
-     * @param object
-     *            The object to create the form for.
+     * @param object The object to create the form for.
      * @return != null
      */
     protected abstract Form createForm(Item object);

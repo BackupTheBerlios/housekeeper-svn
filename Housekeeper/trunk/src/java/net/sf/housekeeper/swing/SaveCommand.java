@@ -89,8 +89,7 @@ public final class SaveCommand extends ApplicationWindowAwareCommand implements
     }
 
     /**
-     * @param importExportController
-     *            The importExportController to set.
+     * @param importExportController The importExportController to set.
      */
     public void setImportExportController(
             ImportExportController importExportController)
@@ -99,8 +98,7 @@ public final class SaveCommand extends ApplicationWindowAwareCommand implements
     }
 
     /**
-     * @param eventHelper
-     *            The eventHelper to set.
+     * @param eventHelper The eventHelper to set.
      */
     public void setEventHelper(ApplicationEventHelper eventHelper)
     {
@@ -135,8 +133,9 @@ public final class SaveCommand extends ApplicationWindowAwareCommand implements
             {
                 LogFactory.getLog(getClass()).error("Could not save data",
                         exception);
-                final MessageDialog dialog = MessageFactory.INSTANCE.createErrorMessageDialog(
-                        "gui.mainFrame.saveError", exception);
+                final MessageDialog dialog = MessageFactory.INSTANCE
+                        .createErrorMessageDialog("gui.mainFrame.saveError",
+                                exception);
                 dialog.showDialog();
                 exception = null;
             } else

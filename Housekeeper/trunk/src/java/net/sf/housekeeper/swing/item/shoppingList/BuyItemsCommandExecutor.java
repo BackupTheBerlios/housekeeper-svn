@@ -59,7 +59,7 @@ public final class BuyItemsCommandExecutor extends
     private HighLevelManager highLevelManager;
 
     /**
-     *  
+     * 
      */
     public BuyItemsCommandExecutor()
     {
@@ -67,8 +67,7 @@ public final class BuyItemsCommandExecutor extends
     }
 
     /**
-     * @param viewDescriptor
-     *            The viewDescriptor to set.
+     * @param viewDescriptor The viewDescriptor to set.
      */
     public void setViewDescriptor(ViewDescriptor viewDescriptor)
     {
@@ -76,8 +75,7 @@ public final class BuyItemsCommandExecutor extends
     }
 
     /**
-     * @param highLevelManager
-     *            The highLevelManager to set.
+     * @param highLevelManager The highLevelManager to set.
      */
     public void setHighLevelManager(HighLevelManager highLevelManager)
     {

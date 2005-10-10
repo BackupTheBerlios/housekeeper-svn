@@ -28,7 +28,9 @@ import org.springframework.richclient.dialog.MessageDialog;
 
 /**
  * Factory for creating localized
- * {@link org.springframework.richclient.core.Message}s and {@link org.springframework.richclient.dialog.MessageDialog}s from message IDs.
+ * {@link org.springframework.richclient.core.Message}s and
+ * {@link org.springframework.richclient.dialog.MessageDialog}s from message
+ * IDs.
  * 
  * @author Adrian Gygax
  */
@@ -51,7 +53,8 @@ public final class MessageFactory extends ApplicationServicesAccessor
     }
 
     /**
-     * Creates a localized {@link Message} of severity {@link Severity#ERROR} for a given message ID.
+     * Creates a localized {@link Message} of severity {@link Severity#ERROR}
+     * for a given message ID.
      * 
      * @param messageID Message ID of the localized message.
      * @param exception If != null, the exception's message is added.
@@ -97,7 +100,8 @@ public final class MessageFactory extends ApplicationServicesAccessor
     }
 
     /**
-     *  Creates a {@link MessageDialog} for with a localized message and the message of an Exception.
+     * Creates a {@link MessageDialog} for with a localized message and the
+     * message of an Exception.
      * 
      * @param messageID The ID of the localized message.
      * @param exception The exception.

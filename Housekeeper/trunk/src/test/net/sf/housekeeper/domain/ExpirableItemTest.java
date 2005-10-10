@@ -182,7 +182,7 @@ public final class ExpirableItemTest extends TestCase
     {
         final Item i = new Item();
         final ExpirableItem expItem = new ExpirableItem(i);
-        
+
         assertEquals(i.getName(), expItem.getName());
         assertEquals(i.getDescription(), expItem.getDescription());
         assertEquals(i.getCategory(), expItem.getCategory());

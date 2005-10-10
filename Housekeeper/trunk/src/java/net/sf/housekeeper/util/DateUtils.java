@@ -30,7 +30,8 @@ import java.util.Date;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id$
+ * @version $Id: DateUtils.java 724 2005-10-09 20:45:28 +0200 (So, 09 Okt 2005)
+ *          notizklotz $
  */
 public final class DateUtils
 {
@@ -41,17 +42,14 @@ public final class DateUtils
      */
     public final static int SEMI_MONTH = 1001;
 
-    private static final int[][] fields = {
-            { Calendar.MILLISECOND },
-            { Calendar.SECOND },
-            { Calendar.MINUTE },
+    private static final int[][] fields = { { Calendar.MILLISECOND },
+            { Calendar.SECOND }, { Calendar.MINUTE },
             { Calendar.HOUR_OF_DAY, Calendar.HOUR },
             { Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM /*
                                                                      * Calendar.DAY_OF_YEAR,
                                                                      * Calendar.DAY_OF_WEEK,
                                                                      * Calendar.DAY_OF_WEEK_IN_MONTH
-                                                                     */},
-            { Calendar.MONTH, DateUtils.SEMI_MONTH }, { Calendar.YEAR },
+                                                                     */}, { Calendar.MONTH, DateUtils.SEMI_MONTH }, { Calendar.YEAR },
             { Calendar.ERA } };
 
     // -----------------------------------------------------------------------
@@ -66,16 +64,12 @@ public final class DateUtils
      * passed with MONTH, it would return 1 Mar 2002 0:00:00.000.
      * </p>
      * 
-     * @param date
-     *            the date to work with
-     * @param field
-     *            the field from <code>Calendar</code> or
+     * @param date the date to work with
+     * @param field the field from <code>Calendar</code> or
      *            <code>SEMI_MONTH</code>
      * @return the rounded date
-     * @throws IllegalArgumentException
-     *             if the date is <code>null</code>
-     * @throws ArithmeticException
-     *             if the year is over 280 million
+     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ArithmeticException if the year is over 280 million
      */
     public static Date truncate(Date date, int field)
     {
@@ -95,14 +89,10 @@ public final class DateUtils
      * Internal calculation method.
      * </p>
      * 
-     * @param val
-     *            the calendar
-     * @param field
-     *            the field constant
-     * @param round
-     *            true to round, false to truncate
-     * @throws ArithmeticException
-     *             if the year is over 280 million
+     * @param val the calendar
+     * @param field the field constant
+     * @param round true to round, false to truncate
+     * @throws ArithmeticException if the year is over 280 million
      */
     private static void modify(Calendar val, int field, boolean round)
     {

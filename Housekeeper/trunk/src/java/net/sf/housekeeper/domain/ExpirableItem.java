@@ -59,8 +59,7 @@ public class ExpirableItem extends Item
     /**
      * Creates a clone of an existing item. The expiry date is not set.
      * 
-     * @param original
-     *            The item to be cloned.
+     * @param original The item to be cloned.
      */
     public ExpirableItem(Item original)
     {
@@ -70,8 +69,7 @@ public class ExpirableItem extends Item
     /**
      * Creates a new item as a deep copy of an existing ExpirableItem object.
      * 
-     * @param original
-     *            The item to be cloned.
+     * @param original The item to be cloned.
      */
     public ExpirableItem(final ExpirableItem original)
     {
@@ -89,12 +87,9 @@ public class ExpirableItem extends Item
     /**
      * Creates a new ExpirableItem object with specified values and no category.
      * 
-     * @param name
-     *            The name of the item. Must not be null.
-     * @param quantity
-     *            The quantity which one exemplar of this item contains.
-     * @param expiry
-     *            The date until this item should be consumed.
+     * @param name The name of the item. Must not be null.
+     * @param quantity The quantity which one exemplar of this item contains.
+     * @param expiry The date until this item should be consumed.
      */
     public ExpirableItem(final String name, final String quantity,
             final Date expiry)
@@ -107,8 +102,7 @@ public class ExpirableItem extends Item
      * Sets the expiry date. A value of null specifies that the expiry for this
      * item should not be set to a value.
      * 
-     * @param expiry
-     *            The new expiry date or null to unset the date.
+     * @param expiry The new expiry date or null to unset the date.
      */
     public void setExpiry(final Date expiry)
     {

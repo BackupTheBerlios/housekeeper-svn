@@ -48,8 +48,7 @@ public final class SortableTable extends JTable
     /**
      * Creates a new list.
      * 
-     * @param model !=
-     *            null
+     * @param model != null
      */
     public SortableTable(BaseTableModel model)
     {
@@ -66,8 +65,7 @@ public final class SortableTable extends JTable
     /**
      * Sorts the table by a column.
      * 
-     * @param column
-     *            The number of the column.
+     * @param column The number of the column.
      */
     public void sortByColumn(int column)
     {
@@ -138,8 +136,7 @@ public final class SortableTable extends JTable
     /**
      * Returns true if this table contains a specific object.
      * 
-     * @param object
-     *            The object to test. != null
+     * @param object The object to test. != null
      * @return True if the table contains this object. False otherwise.
      */
     public boolean contains(Object object)
@@ -151,8 +148,7 @@ public final class SortableTable extends JTable
     /**
      * Adds an object.
      * 
-     * @param object !=
-     *            null
+     * @param object != null
      */
     public void add(Object object)
     {
@@ -162,8 +158,7 @@ public final class SortableTable extends JTable
     /**
      * Removes an item.
      * 
-     * @param object !=
-     *            null
+     * @param object != null
      */
     public void remove(Object object)
     {
@@ -174,8 +169,7 @@ public final class SortableTable extends JTable
     /**
      * Replaces all objects in this table with other ones.
      * 
-     * @param objects
-     *            A list of objects.
+     * @param objects A list of objects.
      */
     public void replaceAll(List objects)
     {
