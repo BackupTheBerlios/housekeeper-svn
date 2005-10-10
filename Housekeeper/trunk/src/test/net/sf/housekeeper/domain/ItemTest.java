@@ -27,20 +27,21 @@ public class ItemTest extends TestCase
 {
 
     private Item item;
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception
     {
         item = new Item();
     }
-    
+
     public void testSetNullCategory()
     {
         item.setCategory(Category.NULL_OBJECT);
         assertNull(item.getCategory());
     }
-    
 
 }

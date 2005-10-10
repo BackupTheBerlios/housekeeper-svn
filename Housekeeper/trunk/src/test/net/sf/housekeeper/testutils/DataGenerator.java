@@ -23,10 +23,10 @@ package net.sf.housekeeper.testutils;
 
 import java.util.Calendar;
 
-import net.sf.housekeeper.domain.CategoryManager;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.domain.ItemManagerImpl;
+import net.sf.housekeeper.domain.inmemory.InMemoryCategoryDAO;
 
 import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
@@ -129,9 +129,9 @@ public final class DataGenerator
      * 
      * @return != null
      */
-    public static CategoryManager createEmptyCategoryManager()
+    public static InMemoryCategoryDAO createEmptyCategoryManager()
     {
-        CategoryManager manager = new CategoryManager();
+        InMemoryCategoryDAO manager = new InMemoryCategoryDAO();
         manager.setApplicationContext(createApplicationContextMock());
         manager.setSupplyManager(createItemManagerMock());
         return manager;

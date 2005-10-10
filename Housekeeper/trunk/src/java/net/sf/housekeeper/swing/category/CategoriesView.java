@@ -32,7 +32,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.CategoryManager;
+import net.sf.housekeeper.domain.CategoryDAO;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.apache.commons.logging.Log;
@@ -61,7 +61,7 @@ public final class CategoriesView extends AbstractView implements
 
     private static final Log LOG = LogFactory.getLog(CategoriesView.class);
 
-    private CategoryManager categoryManager;
+    private CategoryDAO categoryDAO;
 
     private CategoryTree tree;
 
@@ -70,14 +70,13 @@ public final class CategoriesView extends AbstractView implements
     private final DeleteCommandExecutor deleteCommand = new DeleteCommandExecutor();
 
     /**
-     * Sets the category manager to be used.
+     * Sets the DAO to be used.
      * 
-     * @param manager
-     *            the category manager to be used.
+     * @param categoryDAO != null
      */
-    public void setCategoryManager(CategoryManager manager)
+    public void setCategoryDAO(CategoryDAO categoryDAO)
     {
-        this.categoryManager = manager;
+        this.categoryDAO = categoryDAO;
     }
 
     /*
@@ -104,7 +103,7 @@ public final class CategoriesView extends AbstractView implements
     {
         LOG.debug("Refreshing view");
 
-        final Collection cats = categoryManager.getTopLevelCategories();
+        final Collection cats = categoryDAO.findAllTopLevelCategories();
         tree.setCategories(cats);
     }
 
@@ -210,10 +209,8 @@ public final class CategoriesView extends AbstractView implements
         public void execute()
         {
             final Category category = tree.getSelectedCategory();
-            final Category oldParent = category.getParent();
-
             final CategoryPropertiesForm form = new CategoryPropertiesForm(
-                    category, categoryManager.getAllCategoriesInclusiveNullExcept(category));
+                    category, categoryDAO.findAllInclusiveNullExcept(category));
 
             final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
                     new FormBackedDialogPage(form))
@@ -227,7 +224,7 @@ public final class CategoriesView extends AbstractView implements
                 protected boolean onFinish()
                 {
                     form.commit();
-                    categoryManager.update(category, oldParent);
+                    categoryDAO.store(category);
                     return true;
                 }
             };
@@ -241,7 +238,7 @@ public final class CategoriesView extends AbstractView implements
         public void execute()
         {
             final Category selectedItem = tree.getSelectedCategory();
-            categoryManager.remove(selectedItem);
+            categoryDAO.delete(selectedItem);
         }
     }
 

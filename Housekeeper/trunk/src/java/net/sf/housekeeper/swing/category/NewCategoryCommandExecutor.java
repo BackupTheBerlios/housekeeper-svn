@@ -22,7 +22,7 @@
 package net.sf.housekeeper.swing.category;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.CategoryManager;
+import net.sf.housekeeper.domain.CategoryDAO;
 
 import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
 import org.springframework.richclient.dialog.FormBackedDialogPage;
@@ -36,7 +36,7 @@ public final class NewCategoryCommandExecutor extends
         AbstractActionCommandExecutor
 {
 
-    private CategoryManager categoryManager;
+    private CategoryDAO categoryDAO;
 
     /**
      * Creates a new executor which is always enabled.
@@ -53,14 +53,14 @@ public final class NewCategoryCommandExecutor extends
      */
     public void execute()
     {
-        Assert.notNull(categoryManager);
+        Assert.notNull(categoryDAO);
 
         final Category newCategory = new Category();
         final Category parentCategory = Category.getSelectedCategory();
         newCategory.setParent(parentCategory);
 
         final CategoryPropertiesForm form = new CategoryPropertiesForm(
-                newCategory, categoryManager.getAllCategoriesInclusiveNull());
+                newCategory, categoryDAO.findAllInclusiveNull());
 
         final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
         final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
@@ -75,7 +75,7 @@ public final class NewCategoryCommandExecutor extends
             protected boolean onFinish()
             {
                 form.commit();
-                categoryManager.add(newCategory);
+                categoryDAO.store(newCategory);
                 return true;
             }
         };
@@ -83,15 +83,14 @@ public final class NewCategoryCommandExecutor extends
     }
 
     /**
-     * Sets the {@link CategoryManager}for adding newly created categories.
+     * Sets the DAO for adding newly created categories.
      * 
-     * @param categoryManager !=
-     *            null
+     * @param categoryDAO != null
      */
-    public void setCategoryManager(CategoryManager categoryManager)
+    public void setCategoryDAO(CategoryDAO categoryDAO)
     {
-        Assert.notNull(categoryManager);
+        Assert.notNull(categoryDAO);
 
-        this.categoryManager = categoryManager;
+        this.categoryDAO = categoryDAO;
     }
 }

@@ -148,8 +148,8 @@
               </key>
               <bean 
                  class="net.sf.housekeeper.swing.binding.CategoryBinder">
-                 <property name="categoryManager">
-                    <ref bean="categoryManager"/>
+                 <property name="categoryDAO">
+                    <ref bean="categoryDAO"/>
                  </property>
               </bean>
             </entry>

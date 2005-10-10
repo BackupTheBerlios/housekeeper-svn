@@ -27,7 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-import net.sf.housekeeper.domain.CategoryManager;
+import net.sf.housekeeper.domain.CategoryDAO;
 import net.sf.housekeeper.domain.ItemManager;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
@@ -47,7 +47,7 @@ public final class ImportExportController implements ApplicationContextAware
 
     private ApplicationContext applicationContext;
 
-    private CategoryManager categoryManager;
+    private CategoryDAO categoryDAO;
 
     private PersistenceController persistenceController;
 
@@ -58,31 +58,29 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * Exports all data.
      * 
-     * @throws IOException
-     *             if the data could not be saved.
+     * @throws IOException if the data could not be saved.
      */
     public void exportData() throws IOException
     {
-        Assert.notNull(categoryManager);
+        Assert.notNull(categoryDAO);
         Assert.notNull(persistenceController);
         Assert.notNull(shoppingListManager);
         Assert.notNull(supplyManager);
 
         final Household household = new Household(supplyManager.getAllItems(),
-                shoppingListManager.getAllItems(), categoryManager
-                        .getTopLevelCategories());
+                shoppingListManager.getAllItems(), categoryDAO
+                        .findAllTopLevelCategories());
         persistenceController.save(household);
     }
 
     /**
      * Replaces all data with saved ones.
      * 
-     * @throws IOException
-     *             if the data could not be read.
+     * @throws IOException if the data could not be read.
      */
     public void importData() throws IOException
     {
-        Assert.notNull(categoryManager);
+        Assert.notNull(categoryDAO);
         Assert.notNull(persistenceController);
         Assert.notNull(shoppingListManager);
         Assert.notNull(supplyManager);
@@ -90,7 +88,8 @@ public final class ImportExportController implements ApplicationContextAware
         final Household h = persistenceController.load();
         supplyManager.replaceAll(h.getSupply());
         shoppingListManager.replaceAll(h.getShoppingList());
-        categoryManager.replaceAll(h.getCategories());
+        categoryDAO.deleteAll();
+        categoryDAO.store(h.getCategories());
 
         if (applicationContext != null)
         {
@@ -102,10 +101,8 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * Exports the shopping list to a text file.
      * 
-     * @param outputFile
-     *            The file to export to. != null
-     * @throws IOException
-     *             if the file could not be saved.
+     * @param outputFile The file to export to. != null
+     * @throws IOException if the file could not be saved.
      */
     public void exportShoppingListAsText(File outputFile) throws IOException
     {
@@ -130,17 +127,15 @@ public final class ImportExportController implements ApplicationContextAware
     }
 
     /**
-     * @param categoryManager
-     *            The categoryManager to set.
+     * @param categoryDAO The categoryManager to set.
      */
-    public void setCategoryManager(CategoryManager categoryManager)
+    public void setCategoryDAO(CategoryDAO categoryDAO)
     {
-        this.categoryManager = categoryManager;
+        this.categoryDAO = categoryDAO;
     }
 
     /**
-     * @param persistenceController
-     *            The persistenceController to set.
+     * @param persistenceController The persistenceController to set.
      */
     public void setPersistenceController(
             PersistenceController persistenceController)
@@ -149,8 +144,7 @@ public final class ImportExportController implements ApplicationContextAware
     }
 
     /**
-     * @param shoppingListManager
-     *            The shoppingListManager to set.
+     * @param shoppingListManager The shoppingListManager to set.
      */
     public void setShoppingListManager(ItemManager shoppingListManager)
     {
@@ -158,8 +152,7 @@ public final class ImportExportController implements ApplicationContextAware
     }
 
     /**
-     * @param supplyManager
-     *            The supplyManager to set.
+     * @param supplyManager The supplyManager to set.
      */
     public void setSupplyManager(ItemManager supplyManager)
     {

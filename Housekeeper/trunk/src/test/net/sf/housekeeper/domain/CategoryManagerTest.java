@@ -29,7 +29,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
- * Tests for {@link net.sf.housekeeper.domain.CategoryManager}.
+ * Tests for {@link net.sf.housekeeper.domain.CategoryDAO}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -37,7 +37,7 @@ import junit.framework.TestCase;
 public final class CategoryManagerTest extends TestCase
 {
 
-    private CategoryManager manager;
+    private CategoryDAO dao;
 
     /*
      * (non-Javadoc)
@@ -46,24 +46,9 @@ public final class CategoryManagerTest extends TestCase
      */
     protected void setUp() throws Exception
     {
-        manager = DataGenerator.createEmptyCategoryManager();
+        dao = DataGenerator.createEmptyCategoryManager();
 
         super.setUp();
-    }
-
-    public void testAddExisting()
-    {
-        final Category c = new Category();
-        manager.add(c);
-        try
-        {
-            manager.add(c);
-            fail("Must throw exception");
-        } catch (IllegalArgumentException e)
-        {
-            // Expected
-            return;
-        }
     }
 
     public void testAdd()
@@ -71,14 +56,14 @@ public final class CategoryManagerTest extends TestCase
         final Category root = new Category();
         final Category child = new Category();
 
-        manager.add(root);
+        dao.store(root);
         child.setParent(root);
-        manager.add(child);
+        dao.store(child);
 
-        Assert.assertTrue(manager.getTopLevelCategories().contains(root));
-        Assert.assertFalse(manager.getTopLevelCategories().contains(child));
-        Assert.assertTrue(manager.getAllCategories().contains(root));
-        Assert.assertTrue(manager.getAllCategories().contains(child));
+        Assert.assertTrue(dao.findAllTopLevelCategories().contains(root));
+        Assert.assertFalse(dao.findAllTopLevelCategories().contains(child));
+        Assert.assertTrue(dao.findAll().contains(root));
+        Assert.assertTrue(dao.findAll().contains(child));
     }
 
     public void testAddNonLeafCategory()
@@ -89,7 +74,7 @@ public final class CategoryManagerTest extends TestCase
 
         try
         {
-            manager.add(root);
+            dao.store(root);
             fail("Must throw exception");
         } catch (IllegalArgumentException e)
         {
@@ -100,37 +85,37 @@ public final class CategoryManagerTest extends TestCase
     public void testRemoveRoot()
     {
         final Category root = new Category();
-        manager.add(root);
-        manager.remove(root);
+        dao.store(root);
+        dao.delete(root);
 
-        Assert.assertTrue(!manager.getAllCategories().contains(root));
-        Assert.assertTrue(!manager.getTopLevelCategories().contains(root));
+        Assert.assertTrue(!dao.findAll().contains(root));
+        Assert.assertTrue(!dao.findAllTopLevelCategories().contains(root));
     }
 
     public void testRemoveNonRoot()
     {
         final Category root = new Category();
-        manager.add(root);
+        dao.store(root);
         final Category child = new Category();
         root.addChild(child);
-        manager.add(child);
+        dao.store(child);
 
-        manager.remove(child);
+        dao.delete(child);
 
-        Assert.assertTrue(!manager.getAllCategories().contains(child));
+        Assert.assertTrue(!dao.findAll().contains(child));
     }
 
     public void testRecursiveRemove()
     {
         final Category root = new Category();
-        manager.add(root);
+        dao.store(root);
         final Category child = new Category();
-        root.addChild(child);
-        manager.add(child);
+        child.setParent(root);
+        dao.store(child);
 
-        manager.remove(root);
+        dao.delete(root);
 
-        Assert.assertTrue(!manager.getAllCategories().contains(child));
+        Assert.assertFalse(dao.findAllTopLevelCategories().contains(child));
     }
 
     public void testUpdateParentNonNullToNonNull()
@@ -140,13 +125,13 @@ public final class CategoryManagerTest extends TestCase
         final Category child = new Category();
 
         // Setup
-        manager.add(oldParent);
-        manager.add(newParent);
+        dao.store(oldParent);
+        dao.store(newParent);
         oldParent.addChild(child);
-        manager.add(child);
+        dao.store(child);
 
         child.setParent(newParent);
-        manager.update(child, oldParent);
+        dao.store(child);
 
         Assert.assertFalse(oldParent.contains(child));
         Assert.assertTrue(newParent.hasChild(child));
@@ -159,16 +144,16 @@ public final class CategoryManagerTest extends TestCase
         final Category child = new Category();
 
         // Setup
-        manager.add(oldParent);
+        dao.store(oldParent);
         oldParent.addChild(child);
-        manager.add(child);
+        dao.store(child);
 
         child.setParent(null);
-        manager.update(child, oldParent);
+        dao.store(child);
 
         Assert.assertFalse(oldParent.hasChild(child));
         Assert.assertTrue(child.getParent() == null);
-        Assert.assertTrue(manager.getTopLevelCategories().contains(child));
+        Assert.assertTrue(dao.findAllTopLevelCategories().contains(child));
     }
 
     public void testUpdateParentNullToNonNull()
@@ -177,50 +162,51 @@ public final class CategoryManagerTest extends TestCase
         final Category child = new Category();
 
         // Setup
-        manager.add(newParent);
-        manager.add(child);
+        dao.store(newParent);
+        dao.store(child);
 
         child.setParent(newParent);
-        manager.update(child, null);
+        dao.store(child);
 
         Assert.assertTrue(newParent.hasChild(child));
         Assert.assertTrue(child.getParent() == newParent);
-        Assert.assertFalse(manager.getTopLevelCategories().contains(child));
+        Assert.assertFalse(dao.findAllTopLevelCategories().contains(child));
     }
-    
+
     public void testGetAllCategoriesInclusiveNull()
     {
-        assertTrue(manager.getAllCategoriesInclusiveNull().contains(Category.NULL_OBJECT));
+        assertTrue(dao.findAllInclusiveNull().contains(Category.NULL_OBJECT));
     }
-    
+
     public void testGetAllCategoriesExcept()
     {
         final Category a = new Category();
         final Category b = new Category();
         final Category child = new Category();
         child.setParent(b);
-        manager.add(a);
-        manager.add(b);
-        manager.add(child);
-        
-        final List l = manager.getAllCategoriesExcept(b);
+        dao.store(a);
+        dao.store(b);
+        dao.store(child);
+
+        final List l = dao.findAllExcept(b);
         assertTrue(l.contains(a));
         assertFalse(l.contains(b));
         assertFalse(l.contains(child));
     }
-    
+
     public void testReplaceAll()
     {
         final Category a = new Category();
-        final Category b = new Category();
-        manager.add(a);
-        
+        dao.store(a);
+
         final ArrayList<Category> newL = new ArrayList<Category>();
+        final Category b = new Category();
         newL.add(b);
-        
-        manager.replaceAll(newL);
-        
-        final List l = manager.getAllCategories();
+
+        dao.deleteAll();
+        dao.store(newL);
+
+        final List<Category> l = dao.findAll();
         assertFalse(l.contains(a));
         assertTrue(l.contains(b));
     }

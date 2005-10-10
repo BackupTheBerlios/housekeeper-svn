@@ -71,8 +71,7 @@ public class Household
     }
 
     /**
-     * @param categories
-     *            The categories to set.
+     * @param categories The categories to set.
      */
     public void setCategories(List<Category> categories)
     {
@@ -88,8 +87,7 @@ public class Household
     }
 
     /**
-     * @param shoppingList
-     *            The shoppingList to set.
+     * @param shoppingList The shoppingList to set.
      */
     public void setShoppingList(List<ShoppingListItem> shoppingList)
     {
@@ -105,8 +103,7 @@ public class Household
     }
 
     /**
-     * @param supply
-     *            The supply to set.
+     * @param supply The supply to set.
      */
     public void setSupply(List<ExpirableItem> supply)
     {

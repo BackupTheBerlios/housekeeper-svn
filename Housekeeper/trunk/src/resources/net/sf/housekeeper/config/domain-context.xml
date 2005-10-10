@@ -70,15 +70,15 @@
     </property>
     <property name="viewProperties">
       <map>
-        <entry key="categoryManager">
-          <ref local="categoryManager"/>
+        <entry key="categoryDAO">
+          <ref local="categoryDAO"/>
         </entry>
       </map>
     </property>
   </bean>
 
-  <bean id="categoryManager"
-		class="net.sf.housekeeper.domain.CategoryManager">
+  <bean id="categoryDAO"
+		class="net.sf.housekeeper.domain.inmemory.InMemoryCategoryDAO">
     <property name="supplyManager">
       <ref local="supplyManager"/>
     </property>
@@ -110,8 +110,8 @@
     <property name="shoppingListManager">
       <ref local="shoppingListManager"/>
     </property>
-    <property name="categoryManager">
-      <ref local="categoryManager"/>
+    <property name="categoryDAO">
+      <ref local="categoryDAO"/>
     </property>
     <property name="persistenceController">
       <ref local="persistenceController"/>

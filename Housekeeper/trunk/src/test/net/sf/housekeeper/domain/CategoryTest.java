@@ -60,6 +60,7 @@ public final class CategoryTest extends TestCase
 
     public void testAddChild()
     {
+        child.setParent(category);
         category.addChild(child);
 
         boolean isChild = false;
@@ -73,7 +74,7 @@ public final class CategoryTest extends TestCase
         }
 
         Assert.assertTrue(isChild);
-        Assert.assertTrue(child.getParent() == category);
+        Assert.assertEquals(child.getParent(), category);
     }
 
     public void testAddSameChildTwoTimes()
@@ -133,7 +134,7 @@ public final class CategoryTest extends TestCase
     {
         Assert.assertTrue(child.isTopLevel());
 
-        category.addChild(child);
+        child.setParent(new Category());
 
         Assert.assertFalse(child.isTopLevel());
     }
@@ -157,14 +158,14 @@ public final class CategoryTest extends TestCase
         Assert.assertFalse(isChild);
         Assert.assertNull(child.getParent());
     }
-    
+
     public void testSetParentToNull()
     {
         category.setParent(Category.NULL_OBJECT);
-        
+
         Assert.assertNull(category.getParent());
     }
-    
+
     public void testSelectedCategory()
     {
         Category.setSelectedCategory(category);

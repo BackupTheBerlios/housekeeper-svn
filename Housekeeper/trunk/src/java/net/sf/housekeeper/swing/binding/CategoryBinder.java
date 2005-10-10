@@ -27,7 +27,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import net.sf.housekeeper.domain.Category;
-import net.sf.housekeeper.domain.CategoryManager;
+import net.sf.housekeeper.domain.CategoryDAO;
 
 import org.springframework.binding.form.FormModel;
 import org.springframework.binding.value.support.ValueHolder;
@@ -45,7 +45,7 @@ import org.springframework.util.Assert;
 public final class CategoryBinder extends AbstractBinder
 {
 
-    private CategoryManager catMan;
+    private CategoryDAO dao;
 
     /**
      * Creates a new binder.
@@ -58,12 +58,11 @@ public final class CategoryBinder extends AbstractBinder
     /**
      * Sets the manager to get the available categories from.
      * 
-     * @param catMan !=
-     *            null
+     * @param dao != null
      */
-    public void setCategoryManager(CategoryManager catMan)
+    public void setCategoryDAO(CategoryDAO dao)
     {
-        this.catMan = catMan;
+        this.dao = dao;
     }
 
     /*
@@ -87,12 +86,12 @@ public final class CategoryBinder extends AbstractBinder
             String formPropertyPath, Map context)
     {
         Assert.isTrue(control instanceof JComboBox, formPropertyPath);
-        Assert.notNull(catMan);
+        Assert.notNull(dao);
 
         ComboBoxBinding binding = new ComboBoxBinding((JComboBox) control,
                 formModel, formPropertyPath);
 
-        final List categories = catMan.getAllCategoriesInclusiveNull();
+        final List categories = dao.findAllInclusiveNull();
 
         binding.setSelectableItemsHolder(new ValueHolder(categories));
         return binding;

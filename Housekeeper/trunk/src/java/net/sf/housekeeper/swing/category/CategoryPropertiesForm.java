@@ -42,18 +42,17 @@ public final class CategoryPropertiesForm extends AbstractForm
 {
 
     private final List possibleParents;
-    
+
     /**
      * Creates a new Form.
      * 
-     * @param object
-     *            The model to use. Must not be null.
+     * @param object The model to use. Must not be null.
      */
     public CategoryPropertiesForm(Category object, List possibleParents)
     {
         super(object);
         setId("categoryPropertiesForm");
-        
+
         this.possibleParents = possibleParents;
     }
 
@@ -67,10 +66,9 @@ public final class CategoryPropertiesForm extends AbstractForm
         TableFormBuilder formBuilder = new TableFormBuilder(getBindingFactory());
         formBuilder.add("name");
         formBuilder.row();
-        SwingBindingFactory bindingFactory = (SwingBindingFactory)
-        getBindingFactory();
+        SwingBindingFactory bindingFactory = (SwingBindingFactory) getBindingFactory();
         formBuilder.add(bindingFactory.createBoundComboBox("parent",
-        possibleParents));
+                possibleParents));
         return formBuilder.getForm();
     }
 
