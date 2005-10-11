@@ -41,7 +41,7 @@ import javax.swing.event.ListSelectionListener;
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Item;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.ItemDAO;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.swing.util.SortableTable;
 
@@ -79,7 +79,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private Class itemClass;
 
-    private ItemManager itemManager;
+    private ItemDAO itemManager;
 
     private SortableTable table;
 
@@ -165,7 +165,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
      * 
      * @param manager
      */
-    public void setItemManager(final ItemManager manager)
+    public void setItemManager(final ItemDAO manager)
     {
         this.itemManager = manager;
     }
@@ -187,7 +187,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
      */
     public Item getSelectedItem()
     {
-        return (Item) table.getSelected();
+        return (Item) table.getSelected().get(0);
     }
 
     /*
@@ -258,7 +258,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private void refresh()
     {
-        final List items = itemManager.getItemsForCategory(category);
+        final List items = itemManager.findAllOfCategory(category);
         table.replaceAll(items);
     }
 
@@ -290,7 +290,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
             while (i.hasNext())
             {
                 Item element = (Item) i.next();
-                itemManager.remove(element);
+                itemManager.delete(element);
             }
         }
     }
@@ -318,7 +318,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
         public void execute()
         {
             final ExpirableItem selectedItem = (ExpirableItem) getSelectedItem();
-            itemManager.duplicate(selectedItem);
+            itemManager.store(new ExpirableItem(selectedItem));
         }
     }
 
@@ -345,7 +345,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
                 protected boolean onFinish()
                 {
                     form.commit();
-                    itemManager.update(foodObject);
+                    itemManager.store(foodObject);
                     return true;
                 }
             };

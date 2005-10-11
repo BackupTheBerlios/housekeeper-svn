@@ -26,7 +26,7 @@ import java.util.List;
 
 import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.CategoryDAO;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.ItemDAO;
 import net.sf.housekeeper.event.HousekeeperEvent;
 import net.sf.housekeeper.event.HousekeeperEventPublisher;
 
@@ -48,7 +48,7 @@ public class InMemoryCategoryDAO extends HousekeeperEventPublisher implements
 
     private final ArrayList<Category> categories = new ArrayList<Category>();
 
-    private ItemManager supplyManager;
+    private ItemDAO supplyManager;
 
     /* (non-Javadoc)
      * @see net.sf.housekeeper.domain.CategoryDAO#delete(net.sf.housekeeper.domain.Category)
@@ -207,7 +207,7 @@ public class InMemoryCategoryDAO extends HousekeeperEventPublisher implements
      * 
      * @param im The manager.
      */
-    public void setSupplyManager(ItemManager im)
+    public void setSupplyManager(ItemDAO im)
     {
         this.supplyManager = im;
     }

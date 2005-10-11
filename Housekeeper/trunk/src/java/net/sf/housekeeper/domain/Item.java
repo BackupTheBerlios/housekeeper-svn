@@ -21,6 +21,8 @@
 
 package net.sf.housekeeper.domain;
 
+import java.util.UUID;
+
 import org.springframework.core.style.ToStringCreator;
 
 /**
@@ -61,6 +63,11 @@ public class Item
      * The category.
      */
     private Category category;
+
+    /**
+     * The id.
+     */
+    private final UUID id = UUID.randomUUID();
 
     /**
      * Creates a new item with an empty name and description.
@@ -152,6 +159,14 @@ public class Item
     }
 
     /**
+     * @return the ID of this item. != null
+     */
+    public UUID getId()
+    {
+        return id;
+    }
+
+    /**
      * Sets the description for this item.
      * 
      * @param description The descrption to set.
@@ -186,15 +201,30 @@ public class Item
         {
             return false;
         }
-        Item castedObj = (Item) o;
+        final Item castedObj = (Item) o;
 
-        final boolean equalName = this.name == null ? castedObj.name == null
-                : this.name.equals(castedObj.name);
-        final boolean equalDescription = this.description == null ? castedObj.description == null
-                : this.description.equals(castedObj.description);
-        final boolean equalCategory = this.category == null ? castedObj.category == null
-                : this.category.equals(castedObj.category);
+        final boolean equalID = this.getId().equals(castedObj.getId());
+        return equalID;
+    }
+
+    public boolean isEqual(Item o)
+    {
+        if (o == null)
+        {
+            return false;
+        }
+        if (o.getClass() != getClass())
+        {
+            return false;
+        }
+        final boolean equalName = this.name == null ? o.name == null
+                : this.name.equals(o.name);
+        final boolean equalDescription = this.description == null ? o.description == null
+                : this.description.equals(o.description);
+        final boolean equalCategory = this.category == null ? o.category == null
+                : this.category.equals(o.category);
         return equalName && equalDescription && equalCategory;
+
     }
 
     /*
@@ -204,11 +234,13 @@ public class Item
      */
     public int hashCode()
     {
-        int hashCode = 1;
-        hashCode = 31 * hashCode + (name == null ? 0 : name.hashCode());
-        hashCode = 31 * hashCode
-                + (description == null ? 0 : description.hashCode());
-        hashCode = 31 * hashCode + (category == null ? 0 : category.hashCode());
+        /*
+         * int hashCode = 1; hashCode = 31 * hashCode + (name == null ? 0 :
+         * name.hashCode()); hashCode = 31 * hashCode + (description == null ? 0 :
+         * description.hashCode()); hashCode = 31 * hashCode + (category == null ?
+         * 0 : category.hashCode()); return hashCode;
+         */
+        int hashCode = 31 * id.hashCode();
         return hashCode;
     }
 

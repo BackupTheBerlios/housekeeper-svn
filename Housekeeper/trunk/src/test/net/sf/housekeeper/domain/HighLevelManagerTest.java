@@ -39,9 +39,9 @@ public final class HighLevelManagerTest extends TestCase
 
     private ShoppingListItem item;
 
-    private ItemManager shoppingListManager;
+    private ItemDAO<ShoppingListItem> shoppingListManager;
 
-    private ItemManager supplyManager;
+    private ItemDAO<ExpirableItem> supplyManager;
 
     /**
      * Tests a normal buy scenario.
@@ -49,15 +49,13 @@ public final class HighLevelManagerTest extends TestCase
     public void testBuy()
     {
         item.setQuantity(3);
-        shoppingListManager.add(item);
+        shoppingListManager.store(item);
         highLevelManager.buy(item, new ExpirableItem());
 
         final boolean itemWasRemovedFromShoppingList = !shoppingListManager
                 .exists(item);
         assertTrue(itemWasRemovedFromShoppingList);
-        final boolean correctNumberOfItems = supplyManager.getAllItems().size() == item
-                .getQuantity();
-        assertTrue(correctNumberOfItems);
+        assertEquals(item.getQuantity(), supplyManager.findAll().size());
     }
 
     /**
@@ -83,8 +81,8 @@ public final class HighLevelManagerTest extends TestCase
     {
         item = new ShoppingListItem();
         item.setName(TESTITEM_NAME);
-        shoppingListManager = DataGenerator.createEmptyItemManager();
-        supplyManager = DataGenerator.createEmptyItemManager();
+        shoppingListManager = DataGenerator.createEmptyShoppingListManager();
+        supplyManager = DataGenerator.createEmptySupplyManager();
         highLevelManager = new HighLevelManager();
         highLevelManager.setShoppingListManager(shoppingListManager);
         highLevelManager.setSupplyManager(supplyManager);

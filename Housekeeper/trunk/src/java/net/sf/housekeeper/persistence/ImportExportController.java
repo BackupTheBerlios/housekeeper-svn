@@ -28,7 +28,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 import net.sf.housekeeper.domain.CategoryDAO;
-import net.sf.housekeeper.domain.ItemManager;
+import net.sf.housekeeper.domain.ExpirableItem;
+import net.sf.housekeeper.domain.ItemDAO;
+import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.event.HousekeeperEvent;
 
 import org.springframework.beans.BeansException;
@@ -51,9 +53,9 @@ public final class ImportExportController implements ApplicationContextAware
 
     private PersistenceController persistenceController;
 
-    private ItemManager shoppingListManager;
+    private ItemDAO<ShoppingListItem> shoppingListManager;
 
-    private ItemManager supplyManager;
+    private ItemDAO<ExpirableItem> supplyManager;
 
     /**
      * Exports all data.
@@ -67,8 +69,8 @@ public final class ImportExportController implements ApplicationContextAware
         Assert.notNull(shoppingListManager);
         Assert.notNull(supplyManager);
 
-        final Household household = new Household(supplyManager.getAllItems(),
-                shoppingListManager.getAllItems(), categoryDAO
+        final Household household = new Household(supplyManager.findAll(),
+                shoppingListManager.findAll(), categoryDAO
                         .findAllTopLevelCategories());
         persistenceController.save(household);
     }
@@ -86,8 +88,9 @@ public final class ImportExportController implements ApplicationContextAware
         Assert.notNull(supplyManager);
 
         final Household h = persistenceController.load();
-        supplyManager.replaceAll(h.getSupply());
-        shoppingListManager.replaceAll(h.getShoppingList());
+        supplyManager.deleteAll();
+        supplyManager.store(h.getSupply());
+        shoppingListManager.store(h.getShoppingList());
         categoryDAO.deleteAll();
         categoryDAO.store(h.getCategories());
 
@@ -146,7 +149,8 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * @param shoppingListManager The shoppingListManager to set.
      */
-    public void setShoppingListManager(ItemManager shoppingListManager)
+    public void setShoppingListManager(
+            ItemDAO<ShoppingListItem> shoppingListManager)
     {
         this.shoppingListManager = shoppingListManager;
     }
@@ -154,7 +158,7 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * @param supplyManager The supplyManager to set.
      */
-    public void setSupplyManager(ItemManager supplyManager)
+    public void setSupplyManager(ItemDAO<ExpirableItem> supplyManager)
     {
         this.supplyManager = supplyManager;
     }

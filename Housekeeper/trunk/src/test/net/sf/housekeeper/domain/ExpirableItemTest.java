@@ -132,8 +132,8 @@ public final class ExpirableItemTest extends TestCase
         final ExpirableItem item = DataGenerator.createComplexItem();
         final ExpirableItem item2 = DataGenerator.createComplexItem();
 
-        final boolean itemEqualsItem2 = item.equals(item2);
-        final boolean item2EqualsItem = item2.equals(item);
+        final boolean itemEqualsItem2 = item.isEqual(item2);
+        final boolean item2EqualsItem = item2.isEqual(item);
 
         assertTrue("Items are reported as not equal but they are.",
                 itemEqualsItem2);
@@ -175,7 +175,7 @@ public final class ExpirableItemTest extends TestCase
     {
         final ExpirableItem originalItem = DataGenerator.createComplexItem();
         final ExpirableItem clonedItem = new ExpirableItem(originalItem);
-        assertEquals(clonedItem, originalItem);
+        assertTrue(clonedItem.isEqual(originalItem));
     }
 
     public void testExpiringItemItem()

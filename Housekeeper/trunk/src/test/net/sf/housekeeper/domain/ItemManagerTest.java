@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.sf.housekeeper.domain.inmemory.InMemoryItemDAO;
+
 import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
 
 import junit.framework.TestCase;
 
 /**
- * Tests {@link net.sf.housekeeper.domain.ItemManager}.
+ * Tests {@link net.sf.housekeeper.domain.ItemDAO}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -18,7 +20,7 @@ import junit.framework.TestCase;
 public class ItemManagerTest extends TestCase
 {
 
-    private ItemManagerImpl manager;
+    private InMemoryItemDAO manager;
 
     private MockControl control;
 
@@ -28,7 +30,7 @@ public class ItemManagerTest extends TestCase
     {
         control = MockControl.createNiceControl(ApplicationContext.class);
         mock = (ApplicationContext) control.getMock();
-        manager = new ItemManagerImpl();
+        manager = new InMemoryItemDAO();
         manager.setApplicationContext(mock);
     }
 
@@ -38,8 +40,8 @@ public class ItemManagerTest extends TestCase
     public void testAdd()
     {
         final ExpirableItem item = new ExpirableItem();
-        manager.add(item);
-        final boolean isItemInList = manager.getAllItems().contains(item);
+        manager.store(item);
+        final boolean isItemInList = manager.findAll().contains(item);
         assertTrue("The item added cannot be found in the list", isItemInList);
     }
 
@@ -48,7 +50,7 @@ public class ItemManagerTest extends TestCase
      */
     public void testGetSupplyList()
     {
-        final List supply = manager.getAllItems();
+        final List supply = manager.findAll();
         assertNotNull("getSupplyList() returns null", supply);
     }
 
@@ -58,17 +60,18 @@ public class ItemManagerTest extends TestCase
     public void testReplaceAll()
     {
         final ExpirableItem oldItem = new ExpirableItem();
-        manager.add(oldItem);
+        manager.store(oldItem);
 
         final Collection<Item> col = new ArrayList<Item>();
         final ExpirableItem newItem = new ExpirableItem();
         newItem.setName("NewItem");
         col.add(newItem);
-        manager.replaceAll(col);
+        manager.deleteAll();
+        manager.store(col);
 
-        assertFalse("Manager still knows old item", manager.getAllItems()
+        assertFalse("Manager still knows old item", manager.findAll()
                 .contains(oldItem));
-        assertTrue("Manager does not know new item", manager.getAllItems()
+        assertTrue("Manager does not know new item", manager.findAll()
                 .contains(newItem));
     }
 
@@ -78,10 +81,10 @@ public class ItemManagerTest extends TestCase
     public void testRemove()
     {
         final ExpirableItem item = new ExpirableItem();
-        manager.add(item);
-        manager.remove(item);
+        manager.store(item);
+        manager.delete(item);
 
-        final boolean isItemInList = manager.getAllItems().contains(item);
+        final boolean isItemInList = manager.findAll().contains(item);
         assertFalse("The manager still knows the removed item", isItemInList);
     }
 

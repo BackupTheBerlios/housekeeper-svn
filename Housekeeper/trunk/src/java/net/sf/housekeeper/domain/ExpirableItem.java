@@ -125,12 +125,7 @@ public class ExpirableItem extends Item
         return expiry;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object o)
+    public boolean isEqual(Object o)
     {
         if (this == o)
         {
@@ -145,6 +140,10 @@ public class ExpirableItem extends Item
             return false;
         }
         if (o.getClass() != getClass())
+        {
+            return false;
+        }
+        if (!super.isEqual(this))
         {
             return false;
         }

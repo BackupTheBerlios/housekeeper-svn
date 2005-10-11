@@ -85,11 +85,13 @@
   </bean>
   
   <bean id="shoppingListManager"
-		class="net.sf.housekeeper.domain.ItemManagerImpl">
+        class="net.sf.housekeeper.domain.inmemory.InMemoryDAOFactory"
+        factory-method="createShoppingListDAO">
   </bean>
   
   <bean id="supplyManager"
-		class="net.sf.housekeeper.domain.ItemManagerImpl">
+        class="net.sf.housekeeper.domain.inmemory.InMemoryDAOFactory"
+        factory-method="createSupplyDAO">
   </bean>
   
   <bean id="highLevelManager"

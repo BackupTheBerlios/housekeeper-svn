@@ -35,14 +35,15 @@ import org.springframework.util.Assert;
 public final class HighLevelManager
 {
 
-    private ItemManager supplyManager;
+    private ItemDAO<ExpirableItem> supplyManager;
 
-    private ItemManager shoppingListManager;
+    private ItemDAO<ShoppingListItem> shoppingListManager;
 
     /**
      * @param shoppingListManager The shoppingListManager to set.
      */
-    public void setShoppingListManager(ItemManager shoppingListManager)
+    public void setShoppingListManager(
+            ItemDAO<ShoppingListItem> shoppingListManager)
     {
         this.shoppingListManager = shoppingListManager;
     }
@@ -50,7 +51,7 @@ public final class HighLevelManager
     /**
      * @param supplyManager The supplyManager to set.
      */
-    public void setSupplyManager(ItemManager supplyManager)
+    public void setSupplyManager(ItemDAO<ExpirableItem> supplyManager)
     {
         this.supplyManager = supplyManager;
     }
@@ -68,14 +69,13 @@ public final class HighLevelManager
     {
         Assert.notNull(supplyManager);
         Assert.notNull(shoppingListManager);
-
         Assert.notNull(boughtItem);
         Assert.notNull(itemPrototype);
 
-        shoppingListManager.remove(boughtItem);
-        final Collection shoppingListItems = createSupplyItems(boughtItem
-                .getQuantity(), itemPrototype);
-        supplyManager.addAll(shoppingListItems);
+        shoppingListManager.delete(boughtItem);
+        final Collection<ExpirableItem> shoppingListItems = createSupplyItems(
+                boughtItem.getQuantity(), itemPrototype);
+        supplyManager.store(shoppingListItems);
     }
 
     /**
@@ -85,7 +85,7 @@ public final class HighLevelManager
      * @param quantity The number of items to create. > 0
      * @return The created {@link ExpirableItem}s. != null
      */
-    public Collection<ExpirableItem> createSupplyItems(final int quantity,
+    public ArrayList<ExpirableItem> createSupplyItems(final int quantity,
             final ExpirableItem prototype)
     {
         final ArrayList<ExpirableItem> createdItems = new ArrayList<ExpirableItem>(

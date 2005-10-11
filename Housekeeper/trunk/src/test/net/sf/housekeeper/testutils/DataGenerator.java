@@ -24,9 +24,10 @@ package net.sf.housekeeper.testutils;
 import java.util.Calendar;
 
 import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.ItemManager;
-import net.sf.housekeeper.domain.ItemManagerImpl;
+import net.sf.housekeeper.domain.ItemDAO;
+import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.domain.inmemory.InMemoryCategoryDAO;
+import net.sf.housekeeper.domain.inmemory.InMemoryItemDAO;
 
 import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
@@ -117,9 +118,21 @@ public final class DataGenerator
      * 
      * @return != null
      */
-    public static ItemManagerImpl createEmptyItemManager()
+    public static InMemoryItemDAO<ExpirableItem> createEmptySupplyManager()
     {
-        ItemManagerImpl manager = new ItemManagerImpl();
+        InMemoryItemDAO<ExpirableItem> manager = new InMemoryItemDAO<ExpirableItem>();
+        manager.setApplicationContext(createApplicationContextMock());
+        return manager;
+    }
+
+    /**
+     * Creates an empty ItemManager with mocked dependencies.
+     * 
+     * @return != null
+     */
+    public static InMemoryItemDAO<ShoppingListItem> createEmptyShoppingListManager()
+    {
+        InMemoryItemDAO<ShoppingListItem> manager = new InMemoryItemDAO<ShoppingListItem>();
         manager.setApplicationContext(createApplicationContextMock());
         return manager;
     }
@@ -145,10 +158,10 @@ public final class DataGenerator
         return mock;
     }
 
-    public static ItemManager createItemManagerMock()
+    public static ItemDAO createItemManagerMock()
     {
-        MockControl control = MockControl.createNiceControl(ItemManager.class);
-        ItemManager mock = (ItemManager) control.getMock();
+        MockControl control = MockControl.createNiceControl(ItemDAO.class);
+        ItemDAO mock = (ItemDAO) control.getMock();
         return mock;
     }
 }

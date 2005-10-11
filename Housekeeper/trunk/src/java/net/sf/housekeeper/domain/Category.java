@@ -33,7 +33,6 @@ import org.springframework.util.Assert;
  * A category for an {@link net.sf.housekeeper.domain.Item}.
  * 
  * @author Adrian Gygax
- * @version $Revision$, $Date$
  */
 public final class Category
 {
@@ -86,7 +85,7 @@ public final class Category
     {
         this("");
     }
-
+    
     /**
      * Creates a new category with no children.
      * 
@@ -95,7 +94,8 @@ public final class Category
     public Category(final String name)
     {
         Assert.notNull(name);
-        this.id = UUID.randomUUID().toString();
+        
+        id = UUID.randomUUID().toString();
         this.children = new LinkedHashSet<Category>();
 
         setName(name);
@@ -163,26 +163,7 @@ public final class Category
         }
 
         final Category otherCat = (Category) o;
-        return this.id.equals(otherCat.getId());
-    }
-
-    /**
-     * Retuns a list of all recursive children. The first element of the list is
-     * this object.
-     * 
-     * @return != null
-     */
-    public List<Category> getRecursiveCategories()
-    {
-        final ArrayList<Category> categories = new ArrayList<Category>();
-        categories.add(this);
-        final Iterator iter = getChildrenIterator();
-        while (iter.hasNext())
-        {
-            Category element = (Category) iter.next();
-            categories.addAll(element.getRecursiveCategories());
-        }
-        return categories;
+        return getId().equals(otherCat.getId());
     }
 
     /**
@@ -226,26 +207,23 @@ public final class Category
         return parent;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode()
-    {
-        int hashCode = 1;
-        hashCode = 31 * hashCode + (id == null ? 0 : id.hashCode());
-        return hashCode;
-    }
-
     /**
-     * Returns wheter this category is a leaf or not.
+     * Retuns a list of all recursive children. The first element of the list is
+     * this object.
      * 
-     * @return True, if this category has no children. False otherwise.
+     * @return != null
      */
-    public boolean isLeaf()
+    public List<Category> getRecursiveCategories()
     {
-        return children.isEmpty();
+        final ArrayList<Category> categories = new ArrayList<Category>();
+        categories.add(this);
+        final Iterator iter = getChildrenIterator();
+        while (iter.hasNext())
+        {
+            Category element = (Category) iter.next();
+            categories.addAll(element.getRecursiveCategories());
+        }
+        return categories;
     }
 
     /**
@@ -265,6 +243,28 @@ public final class Category
             }
         }
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode()
+    {
+        int hashCode = 1;
+        hashCode = 31 * hashCode + (getId() == null ? 0 : getId().hashCode());
+        return hashCode;
+    }
+
+    /**
+     * Returns wheter this category is a leaf or not.
+     * 
+     * @return True, if this category has no children. False otherwise.
+     */
+    public boolean isLeaf()
+    {
+        return children.isEmpty();
     }
 
     /**
