@@ -157,4 +157,8 @@
         </property>
     </bean>
 
+	<bean id="rulesSource" class="net.sf.housekeeper.Factory"
+                factory-method="createRulesSource"
+    />
+     
 </beans>

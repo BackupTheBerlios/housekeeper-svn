@@ -42,6 +42,10 @@ public final class Category
      */
     public static final Category NULL_OBJECT = new Category();
 
+    public static final String PROPERTYNAME_NAME = "name";
+
+    public static final String PROPERTYNAME_PARENT = "parent";
+
     private static Category selectedCategory;
 
     /**
@@ -85,7 +89,7 @@ public final class Category
     {
         this("");
     }
-    
+
     /**
      * Creates a new category with no children.
      * 
@@ -94,7 +98,7 @@ public final class Category
     public Category(final String name)
     {
         Assert.notNull(name);
-        
+
         id = UUID.randomUUID().toString();
         this.children = new LinkedHashSet<Category>();
 

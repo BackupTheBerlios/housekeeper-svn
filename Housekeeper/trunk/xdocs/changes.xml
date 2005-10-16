@@ -5,8 +5,9 @@
 	</properties>
 	<body>
 		<release date="not yet" version="0.3.0">
-			<action dev="notizklotz" issue="4238" type="update">Changed component for editing expiry dates.</action>
-			<action dev="notizklotz" issue="4238" type="update">Multiple items can be deleted at once.</action>
+		    <action dev="notizklotz" issue="3963" type="fix">Property editors validate data</action>
+			<action dev="notizklotz" issue="4238" type="update">Changed component for editing expiry dates</action>
+			<action dev="notizklotz" issue="4238" type="update">Multiple items can be deleted at once</action>
 			<action dev="notizklotz" type="update">Minimum Java Runtime Environemnt changed to JRE 5.0</action>
 		</release>
 		<release date="2005-07-07" version="0.2.7">

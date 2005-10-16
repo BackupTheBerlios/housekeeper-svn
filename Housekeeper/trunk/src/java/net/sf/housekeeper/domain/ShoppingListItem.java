@@ -27,6 +27,8 @@ package net.sf.housekeeper.domain;
  */
 public class ShoppingListItem extends Item
 {
+    
+    public static final String PROPERTYNAME_QUANTITY = "quantity";
 
     private int quantity;
 
