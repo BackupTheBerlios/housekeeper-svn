@@ -48,7 +48,7 @@ public class InMemoryCategoryDAO extends HousekeeperEventPublisher implements
 
     private final ArrayList<Category> categories = new ArrayList<Category>();
 
-    private ItemDAO supplyManager;
+    private ItemDAO supplyDAO;
 
     /* (non-Javadoc)
      * @see net.sf.housekeeper.domain.CategoryDAO#delete(net.sf.housekeeper.domain.Category)
@@ -58,7 +58,7 @@ public class InMemoryCategoryDAO extends HousekeeperEventPublisher implements
         Assert.notNull(category);
 
         final Category parent = category.getParent();
-        supplyManager.reassignToCategory(category, parent);
+        supplyDAO.reassignToCategory(category, parent);
 
         if (parent != null)
         {
@@ -207,9 +207,9 @@ public class InMemoryCategoryDAO extends HousekeeperEventPublisher implements
      * 
      * @param im The manager.
      */
-    public void setSupplyManager(ItemDAO im)
+    public void setSupplyDAO(ItemDAO im)
     {
-        this.supplyManager = im;
+        this.supplyDAO = im;
     }
 
 }

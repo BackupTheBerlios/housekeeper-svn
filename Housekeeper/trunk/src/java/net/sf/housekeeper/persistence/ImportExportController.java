@@ -53,9 +53,9 @@ public final class ImportExportController implements ApplicationContextAware
 
     private PersistenceController persistenceController;
 
-    private ItemDAO<ShoppingListItem> shoppingListManager;
+    private ItemDAO<ShoppingListItem> shoppingListDAO;
 
-    private ItemDAO<ExpirableItem> supplyManager;
+    private ItemDAO<ExpirableItem> supplyDAO;
 
     /**
      * Exports all data.
@@ -66,11 +66,11 @@ public final class ImportExportController implements ApplicationContextAware
     {
         Assert.notNull(categoryDAO);
         Assert.notNull(persistenceController);
-        Assert.notNull(shoppingListManager);
-        Assert.notNull(supplyManager);
+        Assert.notNull(shoppingListDAO);
+        Assert.notNull(supplyDAO);
 
-        final Household household = new Household(supplyManager.findAll(),
-                shoppingListManager.findAll(), categoryDAO
+        final Household household = new Household(supplyDAO.findAll(),
+                shoppingListDAO.findAll(), categoryDAO
                         .findAllTopLevelCategories());
         persistenceController.save(household);
     }
@@ -84,13 +84,13 @@ public final class ImportExportController implements ApplicationContextAware
     {
         Assert.notNull(categoryDAO);
         Assert.notNull(persistenceController);
-        Assert.notNull(shoppingListManager);
-        Assert.notNull(supplyManager);
+        Assert.notNull(shoppingListDAO);
+        Assert.notNull(supplyDAO);
 
         final Household h = persistenceController.load();
-        supplyManager.deleteAll();
-        supplyManager.store(h.getSupply());
-        shoppingListManager.store(h.getShoppingList());
+        supplyDAO.deleteAll();
+        supplyDAO.store(h.getSupply());
+        shoppingListDAO.store(h.getShoppingList());
         categoryDAO.deleteAll();
         categoryDAO.store(h.getCategories());
 
@@ -109,7 +109,7 @@ public final class ImportExportController implements ApplicationContextAware
      */
     public void exportShoppingListAsText(File outputFile) throws IOException
     {
-        final String itemsAsText = shoppingListManager.getItemsAsText();
+        final String itemsAsText = shoppingListDAO.getItemsAsText();
 
         final Writer writer = new BufferedWriter(new FileWriter(outputFile,
                 false));
@@ -149,18 +149,18 @@ public final class ImportExportController implements ApplicationContextAware
     /**
      * @param shoppingListManager The shoppingListManager to set.
      */
-    public void setShoppingListManager(
+    public void setShoppingListDAO(
             ItemDAO<ShoppingListItem> shoppingListManager)
     {
-        this.shoppingListManager = shoppingListManager;
+        this.shoppingListDAO = shoppingListManager;
     }
 
     /**
      * @param supplyManager The supplyManager to set.
      */
-    public void setSupplyManager(ItemDAO<ExpirableItem> supplyManager)
+    public void setSupplyDAO(ItemDAO<ExpirableItem> supplyManager)
     {
-        this.supplyManager = supplyManager;
+        this.supplyDAO = supplyManager;
     }
 
 }

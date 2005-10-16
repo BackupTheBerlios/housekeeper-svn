@@ -146,7 +146,7 @@ public final class DataGenerator
     {
         InMemoryCategoryDAO manager = new InMemoryCategoryDAO();
         manager.setApplicationContext(createApplicationContextMock());
-        manager.setSupplyManager(createItemManagerMock());
+        manager.setSupplyDAO(createItemManagerMock());
         return manager;
     }
 

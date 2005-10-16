@@ -21,18 +21,25 @@
 
 package net.sf.housekeeper.swing.item.supply;
 
+import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.ExpirableItem;
 import net.sf.housekeeper.domain.Item;
-import net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor;
+import net.sf.housekeeper.domain.ItemDAO;
 
+import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.dialog.FormBackedDialogPage;
+import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.Form;
+import org.springframework.util.Assert;
 
 /**
  * Shows a dialog for adding a new supply item.
  */
 public final class NewItemCommandExecutor extends
-        AbstractNewItemCommandExecutor
+        AbstractActionCommandExecutor
 {
+
+    private ItemDAO<ExpirableItem> itemDAO;
 
     /*
      * (non-Javadoc)
@@ -46,14 +53,42 @@ public final class NewItemCommandExecutor extends
         return form;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Sets the {@link ItemDAO}for adding newly created items.
      * 
-     * @see net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor#createItem()
+     * @param dao != null
      */
-    protected Item createItem()
+    public void setItemDAO(final ItemDAO<ExpirableItem> dao)
     {
-        return new ExpirableItem();
+        this.itemDAO = dao;
+    }
+
+    public void execute()
+    {
+        Assert.notNull(itemDAO,
+                "itemManager must be set for proper operation.");
+    
+        final ExpirableItem foodObject = new ExpirableItem();
+        foodObject.setCategory(Category.getSelectedCategory());
+        final Form form = createForm(foodObject);
+        final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
+        final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
+                dialogPage)
+        {
+    
+            protected void onAboutToShow()
+            {
+                setEnabled(true);
+            }
+    
+            protected boolean onFinish()
+            {
+                form.commit();
+                itemDAO.store(foodObject);
+                return true;
+            }
+        };
+        dialog.showDialog();
     }
 
 }

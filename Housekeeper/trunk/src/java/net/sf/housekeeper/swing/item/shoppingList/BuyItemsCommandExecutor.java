@@ -24,7 +24,7 @@ package net.sf.housekeeper.swing.item.shoppingList;
 import java.util.Collection;
 
 import net.sf.housekeeper.domain.ExpirableItem;
-import net.sf.housekeeper.domain.HighLevelManager;
+import net.sf.housekeeper.domain.HouseholdService;
 import net.sf.housekeeper.domain.ShoppingListItem;
 import net.sf.housekeeper.swing.item.ItemsView;
 import net.sf.housekeeper.swing.item.supply.ExpirableItemPropertiesForm;
@@ -56,7 +56,7 @@ public final class BuyItemsCommandExecutor extends
 
     private ViewDescriptor viewDescriptor;
 
-    private HighLevelManager highLevelManager;
+    private HouseholdService householdService;
 
     /**
      * 
@@ -77,9 +77,9 @@ public final class BuyItemsCommandExecutor extends
     /**
      * @param highLevelManager The highLevelManager to set.
      */
-    public void setHighLevelManager(HighLevelManager highLevelManager)
+    public void setHouseholdService(HouseholdService highLevelManager)
     {
-        this.highLevelManager = highLevelManager;
+        this.householdService = highLevelManager;
     }
 
     /*
@@ -89,7 +89,7 @@ public final class BuyItemsCommandExecutor extends
      */
     public void execute()
     {
-        Assert.notNull(highLevelManager);
+        Assert.notNull(householdService);
 
         final AbstractApplicationPage page = (AbstractApplicationPage) window
                 .getPage();
@@ -115,7 +115,7 @@ public final class BuyItemsCommandExecutor extends
                 protected boolean onFinish()
                 {
                     form.commit();
-                    highLevelManager.buy(selectedItem, itemPrototype);
+                    householdService.buy(selectedItem, itemPrototype);
                     return true;
                 }
             };

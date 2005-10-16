@@ -21,39 +21,79 @@
 
 package net.sf.housekeeper.swing.item.shoppingList;
 
+import net.sf.housekeeper.domain.Category;
 import net.sf.housekeeper.domain.Item;
+import net.sf.housekeeper.domain.ItemDAO;
 import net.sf.housekeeper.domain.ShoppingListItem;
-import net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor;
 
+import org.springframework.richclient.command.support.AbstractActionCommandExecutor;
+import org.springframework.richclient.dialog.FormBackedDialogPage;
+import org.springframework.richclient.dialog.TitledPageApplicationDialog;
 import org.springframework.richclient.form.Form;
+import org.springframework.util.Assert;
 
 /**
  * Shows a dialog for adding a new item to a shopping list.
  */
-public final class NewItemCommandExecutor extends
-        AbstractNewItemCommandExecutor
+public final class NewItemCommandExecutor extends AbstractActionCommandExecutor
 {
+
+    private ItemDAO<ShoppingListItem> itemDAO;
+
+    public NewItemCommandExecutor()
+    {
+        setEnabled(true);
+    }
 
     /*
      * (non-Javadoc)
      * 
      * @see net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor#createForm(net.sf.housekeeper.domain.Item)
      */
-    protected Form createForm(Item object)
+    private Form createForm(Item object)
     {
         final ShoppingListItemPropertiesForm form = new ShoppingListItemPropertiesForm(
                 (ShoppingListItem) object);
         return form;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Sets the {@link ItemDAO}for adding newly created items.
      * 
-     * @see net.sf.housekeeper.swing.item.AbstractNewItemCommandExecutor#createItem()
+     * @param dao != null
      */
-    protected Item createItem()
+    public void setItemDAO(final ItemDAO<ShoppingListItem> dao)
     {
-        return new ShoppingListItem();
+        this.itemDAO = dao;
+    }
+
+    public void execute()
+    {
+        Assert
+                .notNull(itemDAO,
+                        "itemManager must be set for proper operation.");
+
+        final ShoppingListItem foodObject = new ShoppingListItem();
+        foodObject.setCategory(Category.getSelectedCategory());
+        final Form form = createForm(foodObject);
+        final FormBackedDialogPage dialogPage = new FormBackedDialogPage(form);
+        final TitledPageApplicationDialog dialog = new TitledPageApplicationDialog(
+                dialogPage)
+        {
+
+            protected void onAboutToShow()
+            {
+                setEnabled(true);
+            }
+
+            protected boolean onFinish()
+            {
+                form.commit();
+                itemDAO.store(foodObject);
+                return true;
+            }
+        };
+        dialog.showDialog();
     }
 
 }

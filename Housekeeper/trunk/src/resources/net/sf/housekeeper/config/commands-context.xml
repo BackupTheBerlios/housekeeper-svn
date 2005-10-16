@@ -119,8 +119,8 @@
 		class="org.springframework.richclient.command.TargetableActionCommand">
     <property name="commandExecutor">
       <bean class="net.sf.housekeeper.swing.item.supply.NewItemCommandExecutor">
-        <property name="manager">
-          <ref bean="supplyManager"/>
+        <property name="itemDAO">
+          <ref bean="supplyDAO"/>
         </property>
       </bean>
     </property>
@@ -130,8 +130,8 @@
 		class="org.springframework.richclient.command.TargetableActionCommand">
     <property name="commandExecutor">
       <bean class="net.sf.housekeeper.swing.item.shoppingList.NewItemCommandExecutor">
-        <property name="manager">
-          <ref bean="shoppingListManager"/>
+        <property name="itemDAO">
+          <ref bean="shoppingListDAO"/>
         </property>
       </bean>
     </property>
@@ -152,8 +152,8 @@
 		class="org.springframework.richclient.command.TargetableActionCommand">
     <property name="commandExecutor">
       <bean class="net.sf.housekeeper.swing.item.shoppingList.BuyItemsCommandExecutor">
-        <property name="highLevelManager">
-          <ref bean="highLevelManager"/>
+        <property name="householdService">
+          <ref bean="householdService"/>
         </property>
         <property name="viewDescriptor">
           <ref bean="shoppingListView"/>

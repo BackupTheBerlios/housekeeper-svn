@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 import net.sf.housekeeper.testutils.DataGenerator;
 
 /**
- * Tests for {@link net.sf.housekeeper.domain.HighLevelManager}.
+ * Tests for {@link net.sf.housekeeper.domain.HouseholdService}.
  * 
  * @author Adrian Gygax
  * @version $Revision$, $Date$
@@ -35,7 +35,7 @@ public final class HighLevelManagerTest extends TestCase
 
     private static final String TESTITEM_NAME = "TestItem";
 
-    private HighLevelManager highLevelManager;
+    private HouseholdService highLevelManager;
 
     private ShoppingListItem item;
 
@@ -83,9 +83,9 @@ public final class HighLevelManagerTest extends TestCase
         item.setName(TESTITEM_NAME);
         shoppingListManager = DataGenerator.createEmptyShoppingListManager();
         supplyManager = DataGenerator.createEmptySupplyManager();
-        highLevelManager = new HighLevelManager();
-        highLevelManager.setShoppingListManager(shoppingListManager);
-        highLevelManager.setSupplyManager(supplyManager);
+        highLevelManager = new HouseholdService();
+        highLevelManager.setShoppingListDAO(shoppingListManager);
+        highLevelManager.setSupplyDAO(supplyManager);
     }
 
 }

@@ -79,7 +79,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private Class itemClass;
 
-    private ItemDAO itemManager;
+    private ItemDAO itemDAO;
 
     private SortableTable table;
 
@@ -165,9 +165,9 @@ public class ItemsView extends AbstractView implements ApplicationListener
      * 
      * @param manager
      */
-    public void setItemManager(final ItemDAO manager)
+    public void setItemDAO(final ItemDAO manager)
     {
-        this.itemManager = manager;
+        this.itemDAO = manager;
     }
 
     /**
@@ -258,7 +258,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
 
     private void refresh()
     {
-        final List items = itemManager.findAllOfCategory(category);
+        final List items = itemDAO.findAllOfCategory(category);
         table.replaceAll(items);
     }
 
@@ -290,7 +290,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
             while (i.hasNext())
             {
                 Item element = (Item) i.next();
-                itemManager.delete(element);
+                itemDAO.delete(element);
             }
         }
     }
@@ -318,7 +318,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
         public void execute()
         {
             final ExpirableItem selectedItem = (ExpirableItem) getSelectedItem();
-            itemManager.store(new ExpirableItem(selectedItem));
+            itemDAO.store(new ExpirableItem(selectedItem));
         }
     }
 
@@ -345,7 +345,7 @@ public class ItemsView extends AbstractView implements ApplicationListener
                 protected boolean onFinish()
                 {
                     form.commit();
-                    itemManager.store(foodObject);
+                    itemDAO.store(foodObject);
                     return true;
                 }
             };

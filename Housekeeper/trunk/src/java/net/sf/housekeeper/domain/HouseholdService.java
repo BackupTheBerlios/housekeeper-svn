@@ -32,28 +32,28 @@ import org.springframework.util.Assert;
  * @author Adrian Gygax
  * @version $Revision$, $Date$
  */
-public final class HighLevelManager
+public final class HouseholdService
 {
 
-    private ItemDAO<ExpirableItem> supplyManager;
+    private ItemDAO<ExpirableItem> supplyDAO;
 
-    private ItemDAO<ShoppingListItem> shoppingListManager;
+    private ItemDAO<ShoppingListItem> shoppingListDAO;
 
     /**
-     * @param shoppingListManager The shoppingListManager to set.
+     * @param shoppingListDAO The shoppingListDAO to set.
      */
-    public void setShoppingListManager(
-            ItemDAO<ShoppingListItem> shoppingListManager)
+    public void setShoppingListDAO(
+            ItemDAO<ShoppingListItem> shoppingListDAO)
     {
-        this.shoppingListManager = shoppingListManager;
+        this.shoppingListDAO = shoppingListDAO;
     }
 
     /**
-     * @param supplyManager The supplyManager to set.
+     * @param supplyDAO The supplyDAO to set.
      */
-    public void setSupplyManager(ItemDAO<ExpirableItem> supplyManager)
+    public void setSupplyDAO(ItemDAO<ExpirableItem> supplyDAO)
     {
-        this.supplyManager = supplyManager;
+        this.supplyDAO = supplyDAO;
     }
 
     /**
@@ -67,15 +67,15 @@ public final class HighLevelManager
     public void buy(ShoppingListItem boughtItem, ExpirableItem itemPrototype)
             throws IllegalArgumentException
     {
-        Assert.notNull(supplyManager);
-        Assert.notNull(shoppingListManager);
+        Assert.notNull(supplyDAO);
+        Assert.notNull(shoppingListDAO);
         Assert.notNull(boughtItem);
         Assert.notNull(itemPrototype);
 
-        shoppingListManager.delete(boughtItem);
+        shoppingListDAO.delete(boughtItem);
         final Collection<ExpirableItem> shoppingListItems = createSupplyItems(
                 boughtItem.getQuantity(), itemPrototype);
-        supplyManager.store(shoppingListItems);
+        supplyDAO.store(shoppingListItems);
     }
 
     /**

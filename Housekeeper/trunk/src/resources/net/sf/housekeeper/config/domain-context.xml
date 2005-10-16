@@ -11,8 +11,8 @@
 	</property>
     <property name="viewProperties">
       <map>
-        <entry key="itemManager">
-          <ref local="supplyManager"/>
+        <entry key="itemDAO">
+          <ref local="supplyDAO"/>
         </entry>
         <entry key="itemClass">
           <value>net.sf.housekeeper.domain.ExpirableItem</value>
@@ -40,8 +40,8 @@
 	</property>
     <property name="viewProperties">
       <map>
-        <entry key="itemManager">
-          <ref local="shoppingListManager"/>
+        <entry key="itemDAO">
+          <ref local="shoppingListDAO"/>
         </entry>
         <entry key="itemClass">
           <value>net.sf.housekeeper.domain.ShoppingListItem</value>
@@ -79,38 +79,38 @@
 
   <bean id="categoryDAO"
 		class="net.sf.housekeeper.domain.inmemory.InMemoryCategoryDAO">
-    <property name="supplyManager">
-      <ref local="supplyManager"/>
+    <property name="supplyDAO">
+      <ref local="supplyDAO"/>
     </property>
   </bean>
   
-  <bean id="shoppingListManager"
+  <bean id="shoppingListDAO"
         class="net.sf.housekeeper.domain.inmemory.InMemoryDAOFactory"
         factory-method="createShoppingListDAO">
   </bean>
   
-  <bean id="supplyManager"
+  <bean id="supplyDAO"
         class="net.sf.housekeeper.domain.inmemory.InMemoryDAOFactory"
         factory-method="createSupplyDAO">
   </bean>
   
-  <bean id="highLevelManager"
-		class="net.sf.housekeeper.domain.HighLevelManager">
-	<property name="supplyManager">
-      <ref local="supplyManager"/>
+  <bean id="householdService"
+		class="net.sf.housekeeper.domain.HouseholdService">
+	<property name="supplyDAO">
+      <ref local="supplyDAO"/>
     </property>
-    <property name="shoppingListManager">
-      <ref local="shoppingListManager"/>
+    <property name="shoppingListDAO">
+      <ref local="shoppingListDAO"/>
     </property>
   </bean>
   
   <bean id="importExportController"
 		class="net.sf.housekeeper.persistence.ImportExportController">
-	<property name="supplyManager">
-      <ref local="supplyManager"/>
+	<property name="supplyDAO">
+      <ref local="supplyDAO"/>
     </property>
-    <property name="shoppingListManager">
-      <ref local="shoppingListManager"/>
+    <property name="shoppingListDAO">
+      <ref local="shoppingListDAO"/>
     </property>
     <property name="categoryDAO">
       <ref local="categoryDAO"/>
