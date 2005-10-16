@@ -41,6 +41,11 @@ public final class NewItemCommandExecutor extends
 
     private ItemDAO<ExpirableItem> itemDAO;
 
+    public NewItemCommandExecutor()
+    {
+        setEnabled(true);
+    }
+    
     /*
      * (non-Javadoc)
      * 
