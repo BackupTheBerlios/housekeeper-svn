@@ -1,15 +1,13 @@
 package net.sf.housekeeper.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
+import junit.framework.TestCase;
 import net.sf.housekeeper.domain.inmemory.InMemoryItemDAO;
 
 import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
-
-import junit.framework.TestCase;
 
 /**
  * Tests {@link net.sf.housekeeper.domain.ItemDAO}.
@@ -20,7 +18,7 @@ import junit.framework.TestCase;
 public class ItemManagerTest extends TestCase
 {
 
-    private InMemoryItemDAO manager;
+    private InMemoryItemDAO<ExpirableItem> manager;
 
     private MockControl control;
 
@@ -30,7 +28,7 @@ public class ItemManagerTest extends TestCase
     {
         control = MockControl.createNiceControl(ApplicationContext.class);
         mock = (ApplicationContext) control.getMock();
-        manager = new InMemoryItemDAO();
+        manager = new InMemoryItemDAO<ExpirableItem>();
         manager.setApplicationContext(mock);
     }
 
@@ -62,7 +60,7 @@ public class ItemManagerTest extends TestCase
         final ExpirableItem oldItem = new ExpirableItem();
         manager.store(oldItem);
 
-        final Collection<Item> col = new ArrayList<Item>();
+        final ArrayList<ExpirableItem> col = new ArrayList<ExpirableItem>();
         final ExpirableItem newItem = new ExpirableItem();
         newItem.setName("NewItem");
         col.add(newItem);
