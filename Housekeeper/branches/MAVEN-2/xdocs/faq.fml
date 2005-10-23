@@ -1,0 +1,29 @@
+<faqs title="Frequently Asked Questions">
+
+  <part id="mobile">
+    <title>Housekeeper and mobile devices</title>
+    <faq id="shopping-list-obex">
+    <question>How can I export a shopping list to a Nokia 6230 cell phone using Bluetooth and Linux?
+    </question>
+    <answer>
+      <p>This procedure has been tested on Suse Linux 9.3 using KDE 3.4 and
+         a Nokia 6230 v4.44.</p>
+        
+        <ol>
+          <li>Make sure your Bluetooth adaptor is properly configured</li>
+          <li>Enable Bluetooth on your cell phone (Menu 4-6-1-1)</li>
+          <li>Only for the first time you are doing this, set the Bluetooth visibility to "everyone" (Menu 4-6-1-5-1)</li>
+          <li>In Housekeeper, export the shopping list using File -> Export shopping list</li>
+          <li>Startup a Konqueror file manager and navigate to the location you have exported the shopping list to.</li>
+          <li>Right click on the exported file</li>
+          <li>Select "actions -> send with bluetooth"</li>
+          <li>On the bottom left select your cell phone after the device search has stopped</li>
+          <li>Click on the "send" button</li>
+          <li>The cell phone will signal that it received a new "entry"</li>
+          <li>Save the shopping list as a note in the phone's organizer application</li>
+          <li>Reset the Bluetooth visibility on your phone to "hidden". (Your device is cached in the KDE Bluetooth client and you don't have to reset the visibility for future exports)</li>
+        </ol>
+    </answer>
+    </faq>
+  </part>
+</faqs>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Housekeeper</title>
+  </properties>
+  <body>
+    <section name="About Housekeeper">
+      <p>Housekeeper helps you keeping track of any items (like food or drugs) in your 
+         household. You can specify expiry dates so you always have an overview of what 
+         you should use or rebuy in the near future. Also, shopping lists can easily be 
+         created an exported.</p>
+      <p>Please see the <a 
+        href="http://developer.berlios.de/feature/?group_id=3180&amp;set=open&amp;order=priority"> 
+        Requested features tracker</a> for planned features. If you have an 
+        idea for an additional feature please don't hesitate to create a new 
+        entry to the tracker or post a message to the
+        <a href="http://developer.berlios.de/forum/?group_id=3180">forums</a>!</p>
+    </section>
+  </body>
+</document>

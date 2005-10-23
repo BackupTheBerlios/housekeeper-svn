@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+  <bean id="supplyView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+	<property name="viewClass">
+	  <value>net.sf.housekeeper.swing.item.ItemsView</value>
+	</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="itemDAO">
+          <ref local="supplyDAO"/>
+        </entry>
+        <entry key="itemClass">
+          <value>net.sf.housekeeper.domain.ExpirableItem</value>
+        </entry>
+        <entry key="table">
+          <bean id="expirableItemTable"
+		        class="net.sf.housekeeper.swing.item.Factory"
+                factory-method="createExpirableItemsTable">
+                <constructor-arg type="org.springframework.context.MessageSource"><ref bean="messageSource"/></constructor-arg>
+          </bean>
+        </entry>
+        <entry key="customPopupMenuEntries">
+          <list>
+            <value>newItemCommand</value>
+          </list>
+        </entry>
+      </map>
+	</property>
+  </bean>
+  
+  <bean id="shoppingListView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+	<property name="viewClass">
+	  <value>net.sf.housekeeper.swing.item.ItemsView</value>
+	</property>
+    <property name="viewProperties">
+      <map>
+        <entry key="itemDAO">
+          <ref local="shoppingListDAO"/>
+        </entry>
+        <entry key="itemClass">
+          <value>net.sf.housekeeper.domain.ShoppingListItem</value>
+        </entry>
+        <entry key="table">
+          <bean id="shoppingListTable"
+		        class="net.sf.housekeeper.swing.item.Factory"
+                factory-method="createShoppingListItemsTable">
+                <constructor-arg type="org.springframework.context.MessageSource"><ref bean="messageSource"/></constructor-arg>
+          </bean>
+        </entry>
+        <entry key="customPopupMenuEntries">
+          <list>
+            <value>buyItemsCommand</value>
+            <value>newShoppingListItemCommand</value>
+          </list>
+        </entry>
+      </map>
+	</property>
+  </bean>
+  
+  <bean id="categoryView"
+		class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+    <property name="viewClass">
+      <value>net.sf.housekeeper.swing.category.CategoriesView</value>
+    </property>
+    <property name="viewProperties">
+      <map>
+        <entry key="categoryDAO">
+          <ref local="categoryDAO"/>
+        </entry>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="categoryDAO"
+		class="net.sf.housekeeper.domain.inmemory.InMemoryCategoryDAO">
+    <property name="supplyDAO">
+      <ref local="supplyDAO"/>
+    </property>
+  </bean>
+  
+  <bean id="shoppingListDAO"
+        class="net.sf.housekeeper.domain.inmemory.InMemoryDAOFactory"
+        factory-method="createShoppingListDAO">
+  </bean>
+  
+  <bean id="supplyDAO"
+        class="net.sf.housekeeper.domain.inmemory.InMemoryDAOFactory"
+        factory-method="createSupplyDAO">
+  </bean>
+  
+  <bean id="householdService"
+		class="net.sf.housekeeper.domain.HouseholdService">
+	<property name="supplyDAO">
+      <ref local="supplyDAO"/>
+    </property>
+    <property name="shoppingListDAO">
+      <ref local="shoppingListDAO"/>
+    </property>
+  </bean>
+  
+  <bean id="importExportController"
+		class="net.sf.housekeeper.persistence.ImportExportController">
+	<property name="supplyDAO">
+      <ref local="supplyDAO"/>
+    </property>
+    <property name="shoppingListDAO">
+      <ref local="shoppingListDAO"/>
+    </property>
+    <property name="categoryDAO">
+      <ref local="categoryDAO"/>
+    </property>
+    <property name="persistenceController">
+      <ref local="persistenceController"/>
+    </property>
+  </bean>
+  
+  <bean id="persistenceController"
+		class="net.sf.housekeeper.persistence.PersistenceController">
+  </bean>
+  
+  <bean id="applicationEventHelper"
+		class="net.sf.housekeeper.util.ApplicationEventHelper">
+  </bean>
+
+</beans>
