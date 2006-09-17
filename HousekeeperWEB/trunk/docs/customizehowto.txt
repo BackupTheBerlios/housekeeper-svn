@@ -2,3 +2,4 @@
 - dist,build,create-tables.sql,database.properties  ins SVN ignore
 - CATALINA_HOME ersetzen in properties.xml
 - java-net.xml entfernen
+- Copyright in web/common/footer.jsp setzen

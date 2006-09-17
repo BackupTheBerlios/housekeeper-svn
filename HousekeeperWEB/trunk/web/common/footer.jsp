@@ -11,6 +11,6 @@
         </c:if>
     </span>
     <span class="right">
-        &copy; @COPYRIGHT-YEAR@ <a href="http://www.raibledesigns.com">Your Company Here</a>
+        &copy; @COPYRIGHT-YEAR@ <a href="http://housekeeper.berlios.de">The Housekeeper Project</a>
     </span>
     <!-- Built on @BUILD-TIME@ -->
