@@ -4,3 +4,4 @@
 - java-net.xml entfernen
 - Copyright in web/common/footer.jsp setzen
 - build.properties anpassen
+- JSP 2.0 einschalten in properties.xml
