@@ -90,4 +90,24 @@
       <value>1</value>
     </row>
   </table>
+  <table name='category'>
+    <column>id</column>
+    <column>name</column>
+    <column>parent_id</column>
+    <row>
+      <value>1</value>
+      <value>Category 1</value>
+      <null/>
+    </row>
+    <row>
+      <value>2</value>
+      <value>Category 2</value>
+      <value>1</value>
+    </row>
+    <row>
+    <value>3</value>
+      <value>Category 3</value>
+      <value>1</value>
+    </row>
+  </table> 
 </dataset>
