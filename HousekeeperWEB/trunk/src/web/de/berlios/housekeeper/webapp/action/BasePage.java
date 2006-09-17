@@ -34,8 +34,7 @@ public class BasePage {
     protected SimpleMailMessage message = null;
     protected String templateName = null;
     protected FacesContext facesContext = null;
-    
-    private HttpServletRequest request = null;
+
 
     /**
      * Allow overriding of facesContext for unit tests

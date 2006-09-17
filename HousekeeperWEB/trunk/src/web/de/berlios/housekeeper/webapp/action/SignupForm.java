@@ -2,23 +2,20 @@ package de.berlios.housekeeper.webapp.action;
 
 import java.io.Serializable;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.ProviderManager;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import de.berlios.housekeeper.Constants;
 import de.berlios.housekeeper.model.User;
 import de.berlios.housekeeper.service.RoleManager;
 import de.berlios.housekeeper.service.UserExistsException;
 import de.berlios.housekeeper.util.StringUtil;
 import de.berlios.housekeeper.webapp.util.RequestUtil;
-
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.providers.ProviderManager;
 
 /**
  * JSF Page class to handle signing up a new user.

@@ -39,7 +39,7 @@ public class LabelRenderer extends Renderer {
 
         String styleClass = (String) component.getAttributes().get("styleClass");
 
-        boolean hasErrors = hasMessages(context, input);
+        hasMessages(context, input);
 
         if (styleClass != null) {
             writer.writeAttribute("class", styleClass, null);

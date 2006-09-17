@@ -6,15 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContext;
-
+import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
+
 import de.berlios.housekeeper.Constants;
 import de.berlios.housekeeper.model.Role;
 import de.berlios.housekeeper.model.User;
@@ -31,7 +30,7 @@ import de.berlios.housekeeper.webapp.util.RequestUtil;
  */
 public class UserForm extends BasePage implements Serializable {
     private RoleManager roleManager;
-    private String from;
+
     private String username;
     private User user = new User();
     private Map availableRoles;

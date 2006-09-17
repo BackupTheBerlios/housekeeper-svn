@@ -10,9 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * Filter to remove messages form the session and put them in the request
  * - to solve the redirect after post issue.
@@ -24,7 +21,6 @@ import org.apache.commons.logging.LogFactory;
  * @web.filter display-name="Message Filter" name="messageFilter"
  */
 public class MessageFilter implements Filter {
-    private static Log log = LogFactory.getLog(MessageFilter.class);
 
     public void doFilter(ServletRequest req, ServletResponse res,
                          FilterChain chain)
