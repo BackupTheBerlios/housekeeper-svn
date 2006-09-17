@@ -62,7 +62,7 @@
     <property environment="env"/>
     <property name="env.COMPUTERNAME" value="${env.HOSTNAME}"/>
 
-    <property name="tomcat.home" value="${env.CATALINA_HOME}"/>
+    <property name="tomcat.home" value="/opt/tomcat"/>
     <!-- The target directory for building the packed web application -->
     <property name="webapp.dist" value="${dist.dir}/webapps"/>
     <!-- The target directory for building the unpacked web application -->
