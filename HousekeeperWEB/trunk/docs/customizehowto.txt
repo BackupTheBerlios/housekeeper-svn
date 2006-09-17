@@ -1,0 +1,4 @@
+- Tomahawk lib path fixen
+- dist,build ins SVN ignore
+- CATALINA_HOME ersetzen in properties.xml
+- java-net.xml entfernen
