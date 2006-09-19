@@ -78,7 +78,34 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <!--Category-NAV-START-->
+    <navigation-rule>
+        <from-view-id>/categorys.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>add</from-outcome>
+            <to-view-id>/categoryForm.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/categoryForm.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/categoryForm.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/categorys.jsp</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/categorys.jsp</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <!--Category-NAV-END-->
     <!-- Add additional rules here -->
+
     
     <managed-bean>
         <managed-bean-name>basePage</managed-bean-name>
@@ -202,7 +229,33 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     
+    <!--Category-BEAN-START-->
+    <managed-bean>
+        <managed-bean-name>categoryList</managed-bean-name>
+        <managed-bean-class>de.berlios.housekeeper.webapp.action.CategoryList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>manager</property-name>
+            <value>#{manager}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>categoryForm</managed-bean-name>
+        <managed-bean-class>de.berlios.housekeeper.webapp.action.CategoryForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>id</property-name>
+            <value>#{param.id}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>manager</property-name>
+            <value>#{manager}</value>
+        </managed-property>
+    </managed-bean>
+    <!--Category-BEAN-END-->
     <!-- Add additional beans here -->
+
     
     <render-kit>
         <description>Some replacements for the standard renderers</description>

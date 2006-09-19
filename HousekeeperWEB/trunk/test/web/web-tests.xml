@@ -12,7 +12,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache,FileUpload"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache,FileUpload,CategoryTests"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -233,4 +233,104 @@
             </steps>
         </webtest>
     </target>
+
+<!--Category-START-->
+    <!-- runs category-related tests -->
+    <target name="CategoryTests"
+        depends="SearchCategorys,EditCategory,SaveCategory,AddCategory,DeleteCategory"
+        description="Call and executes all category test cases (targets)">
+        <echo>Successfully ran all Category JSP tests!</echo>
+    </target>
+
+    <!-- Verify the edit category screen displays without errors -->
+    <target name="EditCategory"
+        description="Tests editing an existing Category's information">
+        <webtest name="editCategory">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View Category List" url="/categorys.html"/>
+                <clicklink description="edit first record in list" label="1"/>
+                <verifytitle description="we should see the categoryDetail title"
+                    text=".*${categoryDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Edit a category and then save -->
+    <target name="SaveCategory"
+        description="Tests editing and saving a category">
+        <webtest name="saveCategory">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View Category List" url="/categorys.html"/>
+                <clicklink description="edit first record in list" label="1"/>
+                <verifytitle description="we should see the categoryDetail title"
+                    text=".*${categoryDetail.title}.*" regex="true"/>
+
+                <!-- update some of the required fields -->
+                <clickbutton label="${button.save}" description="Click Save"/>
+
+                <verifytitle description="Page re-appears if save successful"
+                    text=".*${categoryDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Add a new Category -->
+    <target name="AddCategory"
+        description="Adds a new Category">
+        <webtest name="addCategory">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View Category List" url="/categorys.html"/>
+                <clickbutton description="Click 'Add' button'" label="${button.add}"/>
+                <verifytitle description="we should see the categoryDetail title"
+                    text=".*${categoryDetail.title}.*" regex="true"/>
+
+                <!-- enter required fields -->
+                <clickbutton label="${button.save}" description="Click button 'Save'"/>
+
+                <verifytitle description="Category List appears if save successful"
+                    text=".*${categoryList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${category.added}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Delete existing category -->
+    <target name="DeleteCategory"
+        description="Deletes existing Category">
+        <webtest name="deleteCategory">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View Category List" url="/categorys.html"/>
+                <clicklink description="delete first record in list" label="1"/>
+                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
+                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <verifyNoDialogResponses/>
+                <verifytitle description="display Category List" text=".*${categoryList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${category.deleted}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify the people list screen displays without errors -->
+    <target name="SearchCategorys"
+        description="Tests search for and displaying all categorys">
+        <webtest name="searchCategorys">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click View Categorys link" url="/categorys.html"/>
+                <verifytitle description="we should see the categoryList title"
+                    text=".*${categoryList.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+<!--Category-END-->
 </project>
+

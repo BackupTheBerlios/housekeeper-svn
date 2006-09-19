@@ -10,6 +10,7 @@
             <list>
                 <value>de/berlios/housekeeper/model/Role.hbm.xml</value>
                 <value>de/berlios/housekeeper/model/User.hbm.xml</value>
+                <value>de/berlios/housekeeper/model/Category.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">

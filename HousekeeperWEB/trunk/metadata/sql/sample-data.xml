@@ -90,4 +90,23 @@
       <value>1</value>
     </row>
   </table>
+  <!--Category-START-->
+  <table name='category'>
+
+    <column>description</column>
+    <column>id</column>
+    <column>name</column>
+    <row>
+        <value>Food for you</value>
+        <value>1</value>
+        <value>Food</value>
+    </row>
+    <row>
+        <value>Non-Food</value>
+        <value>2</value>
+        <value>Not edible</value>
+    </row>
+  </table>
+  <!--Category-END-->
 </dataset>
+

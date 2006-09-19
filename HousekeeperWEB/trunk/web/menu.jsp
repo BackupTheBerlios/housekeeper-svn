@@ -5,6 +5,9 @@
     <li class="pad">&nbsp;</li>
     <c:if test="${empty pageContext.request.remoteUser}"><li><strong><a href="<c:url value="/login.jsp"/>"><fmt:message key="login.title"/></a></strong></li></c:if>
     <menu:displayMenu name="MainMenu"/>
+    <!--Category-START-->
+    <menu:displayMenu name="CategoryMenu"/>
+    <!--Category-END-->
     <menu:displayMenu name="UserMenu"/>
     <menu:displayMenu name="FileUpload"/>
     <menu:displayMenu name="AdminMenu"/>

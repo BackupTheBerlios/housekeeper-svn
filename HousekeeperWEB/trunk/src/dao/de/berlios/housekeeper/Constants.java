@@ -74,4 +74,17 @@ public class Constants {
      * when adding/editing a user.
      */
     public static final String AVAILABLE_ROLES = "availableRoles";
+//Category-START
+    /**
+     * The request scope attribute that holds the category form.
+     */
+    public static final String CATEGORY_KEY = "categoryForm";
+
+    /**
+     * The request scope attribute that holds the category list
+     */
+    public static final String CATEGORY_LIST = "categoryList";
+//Category-END
+
 }
+
