@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
+	<configExtensions>
+		<configExtension>xml</configExtension>
+	</configExtensions>
 	<configs>
-		<config>src/dao/de/berlios/housekeeper/persistence/hibernate/applicationContext-hibernate.xml</config>
+		<config>src/dao/de/berlios/housekeeper/dao/hibernate/applicationContext-hibernate.xml</config>
 		<config>src/service/de/berlios/housekeeper/service/applicationContext-service.xml</config>
 	</configs>
 	<configSets>
