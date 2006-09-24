@@ -20,7 +20,8 @@ public class CategoryFormTest extends BasePageTestCase {
         Category category = new Category();
 
         // set required fields
-
+        category.setName("Test Category");
+        
         bean.setCategory(category);
 
         assertEquals(bean.save(), "list");

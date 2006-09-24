@@ -291,6 +291,8 @@
                     text=".*${categoryDetail.title}.*" regex="true"/>
 
                 <!-- enter required fields -->
+                <setinputfield description="set name" name="categoryForm:name" value="Test Category"/>
+            	
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
 
                 <verifytitle description="Category List appears if save successful"
