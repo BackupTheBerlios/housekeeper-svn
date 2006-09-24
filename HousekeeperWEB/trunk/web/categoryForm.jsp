@@ -25,7 +25,7 @@
     <h:outputLabel styleClass="desc" for="description" value="#{text['category.description']}"/>
 
     <h:inputText styleClass="text medium" id="description" value="#{categoryForm.category.description}">
-        <v:commonsValidator arg="#{text['category.description']}"/>
+        
     </h:inputText>
     <t:message for="description" styleClass="fieldError"/>
 
