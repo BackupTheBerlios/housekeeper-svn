@@ -90,6 +90,33 @@
       <value>1</value>
     </row>
   </table>
+  <!--StockItem-START-->
+  <table name='stockItem'>
+
+    <column>description</column>
+    <column>expiryDate</column>
+        <column>id</column>
+    <column>name</column>
+    <row>
+        <value>ApNsNyGjFpXnPrLsDyKzIsYoTtVsWdAfNvAxNvHeTwKlJkZcSiXoZmNqDdEvHaYeWwYqNkJhCsDpHnYb</value>
+        <value>2006-09-24</value>
+        <value>1</value>
+        <value>EfHeXnNcDpCxQdAmZnVkErAvCpBdJjXzVgYvVhZfVuRiYiDdMj</value>
+    </row>
+    <row>
+        <value>OaUjXfDzBrPbPwOgBuRpNxOrOoMsAtDsAiShIyWbAoTtFfIcTlAaDvTnPgWnYpIjDrHuCvNaNvEmWjVx</value>
+        <value>2006-09-24</value>
+        <value>2</value>
+        <value>YtErBqFeKnRnZyUbJaWoRpFgXvCvBxMmEuJyAsRoPoDcVrWzCw</value>
+    </row>
+    <row>
+        <value>DuMjLaBwUdToMvYiFvTsMfWqFrYjNlOyTkOsBhChMxMfHcWdHhSwMmPyUzUeDcToDqGvIsUqVhSyJvVe</value>
+        <value>2006-09-24</value>
+        <value>3</value>
+        <value>IzBhLnLeIvHhDzAyMuKbIdPcSbNtZiIbGfTkKxPaKfSuFeGvFi</value>
+    </row>
+  </table>
+  <!--StockItem-END-->
   <!--Category-START-->
   <table name='category'>
 
@@ -106,7 +133,13 @@
         <value>2</value>
         <value>Not edible</value>
     </row>
+    <row>
+        <value>Misc</value>
+        <value>3</value>
+        <value></value>
+    </row>
   </table>
   <!--Category-END-->
 </dataset>
+
 

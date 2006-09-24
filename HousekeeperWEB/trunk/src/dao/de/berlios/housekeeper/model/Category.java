@@ -31,23 +31,24 @@ public class Category extends BaseObject {
     }
 
     /**
-     * @hibernate.property column="description" length="70"
-     */
+         * @hibernate.property column="description" length="70"
+         */
     public String getDescription() {
 	return description;
     }
 
     /**
-     * @return Returns the id.
-     * @hibernate.id column="id" generator-class="native" unsaved-value="null"
-     */
+         * @return Returns the id.
+         * @hibernate.id column="id" generator-class="native"
+         *               unsaved-value="null"
+         */
     public Long getId() {
 	return id;
     }
-    
+
     /**
-     * @hibernate.property column="name" length="15"  not-null="true"
-     */
+         * @hibernate.property column="name" length="15" not-null="true"
+         */
     public String getName() {
 	return name;
     }

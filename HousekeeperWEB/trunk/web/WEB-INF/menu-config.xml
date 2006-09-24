@@ -18,6 +18,10 @@
         <!--Category-START-->
         <Menu name="CategoryMenu" title="categoryList.title" page="/categorys.html"/>
         <!--Category-END-->
+        <!--StockItem-START-->
+        <Menu name="StockItemMenu" title="stockItemList.title" page="/stockItems.html"/>
+        <!--StockItem-END-->
     </Menus>
+
 
 </MenuConfig>

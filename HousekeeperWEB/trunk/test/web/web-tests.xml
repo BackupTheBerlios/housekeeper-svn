@@ -12,7 +12,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache,FileUpload,CategoryTests"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache,FileUpload,StockItemTests,CategoryTests"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -334,5 +334,107 @@
         </webtest>
     </target>
 <!--Category-END-->
+
+<!--StockItem-START-->
+    <!-- runs stockItem-related tests -->
+    <target name="StockItemTests"
+        depends="SearchStockItems,EditStockItem,SaveStockItem,AddStockItem,DeleteStockItem"
+        description="Call and executes all stockItem test cases (targets)">
+        <echo>Successfully ran all StockItem JSP tests!</echo>
+    </target>
+
+    <!-- Verify the edit stockItem screen displays without errors -->
+    <target name="EditStockItem"
+        description="Tests editing an existing StockItem's information">
+        <webtest name="editStockItem">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View StockItem List" url="/stockItems.html"/>
+                <clicklink description="edit first record in list" label="1"/>
+                <verifytitle description="we should see the stockItemDetail title"
+                    text=".*${stockItemDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Edit a stockItem and then save -->
+    <target name="SaveStockItem"
+        description="Tests editing and saving a stockItem">
+        <webtest name="saveStockItem">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View StockItem List" url="/stockItems.html"/>
+                <clicklink description="edit first record in list" label="1"/>
+                <verifytitle description="we should see the stockItemDetail title"
+                    text=".*${stockItemDetail.title}.*" regex="true"/>
+
+                <!-- update some of the required fields -->
+                <setinputfield description="set name" name="stockItemForm:name" value="name"/>
+                <clickbutton label="${button.save}" description="Click Save"/>
+
+                <verifytitle description="Page re-appears if save successful"
+                    text=".*${stockItemDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Add a new StockItem -->
+    <target name="AddStockItem"
+        description="Adds a new StockItem">
+        <webtest name="addStockItem">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View StockItem List" url="/stockItems.html"/>
+                <clickbutton description="Click 'Add' button'" label="${button.add}"/>
+                <verifytitle description="we should see the stockItemDetail title"
+                    text=".*${stockItemDetail.title}.*" regex="true"/>
+
+                <!-- enter required fields -->
+                <setinputfield description="set name" name="stockItemForm:name" value="FiItEbKdHcGlHnCzLcBsYjJsZdFnPfOeJwUkIaCjCwZuQuGxMf"/>
+                <clickbutton label="${button.save}" description="Click button 'Save'"/>
+
+                <verifytitle description="StockItem List appears if save successful"
+                    text=".*${stockItemList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${stockItem.added}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Delete existing stockItem -->
+    <target name="DeleteStockItem"
+        description="Deletes existing StockItem">
+        <webtest name="deleteStockItem">
+            &config;
+            <steps>
+                &login;
+                <invoke description="View StockItem List" url="/stockItems.html"/>
+                <clicklink description="delete first record in list" label="1"/>
+                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
+                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <verifyNoDialogResponses/>
+                <verifytitle description="display StockItem List" text=".*${stockItemList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${stockItem.deleted}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify the people list screen displays without errors -->
+    <target name="SearchStockItems"
+        description="Tests search for and displaying all stockItems">
+        <webtest name="searchStockItems">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click View StockItems link" url="/stockItems.html"/>
+                <verifytitle description="we should see the stockItemList title"
+                    text=".*${stockItemList.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+<!--StockItem-END-->
 </project>
+
 

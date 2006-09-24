@@ -8,6 +8,9 @@
     <!--Category-START-->
     <menu:displayMenu name="CategoryMenu"/>
     <!--Category-END-->
+    <!--StockItem-START-->
+    <menu:displayMenu name="StockItemMenu"/>
+    <!--StockItem-END-->
     <menu:displayMenu name="UserMenu"/>
     <menu:displayMenu name="FileUpload"/>
     <menu:displayMenu name="AdminMenu"/>

@@ -86,5 +86,18 @@ public class Constants {
     public static final String CATEGORY_LIST = "categoryList";
 //Category-END
 
+//StockItem-START
+    /**
+     * The request scope attribute that holds the stockItem form.
+     */
+    public static final String STOCKITEM_KEY = "stockItemForm";
+
+    /**
+     * The request scope attribute that holds the stockItem list
+     */
+    public static final String STOCKITEM_LIST = "stockItemList";
+//StockItem-END
+
 }
+
 
