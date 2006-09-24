@@ -46,7 +46,7 @@ public class Category extends BaseObject {
     }
     
     /**
-     * @hibernate.property column="name" length="15"
+     * @hibernate.property column="name" length="15"  not-null="true"
      */
     public String getName() {
 	return name;
