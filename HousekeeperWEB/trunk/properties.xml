@@ -32,7 +32,7 @@
     <!-- Application options that will likely vary between applications -->
     <property name="http.port" value="8080"/>
     <property name="dao.type" value="hibernate"/>
-    <property name="jsp.2" value="true"/>
+    <property name="jsp.2" value="false"/>
     <property name="jsp.precompile" value="false"/>
 
     <!-- Properties for running unit tests with tomcat -->
