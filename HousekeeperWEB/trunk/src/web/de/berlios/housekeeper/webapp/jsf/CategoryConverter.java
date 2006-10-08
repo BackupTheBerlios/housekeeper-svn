@@ -25,15 +25,26 @@ public class CategoryConverter implements Converter {
     
     public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2)
 	    throws ConverterException {
-	Category c = (Category)categoryMap.get(new Long(arg2));
+	Category c = null;
+	if(arg2 != null && !arg2.equals("")) {
+		c = (Category)categoryMap.get(new Long(arg2));
+	}
+
 	
 	return c;
     }
 
     public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
 	    throws ConverterException {
-	Category c = (Category)arg2;
-	return c.getId().toString();
+	
+	String id = null;
+	if(arg2 != null && !arg2.equals("")) 
+	{
+		Category c = (Category)arg2;
+		id = c.getId().toString();
+	}
+	
+	return id;
     }
 
 }
