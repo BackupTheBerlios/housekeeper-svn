@@ -17,12 +17,12 @@
 
     <h:outputLabel styleClass="desc" for="category" value="#{text['stockItem.category']}"/>
 
-	<h:selectOneMenu  styleClass="text medium" id="category"  value="#{stockItemForm.stockItem.category}" required="true" converter="#{stockItemForm.convert}">
-		<f:selectItems value="#{stockItemForm.categories}"/>
-	</h:selectOneMenu>
-    <t:message for="category" styleClass="fieldError"/>
+    <h:outputLabel styleClass="desc" for="name" value="#{text['stockItem.name']}"/>
 
-    <h:outputLabel styleClass="desc" for="description" value="#{text['stockItem.description']}"/>
+    <h:inputText styleClass="text medium" id="name" value="#{stockItemForm.stockItem.name}" required="true">
+        <v:commonsValidator type="required" arg="#{text['stockItem.name']}"/>
+    </h:inputText>
+    <t:message for="name" styleClass="fieldError"/>
 
     <h:inputText styleClass="text medium" id="description" value="#{stockItemForm.stockItem.description}" required="true">
         <v:commonsValidator type="required" arg="#{text['stockItem.description']}"/>
@@ -37,12 +37,13 @@
         </h:inputText>
     <t:message for="expiryDate" styleClass="fieldError"/>
 
-    <h:outputLabel styleClass="desc" for="name" value="#{text['stockItem.name']}"/>
+	<h:selectOneMenu  styleClass="text medium" id="category"  value="#{stockItemForm.stockItem.category}" required="true" converter="#{stockItemForm.convert}">
+		<f:selectItems value="#{stockItemForm.categories}"/>
+	</h:selectOneMenu>
+    <t:message for="category" styleClass="fieldError"/>
 
-    <h:inputText styleClass="text medium" id="name" value="#{stockItemForm.stockItem.name}" required="true">
-        <v:commonsValidator type="required" arg="#{text['stockItem.name']}"/>
-    </h:inputText>
-    <t:message for="name" styleClass="fieldError"/>
+    <h:outputLabel styleClass="desc" for="description" value="#{text['stockItem.description']}"/>
+    
 
     <h:panelGroup styleClass="buttonBar bottom">
         <h:commandButton value="#{text['button.save']}" action="#{stockItemForm.save}" 

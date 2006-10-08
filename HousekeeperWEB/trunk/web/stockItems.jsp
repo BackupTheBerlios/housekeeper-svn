@@ -24,15 +24,16 @@
 <h:dataTable var="stockItem" value="#{stockItemList.stockItems}" style="display:none"/>
 
 <display:table name="stockItemList.stockItems" cellspacing="0" cellpadding="0" requestURI=""
-    id="stockItems" pagesize="25" class="table stockItemList" export="true">
+    id="stockItems" pagesize="25" class="table stockItemList" export="true" >
 
-    <display:column property="description" escapeXml="true" titleKey="stockItem.description" sortable="true"/>
-    <display:column property="expiryDate" escapeXml="true" titleKey="stockItem.expiryDate" sortable="true"/>
     <display:column sortable="true" titleKey="stockItem.id" media="html">
         <a href="javascript:viewStockItem('<c:out value="${stockItems.id}"/>')"><c:out value="${stockItems.id}"/></a>
     </display:column>
     <display:column property="id" media="csv excel xml pdf" titleKey="stockItem.id"/>
-    <display:column property="name" escapeXml="true" titleKey="stockItem.name" sortable="true"/>
+    <display:column property="name" escapeXml="true" titleKey="stockItem.name" sortable="true" />
+    <display:column property="description" escapeXml="true" titleKey="stockItem.description" sortable="true"/>
+    <display:column property="expiryDate" escapeXml="true" titleKey="stockItem.expiryDate" sortable="true"/>
+    <display:column property="category.name" escapeXml="true" titleKey="stockItem.category" sortable="true"/>
     <display:setProperty name="paging.banner.item_name" value="stockItem"/>
     <display:setProperty name="paging.banner.items_name" value="stockItems"/>
 </display:table>
