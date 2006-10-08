@@ -17,9 +17,9 @@
 
     <h:outputLabel styleClass="desc" for="category" value="#{text['stockItem.category']}"/>
 
-    <h:inputText styleClass="text medium" id="category" value="#{stockItemForm.stockItem.category}" required="true">
-        <v:commonsValidator type="required" arg="#{text['stockItem.category']}"/>
-    </h:inputText>
+	<h:selectOneMenu  styleClass="text medium" id="category"  value="#{stockItemForm.stockItem.category}" required="true" converter="#{stockItemForm.convert}">
+		<f:selectItems value="#{stockItemForm.categories}"/>
+	</h:selectOneMenu>
     <t:message for="category" styleClass="fieldError"/>
 
     <h:outputLabel styleClass="desc" for="description" value="#{text['stockItem.description']}"/>
