@@ -22,14 +22,12 @@
     <t:message for="name" styleClass="fieldError"/>
 
     <h:outputLabel styleClass="desc" for="description" value="#{text['stockItem.description']}"/>
-    <h:inputText styleClass="text medium" id="description" value="#{stockItemForm.stockItem.description}" required="true">
-        <v:commonsValidator type="required" arg="#{text['stockItem.description']}"/>
+    <h:inputText styleClass="text medium" id="description" value="#{stockItemForm.stockItem.description}">
     </h:inputText>
     <t:message for="description" styleClass="fieldError"/>
 
     <h:outputLabel styleClass="desc" for="expiryDate" value="#{text['stockItem.expiryDate']}"/>
-    <h:inputText styleClass="text medium" id="expiryDate" value="#{stockItemForm.stockItem.expiryDate}" required="true">
-        <v:commonsValidator type="required" arg="#{text['stockItem.expiryDate']}"/>
+    <h:inputText styleClass="text medium" id="expiryDate" value="#{stockItemForm.stockItem.expiryDate}">
         <f:convertDateTime pattern="#{text['date.format']}"/>
     </h:inputText>
     <t:message for="expiryDate" styleClass="fieldError"/>
