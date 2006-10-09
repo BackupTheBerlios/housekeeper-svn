@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-	<property name="Housekeeper-debug" value="true"/>
+	<!--  <property name="Housekeeper-debug" value="true"/>-->
 	
     <!-- Directory structure of the project -->
     <property name="build.dir" value="${basedir}/build"/>
