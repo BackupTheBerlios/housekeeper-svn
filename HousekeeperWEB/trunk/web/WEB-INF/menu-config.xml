@@ -5,6 +5,12 @@
     </Displayers>
     <Menus>
         <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html"/>
+        <!--Category-START-->
+        <Menu name="CategoryMenu" title="categoryList.title" page="/categorys.html" roles="user"/>
+        <!--Category-END-->
+        <!--StockItem-START-->
+        <Menu name="StockItemMenu" title="stockItemList.title" page="/stockItems.html" roles="user"/>
+        <!--StockItem-END-->
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html" roles="admin,user"/>
         <Menu name="FileUpload" title="menu.selectFile" description="File Upload" width="100" page="/selectFile.html" roles="admin,user"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="admin" width="120" page="/users.html">
@@ -15,12 +21,6 @@
             <Item name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp" roles="admin"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="admin,user"/>
-        <!--Category-START-->
-        <Menu name="CategoryMenu" title="categoryList.title" page="/categorys.html"/>
-        <!--Category-END-->
-        <!--StockItem-START-->
-        <Menu name="StockItemMenu" title="stockItemList.title" page="/stockItems.html"/>
-        <!--StockItem-END-->
     </Menus>
 
 
