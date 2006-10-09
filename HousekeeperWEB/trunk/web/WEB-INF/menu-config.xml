@@ -6,10 +6,10 @@
     <Menus>
         <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html"/>
         <!--Category-START-->
-        <Menu name="CategoryMenu" title="categoryList.title" page="/categorys.html" roles="user"/>
+        <Menu name="CategoryMenu" title="categoryList.title" page="/categorys.html" roles="admin,user"/>
         <!--Category-END-->
         <!--StockItem-START-->
-        <Menu name="StockItemMenu" title="stockItemList.title" page="/stockItems.html" roles="user"/>
+        <Menu name="StockItemMenu" title="stockItemList.title" page="/stockItems.html" roles="admin,user"/>
         <!--StockItem-END-->
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html" roles="admin,user"/>
         <Menu name="FileUpload" title="menu.selectFile" description="File Upload" width="100" page="/selectFile.html" roles="admin,user"/>
